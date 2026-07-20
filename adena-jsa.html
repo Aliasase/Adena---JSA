@@ -1428,7 +1428,7 @@ var openDrawer = null; /* {stepId, type} */
 var lastSuggestions = {}; /* key "stepId:type" -> array of strings */
 
 function renderSteps(){
-  var note = '<div class="steps-note">Describe each step of the task in order. Use AI Hazard Suggestions after entering a step description, and AI Control Suggestions after entering a hazard, to quickly pull in relevant items — tap any suggestion to add it.</div>';
+  var note = '<div class="steps-note">Describe each step of the task in order. Use Hazard Suggestions after entering a step description, and Control Suggestions after entering a hazard, to quickly pull in relevant items — tap any suggestion to add it.</div>';
   var cardsHtml = state.steps.map(function(step, idx){
     return renderStepCard(step, idx);
   }).join('');
@@ -1453,13 +1453,13 @@ function renderStepCard(step, idx){
         '<div class="step-col">' +
           '<div class="step-col-label">Hazard</div>' +
           '<textarea class="text-area" id="step-hazard-'+step.id+'" onfocus="closeAllDrawers()" oninput="updateStepField('+step.id+',\'hazard\',this.value)">'+escapeHtml(step.hazard)+'</textarea>' +
-          '<button type="button" class="ai-btn" onclick="toggleDrawer('+step.id+',\'hazard\')">AI Hazard Suggestions</button>' +
+          '<button type="button" class="ai-btn" onclick="toggleDrawer('+step.id+',\'hazard\')">Hazard Suggestions</button>' +
           '<div class="ai-drawer" id="drawer-hazard-'+step.id+'"></div>' +
         '</div>' +
         '<div class="step-col">' +
           '<div class="step-col-label">Control</div>' +
           '<textarea class="text-area" id="step-control-'+step.id+'" onfocus="closeAllDrawers()" oninput="updateStepField('+step.id+',\'control\',this.value)">'+escapeHtml(step.control)+'</textarea>' +
-          '<button type="button" class="ai-btn" onclick="toggleDrawer('+step.id+',\'control\')">AI Control Suggestions</button>' +
+          '<button type="button" class="ai-btn" onclick="toggleDrawer('+step.id+',\'control\')">Control Suggestions</button>' +
           '<div class="ai-drawer" id="drawer-control-'+step.id+'"></div>' +
         '</div>' +
       '</div>' +
