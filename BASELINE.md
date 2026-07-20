@@ -49,3 +49,4 @@ unless a revision package specifically directs otherwise:
 |---|---|---|
 | 001 | Established protected baseline; added discreet in-app version identifier and this document. No functional or visual changes. | 1.0.0 |
 | 002 | iPad/smartphone field compatibility: fixed auto-zoom on field focus, enlarged touch targets to ~44px minimum, fixed fixed-footer overlap risk on narrow phones, added orientation-safe signature canvas resizing, kept keyboard-covered fields/buttons reachable, improved tab-switch scroll behavior, added defensive overflow guards. No safety content, workflow, or print-output changes. | 1.0.0 |
+| 003 | Fixed Finish Time field overflowing into the Crew Size column on iPad (Safari-specific `input[type=time]` sizing quirk), and matched its height to Crew Size for consistent row alignment. No labels, fields, data behavior, or print output changed. | 1.0.0 |
