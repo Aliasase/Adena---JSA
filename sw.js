@@ -9,7 +9,7 @@
  */
 
 var CACHE_PREFIX = 'adena-jsa-';
-var CACHE_NAME = 'adena-jsa-v1.1.0';
+var CACHE_NAME = 'adena-jsa-v1.2.0';
 var PRECACHE_URLS = [
   './adena-jsa.html',
   './manifest.json',
