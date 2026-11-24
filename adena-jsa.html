@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <!--
   Adena JSA / PTP Application
-  Version: 1.0.0
-  Status: Phase 1 Protected Baseline (established under Revision 001)
-  This version is the protected starting point for incremental Phase 1
-  development. See BASELINE.md in the project root for details.
+  Version: 1.1.0
+  Status: Revision A-1 — Foundation (authorized November 24, 2026)
+  Development branch: revision-a1
+  Production merge requires separate Product Owner authorization.
+  See BASELINE.md in the project root for revision history.
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="application-version" content="1.0.0">
+<meta name="application-version" content="1.1.0">
+<link rel="manifest" href="./manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -264,7 +266,7 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 <footer class="audit-footer">
   <div class="audit-left">
     JSA ID: <span id="fJsaId">&mdash;</span><br>
-    Created: <span id="fCreated">&mdash;</span> &nbsp;|&nbsp; Revised: <span id="fRevised">&mdash;</span> &nbsp;|&nbsp; <span style="opacity:.55;">v1.0.0</span>
+    Created: <span id="fCreated">&mdash;</span> &nbsp;|&nbsp; Revised: <span id="fRevised">&mdash;</span> &nbsp;|&nbsp; <span id="app-version-footer" style="opacity:.55;"></span>
   </div>
   <div class="audit-stats">
     <div class="stat"><span id="stHazards">0</span><label>Hazards</label></div>
@@ -1117,7 +1119,7 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
 /* ============================================================
    STORAGE / STATE
    ============================================================ */
-var APP_VERSION = '1.0.0'; /* Phase 1 Protected Baseline — see BASELINE.md */
+var APP_VERSION = '1.1.0'; /* Revision A-1 — Foundation */
 var STORAGE_KEY = 'adena_jsa_current';
 var ID_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -1781,7 +1783,45 @@ function addCrewMember(){
 /* ============================================================
    AI SUGGESTION ENGINE (offline, keyword-triggered)
    ============================================================ */
-function getSuggestions(kind, text){
+
+/**
+ * getSuggestions — Suggestion engine interface (Track A / Track B boundary)
+ *
+ * This function is the sole entry point for all suggestion logic.
+ * Track A (keyword matching) and Track B (CU reasoning engine) share
+ * this identical interface. Track B replaces the function body only —
+ * all consuming code is insulated from the implementation change.
+ *
+ * @param {string} kind
+ *   'hazard'  — text is a task description; returns hazard suggestions
+ *   'control' — text is a hazard description; returns control suggestions
+ *
+ * @param {string} text
+ *   User-entered task description (kind='hazard') or hazard description
+ *   (kind='control'). Empty or whitespace-only text returns [].
+ *
+ * @param {Object} [context]
+ *   Reserved for Track B (CU reasoning engine). Ignored in A-1 and A-2.
+ *   Track B shape: { sector: string, trade: string, priorHazards: string[] }
+ *   Consumers must pass context if available; Track A safely ignores it.
+ *
+ * @returns {string[]}
+ *   Array of suggestion strings. Duplicates removed.
+ *
+ *   A-1 behavior: results returned in existing keyword library order.
+ *   No ranking is applied in A-1. Ranking begins in Revision A-2.
+ *
+ *   A-2 behavior: results ranked — contextual applicability first,
+ *   applicable high-consequence hazards prioritized, then relevance.
+ *
+ *   Track B behavior: results ranked using composable CU reasoning
+ *   (Activity + Object + Condition + Context). Same interface contract.
+ *
+ *   Consumers must not depend on a specific ordering algorithm —
+ *   only on the contract that the array contains non-duplicate strings.
+ *   Show More pagination is handled by the calling UI layer, not here.
+ */
+function getSuggestions(kind, text, context){ // context reserved for Track B
   var t = (text || '').toLowerCase();
   if(!t.trim()) return [];
   var lib = kind === 'hazard' ? TASK_TO_HAZARD : HAZ_TO_CONTROL;
@@ -2222,8 +2262,23 @@ document.addEventListener('focusin', function(e){
 
 renderAll();
 updateViewportVars();
-console.log('Adena JSA / PTP — v' + APP_VERSION + ' (Phase 1 Protected Baseline)');
+console.log('Adena JSA / PTP — v' + APP_VERSION + ' (Revision A-1)');
+// Bind version footer display to APP_VERSION
+(function(){
+  var el = document.getElementById('app-version-footer');
+  if(el) el.textContent = 'v' + APP_VERSION;
+})();
 
+
+</script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').then(function(reg){
+    console.log('[Adena JSA] SW registered, scope:', reg.scope);
+  }).catch(function(err){
+    console.error('[Adena JSA] SW registration failed:', err);
+  });
+}
 </script>
 </body>
 </html>
