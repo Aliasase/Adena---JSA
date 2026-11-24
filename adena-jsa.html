@@ -129,8 +129,6 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 .drawer-item:active{background:rgba(10,132,255,0.12);}
 .drawer-item.added{background:rgba(52,199,89,0.12);color:#1c7a34;font-weight:bold;cursor:default;}
 .drawer-empty{padding:12px 10px;font-size:12.5px;color:var(--gray5);font-style:italic;}
-.drawer-show-more{padding:11px 10px;font-size:12px;color:var(--blue);text-align:center;cursor:pointer;font-weight:600;border-top:1px solid rgba(10,132,255,0.18);}
-.drawer-show-more:active{background:rgba(10,132,255,0.08);}
 
 /* SIGNATURE PADS */
 .sig-wrap{border:2px solid var(--gray3);border-radius:10px;background:#fff;height:160px;position:relative;touch-action:none;overflow:hidden;}
@@ -1123,7 +1121,6 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    ============================================================ */
 var APP_VERSION = '1.1.0'; /* Revision A-1 — Foundation */
 var STORAGE_KEY = 'adena_jsa_current';
-var SUGGESTIONS_INITIAL_LIMIT = 15; /* Max items shown before "Show more" */
 var ID_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
 function pad2(n){ return n<10 ? '0'+n : ''+n; }
@@ -1879,33 +1876,18 @@ function renderDrawerContent(stepId, type, step, suggestions){
   if(suggestions.length === 0){
     listHtml = '<div class="drawer-empty">No suggestions found. Enter items manually.</div>';
   } else {
-    var showAll = arguments[4] === true;
-    var displayList = (!showAll && suggestions.length > SUGGESTIONS_INITIAL_LIMIT)
-      ? suggestions.slice(0, SUGGESTIONS_INITIAL_LIMIT)
-      : suggestions;
-    listHtml = displayList.map(function(s, i){
+    listHtml = suggestions.map(function(s, idx){
       var added = currentVal.indexOf(s.toLowerCase()) !== -1;
       return '<div class="drawer-item'+(added?' added':'')+'" '+
-        (added ? '' : 'data-stepid="'+stepId+'" data-type="'+type+'" data-idx="'+i+'"') +
+        (added ? '' : 'data-stepid="'+stepId+'" data-type="'+type+'" data-idx="'+idx+'"') +
         '>'+(added?'&#10003; ':'')+escapeHtml(s)+'</div>';
     }).join('');
-    if(!showAll && suggestions.length > SUGGESTIONS_INITIAL_LIMIT){
-      var remaining = suggestions.length - SUGGESTIONS_INITIAL_LIMIT;
-      listHtml += '<div class="drawer-show-more" onclick="showAllSuggestions('+stepId+',\''+type+'\')">Show '+remaining+' more…</div>';
-    }
   }
   el.innerHTML =
     '<div class="drawer-head"><span>'+(type==='hazard'?'Suggested Hazards':'Suggested Controls')+'</span>' +
       '<button type="button" class="drawer-done" onclick="closeAllDrawers()">Done</button></div>' +
     '<div class="drawer-list" onclick="handleDrawerClick(event)">'+listHtml+'</div>';
   el.classList.add('show');
-}
-
-function showAllSuggestions(stepId, type){
-  var step = findStep(stepId);
-  if(!step) return;
-  var suggestions = lastSuggestions[stepId+':'+type] || [];
-  renderDrawerContent(stepId, type, step, suggestions, true);
 }
 
 function handleDrawerClick(evt){
