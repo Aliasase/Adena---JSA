@@ -1,8 +1,9 @@
 # Adena JSA / PTP — Protected Baseline
 
-**Version:** 1.0.0
-**Status:** Protected Phase 1 Baseline
+**Version:** 1.1.0
+**Status:** Revision A-1 — Foundation (authorized November 24, 2026)
 **Established:** Revision 001, Phase 1 — Existing JSA Stabilization and Refinement
+**Latest revision:** Revision A-1, authorized by Product Owner Decision Record 003
 **Implementation file:** `adena-jsa.html` (single-file, offline, no external dependencies)
 
 ## What "Protected Baseline" Means
@@ -51,3 +52,4 @@ unless a revision package specifically directs otherwise:
 | 002 | iPad/smartphone field compatibility: fixed auto-zoom on field focus, enlarged touch targets to ~44px minimum, fixed fixed-footer overlap risk on narrow phones, added orientation-safe signature canvas resizing, kept keyboard-covered fields/buttons reachable, improved tab-switch scroll behavior, added defensive overflow guards. No safety content, workflow, or print-output changes. | 1.0.0 |
 | 003 | Fixed Finish Time field overflowing into the Crew Size column on iPad (Safari-specific `input[type=time]` sizing quirk), and matched its height to Crew Size for consistent row alignment. No labels, fields, data behavior, or print output changed. | 1.0.0 |
 | 004 | (Sent as "Revision 003" — renumbered here to avoid colliding with the entry above.) Job Information now uses one shared grid across Job#/Trade, Location, Date/Start Time, and Finish/Crew Size rows instead of three independent grids, guaranteeing column alignment by construction rather than by coincidence. Renamed "Print / PDF" to "Save as PDF." Save as PDF now generates a real offline PDF client-side and opens the native Share Sheet on supported devices (Files, Mail, AirDrop, etc.), falling back to the existing print-preview workflow unchanged on desktop or unsupported browsers. No safety content, data behavior, or print-page layout changed. | 1.0.0 |
+| A-1 | PWA infrastructure added: Service Worker (`sw.js`, cache-first strategy, install/activate/fetch handlers with logging), Web App Manifest (`manifest.json`, `"orientation": "any"`), and app icons (`icons/icon-192.png`, `icons/icon-512.png`, solid #C8102E). Added `APP_VERSION = '1.1.0'` JS variable with live footer binding. Established offline suggestion engine boundary: `getSuggestions(kind, text, context)` with full JSDoc; `context` parameter reserved for Track B (A-2). Added startup diagnostic console log and `<meta name="application-version">` tag. Authorized by PO-003, November 24, 2026. No changes to safety content, workflow, data behavior, PDF/print output, or any Protected Baseline behaviors. | 1.1.0 |
