@@ -3,9 +3,9 @@
  * Cache-first offline strategy.
  *
  * Offline reliability depends on successful installation and caching after
- * the first online load. iOS browser storage eviction may occur under
- * storage pressure; users should load the app while online at least once
- * after each device restart to repopulate the cache.
+ * the first online load. iOS may evict Service Worker caches under storage
+ * pressure; loading the app while online after any eviction will repopulate
+ * the cache.
  */
 
 var CACHE_PREFIX = 'adena-jsa-';
@@ -23,10 +23,10 @@ self.addEventListener('install', function(event) {
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll(PRECACHE_URLS);
     }).then(function() {
-      console.log('[Adena JSA SW] Install complete');
+      console.log('[Adena JSA SW] Install complete, scope: ' + self.registration.scope);
       return self.skipWaiting();
     }).catch(function(err) {
-      console.error('[Adena JSA SW] Install failed:', err);
+      console.error('[Adena JSA SW] Install FAILED:', err);
       throw err;
     })
   );
@@ -37,6 +37,8 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.filter(function(name) {
+          // Only delete caches belonging to this app — preserves any other
+          // app caches on the same origin (Correction 002).
           return name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME;
         }).map(function(name) {
           console.log('[Adena JSA SW] Deleting old cache:', name);
@@ -50,14 +52,19 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
+  // Only handle GET requests
   if (event.request.method !== 'GET') return;
+
+  // Only handle same-origin requests
   var url = new URL(event.request.url);
   if (url.origin !== location.origin) return;
 
   event.respondWith(
     caches.match(event.request).then(function(cached) {
       if (cached) return cached;
+
       return fetch(event.request).then(function(response) {
+        // Only cache valid same-origin responses
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
