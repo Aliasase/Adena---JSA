@@ -1145,7 +1145,7 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    STORAGE / STATE
    ============================================================ */
 var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
-var APP_BUILD   = 'dev5';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_BUILD   = 'dev6';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 
 /* dev3: Acknowledgment statement displayed in tap-to-confirm re-acknowledgment modal.
    Stored verbatim in every supervisor_reack / crew_reack snapshot — do not change without
@@ -1290,6 +1290,12 @@ function showTab(name){
     activeBtn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
   }
   window.scrollTo(0, 0);
+  /* dev6: Re-render signature panels on tab switch so ack status always
+     reflects current material content — not stale DOM from a prior render.
+     Without this, material changes on other tabs left crew/supervisor panels
+     showing stale CURRENT badges instead of re-ack buttons.               */
+  if(name === 'crew')       renderCrew();
+  if(name === 'supervisor') renderSupervisor();
 }
 
 /* ============================================================
