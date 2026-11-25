@@ -1122,6 +1122,7 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    STORAGE / STATE
    ============================================================ */
 var APP_VERSION = '1.2.0'; /* Revision A-2 — Suggestion Intelligence */
+var APP_BUILD   = 'p1';    /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 var STORAGE_KEY = 'adena_jsa_current';
 var ID_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -2395,11 +2396,11 @@ document.addEventListener('focusin', function(e){
 
 renderAll();
 updateViewportVars();
-console.log('Adena JSA / PTP — v' + APP_VERSION + ' (Revision A-2)');
-// Bind version footer display to APP_VERSION
+console.log('Adena JSA / PTP — v' + APP_VERSION + '-' + APP_BUILD + ' (Revision A-2)');
+// Bind version + build footer display
 (function(){
   var el = document.getElementById('app-version-footer');
-  if(el) el.textContent = 'v' + APP_VERSION;
+  if(el) el.textContent = 'v' + APP_VERSION + '-' + APP_BUILD;
 })();
 
 
