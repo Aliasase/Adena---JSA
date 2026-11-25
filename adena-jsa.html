@@ -1128,7 +1128,7 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    STORAGE / STATE
    ============================================================ */
 var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
-var APP_BUILD   = 'dev1';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_BUILD   = 'dev2';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 var STORAGE_KEY = 'adena_jsa_current';
 var ID_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -1544,22 +1544,29 @@ function renderSupervisor(){
   var body;
   if(state.supervisor){
     var s = state.supervisor;
+    var ackSt = getAckStatus(); /* AC001: per-signer status */
+    var supSt = ackSt.supervisor; /* { current: bool|null, snap } */
     var revCount = (state.snapshots||[]).filter(function(sn){ return sn.event==='supervisor'; }).length;
-    var revLabel = revCount > 1 ? ' (Acknowledgment #'+revCount+')' : '';
+    var revLabel = revCount > 1 ? ' — Acknowledgment #'+revCount : '';
     var reackSection = '';
-    if(state.materialChangedSinceLastSig){
+    if(supSt && supSt.current === false){
+      /* Material change detected: re-acknowledgment required */
       reackSection =
         '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(245,159,0,0.3);">' +
-          '<div style="font-size:12px;color:#7d5c00;font-weight:600;margin-bottom:6px;">&#9888;&#xFE0E; JSA content has been revised since this acknowledgment. Renewed supervisor signature required before continuing work.</div>' +
+          '<div style="font-size:12px;color:#7d5c00;font-weight:600;margin-bottom:6px;">&#9888;&#xFE0E; JSA content has been revised since this acknowledgment. Renewed supervisor signature required before work continues.</div>' +
           '<button type="button" class="btn-reack" onclick="openSupervisorModal()">Re-acknowledge Revised JSA</button>' +
         '</div>';
+    } else if(supSt && supSt.current === null){
+      /* Legacy signature: acknowledged pre-A3, content not on record */
+      reackSection =
+        '<div style="margin-top:8px;font-size:11px;color:#888;font-style:italic;">Acknowledged prior to Revision A-3 — original acknowledged content not on record.</div>';
     }
     body =
       '<div class="sup-locked">' +
         '<div class="sup-locked-row">' +
           '<img class="sup-sig-img" src="'+s.sig+'" alt="Supervisor signature">' +
           '<div>' +
-            '<div class="sup-locked-name">'+escapeHtml(s.name)+escapeHtml(revLabel)+'</div>' +
+            '<div class="sup-locked-name">'+escapeHtml(s.name)+'<span style="font-weight:400;font-size:12px;">'+escapeHtml(revLabel)+'</span></div>' +
             '<div class="sup-locked-meta">'+escapeHtml(s.phone||'')+'</div>' +
             '<div class="sup-locked-meta">Acknowledged '+fmtDT(s.timestamp)+'</div>' +
           '</div>' +
@@ -1586,24 +1593,42 @@ function renderCrew(){
   if(state.crew.length === 0){
     rowsHtml = '<div class="crew-empty">No crew members signed yet.</div>';
   } else {
+    /* AC001: compute per-signer status once, map into rows */
+    var crewAckStatus = getAckStatus().crew; /* [{ member, current, snap }] */
     rowsHtml = state.crew.map(function(c, idx){
-      return '<div class="crew-row">' +
+      /* Find this member's status entry */
+      var st = crewAckStatus.find(function(e){ return e.member.id === c.id; });
+      var current = st ? st.current : null;
+      /* Last sig to display: re-ack sig if present, else original */
+      var displaySig = (st && st.snap && st.snap.sig) ? st.snap.sig : c.sig;
+      var displayTs  = (st && st.snap && st.snap.timestamp) ? st.snap.timestamp : c.timestamp;
+      /* Status badge / action */
+      var statusHtml;
+      if(current === true){
+        statusHtml = '<span class="locked-badge">CURRENT &#10003;</span>';
+      } else if(current === false){
+        statusHtml =
+          '<div style="text-align:right;">' +
+            '<div style="font-size:11px;color:#c0392b;font-weight:600;margin-bottom:4px;">Re-ack required</div>' +
+            '<button type="button" class="btn-reack" style="font-size:11px;padding:6px 10px;" onclick="openCrewReackModal('+c.id+')">Re-acknowledge</button>' +
+          '</div>';
+      } else {
+        /* null = legacy / no A3 snapshot */
+        statusHtml = '<span style="font-size:10px;color:#aaa;font-style:italic;">Pre-A3</span>';
+      }
+      return '<div class="crew-row" style="align-items:flex-start;">' +
         '<div class="crew-circle">'+(idx+1)+'</div>' +
-        '<div class="crew-info"><div class="crew-name">'+escapeHtml(c.name)+'</div><div class="crew-time">'+fmtDT(c.timestamp)+'</div></div>' +
-        '<img class="crew-sig-img" src="'+c.sig+'" alt="signature">' +
-        '<span class="locked-badge">LOCKED &#10003;</span>' +
+        '<div class="crew-info"><div class="crew-name">'+escapeHtml(c.name)+'</div><div class="crew-time">'+fmtDT(displayTs)+'</div></div>' +
+        '<img class="crew-sig-img" src="'+displaySig+'" alt="signature">' +
+        statusHtml +
       '</div>';
     }).join('');
   }
-  /* A-3 — revision notice for crew tab */
-  var revNote = '';
-  if(state.materialChangedSinceLastSig && state.crew.length > 0){
-    revNote = '<div style="background:#fff8e1;border:1px solid #f59f00;border-radius:6px;padding:9px 12px;margin:8px 0;font-size:12px;font-weight:600;color:#7d5c00;">&#9888;&#xFE0E; JSA content has been revised since existing crew acknowledgments. All crew members must re-acknowledge before work continues.</div>';
-  }
+  /* AC001: aggregate revision notice replaced by per-member status above */
   document.getElementById('panel-crew').innerHTML =
     '<div class="card">' +
       '<div class="card-header"><span class="card-icon">&#128100;</span><h2>Crew Signatures</h2></div>' +
-      note + revNote + rowsHtml +
+      note + rowsHtml +
       '<div style="margin-top:12px;"><button type="button" class="btn-dashed-red" onclick="openCrewModal()">+ Add Crew Member</button></div>' +
     '</div>';
 }
@@ -1708,8 +1733,8 @@ function createSigPad(canvas, wrapEl){
 var supSigPad = null;
 
 function openSupervisorModal(){
-  /* A-3 — pre-populate when re-acknowledging after a revision */
-  var isReack = state.supervisor && state.materialChangedSinceLastSig;
+  /* A-3 — pre-populate when re-acknowledging after a material revision (AC001: use getAckStatus) */
+  var isReack = state.supervisor && getAckStatus().supervisor && getAckStatus().supervisor.current === false;
   document.getElementById('supName').value  = isReack ? (state.supervisor.name  || '') : '';
   document.getElementById('supPhone').value = isReack ? (state.supervisor.phone || '') : '';
   document.getElementById('supervisorModal').style.display = 'flex';
@@ -1742,14 +1767,14 @@ function checkSupervisorReady(){
    The snapshot is an immutable record of what the signer acknowledged.
    The active JSA state remains fully editable after any signature.
 
-   Material fields (scope, hazards, controls — require renewed acknowledgment
-   if changed after a signature):
+   Material fields (scope, hazards, controls, conditions — require renewed
+   acknowledgment if changed after a signature):
      job.description, hazards, hazardsOther, ppe, ppeOther,
-     permits, permitsOther, steps
+     permits, permitsOther, steps, conditions.*
+     (conditions are safety-related working conditions — material per AC001)
 
    Administrative fields (not material — do not require renewed acknowledgment):
-     job.project/jobNumber/location/trade/startTime/finishTime/crewSize,
-     conditions.*
+     job.project/jobNumber/location/trade/startTime/finishTime/crewSize
    ============================================================ */
 function snapshotMaterialContent(){
   /* Normalize flag objects: sort keys, include only true values.
@@ -1759,6 +1784,7 @@ function snapshotMaterialContent(){
     Object.keys(obj).sort().forEach(function(k){ if(obj[k]) r[k] = true; });
     return r;
   }
+  var c = state.conditions || {};
   return {
     jobDescription: state.job.description || '',
     hazards:        normalizeFlags(state.hazards),
@@ -1769,27 +1795,76 @@ function snapshotMaterialContent(){
     permitsOther:   state.permitsOther || '',
     steps:          state.steps.map(function(s){
                       return { id:s.id, desc:s.desc||'', hazard:s.hazard||'', control:s.control||'' };
-                    })
+                    }),
+    /* AC001: conditions are material — safety-related working conditions */
+    conditions: {
+      highHeat:   c.highHeat  === undefined ? null : c.highHeat,
+      coldStress: c.coldStress === undefined ? null : c.coldStress,
+      heatIndex:  c.heatIndex  || '',
+      weather:    c.weather    || '',
+      notes:      c.notes      || ''
+    }
   };
 }
 
+/* A-3 AC001 — Per-signer acknowledgment status.
+   Computes derived ack status from state.snapshots without storing redundant flags.
+   Returns:
+     { supervisor: { current: bool|null, snap }, crew: [{ member, current: bool|null, snap }], anyOutstanding: bool }
+   current === true  → signer's last snapshot matches current material content
+   current === false → material has changed since signer's last acknowledgment (re-ack required)
+   current === null  → legacy signature (pre-A3, content not on record — not treated as outstanding)
+*/
+function getAckStatus(){
+  var currentContent = JSON.stringify(snapshotMaterialContent());
+  var snaps = state.snapshots || [];
+  var status = { supervisor: null, crew: [], anyOutstanding: false };
+
+  if(state.supervisor){
+    var supSnaps = snaps.filter(function(s){ return s.event === 'supervisor'; });
+    if(supSnaps.length > 0){
+      var lastSup = supSnaps[supSnaps.length - 1];
+      var supCurrent = JSON.stringify(lastSup.content) === currentContent;
+      status.supervisor = { current: supCurrent, snap: lastSup };
+      if(!supCurrent) status.anyOutstanding = true;
+    } else {
+      /* Legacy supervisor: signed pre-A3, original content not on record */
+      status.supervisor = { current: null, snap: null };
+    }
+  }
+
+  state.crew.forEach(function(member){
+    var memberSnaps = snaps.filter(function(s){
+      return (s.event === 'crew' || s.event === 'crew_reack') && s.crewMemberId === member.id;
+    });
+    var lastSnap = memberSnaps.length > 0 ? memberSnaps[memberSnaps.length - 1] : null;
+    var isCurrent;
+    if(!lastSnap){
+      isCurrent = null; /* Legacy crew member: signed pre-A3, content not on record */
+    } else {
+      isCurrent = JSON.stringify(lastSnap.content) === currentContent;
+    }
+    status.crew.push({ member: member, current: isCurrent, snap: lastSnap });
+    if(isCurrent === false) status.anyOutstanding = true;
+  });
+
+  return status;
+}
+
 function checkMaterialChangeSinceLastSig(){
+  /* AC001: delegate to per-signer getAckStatus(); update compat flag */
   if(!state.snapshots || state.snapshots.length === 0){
     state.materialChangedSinceLastSig = false;
     return;
   }
-  var lastSnap = state.snapshots[state.snapshots.length - 1];
-  /* Compare serialized material content — deterministic because snapshotMaterialContent
-     always produces keys in the same order. */
-  var current = JSON.stringify(snapshotMaterialContent());
-  var baseline = JSON.stringify(lastSnap.content);
-  state.materialChangedSinceLastSig = (current !== baseline);
+  state.materialChangedSinceLastSig = getAckStatus().anyOutstanding;
 }
 
 function updateRevisionBanner(){
   var el = document.getElementById('revisionBanner');
   if(!el) return;
-  var show = state.materialChangedSinceLastSig && state.snapshots && state.snapshots.length > 0;
+  /* AC001: banner driven by per-signer getAckStatus(), not global flag */
+  var show = !!(state.snapshots && state.snapshots.length > 0 && getAckStatus().anyOutstanding);
   el.classList.toggle('show', show);
 }
 
@@ -1811,7 +1886,7 @@ function lockSupervisor(){
     content:    snapshotMaterialContent()
   });
   state.supervisor = { name: name, phone: phone, sig: sigData, timestamp: ts };
-  state.materialChangedSinceLastSig = false;
+  /* AC001: per-signer status is computed from snapshots — no manual flag reset needed */
   supSigPad.lock();
   closeSupervisorModal();
   onStateChanged({tab:'supervisor'});
@@ -1822,6 +1897,7 @@ function lockSupervisor(){
    ============================================================ */
 var crewSigPad = null;
 var crewSigConfirmed = false;
+var crewReackMemberId = null; /* AC001: set when crew modal is opened for re-acknowledgment */
 
 function openCrewModal(){
   document.getElementById('crewName').value = '';
@@ -1832,7 +1908,46 @@ function openCrewModal(){
   document.getElementById('crewModal').style.display = 'flex';
 }
 function closeCrewModal(){
+  /* Reset re-ack state so the modal is clean for next use */
+  crewReackMemberId = null;
+  var nameEl = document.getElementById('crewName');
+  if(nameEl){ nameEl.readOnly = false; nameEl.value = ''; }
+  var addBtn = document.getElementById('crewAddBtn');
+  if(addBtn){ addBtn.textContent = 'Add to JSA'; addBtn.disabled = true; }
+  var hdr = document.querySelector('#crewModal .modal-header h3');
+  if(hdr) hdr.textContent = 'Add Crew Member';
+  document.getElementById('crewSigSection').style.display = 'none';
   document.getElementById('crewModal').style.display = 'none';
+}
+
+/* AC001: Re-acknowledgment for existing crew member — opens crew modal pre-populated,
+   name read-only; on confirm, pushes crew_reack snapshot without a new roster entry. */
+function openCrewReackModal(memberId){
+  var member = state.crew.find(function(c){ return c.id === memberId; });
+  if(!member) return;
+  crewReackMemberId = memberId;
+  crewSigPad = null;
+  crewSigConfirmed = false;
+  /* Modal header */
+  var hdr = document.querySelector('#crewModal .modal-header h3');
+  if(hdr) hdr.textContent = 'Re-acknowledge JSA';
+  /* Name: pre-populated, read-only */
+  var nameEl = document.getElementById('crewName');
+  nameEl.value = member.name;
+  nameEl.readOnly = true;
+  /* Sig section: show immediately */
+  var section = document.getElementById('crewSigSection');
+  section.style.display = 'block';
+  var wrap = document.getElementById('crewSigWrap');
+  wrap.classList.remove('signing','confirmed','locked');
+  /* Button */
+  var addBtn = document.getElementById('crewAddBtn');
+  addBtn.textContent = 'Re-acknowledge JSA';
+  addBtn.disabled = true;
+  document.getElementById('crewModal').style.display = 'flex';
+  setTimeout(function(){
+    crewSigPad = createSigPad(document.getElementById('crewCanvas'), wrap);
+  }, 30);
 }
 function onCrewNameInput(){
   var name = document.getElementById('crewName').value.trim();
@@ -1872,22 +1987,34 @@ function addCrewMember(){
   if(!name || !crewSigConfirmed || !crewSigPad || crewSigPad.isEmpty()) return;
   var ts = new Date().toISOString();
   var sigData = crewSigPad.toDataURL();
-  /* A-3: push an immutable snapshot of material content at this crew acknowledgment */
   if(!state.snapshots) state.snapshots = [];
-  state.snapshots.push({
-    event:      'crew',
-    signerName: name,
-    sig:        sigData,
-    timestamp:  ts,
-    revIndex:   state.snapshots.length,
-    content:    snapshotMaterialContent()
-  });
-  state.crew.push({
-    id: state.nextCrewId++,
-    name: name,
-    sig: sigData,
-    timestamp: ts
-  });
+
+  if(crewReackMemberId){
+    /* AC001 Re-acknowledgment: add snapshot for existing roster entry — no new crew row */
+    state.snapshots.push({
+      event:        'crew_reack',
+      signerName:   name,
+      sig:          sigData,
+      timestamp:    ts,
+      revIndex:     state.snapshots.length,
+      content:      snapshotMaterialContent(),
+      crewMemberId: crewReackMemberId
+    });
+  } else {
+    /* New crew member: snapshot linked to new roster entry by ID */
+    var newId = state.nextCrewId;
+    state.snapshots.push({
+      event:        'crew',
+      signerName:   name,
+      sig:          sigData,
+      timestamp:    ts,
+      revIndex:     state.snapshots.length,
+      content:      snapshotMaterialContent(),
+      crewMemberId: newId
+    });
+    state.crew.push({ id: newId, name: name, sig: sigData, timestamp: ts });
+    state.nextCrewId++;
+  }
   crewSigPad.lock();
   closeCrewModal();
   onStateChanged({tab:'crew'});
@@ -2233,10 +2360,21 @@ function printPageConditionsSupervisor(){
   var supHtml;
   if(state.supervisor){
     var s = state.supervisor;
+    /* AC001: determine ack status for PDF integrity label */
+    var pdfSupSt = getAckStatus().supervisor;
+    var pdfSupStatusNote = '';
+    if(pdfSupSt && pdfSupSt.current === false){
+      pdfSupStatusNote = '<div style="color:#b7791f;font-weight:600;font-size:11px;margin:4px 0 2px;">&#9888; ACKNOWLEDGMENT SUPERSEDED — JSA content revised after this signature. Renewed acknowledgment required.</div>';
+    } else if(pdfSupSt && pdfSupSt.current === null){
+      pdfSupStatusNote = '<div style="color:#888;font-style:italic;font-size:11px;margin:4px 0 2px;">Acknowledged prior to Revision A-3 — original acknowledged content not on record.</div>';
+    } else if(pdfSupSt && pdfSupSt.current === true){
+      pdfSupStatusNote = '<div style="color:#276749;font-size:11px;margin:4px 0 2px;">&#10003; Acknowledgment current — reflects JSA content as of signature date.</div>';
+    }
     supHtml =
       '<div class="pp-field"><b>Supervisor Name</b>'+escapeHtml(s.name)+'</div>' +
       '<div class="pp-field"><b>Phone</b>'+escapeHtml(s.phone||'—')+'</div>' +
-      '<div class="pp-field"><b>Signed</b>'+fmtDT(s.timestamp)+'</div>' +
+      '<div class="pp-field"><b>Acknowledged</b>'+fmtDT(s.timestamp)+'</div>' +
+      pdfSupStatusNote +
       '<img class="sig-img" src="'+s.sig+'" alt="Supervisor signature">';
   } else {
     supHtml = '<div class="pp-field"><b>Supervisor Signature</b>Not yet signed</div>';
@@ -2258,6 +2396,8 @@ function printPagesCrew(){
   var rowsPerPage = 12;
   var crew = state.crew;
   var totalPages = Math.max(1, Math.ceil(crew.length / rowsPerPage));
+  /* AC001: compute per-signer status once for PDF integrity labels */
+  var crewAckSt = getAckStatus().crew;
   var out = '';
   for(var p=0; p<totalPages; p++){
     var chunk = crew.slice(p*rowsPerPage, (p+1)*rowsPerPage);
@@ -2266,7 +2406,20 @@ function printPagesCrew(){
       var c = chunk[i];
       var rowNum = p*rowsPerPage + i + 1;
       if(c){
-        trs += '<tr><td>'+rowNum+'</td><td>'+escapeHtml(c.name)+'</td><td>'+fmtDT(c.timestamp)+'</td><td><img class="sig-img" src="'+c.sig+'" alt="signature"></td><td>LOCKED &#10003;</td></tr>';
+        var cSt = crewAckSt.find(function(e){ return e.member.id === c.id; });
+        var cCurrent = cSt ? cSt.current : null;
+        /* Display most recent sig if re-acked */
+        var displaySig = (cSt && cSt.snap && cSt.snap.sig) ? cSt.snap.sig : c.sig;
+        var displayTs  = (cSt && cSt.snap && cSt.snap.timestamp) ? cSt.snap.timestamp : c.timestamp;
+        var statusCell;
+        if(cCurrent === true){
+          statusCell = '<span style="color:#276749;font-weight:600;">Current &#10003;</span>';
+        } else if(cCurrent === false){
+          statusCell = '<span style="color:#b7791f;font-weight:600;">&#9888; Re-ack Required</span>';
+        } else {
+          statusCell = '<span style="color:#888;font-style:italic;">Pre-A3</span>';
+        }
+        trs += '<tr><td>'+rowNum+'</td><td>'+escapeHtml(c.name)+'</td><td>'+fmtDT(displayTs)+'</td><td><img class="sig-img" src="'+displaySig+'" alt="signature"></td><td>'+statusCell+'</td></tr>';
       } else {
         trs += '<tr><td>'+rowNum+'</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
       }
