@@ -1,15 +1,30 @@
 /* Adena JSA — Service Worker
- * Revision A-1 (v1.1.0)
+ * Revision A-2 (v1.2.0-p1)
  * Cache-first offline strategy.
  *
  * Offline reliability depends on successful installation and caching after
  * the first online load. iOS may evict Service Worker caches under storage
  * pressure; loading the app while online after any eviction will repopulate
  * the cache.
+ *
+ * Cache history:
+ *   adena-jsa-v1.1.0  — A-1 production
+ *   adena-jsa-v1.2.0  — A-2 initial deploy
+ *   adena-jsa-v1.2.0-p1 — A-2 patch: scroll preservation + reversible selection
  */
 
+/* GOVERNING REQUIREMENT (PO-006 / 2026-11-25):
+ * Every deployment that changes cached resources MUST update CACHE_NAME below.
+ * This applies to: app logic changes, library updates, UI corrections,
+ * intermediate test builds, and production releases — even when APP_VERSION
+ * in adena-jsa.html does not change. The APP_BUILD constant in adena-jsa.html
+ * MUST be set to the suffix of CACHE_NAME (the part after 'adena-jsa-') so the
+ * running build is identifiable from the application information panel.
+ * Example: CACHE_NAME = 'adena-jsa-v1.2.0-p2'  →  APP_BUILD = 'p2'
+ * Active JSA data lives in localStorage and is unaffected by cache changes.
+ */
 var CACHE_PREFIX = 'adena-jsa-';
-var CACHE_NAME = 'adena-jsa-v1.1.0';
+var CACHE_NAME = 'adena-jsa-v1.2.0-p1'; /* APP_BUILD = 'p1' in adena-jsa.html */
 var PRECACHE_URLS = [
   './adena-jsa.html',
   './manifest.json',
