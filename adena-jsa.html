@@ -146,7 +146,7 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 .ack-box{background:var(--red-banner);border:1.5px solid var(--red);border-radius:10px;padding:14px;font-size:13px;line-height:1.5;color:var(--gray9);margin-bottom:14px;}
 .sup-locked{border:1.5px solid var(--green);background:rgba(52,199,89,0.07);border-radius:10px;padding:14px;}
 /* A-3 — Document Integrity */
-.rev-banner{background:#fff8e1;border-bottom:1.5px solid #f59f00;padding:9px 14px;font-size:12px;font-weight:600;color:#7d5c00;display:none;position:sticky;top:112px;z-index:37;text-align:center;letter-spacing:0.2px;}
+.rev-banner{background:#fff8e1;border-bottom:1.5px solid #f59f00;padding:9px 14px;font-size:12px;font-weight:600;color:#7d5c00;display:none;position:sticky;top:112px;z-index:37;text-align:center;letter-spacing:0.2px;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .rev-banner.show{display:block;}
 .btn-reack{background:transparent;border:1.5px solid var(--gray5);color:var(--gray7);border-radius:8px;padding:9px 14px;font-size:13px;font-weight:bold;cursor:pointer;margin-top:10px;width:100%;}
 .sup-locked-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
@@ -261,7 +261,7 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 
 <div id="highRiskBanner" class="hr-banner"></div>
 <!-- A-3: Revision banner — shown when material content changes after any signature -->
-<div id="revisionBanner" class="rev-banner">&#9888;&#xFE0E; JSA revised since last acknowledgment &mdash; renewed acknowledgment required before work continues</div>
+<div id="revisionBanner" class="rev-banner" onclick="goBannerTab()" role="button" tabindex="0">&#9888;&#xFE0E; JSA revised since last acknowledgment &mdash; renewed acknowledgment required &mdash; tap here to acknowledge</div>
 
 <div class="main">
   <div id="panel-jobinfo" class="tab-panel active"></div>
@@ -1145,7 +1145,7 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    STORAGE / STATE
    ============================================================ */
 var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
-var APP_BUILD   = 'dev3';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_BUILD   = 'dev4';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 
 /* dev3: Acknowledgment statement displayed in tap-to-confirm re-acknowledgment modal.
    Stored verbatim in every supervisor_reack / crew_reack snapshot — do not change without
@@ -1564,6 +1564,7 @@ function setCondition(name, val){
 function renderSupervisor(){
   var ack = '<div class="ack-box">By signing below, I certify that I have reviewed this Job Safety Analysis with my crew and personally briefed all personnel on the scope of work, potential hazards, and required control measures prior to the start of work. I acknowledge my responsibility to ensure all controls are in place before work begins.</div>';
   var body;
+  var topAckStatement = ''; /* dev4: ACK statement shown at top of tab when reack required */
   if(state.supervisor){
     var s = state.supervisor;
     var ackSt = getAckStatus(); /* AC001: per-signer status */
@@ -1572,11 +1573,15 @@ function renderSupervisor(){
     var revLabel = revCount > 1 ? ' — Acknowledgment #'+revCount : '';
     var reackSection = '';
     if(supSt && supSt.current === false){
-      /* Material change detected: re-acknowledgment required */
+      /* dev4: ACK statement prominently at top of tab; inline I Acknowledge button — no modal */
+      topAckStatement =
+        '<div class="reack-statement" style="margin:0 0 12px 0;">' +
+          escapeHtml(ACK_STATEMENT) +
+        '</div>';
       reackSection =
         '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(245,159,0,0.3);">' +
           '<div style="font-size:12px;color:#7d5c00;font-weight:600;margin-bottom:6px;">&#9888;&#xFE0E; JSA content has been revised since this acknowledgment. Renewed supervisor acknowledgment required before work continues.</div>' +
-          '<button type="button" class="btn-reack" onclick="openSupervisorModal()">Re-acknowledge Revised JSA</button>' +
+          '<button type="button" class="btn-reack" onclick="doSupervisorReack()">&#10003;&nbsp; I Acknowledge</button>' +
         '</div>';
     } else if(supSt && supSt.current === true && supSt.snap && supSt.snap.event === 'supervisor_reack'){
       /* dev3: last acknowledgment was electronic tap-to-confirm — show green ack box */
@@ -1615,8 +1620,8 @@ function renderSupervisor(){
   document.getElementById('panel-supervisor').innerHTML =
     '<div class="card">' +
       '<div class="card-header"><span class="card-icon">&#9997;</span><h2>Supervisor Acknowledgment</h2></div>' +
-      ack + body +
-    '</div>';
+      topAckStatement + ack + body +
+    '</div>'; /* dev4: topAckStatement shown before ack box when reack required */
 }
 
 /* ============================================================
@@ -1625,11 +1630,20 @@ function renderSupervisor(){
 function renderCrew(){
   var note = '<div class="crew-note">Crew signatures are locked permanently the moment they are added — they cannot be edited or removed. Add each crew member individually below.</div>';
   var rowsHtml;
+  var topAckStatement = ''; /* dev4: ACK statement shown at top of tab when any crew reack required */
   if(state.crew.length === 0){
     rowsHtml = '<div class="crew-empty">No crew members signed yet.</div>';
   } else {
     /* AC001: compute per-signer status once, map into rows */
     var crewAckStatus = getAckStatus().crew; /* [{ member, current, snap }] */
+    /* dev4: check for any outstanding reack before building rows */
+    var anyCrewOutstanding = crewAckStatus.some(function(e){ return e.current === false; });
+    if(anyCrewOutstanding){
+      topAckStatement =
+        '<div class="reack-statement" style="margin:0 0 12px 0;">' +
+          escapeHtml(ACK_STATEMENT) +
+        '</div>';
+    }
     rowsHtml = state.crew.map(function(c, idx){
       /* Find this member's status entry */
       var st = crewAckStatus.find(function(e){ return e.member.id === c.id; });
@@ -1651,10 +1665,11 @@ function renderCrew(){
           statusHtml = '<span class="locked-badge">CURRENT &#10003;</span>';
         }
       } else if(current === false){
+        /* dev4: inline I Acknowledge button — no modal */
         statusHtml =
           '<div style="text-align:right;">' +
             '<div style="font-size:11px;color:#c0392b;font-weight:600;margin-bottom:4px;">Re-ack required</div>' +
-            '<button type="button" class="btn-reack" style="font-size:11px;padding:6px 10px;" onclick="openCrewReackModal('+c.id+')">Re-acknowledge</button>' +
+            '<button type="button" class="btn-reack" style="font-size:11px;padding:6px 10px;" onclick="doCrewReack('+c.id+')">&#10003;&nbsp; I Acknowledge</button>' +
           '</div>';
       } else {
         /* null = legacy / no A3 snapshot */
@@ -1676,7 +1691,7 @@ function renderCrew(){
   document.getElementById('panel-crew').innerHTML =
     '<div class="card">' +
       '<div class="card-header"><span class="card-icon">&#128100;</span><h2>Crew Signatures</h2></div>' +
-      note + rowsHtml +
+      topAckStatement + note + rowsHtml + /* dev4: topAckStatement shown before note when any reack required */
       '<div style="margin-top:12px;"><button type="button" class="btn-dashed-red" onclick="openCrewModal()">+ Add Crew Member</button></div>' +
     '</div>';
 }
@@ -1966,7 +1981,7 @@ function lockSupervisor(){
   onStateChanged({tab:'supervisor'});
 }
 
-/* dev3: Tap-to-confirm supervisor re-acknowledgment.
+/* dev3: Tap-to-confirm supervisor re-acknowledgment (modal path — retained for compat).
    Pushes a supervisor_reack snapshot — no handwritten sig captured.
    Original handwritten signature (supervisor event) is preserved unchanged. */
 function confirmSupReack(){
@@ -1985,6 +2000,62 @@ function confirmSupReack(){
   });
   closeSupervisorModal();
   onStateChanged({tab:'supervisor'});
+}
+
+/* ============================================================
+   dev4: INLINE ACKNOWLEDGMENT — no modals
+   ============================================================ */
+
+/* dev4: Navigate to the tab with outstanding acknowledgments.
+   Prioritizes Supervisor tab when both supervisor and crew are pending. */
+function goBannerTab(){
+  var ackSt = getAckStatus();
+  if(ackSt.supervisor && ackSt.supervisor.current === false){
+    showTab('supervisor');
+  } else {
+    showTab('crew');
+  }
+}
+
+/* dev4: Inline supervisor re-acknowledgment — called directly from I Acknowledge button in Supervisor tab.
+   No modal. Captures acknowledgment date, time, and associated revision index.
+   Original handwritten signature (supervisor event) is preserved unchanged. */
+function doSupervisorReack(){
+  if(!state.supervisor) return;
+  var ts = new Date().toISOString();
+  if(!state.snapshots) state.snapshots = [];
+  state.snapshots.push({
+    event:        'supervisor_reack',
+    signerName:   state.supervisor.name,
+    signerPhone:  state.supervisor.phone || '',
+    ackStatement: ACK_STATEMENT,
+    timestamp:    ts,
+    revIndex:     state.snapshots.length,
+    content:      snapshotMaterialContent()
+    /* No sig field — electronic acknowledgment per PO directive Nov 2026 */
+  });
+  onStateChanged({tab:'supervisor'});
+}
+
+/* dev4: Inline crew re-acknowledgment — called directly from I Acknowledge button adjacent to signer's name.
+   No modal. Captures acknowledgment date, time, and associated revision index.
+   Original handwritten signature (crew event) is preserved unchanged. */
+function doCrewReack(memberId){
+  var member = state.crew.find(function(c){ return c.id === memberId; });
+  if(!member) return;
+  var ts = new Date().toISOString();
+  if(!state.snapshots) state.snapshots = [];
+  state.snapshots.push({
+    event:        'crew_reack',
+    signerName:   member.name,
+    ackStatement: ACK_STATEMENT,
+    timestamp:    ts,
+    revIndex:     state.snapshots.length,
+    content:      snapshotMaterialContent(),
+    crewMemberId: memberId
+    /* No sig field — electronic acknowledgment per PO directive Nov 2026 */
+  });
+  onStateChanged({tab:'crew'});
 }
 
 /* ============================================================
