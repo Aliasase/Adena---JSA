@@ -217,6 +217,9 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 .pp-check-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;font-size:11px;margin-bottom:10px;}
 .sig-img{max-height:44px;max-width:140px;}
 
+/* dev3: tap-to-confirm re-acknowledgment statement box */
+.reack-statement{margin:12px 0;padding:12px;background:#fffbee;border:1px solid #d4a800;border-radius:8px;font-size:13px;line-height:1.5;color:#2d2d1a;}
+
 @media print{
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   body *{visibility:hidden;}
@@ -258,7 +261,7 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 
 <div id="highRiskBanner" class="hr-banner"></div>
 <!-- A-3: Revision banner — shown when material content changes after any signature -->
-<div id="revisionBanner" class="rev-banner">&#9888;&#xFE0E; JSA revised since last acknowledgment &mdash; renewed supervisor acknowledgment required</div>
+<div id="revisionBanner" class="rev-banner">&#9888;&#xFE0E; JSA revised since last acknowledgment &mdash; renewed acknowledgment required before work continues</div>
 
 <div class="main">
   <div id="panel-jobinfo" class="tab-panel active"></div>
@@ -302,17 +305,25 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 <!-- SUPERVISOR SIGN MODAL -->
 <div id="supervisorModal" class="modal-overlay" style="display:none">
   <div class="modal">
-    <div class="modal-header"><h3>Sign as Supervisor</h3><button type="button" class="modal-x" onclick="closeSupervisorModal()">&times;</button></div>
+    <div class="modal-header"><h3 id="supModalTitle">Sign as Supervisor</h3><button type="button" class="modal-x" onclick="closeSupervisorModal()">&times;</button></div>
     <div class="modal-body">
       <label class="field-label">Supervisor Name (Print)</label>
       <input type="text" id="supName" class="text-input" oninput="checkSupervisorReady()" autocomplete="off">
       <label class="field-label">Supervisor Phone #</label>
       <input type="tel" id="supPhone" class="text-input" oninput="checkSupervisorReady()" autocomplete="off">
-      <label class="field-label">Signature</label>
-      <div class="sig-wrap" id="supSigWrap"><canvas id="supCanvas"></canvas></div>
-      <div class="sig-actions">
-        <button type="button" class="btn btn-light" onclick="clearSupSig()">Clear</button>
-        <button type="button" class="btn btn-light" onclick="doneSupSig()">Done</button>
+      <!-- Initial handwritten signature (shown on first sign; hidden during re-acknowledgment) -->
+      <div id="supSigContent">
+        <label class="field-label">Signature</label>
+        <div class="sig-wrap" id="supSigWrap"><canvas id="supCanvas"></canvas></div>
+        <div class="sig-actions">
+          <button type="button" class="btn btn-light" onclick="clearSupSig()">Clear</button>
+          <button type="button" class="btn btn-light" onclick="doneSupSig()">Done</button>
+        </div>
+      </div>
+      <!-- dev3: Tap-to-confirm re-acknowledgment (shown when JSA revised after initial sig) -->
+      <div id="supReackSection" style="display:none">
+        <div class="reack-statement">I acknowledge that the revised JSA has been reviewed with me and that I understand the changes and applicable safety requirements.</div>
+        <button type="button" class="btn btn-red btn-block" onclick="confirmSupReack()">Acknowledge Revision</button>
       </div>
     </div>
     <div class="modal-footer">
@@ -328,6 +339,7 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
     <div class="modal-body">
       <label class="field-label">Employee Name (Print)</label>
       <input type="text" id="crewName" class="text-input" oninput="onCrewNameInput()" autocomplete="off">
+      <!-- Initial handwritten signature (new crew member) -->
       <div id="crewSigSection" style="display:none">
         <label class="field-label">Signature</label>
         <div class="sig-wrap" id="crewSigWrap"><canvas id="crewCanvas"></canvas></div>
@@ -335,6 +347,11 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
           <button type="button" class="btn btn-light" onclick="clearCrewSig()">Clear</button>
           <button type="button" class="btn btn-light" onclick="doneCrewSig()">Done &mdash; Lock Signature</button>
         </div>
+      </div>
+      <!-- dev3: Tap-to-confirm re-acknowledgment (shown for existing crew when JSA revised) -->
+      <div id="crewReackSection" style="display:none">
+        <div class="reack-statement">I acknowledge that the revised JSA has been reviewed with me and that I understand the changes and applicable safety requirements.</div>
+        <button type="button" class="btn btn-red btn-block" onclick="confirmCrewReack()">Acknowledge Revision</button>
       </div>
     </div>
     <div class="modal-footer">
@@ -1128,7 +1145,12 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    STORAGE / STATE
    ============================================================ */
 var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
-var APP_BUILD   = 'dev2';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_BUILD   = 'dev3';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+
+/* dev3: Acknowledgment statement displayed in tap-to-confirm re-acknowledgment modal.
+   Stored verbatim in every supervisor_reack / crew_reack snapshot — do not change without
+   also updating existing stored snapshots or versioning the statement field. */
+var ACK_STATEMENT = 'I acknowledge that the revised JSA has been reviewed with me and that I understand the changes and applicable safety requirements.';
 var STORAGE_KEY = 'adena_jsa_current';
 var ID_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -1553,22 +1575,35 @@ function renderSupervisor(){
       /* Material change detected: re-acknowledgment required */
       reackSection =
         '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(245,159,0,0.3);">' +
-          '<div style="font-size:12px;color:#7d5c00;font-weight:600;margin-bottom:6px;">&#9888;&#xFE0E; JSA content has been revised since this acknowledgment. Renewed supervisor signature required before work continues.</div>' +
+          '<div style="font-size:12px;color:#7d5c00;font-weight:600;margin-bottom:6px;">&#9888;&#xFE0E; JSA content has been revised since this acknowledgment. Renewed supervisor acknowledgment required before work continues.</div>' +
           '<button type="button" class="btn-reack" onclick="openSupervisorModal()">Re-acknowledge Revised JSA</button>' +
+        '</div>';
+    } else if(supSt && supSt.current === true && supSt.snap && supSt.snap.event === 'supervisor_reack'){
+      /* dev3: last acknowledgment was electronic tap-to-confirm — show green ack box */
+      reackSection =
+        '<div style="margin-top:10px;padding:10px;background:#eafaf1;border:1px solid #27ae60;border-radius:8px;">' +
+          '<div style="font-size:11px;font-weight:700;color:#1e8449;margin-bottom:4px;">&#10003; ELECTRONIC ACKNOWLEDGMENT</div>' +
+          '<div style="font-size:11px;color:#2d6a4f;margin-bottom:6px;line-height:1.4;">"'+escapeHtml(supSt.snap.ackStatement || ACK_STATEMENT)+'"</div>' +
+          '<div style="font-size:11px;color:#555;">'+escapeHtml(supSt.snap.signerName)+' &mdash; '+fmtDT(supSt.snap.timestamp)+'</div>' +
         '</div>';
     } else if(supSt && supSt.current === null){
       /* Legacy signature: acknowledged pre-A3, content not on record */
       reackSection =
         '<div style="margin-top:8px;font-size:11px;color:#888;font-style:italic;">Acknowledged prior to Revision A-3 — original acknowledged content not on record.</div>';
     }
+    /* dev3: label initial sig explicitly when electronic reack also present */
+    var sigLabel = (supSt && supSt.snap && supSt.snap.event === 'supervisor_reack')
+      ? '<div style="font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">Initial handwritten signature</div>'
+      : '';
     body =
       '<div class="sup-locked">' +
+        sigLabel +
         '<div class="sup-locked-row">' +
           '<img class="sup-sig-img" src="'+s.sig+'" alt="Supervisor signature">' +
           '<div>' +
             '<div class="sup-locked-name">'+escapeHtml(s.name)+'<span style="font-weight:400;font-size:12px;">'+escapeHtml(revLabel)+'</span></div>' +
             '<div class="sup-locked-meta">'+escapeHtml(s.phone||'')+'</div>' +
-            '<div class="sup-locked-meta">Acknowledged '+fmtDT(s.timestamp)+'</div>' +
+            '<div class="sup-locked-meta">Signed '+fmtDT(s.timestamp)+'</div>' +
           '</div>' +
           '<span class="locked-badge">LOCKED &#10003;</span>' +
         '</div>' +
@@ -1599,13 +1634,22 @@ function renderCrew(){
       /* Find this member's status entry */
       var st = crewAckStatus.find(function(e){ return e.member.id === c.id; });
       var current = st ? st.current : null;
-      /* Last sig to display: re-ack sig if present, else original */
-      var displaySig = (st && st.snap && st.snap.sig) ? st.snap.sig : c.sig;
-      var displayTs  = (st && st.snap && st.snap.timestamp) ? st.snap.timestamp : c.timestamp;
+      /* dev3: always display initial handwritten signature — reack snapshots have no sig field */
+      var displaySig = c.sig;
       /* Status badge / action */
       var statusHtml;
       if(current === true){
-        statusHtml = '<span class="locked-badge">CURRENT &#10003;</span>';
+        if(st.snap && st.snap.event === 'crew_reack'){
+          /* dev3: electronic tap-to-confirm acknowledgment is current */
+          statusHtml =
+            '<div style="text-align:right;">' +
+              '<div style="font-size:11px;font-weight:700;color:#1e8449;">&#10003; CURRENT</div>' +
+              '<div style="font-size:10px;color:#27ae60;margin-top:2px;">Electronic ack</div>' +
+              '<div style="font-size:10px;color:#555;margin-top:1px;">'+fmtDT(st.snap.timestamp)+'</div>' +
+            '</div>';
+        } else {
+          statusHtml = '<span class="locked-badge">CURRENT &#10003;</span>';
+        }
       } else if(current === false){
         statusHtml =
           '<div style="text-align:right;">' +
@@ -1616,10 +1660,14 @@ function renderCrew(){
         /* null = legacy / no A3 snapshot */
         statusHtml = '<span style="font-size:10px;color:#aaa;font-style:italic;">Pre-A3</span>';
       }
+      /* dev3: label initial sig when electronic reack is also present */
+      var sigLabel = (st && st.snap && st.snap.event === 'crew_reack')
+        ? '<div style="font-size:9px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:1px;">Initial sig</div>'
+        : '';
       return '<div class="crew-row" style="align-items:flex-start;">' +
         '<div class="crew-circle">'+(idx+1)+'</div>' +
-        '<div class="crew-info"><div class="crew-name">'+escapeHtml(c.name)+'</div><div class="crew-time">'+fmtDT(displayTs)+'</div></div>' +
-        '<img class="crew-sig-img" src="'+displaySig+'" alt="signature">' +
+        '<div class="crew-info"><div class="crew-name">'+escapeHtml(c.name)+'</div><div class="crew-time">'+fmtDT(c.timestamp)+'</div></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;">'+sigLabel+'<img class="crew-sig-img" src="'+displaySig+'" alt="signature"></div>' +
         statusHtml +
       '</div>';
     }).join('');
@@ -1733,19 +1781,44 @@ function createSigPad(canvas, wrapEl){
 var supSigPad = null;
 
 function openSupervisorModal(){
-  /* A-3 — pre-populate when re-acknowledging after a material revision (AC001: use getAckStatus) */
-  var isReack = state.supervisor && getAckStatus().supervisor && getAckStatus().supervisor.current === false;
-  document.getElementById('supName').value  = isReack ? (state.supervisor.name  || '') : '';
-  document.getElementById('supPhone').value = isReack ? (state.supervisor.phone || '') : '';
-  document.getElementById('supervisorModal').style.display = 'flex';
-  var wrap = document.getElementById('supSigWrap');
-  wrap.classList.remove('signing','confirmed','locked');
+  /* dev3: branch on whether this is an initial signature or a tap-to-confirm re-acknowledgment */
+  var isReack = !!(state.supervisor && getAckStatus().supervisor && getAckStatus().supervisor.current === false);
+  /* Name / phone */
+  var nameEl  = document.getElementById('supName');
+  var phoneEl = document.getElementById('supPhone');
+  nameEl.value       = isReack ? (state.supervisor.name  || '') : '';
+  phoneEl.value      = isReack ? (state.supervisor.phone || '') : '';
+  nameEl.readOnly    = isReack;
+  phoneEl.readOnly   = isReack;
+  /* Header */
+  var hdr = document.getElementById('supModalTitle');
+  if(hdr) hdr.textContent = isReack ? 'Acknowledge Revised JSA' : 'Sign as Supervisor';
+  /* Toggle sections */
+  document.getElementById('supSigContent').style.display   = isReack ? 'none'  : 'block';
+  document.getElementById('supReackSection').style.display  = isReack ? 'block' : 'none';
+  document.getElementById('supLockBtn').style.display       = isReack ? 'none'  : 'block';
   document.getElementById('supLockBtn').disabled = true;
-  setTimeout(function(){
-    supSigPad = createSigPad(document.getElementById('supCanvas'), wrap);
-  }, 30);
+  document.getElementById('supervisorModal').style.display = 'flex';
+  /* Sig pad only needed for initial signature */
+  if(!isReack){
+    var wrap = document.getElementById('supSigWrap');
+    wrap.classList.remove('signing','confirmed','locked');
+    setTimeout(function(){
+      supSigPad = createSigPad(document.getElementById('supCanvas'), wrap);
+    }, 30);
+  }
 }
 function closeSupervisorModal(){
+  /* Reset modal to initial state so next open starts clean */
+  document.getElementById('supSigContent').style.display   = 'block';
+  document.getElementById('supReackSection').style.display  = 'none';
+  document.getElementById('supLockBtn').style.display       = 'block';
+  var hdr = document.getElementById('supModalTitle');
+  if(hdr) hdr.textContent = 'Sign as Supervisor';
+  var nameEl  = document.getElementById('supName');
+  var phoneEl = document.getElementById('supPhone');
+  if(nameEl)  nameEl.readOnly  = false;
+  if(phoneEl) phoneEl.readOnly = false;
   document.getElementById('supervisorModal').style.display = 'none';
 }
 function clearSupSig(){
@@ -1821,7 +1894,8 @@ function getAckStatus(){
   var status = { supervisor: null, crew: [], anyOutstanding: false };
 
   if(state.supervisor){
-    var supSnaps = snaps.filter(function(s){ return s.event === 'supervisor'; });
+    /* dev3: include supervisor_reack (tap-to-confirm) alongside initial handwritten sig */
+    var supSnaps = snaps.filter(function(s){ return s.event === 'supervisor' || s.event === 'supervisor_reack'; });
     if(supSnaps.length > 0){
       var lastSup = supSnaps[supSnaps.length - 1];
       var supCurrent = JSON.stringify(lastSup.content) === currentContent;
@@ -1892,6 +1966,27 @@ function lockSupervisor(){
   onStateChanged({tab:'supervisor'});
 }
 
+/* dev3: Tap-to-confirm supervisor re-acknowledgment.
+   Pushes a supervisor_reack snapshot — no handwritten sig captured.
+   Original handwritten signature (supervisor event) is preserved unchanged. */
+function confirmSupReack(){
+  if(!state.supervisor) return;
+  var ts = new Date().toISOString();
+  if(!state.snapshots) state.snapshots = [];
+  state.snapshots.push({
+    event:        'supervisor_reack',
+    signerName:   state.supervisor.name,
+    signerPhone:  state.supervisor.phone || '',
+    ackStatement: ACK_STATEMENT,
+    timestamp:    ts,
+    revIndex:     state.snapshots.length,
+    content:      snapshotMaterialContent()
+    /* No sig field — electronic acknowledgment per PO directive Nov 2026 */
+  });
+  closeSupervisorModal();
+  onStateChanged({tab:'supervisor'});
+}
+
 /* ============================================================
    CREW MODAL
    ============================================================ */
@@ -1908,20 +2003,22 @@ function openCrewModal(){
   document.getElementById('crewModal').style.display = 'flex';
 }
 function closeCrewModal(){
-  /* Reset re-ack state so the modal is clean for next use */
+  /* Reset modal to initial state so next open (new member or re-ack) starts clean */
   crewReackMemberId = null;
   var nameEl = document.getElementById('crewName');
   if(nameEl){ nameEl.readOnly = false; nameEl.value = ''; }
   var addBtn = document.getElementById('crewAddBtn');
-  if(addBtn){ addBtn.textContent = 'Add to JSA'; addBtn.disabled = true; }
+  if(addBtn){ addBtn.textContent = 'Add to JSA'; addBtn.disabled = true; addBtn.style.display = 'block'; }
   var hdr = document.querySelector('#crewModal .modal-header h3');
   if(hdr) hdr.textContent = 'Add Crew Member';
-  document.getElementById('crewSigSection').style.display = 'none';
+  document.getElementById('crewSigSection').style.display   = 'none';
+  document.getElementById('crewReackSection').style.display = 'none';  /* dev3 */
   document.getElementById('crewModal').style.display = 'none';
 }
 
-/* AC001: Re-acknowledgment for existing crew member — opens crew modal pre-populated,
-   name read-only; on confirm, pushes crew_reack snapshot without a new roster entry. */
+/* dev3: Tap-to-confirm re-acknowledgment for existing crew member.
+   Opens crew modal in re-ack mode — name pre-populated read-only, signature pad hidden,
+   tap-to-confirm section shown. No new roster entry on confirm. */
 function openCrewReackModal(memberId){
   var member = state.crew.find(function(c){ return c.id === memberId; });
   if(!member) return;
@@ -1930,25 +2027,40 @@ function openCrewReackModal(memberId){
   crewSigConfirmed = false;
   /* Modal header */
   var hdr = document.querySelector('#crewModal .modal-header h3');
-  if(hdr) hdr.textContent = 'Re-acknowledge JSA';
+  if(hdr) hdr.textContent = 'Acknowledge Revised JSA';
   /* Name: pre-populated, read-only */
   var nameEl = document.getElementById('crewName');
   nameEl.value = member.name;
   nameEl.readOnly = true;
-  /* Sig section: show immediately */
-  var section = document.getElementById('crewSigSection');
-  section.style.display = 'block';
-  var wrap = document.getElementById('crewSigWrap');
-  wrap.classList.remove('signing','confirmed','locked');
-  /* Button */
-  var addBtn = document.getElementById('crewAddBtn');
-  addBtn.textContent = 'Re-acknowledge JSA';
-  addBtn.disabled = true;
+  /* Show re-ack section; hide sig section and standard add button */
+  document.getElementById('crewSigSection').style.display   = 'none';
+  document.getElementById('crewReackSection').style.display = 'block';
+  document.getElementById('crewAddBtn').style.display       = 'none';
   document.getElementById('crewModal').style.display = 'flex';
-  setTimeout(function(){
-    crewSigPad = createSigPad(document.getElementById('crewCanvas'), wrap);
-  }, 30);
 }
+/* dev3: Tap-to-confirm crew re-acknowledgment.
+   Pushes a crew_reack snapshot — no handwritten sig captured.
+   Original handwritten signature (crew event) is preserved unchanged. */
+function confirmCrewReack(){
+  if(!crewReackMemberId) return;
+  var member = state.crew.find(function(c){ return c.id === crewReackMemberId; });
+  if(!member) return;
+  var ts = new Date().toISOString();
+  if(!state.snapshots) state.snapshots = [];
+  state.snapshots.push({
+    event:        'crew_reack',
+    signerName:   member.name,
+    ackStatement: ACK_STATEMENT,
+    timestamp:    ts,
+    revIndex:     state.snapshots.length,
+    content:      snapshotMaterialContent(),
+    crewMemberId: crewReackMemberId
+    /* No sig field — electronic acknowledgment per PO directive Nov 2026 */
+  });
+  closeCrewModal();
+  onStateChanged({tab:'crew'});
+}
+
 function onCrewNameInput(){
   var name = document.getElementById('crewName').value.trim();
   var section = document.getElementById('crewSigSection');
@@ -1983,38 +2095,27 @@ function checkCrewReady(){
   document.getElementById('crewAddBtn').disabled = !ready;
 }
 function addCrewMember(){
+  /* dev3: Re-acknowledgment is now handled by confirmCrewReack() — this function
+     handles new crew member initial handwritten signature only. */
+  if(crewReackMemberId) return; /* Safety guard: should not reach here in re-ack mode */
   var name = document.getElementById('crewName').value.trim();
   if(!name || !crewSigConfirmed || !crewSigPad || crewSigPad.isEmpty()) return;
   var ts = new Date().toISOString();
   var sigData = crewSigPad.toDataURL();
   if(!state.snapshots) state.snapshots = [];
-
-  if(crewReackMemberId){
-    /* AC001 Re-acknowledgment: add snapshot for existing roster entry — no new crew row */
-    state.snapshots.push({
-      event:        'crew_reack',
-      signerName:   name,
-      sig:          sigData,
-      timestamp:    ts,
-      revIndex:     state.snapshots.length,
-      content:      snapshotMaterialContent(),
-      crewMemberId: crewReackMemberId
-    });
-  } else {
-    /* New crew member: snapshot linked to new roster entry by ID */
-    var newId = state.nextCrewId;
-    state.snapshots.push({
-      event:        'crew',
-      signerName:   name,
-      sig:          sigData,
-      timestamp:    ts,
-      revIndex:     state.snapshots.length,
-      content:      snapshotMaterialContent(),
-      crewMemberId: newId
-    });
-    state.crew.push({ id: newId, name: name, sig: sigData, timestamp: ts });
-    state.nextCrewId++;
-  }
+  /* New crew member: snapshot linked to new roster entry by ID */
+  var newId = state.nextCrewId;
+  state.snapshots.push({
+    event:        'crew',
+    signerName:   name,
+    sig:          sigData,
+    timestamp:    ts,
+    revIndex:     state.snapshots.length,
+    content:      snapshotMaterialContent(),
+    crewMemberId: newId
+  });
+  state.crew.push({ id: newId, name: name, sig: sigData, timestamp: ts });
+  state.nextCrewId++;
   crewSigPad.lock();
   closeCrewModal();
   onStateChanged({tab:'crew'});
@@ -2363,19 +2464,36 @@ function printPageConditionsSupervisor(){
     /* AC001: determine ack status for PDF integrity label */
     var pdfSupSt = getAckStatus().supervisor;
     var pdfSupStatusNote = '';
+    var pdfElecAckSection = '';
+    var isElecAck = pdfSupSt && pdfSupSt.current === true && pdfSupSt.snap && pdfSupSt.snap.event === 'supervisor_reack';
     if(pdfSupSt && pdfSupSt.current === false){
       pdfSupStatusNote = '<div style="color:#b7791f;font-weight:600;font-size:11px;margin:4px 0 2px;">&#9888; ACKNOWLEDGMENT SUPERSEDED — JSA content revised after this signature. Renewed acknowledgment required.</div>';
     } else if(pdfSupSt && pdfSupSt.current === null){
       pdfSupStatusNote = '<div style="color:#888;font-style:italic;font-size:11px;margin:4px 0 2px;">Acknowledged prior to Revision A-3 — original acknowledged content not on record.</div>';
+    } else if(isElecAck){
+      /* dev3: electronic tap-to-confirm current — note appears after sig; green ack box below */
+      pdfSupStatusNote = '<div style="color:#276749;font-size:11px;margin:4px 0 2px;">&#10003; Initial handwritten signature on record (see above).</div>';
+      pdfElecAckSection =
+        '<div style="margin-top:10px;padding:8px 10px;border:1px solid #27ae60;border-radius:6px;background:#eafaf1;">' +
+          '<div style="font-size:10px;font-weight:700;color:#1e8449;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Electronic Acknowledgment (Revised JSA)</div>' +
+          '<div style="font-size:11px;color:#2d6a4f;font-style:italic;margin-bottom:4px;">"'+escapeHtml(pdfSupSt.snap.ackStatement || ACK_STATEMENT)+'"</div>' +
+          '<div style="font-size:11px;color:#333;"><b>'+escapeHtml(pdfSupSt.snap.signerName)+'</b> &mdash; '+fmtDT(pdfSupSt.snap.timestamp)+'</div>' +
+        '</div>';
     } else if(pdfSupSt && pdfSupSt.current === true){
       pdfSupStatusNote = '<div style="color:#276749;font-size:11px;margin:4px 0 2px;">&#10003; Acknowledgment current — reflects JSA content as of signature date.</div>';
     }
+    /* dev3: label sig explicitly when electronic reack also present */
+    var pdfSigLabel = isElecAck
+      ? '<div style="font-size:9px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin:6px 0 2px;">Initial handwritten signature</div>'
+      : '';
     supHtml =
       '<div class="pp-field"><b>Supervisor Name</b>'+escapeHtml(s.name)+'</div>' +
       '<div class="pp-field"><b>Phone</b>'+escapeHtml(s.phone||'—')+'</div>' +
-      '<div class="pp-field"><b>Acknowledged</b>'+fmtDT(s.timestamp)+'</div>' +
+      '<div class="pp-field"><b>Signed</b>'+fmtDT(s.timestamp)+'</div>' +
+      pdfSigLabel +
+      '<img class="sig-img" src="'+s.sig+'" alt="Supervisor signature">' +
       pdfSupStatusNote +
-      '<img class="sig-img" src="'+s.sig+'" alt="Supervisor signature">';
+      pdfElecAckSection;
   } else {
     supHtml = '<div class="pp-field"><b>Supervisor Signature</b>Not yet signed</div>';
   }
@@ -2408,18 +2526,23 @@ function printPagesCrew(){
       if(c){
         var cSt = crewAckSt.find(function(e){ return e.member.id === c.id; });
         var cCurrent = cSt ? cSt.current : null;
-        /* Display most recent sig if re-acked */
-        var displaySig = (cSt && cSt.snap && cSt.snap.sig) ? cSt.snap.sig : c.sig;
-        var displayTs  = (cSt && cSt.snap && cSt.snap.timestamp) ? cSt.snap.timestamp : c.timestamp;
+        /* dev3: always display initial handwritten signature — reack snapshots have no sig field */
+        var cIsElecAck = cSt && cSt.current === true && cSt.snap && cSt.snap.event === 'crew_reack';
         var statusCell;
         if(cCurrent === true){
-          statusCell = '<span style="color:#276749;font-weight:600;">Current &#10003;</span>';
+          if(cIsElecAck){
+            /* dev3: electronic tap-to-confirm is current */
+            statusCell = '<span style="color:#276749;font-weight:600;">Current &#10003;</span>' +
+              '<br><span style="color:#27ae60;font-size:9px;">Electronic ack<br>'+fmtDT(cSt.snap.timestamp)+'</span>';
+          } else {
+            statusCell = '<span style="color:#276749;font-weight:600;">Current &#10003;</span>';
+          }
         } else if(cCurrent === false){
           statusCell = '<span style="color:#b7791f;font-weight:600;">&#9888; Re-ack Required</span>';
         } else {
           statusCell = '<span style="color:#888;font-style:italic;">Pre-A3</span>';
         }
-        trs += '<tr><td>'+rowNum+'</td><td>'+escapeHtml(c.name)+'</td><td>'+fmtDT(displayTs)+'</td><td><img class="sig-img" src="'+displaySig+'" alt="signature"></td><td>'+statusCell+'</td></tr>';
+        trs += '<tr><td>'+rowNum+'</td><td>'+escapeHtml(c.name)+'</td><td>'+fmtDT(c.timestamp)+'</td><td><img class="sig-img" src="'+c.sig+'" alt="signature"></td><td>'+statusCell+'</td></tr>';
       } else {
         trs += '<tr><td>'+rowNum+'</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
       }
