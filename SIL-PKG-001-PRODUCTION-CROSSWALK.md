@@ -1,118 +1,104 @@
-> **Repository Record (AD-008 §6):** Candidate crosswalk — not approved. Nothing in production is changed by this document. It records which production records *would* be superseded if Package 001 is approved, under Architect Response 001, Decision 1.
+> **Repository Record (AD-008 §6):** Candidate crosswalk, **revision r2**. Not approved. Nothing in production is changed by this document. It records which production records *would* be superseded if Package 001 is approved (Architect Response 001 Decision 1; Response 002 §2). r1 is preserved at commit `0195ed9`.
 
-# SIL-PKG-001 — Production Record Crosswalk
+# SIL-PKG-001 — Production Record Crosswalk (r2)
 
 **Production baseline:** v1.3.0-p1, commit `8318ddb`, as extracted in `A4-LIBRARY-EXPORT.md`
+
 **Notation:**
-- T*n* = `TASK_TO_HAZARD` entry *n*
-- C*n* = `HAZ_TO_CONTROL` entry *n*
-- H-BT-*nnn* = Package 001 reconciled candidate record (`SIL-PKG-001-RECONCILED.md`)
+- T*n* = `TASK_TO_HAZARD` entry
+- C*n* = `HAZ_TO_CONTROL` entry
+- H-BT-*nnn* = reconciled r2 hazard record
+- C-*nnnnnn* = canonical control (`SIL-CONTROL-REGISTRY.md`)
 
-**Method.** I matched every production hazard string against all reconciled H-BT records, by mechanism, not by wording.
-
-**How production strings relate to records.** Production strings have no IDs. A string's "relationship" is the task entry, keyword group, that surfaces it. When a string is superseded:
-- the canonical H-BT record **inherits that relationship**, so it must still surface for the same production keywords;
+**How production strings relate to records.** Production strings have no IDs. A string's relationship is the task entry, keyword group, that surfaces it. When a string is superseded:
+- the canonical H-BT record **inherits that relationship with its own applicability** (Package 001 r2, §2 rule 5);
 - the production string is retired.
 
-Decision 1 requires this: valid existing relationships across other activities are preserved.
+So an H-BT record that is [FIT-UP]-constrained for bolting is *not* fit-up-constrained when it is reached through T7 steel erection keywords.
+
+**r2 test (Response 002 §2):** a supersession stands only if the H-BT record is **at least as broad** as the production string, in mechanism, exposed population and work means. If not, it is withdrawn until the record is generalized.
 
 ---
 
-## A. Superseded: equivalent mechanism and scope
+## A. Superseded: confirmed at least as broad (17)
 
-| Production string | Appears in | Superseded by | Relationships the H-BT record must inherit |
-|---|---|---|---|
-| Pinch points during bolt-up and alignment | T7 | H-BT-001 | T7 Steel Erection |
-| Sharp edges on steel | T7 | H-BT-002 | T7 |
-| Kickback / torque reaction | T3 | H-BT-004 | T3 Drilling/Fastening, which covers powered drills and impact drivers; same powered-tool reaction mechanism |
-| Crushing from shifting steel | T7 | H-BT-012 | T7 (identical text) |
-| Unstable temporary structure condition | T7 | H-BT-013 | T7 |
-| Suspended load during picks | T7 | H-BT-014 | T7 |
-| Dropped objects | T7 | H-BT-018 | T7 |
-| Dropped objects striking workers below | T25 | H-BT-018 | T25 Overhead Work |
-| Falling tools from elevated workers | T25 | H-BT-018 | T25 |
-| Noise exposure | T1, T2, T3, T4, T11 | H-BT-019 (as canonical noise record) | T1, T2, T3, T4, T11 — **see A-1** |
-| Noise from pneumatic tools | T23 | H-BT-019 | T23 |
-| Noise-induced hearing damage | T22 | H-BT-019 | T22 |
-| Vibration exposure (hand-arm) | T22 | H-BT-020 | T22 |
-| Injection injury from high-pressure fluid | T23 | H-BT-023 | T23 Pressurized Systems |
-| Hose whip from disconnected line | T23 | H-BT-025 | T23 |
-| Electrical cord trip hazard | T2 | H-BT-027 | T2 |
-| Trip hazard from cords and cables | T15 | H-BT-027 | T15 Electrical |
+| # | Production string | Entry | Superseded by | Inherited relationships | Broadness check |
+|---|---|---|---|---|---|
+| 1 | Pinch points during bolt-up and alignment | T7 | H-BT-001 | T7 | Same scope |
+| 2 | Sharp edges on steel | T7 | H-BT-002 | T7 | H-BT-002 generalized; broader |
+| 3 | Cuts from pipe ends and flanges | T31 | H-BT-002 | T31 | Generalized (Response 002 §2); flange-face control limit carried by C-000005 |
+| 4 | Rotating equipment entanglement | T3 | H-BT-010 | T3 | Generalized to tool, bit, socket or extension |
+| 5 | Electrical shock | T3 | H-BT-026 | T3 | Generalized to powered tools and equipment |
+| 6 | Crushing from shifting steel | T7 | H-BT-012 | T7 | Generalized; identical mechanism |
+| 7 | Caught-between from steel components | T7 | H-BT-012 | T7 | Generalized (Response 002 §2) |
+| 8 | Unstable temporary structure condition | T7 | H-BT-013 | T7 | Same scope |
+| 9 | Suspended load during picks | T7 | H-BT-014 | T7 | Same scope (steel picks) |
+| 10 | Falling tools from elevated workers | T25 | H-BT-018 | T25 | H-BT-018 covers tools and hardware |
+| 11 | Noise exposure | T1, T2, T3, T4, T11 | H-BT-019 | T1, T2, T3, T4, T11 | Canonical neutral text; OR applicability |
+| 12 | Noise from pneumatic tools | T23 | H-BT-019 | T23 | As #11 |
+| 13 | Noise-induced hearing damage | T22 | H-BT-019 | T22 | As #11 |
+| 14 | Vibration exposure (hand-arm) | T22 | H-BT-020 | T22 | Canonical neutral text |
+| 15 | Injection injury from high-pressure fluid | T23 | H-BT-023 | T23 | Canonical; controls apply to hydraulic systems generally |
+| 16 | Electrical cord trip hazard | T2 | H-BT-027 | T2 | Hoses and cords; broader |
+| 17 | Trip hazard from cords and cables | T15 | H-BT-027 | T15 | As #16 |
 
-**A-1. Canonical records serving other activities.** H-BT-019, H-BT-020, H-BT-023, H-BT-025 and H-BT-027 would become canonical records surfaced by welding, carpentry, drilling, concrete and electrical work. Under Decision 3, their bolting-specific controls must carry control-level applicability. For example, "wear hearing protection when running impact tools" must not be the only noise control shown for a step like "grind weld."
-
-The canonical *hazard* text should therefore be neutral, as below. The bolting-specific wording moves into conditional controls.
-
-| Record | Neutral canonical text |
-|---|---|
-| H-BT-019 | Noise exposure |
-| H-BT-020 | Hand-arm vibration |
-| H-BT-023 | High-pressure fluid injection |
-| H-BT-025 | Compressed-air hose whip |
-| H-BT-027 | Trips from hoses and cords |
+**Canonical-record caution.** Records #11–17 make H-BT-019, H-BT-020, H-BT-023, H-BT-026 and H-BT-027 canonical across welding, carpentry, drilling, concrete and electrical work. Their bolting-specific controls carry relationship conditions so they don't appear as the only controls for unrelated work:
+- C-000020 (rotate impact work)
+- C-000064 (tensioner hoses)
+- C-000075 (lift snag)
 
 ---
 
-## B. Supersede only if the record is generalized — Architect decision
+## B. Supersession status changes
 
-In each case the mechanism matches, but the H-BT record as currently written is narrower than the production string.
+### B1. r1 §B generalizations — accepted, now in §A
+Accepted under Response 002 §2: rows 3, 4, 5 and 7 above.
 
-| Production string | Appears in | Candidate | Generalization required |
-|---|---|---|---|
-| Rotating equipment entanglement | T3 | H-BT-010 | Broaden to "Fingers, gloves, clothing or lanyards caught in a rotating tool, bit, socket or extension" |
-| Electrical shock | T3 (corded tools) | H-BT-026 | Broaden to "Electrical shock from corded tools or electrically powered equipment." T15 (energized electrical work) is **not** included — see C. |
-| Cuts from pipe ends and flanges | T31 | H-BT-002 | Broaden the hazard text to include pipe ends and flanges. The "remove burrs where permitted" control needs flange-face applicability, because gasket seating surfaces must not be ground. |
-| Caught-between from steel components | T7 | H-BT-012 | Fold caught-between into H-BT-012 ("Caught or crushed between steel members"), or retain T7 separately |
+### B2. r1 §A supersessions withdrawn — narrower than production
+Production strings are **retained unchanged** until the Architect approves a generalization (U-13).
 
-**Recommendation:** generalize and supersede all four. Leaving them creates the near-duplicate pairs that S-3 identified.
+| Production string | Entry | r1 target | Why narrower | Proposed generalization to allow supersession |
+|---|---|---|---|---|
+| Kickback / torque reaction | T3 | H-BT-004 | T3 includes drills, hammer drills, mag drills and core drills, including bit binding. H-BT-004 is powered wrenches only. | H-BT-004 → "Sudden tool movement from torque reaction or bit binding." Wrench-specific controls (C-000012, C-000013) become relationship-conditional. A bit-binding control would be a new canonical control. |
+| Dropped objects | T7 | H-BT-018 | T7 covers any object in steel erection, including materials. H-BT-018 covers bolts, sockets, tools and components. | H-BT-018 → "Dropped tools, hardware and materials from elevated work." Falling structural members stay distinct (§C). |
+| Dropped objects striking workers below | T25 | H-BT-018 | Any object, any trade | Same generalization as above |
+| Hose whip from disconnected line | T23 | H-BT-025 | T23 covers any pressurized hose. H-BT-025 is compressed air only. | H-BT-025 → "Hose whip from pressurized hose or coupling separation." Air-specific controls (C-000067 to C-000070) become relationship-conditional. |
 
 ---
 
 ## C. Retained: related but distinct (not superseded)
 
-| Production string | Appears in | Related H-BT | Reason retained |
+| Production string | Entry | Related H-BT | Reason retained |
 |---|---|---|---|
-| Fall exposure at leading edge and open sides | T7 | H-BT-017 | Leading edge and decking exposure is more specific than a general elevated position |
-| Fall from aerial lift platform | T8 | H-BT-017 | Cross-referenced aerial lift record (Package 001 §6) |
+| Struck-by from overhead steel | T7 | H-BT-014 | **Falling structural materials, distinct from suspended load** (Response 002 §2) |
+| Fall exposure at leading edge and open sides | T7 | H-BT-017 | Leading edge and decking exposure is more specific |
+| Fall from aerial lift platform | T8 | H-BT-017 | Cross-referenced aerial lift record |
 | Fall from ladder; Overreaching and loss of balance | T9 | H-BT-009, H-BT-017 | Cross-referenced ladder records |
-| Crushing / caught-between at overhead obstructions | T8 | — | Cross-referenced. **Highest-ranked aerial lift record for bolting from a boom lift.** |
-| Struck-by from overhead steel | T7 | H-BT-014 | Ambiguous: could mean falling steel rather than suspended steel. Retain until clarified. |
-| Suspended load / dropped load; Suspended load / struck-by; Dropped load | T5, T6 | H-BT-014 | General rigging and crane scope; H-BT-014 is connection-specific |
+| Crushing / caught-between at overhead obstructions | T8 | — | Cross-referenced. Ranks high for bolting from a boom lift. |
+| Suspended load / dropped load; Suspended load / struck-by; Dropped load | T5, T6 | H-BT-014 | General rigging and crane scope |
 | Struck-by from falling materials and tools; Materials stored at height | T25 | H-BT-018 | Broader than tools and hardware |
-| Eye injury from pressure spray | T23 | H-BT-024 | T23 covers pneumatic and hydraulic spray; H-BT-024 is hydraulic-only (Decision: H-BT-024) |
-| Stored pressure release injury | T23, T31 | H-BT-024, H-BT-034 | The line-break / process-pressure meaning is retained |
-| Pinch during flange assembly | T31 | H-BT-001, H-BT-035 | Flange fit-up context; relate to Torque and tensioning on flanges |
-| Electrical shock | T15 | — | Energized electrical work |
-| Trips from debris and cords | T19 | H-BT-027 | Covers debris as well |
-| All context-specific noise, vibration, strain and electrical strings (crusher, shaker, show systems, pump motor, jackhammer, etc.) | Various | — | Context-specific. Consolidate in the packages that own those activities. |
-| Musculoskeletal and ergonomic strain strings | T11, T17, T26, T28, T32–T36, T41 | H-BT-007 | Each is tied to its own task context; out of Package 001 scope |
+| Eye injury from pressure spray | T23 | H-BT-024 | T23 covers pneumatic and hydraulic; H-BT-024 is hydraulic-only |
+| Stored pressure release injury | T23, T31 | H-BT-024, H-BT-034 | Process-pressure meaning |
+| Pinch during flange assembly | T31 | H-BT-001, H-BT-035 | Flange fit-up; related to Torque and tensioning on flanges |
+| Electrical shock | T15 | H-BT-026 | Energized electrical work |
+| Trips from debris and cords | T19 | H-BT-027 | Includes debris |
+| Context-specific noise, vibration, strain, electrical, cut and pinch strings | Various | — | Owned by other activity packages |
 
 ---
 
 ## D. Control entries (HAZ_TO_CONTROL)
 
-Production controls are triggered by keyword groups and are not linked to hazards. Package 001 links controls to hazards. **No production control entry is superseded by Package 001.** Superseding them needs canonical control IDs, which don't exist yet (Unresolved Item U-1).
+The full mapping is in `SIL-CONTROL-REGISTRY.md` (Production equivalent column, notes R-1 to R-3).
 
-These control entries overlap Package 001 controls and must be reconciled when control IDs are assigned:
+**No production control entry is retired.**
 
-| Entry | Overlaps with |
-|---|---|
-| C1 Fall Hazards | H-BT-017 |
-| C3 Cuts / Lacerations / Sharp Edges | H-BT-002 |
-| C4 Flying Debris / Eye Injury | H-BT-021, H-BT-029, H-BT-032 |
-| C7 Suspended Load / Rigging | H-BT-014 |
-| C8 Pinch / Caught-Between | H-BT-001, H-BT-012, H-BT-035 |
-| C11 Crushing / Caught Under / Load Shifts | H-BT-012, H-BT-013 |
-| C15 Slip / Trip / Housekeeping | H-BT-027 |
-| C16 Noise / Hearing | H-BT-019 |
-| C19 Stored Energy / LOTO | Cross-reference for flange and tensioning work |
-| C22 Process Piping / Line Break | Cross-reference for flange and tensioning work |
+**Two production controls are flagged as non-equivalent** and as conflicting with PO Decision 1 or with how the field actually works:
+- **C1** "100% tie-off at 6 feet or greater" (note R-1)
+- **C16** "85 dBA" (note R-2)
 
 ---
 
 ## E. Production keyword relationships to retain
 
-Production T7 already recognizes `bolt-up`, `spud wrench`, `drift pin` and `erection bolt`, and T3 recognizes `bolt installation`. These terms must remain recognition terms in Track B, mapped to Bolt (0013), so existing field phrasing keeps producing results.
-
-The production `tig` keyword (T1) must use whole-term matching in Track B. It currently matches inside "tight" — Engineer Review finding A-1, Regression scenario R-11.
+- Production T7 recognizes `bolt-up`, `spud wrench`, `drift pin` and `erection bolt`; T3 recognizes `bolt installation`. These stay recognition terms mapped to Bolt (0013).
+- Production `tig` (T1) must use whole-term matching in Track B. It currently matches inside "tight" (R-11).

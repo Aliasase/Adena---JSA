@@ -1,11 +1,11 @@
-> **Repository Record (AD-008 §6):** Reconciled **candidate** package. Not approved. Unverified citations, company policy and structural or flange specifications are **not** treated as validated here (Architect Response 001). No application implementation or production release is authorized.
+> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r2. Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
 
-# Safety Intelligence Library — Package 001 (Reconciled Candidate r1)
-## Bolt (0013) · Torque (0014) · Hydraulic Bolt Tensioning (work means)
+# Safety Intelligence Library — Package 001 (Reconciled Candidate r2)
+## Bolt (0013) · Torque (0014) · Hydraulic Bolt Tensioning (work method under Bolt)
 
 **Status:** Candidate. Pending Architect technical validation and Product Owner approval.
 **Reconciled by:** Claude (Engineer), November 25, 2026.
-**Original records preserved unchanged in:** the source files below. This document supersedes none of them.
+**Original records are preserved unchanged** in the source files below. Reconciled r1 is preserved at commit `0195ed9`.
 
 ### Source documents and revision history
 
@@ -14,15 +14,42 @@
 | 1 | Package 001 (original 31 records) | `SIL-PKG-001.md` | `8910536` |
 | 2 | Addendum 01 — Cumulative recognition | `SIL-PKG-001-ADDENDUM-01.md` | `f92afa6` |
 | 3 | Engineer Independent Review | `SIL-PKG-001-ENGINEER-REVIEW.md` | `8910536` |
-| 4 | Architect Response 001 | `SIL-PKG-001-ARCHITECT-RESPONSE-001.md` | this commit |
-| 5 | Addendum 02 — Hydraulic bolt tensioning | `SIL-PKG-001-ADDENDUM-02.md` | this commit |
-| 6 | Engineer review of Addendum 02 | §5 of this document | this commit |
-| 7 | Production record crosswalk | `SIL-PKG-001-PRODUCTION-CROSSWALK.md` | this commit |
+| 4 | Architect Response 001 | `SIL-PKG-001-ARCHITECT-RESPONSE-001.md` | `0195ed9` |
+| 5 | Addendum 02 — Hydraulic bolt tensioning | `SIL-PKG-001-ADDENDUM-02.md` | `0195ed9` |
+| 6 | Reconciled candidate r1 + crosswalk r1 | this file, `SIL-PKG-001-PRODUCTION-CROSSWALK.md` | `0195ed9` |
+| 7 | Architect Response 002 | `SIL-PKG-001-ARCHITECT-RESPONSE-002.md` | this commit |
+| 8 | PO Decision Record 001 | `SIL-PKG-001-PO-DECISION-001.md` | this commit |
+| 9 | Reconciled candidate r2, crosswalk r2, control registry | this file, crosswalk, `SIL-CONTROL-REGISTRY.md` | this commit |
 
-**Labels:**
-- Reference classes: **OSHA** (regulation) · **Spec** (RCSC/AISC/ASME contract specification) · **Mfr** (manufacturer instructions) · **BP** (best practice) · **Policy** (company or client).
-- Every citation is marked **(unverified)** until the Architect completes validation.
-- Citations are internal only; none is shown to users.
+**Reference labels:**
+
+| Label | Meaning |
+|---|---|
+| OSHA-C | 29 CFR 1926 (construction) |
+| OSHA-GI | 29 CFR 1910 (general industry) |
+| MSHA | 30 CFR |
+| Spec | RCSC / AISC / ASME |
+| Mfr | Manufacturer |
+| BP | Best practice |
+| Policy | Company or client |
+
+**Status of each citation:**
+- "Architect-checked" = verified by the Architect in Response 002 §4.
+- "verified, Engineer" = I checked it against the primary or official source in this revision (§8).
+- Everything else is **unverified**.
+
+Citations are internal only and never shown to users.
+
+### r2 change summary
+- Canonical control IDs C-000001 to C-000104 assigned. Every control below cites its ID; full registry in `SIL-CONTROL-REGISTRY.md`.
+- Response 002 §5 corrections applied to: H-BT-007, H-BT-019, H-BT-023, H-BT-025, H-BT-032, H-BT-033, H-BT-034, H-BT-035.
+- H-BT-015 diagonal-bracing citation corrected. My r1 mapping of 1926.756(a)(2) was wrong.
+- Four crosswalk generalizations applied: H-BT-002, H-BT-010, H-BT-012, H-BT-026.
+- Four r1 supersessions withdrawn as narrower than production (Crosswalk §B2).
+- PO Decisions 1–4 applied: H-BT-017 has no numeric threshold and tie-off in boom **and** scissor lifts; H-BT-002 has no cut level.
+- Cumulative applicability corrected to clause-level scoping (§2 rule 4). A flange reference establishes context; it does not assert line breaking (§2 rule 6).
+- Jurisdiction model added (§4).
+- New Engineer findings in §8.
 
 ---
 
@@ -69,9 +96,11 @@ The two must not share labels or storage.
 
 Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method** under Bolt, not as controlled torque. Snug-tight, turn-of-nut, pretensioning, TC installation and controlled torque keep distinct meanings (Response 001).
 
-### 1.3 Work means (cumulative — any combination may be present)
+### 1.3 Work methods and work means (cumulative — any combination may be present)
 
-| Work means | Terms (brand aliases are recognition-only; PO to confirm usage) |
+**Hydraulic bolt tensioning** is a **work method under Bolt (0013)**; the hydraulic tensioner is a **work means**. No separate Tension activity (Response 002 §3).
+
+| Work means | Terms (all aliases accepted, PO Decision 3; brand names are recognition-only and never mandate a brand) |
 |---|---|
 | Manual wrench | spud wrench, box wrench, open-end wrench, socket wrench, hand wrench, sleever bar |
 | Striking / alignment | drift pin, bull pin, sledge, hammer |
@@ -82,7 +111,7 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
 | Torque multiplier (manual or powered) | torque multiplier, gear multiplier, reaction arm, reaction bar, reaction foot |
 | TC installation | shear wrench, TC gun, spline |
 | Pretension verification | DTI, direct tension indicator, load indicating washer, squirter, Skidmore |
-| **Hydraulic bolt tensioner** (Addendum 02) | hydraulic bolt tensioner, hydraulic bolt tensioning, hydraulic stud tensioner, stud tensioning, hydraulic stud tensioning, axial bolt tensioning, hydraulic tensioning pump, bolt stretching, stud stretching, multi-stud tensioning, simultaneous bolt tensioning, detension, de-tension, detensioning; brands: Hydratight, Tentec, ITH, Enerpac (recognition-only; PO to confirm) |
+| **Hydraulic bolt tensioner** (Addendum 02) | hydraulic bolt tensioner, hydraulic bolt tensioning, hydraulic stud tensioner, stud tensioning, hydraulic stud tensioning, axial bolt tensioning, hydraulic tensioning pump, bolt stretching, stud stretching, multi-stud tensioning, simultaneous bolt tensioning, detension, de-tension, detensioning; brands: Hydratight, Tentec, ITH, Enerpac |
 | Context-dependent for tensioning | tensioning, stretching, tensioner, pump, puller, bridge |
 
 **Collisions that must not resolve to bolt tensioning:**
@@ -94,344 +123,452 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
 
 ---
 
-## 2. Applicability rules (Addendum 01 and Response 001)
+## 2. Applicability rules (Addendum 01; Responses 001–002)
 
-1. **Cumulative.** Every recognized activity, object, work means, condition and context contributes its records. Recognizing one never suppresses another.
-2. **Ranking** (AD-008 §4 supersedes CRF §7): applicability class first (Explicit → Inferred → Conditional), then consequence *within* each class, then relevance. Consequence never lifts an unrelated record across classes.
-3. **Inferred applicability** covers reasonably foreseeable hazards the crew did not describe. Example: Bolt + structural member infers H-BT-012, H-BT-013 and H-BT-031.
-4. **Fit-up versus existing connection.** Records marked **[FIT-UP]** apply only when initial erection, fit-up or temporary-connection cues are present:
-   - verbs: hang, set, connect, fit up, align, drift, make up, erect, pick, on the hook;
-   - or Bolt combined with a structural member where no existing-connection cue appears.
+1. **Cumulative.** Every recognized activity, work method, work means, object, condition and context contributes its records. Recognizing one never suppresses another.
 
-   Existing-connection cues (check, re-torque, inspect, verify, existing, retighten) **block** [FIT-UP] records. Suspended-load and temporary-erection hazards are never inferred from a structural connection being mentioned alone.
-5. **Control-level applicability** (Decision 3). A control may carry its own condition. Conditions come from recognized concepts (work means, access, condition), not from exact keyword matches.
-6. **Flange / process piping context** pulls in cross-referenced line break, LOTO, residual pressure and chemical exposure records (production C19, C22; T31). Package 001 does not duplicate them.
-7. **No padding.** Show 15–20 when there's enough applicable content; Show More beyond that; never fill to a count.
+2. **Ranking** (AD-008 §4 supersedes CRF §7):
+   - first by applicability class (Explicit → Inferred → Conditional);
+   - then by consequence *within* each class;
+   - then by relevance.
+
+   Consequence never lifts an unrelated record across classes.
+
+3. **Inferred applicability** covers reasonably foreseeable hazards the crew did not describe.
+
+4. **Clause-level scoping** (Response 002 §6). Relationships are recognized within the relevant portion of the task description, normally the clause containing the activity and object.
+   - An existing-connection cue (check, re-torque, inspect, verify, existing, retighten) blocks **[FIT-UP]** inference only for the activity and object in the same clause. It never suppresses fit-up hazards established by another clause.
+   - **[FIT-UP]** records need initial-erection, fit-up or temporary-connection cues (hang, set, connect, fit up, align, drift, make up, erect, pick, on the hook), or Bolt + a structural member with no existing-connection cue in that clause.
+   - Suspended-load and temporary-erection hazards are never inferred from an existing structural connection being mentioned alone.
+
+5. **Relationship-level applicability.** Applicability belongs to each hazard relationship and each control relationship, not to the record globally:
+   - A canonical hazard keeps a production relationship (for example, H-BT-012 ← T7) with that relationship's own applicability.
+   - A canonical control can carry an additional condition per hazard relationship (Response 002 §1).
+   - Conditions come from recognized concepts, not exact keyword matches.
+
+6. **Flange context** (Response 002 §6):
+   - A flange reference establishes context for *evaluating* line break, hazardous energy, residual pressure and chemical exposure.
+   - These cross-referenced records are **Explicit** only with an opening or breaking cue (break, open, line break, remove blind, replace gasket, disassemble, pull spool).
+   - Otherwise they are **Conditional** (ranked lower, reachable through Show More). They are never asserted for a flange inspection or torque check.
+
+7. **Jurisdiction** (Response 002 §7):
+   - Regulatory jurisdiction is set internally from the operation and work context: OSHA-C, OSHA-GI or MSHA (§4).
+   - OSHA construction citations are not applied universally to mining or industrial maintenance.
+   - User-facing text carries no citations.
+
+8. **Thresholds** (PO Decision 1). No universal numeric fall protection threshold and no universal steel-erection exception in user-facing text. Controls refer to project requirements. Federal exceptions that are less protective than verified Adena or project requirements are never introduced.
+
+9. **Emergency response** (Response 002 §8). Include an immediate response action only where it materially reduces injury severity for that specific hazard:
+   - H-BT-017: rescue (C-000044)
+   - H-BT-023: injection (C-000062)
+   - H-BT-024: eye flush (C-000066, proposed)
+
+   Generic emergency instructions are not repeated across records.
+
+10. **No padding.** Show 15–20 suggestions when there's enough applicable content; Show More beyond that; never fill to a count.
 
 ---
 
 ## 3. Reconciled hazard records
 
-**Format:**
-- **Applicability** (class; cues; constraints)
-- **Hazard** (reconciled user-facing text)
-- **Controls** (user-facing; `[if …]` = control-level condition)
-- **Refs** (internal)
-- **Δ** (change from the original)
+Each control shows its canonical ID. `[condition]` marks a relationship-specific control condition.
 
-### Core records (Explicit when Bolt or Torque is recognized)
-
-**H-BT-001 — Pinch points during bolt installation** · [FIT-UP]
+**H-BT-001 — Pinch points during bolt installation**
+- Applicability: Explicit for Bolt · [FIT-UP]
 - Hazard: Pinch points while fitting and bolting connections.
 - Controls:
-  - Never use fingers to check or align holes — use a drift pin or spud wrench.
-  - Keep hands off mating surfaces while plies are drawn together.
-- Refs: BP. Supersedes production T7 "Pinch points during bolt-up and alignment."
-- Δ: Wording specific; fit-up constraint added.
+  - `C-000002` Never use fingers to check or align holes — use a drift pin or spud wrench.
+  - `C-000003` Keep hands off mating surfaces while plies are drawn together.
+- Refs: BP
+- Δ: r1: wording, fit-up constraint. r2: none.
 
-**H-BT-002 — Cuts from sharp metal edges or burrs**
+**H-BT-002 — Cuts from sharp metal surfaces, pipe ends and flanges**
+- Applicability: Explicit for Bolt/Torque; relationship inherited from T7, T31
+- Hazard: Cuts from sharp metal surfaces, burrs, pipe ends and flanges.
 - Controls:
-  - Wear the cut-resistant gloves required for the task.
-  - Remove burrs only where the connection requirements allow it. `[if flange]` Never grind or file gasket seating faces.
-  - Keep hands off unprotected plate and hole edges.
-- Refs: OSHA 1926.95, 1926.28 (unverified). Glove cut level = Policy. Faying-surface and flange-face limits = Spec (unverified).
-- Δ: Source control added, limited by connection requirements (Response 001).
+  - `C-000004` Wear the hand protection required for the task and project.
+  - `C-000005` Remove burrs only where the connection or flange requirements allow it — never on gasket seating faces.
+  - `C-000006` Keep hands off unprotected plate, pipe and hole edges.
+- Refs: OSHA-C 1926.95, 1926.28 (unverified); Spec (faying-surface and flange-face limits, unverified); Policy (hand protection)
+- Δ: r2: generalized (Response 002 §2); no cut level (PO Decision 4).
 
-**H-BT-003 — Wrench or socket slippage** *(absorbs H-BT-005)*
+**H-BT-003 — Wrench or socket slippage**
+- Applicability: Explicit for Bolt/Torque
 - Hazard: Wrench or socket slipping off the fastener, striking hands against steel.
 - Controls:
-  - Use the correct size wrench or socket, fully seated on the nut.
-  - Do not use wrenches with sprung or worn jaws.
-  - Pull rather than push where possible, knuckles clear of steel.
-  - Do not extend a wrench with pipe unless it is designed for it.
-- Refs: OSHA 1926.301(b) (unverified); BP.
-- Δ: Absorbs 005; controls added.
+  - `C-000007` Use the correct size wrench or socket, fully seated on the nut.
+  - `C-000008` Do not use wrenches with sprung or worn jaws.
+  - `C-000009` Pull rather than push where possible, with knuckles clear of steel.
+  - `C-000010` Do not extend a wrench with pipe unless it is designed for it.
+- Refs: OSHA-C 1926.301(b) (unverified); BP
+- Δ: Absorbs H-BT-005.
 
-**H-BT-004 — Sudden tool movement from torque reaction** · *Conditional*
-- Applicability: handheld powered wrench without a reaction arm (impact, electric, battery, pneumatic). Manual sudden-release hazards stay in H-BT-003, H-BT-009 and H-BT-011.
+**H-BT-004 — Sudden tool movement from torque reaction**
+- Applicability: Conditional: handheld powered wrench without reaction arm
+- Hazard: Powered tool twisting or kicking against the operator.
 - Controls:
-  - Brace for the reaction before pulling the trigger; use the side handle where provided.
-  - Set direction and torque or speed before starting.
-  - Expect the tool to twist when the nut seats or stalls.
-- Refs: Mfr; BP. Supersedes production T3 "Kickback / torque reaction" (inherits the T3 relationship).
-- Δ: Reclassified from core to conditional.
+  - `C-000011` Brace for the tool's reaction before starting; use the side handle where provided.
+  - `C-000012` Set direction and torque or speed before starting.
+  - `C-000013` Expect the tool to twist when the nut seats or stalls.
+- Refs: Mfr; BP
+- Δ: r1: reclassified conditional. r2: T3 supersession withdrawn pending generalization (Crosswalk §B2).
 
-**H-BT-005 — RETIRED.** Consolidated into H-BT-003 (Decision 5). Identifier permanently retired; never reused.
+**H-BT-005 — RETIRED**
+- Applicability: —
+- Hazard: Consolidated into H-BT-003 (Response 001, Decision 5). Identifier never reused.
+- Refs: —
+- Δ: Retired.
 
-**H-BT-006 — Tool or socket failure under load**
-- Applicability: also related to the hydraulic bolt tensioner (Addendum 02). `[if tensioner]` control below.
+**H-BT-006 — Tool or component failure under load**
+- Applicability: Explicit for Bolt/Torque; tensioner relationship
+- Hazard: Wrench, socket, extension, multiplier or tensioner component failing under load.
 - Controls:
-  - Inspect wrenches, sockets, extensions and multipliers before use. Tag and remove cracked, worn or damaged tools.
-  - Use only extensions and multipliers rated for the force applied.
-  - `[if tensioner]` Inspect puller threads, pistons, seals and bridges before use; remove damaged components.
-- Refs: OSHA 1926.300(a), 1926.301(a) (unverified); Mfr.
+  - `C-000014` Inspect wrenches, sockets, extensions and multipliers before use; tag and remove damaged tools.
+  - `C-000015` Use only extensions and multipliers rated for the force applied.
+  - `C-000016` `[if tensioner]` Inspect puller threads, pistons, seals and bridges before use; remove damaged components.
+  - `C-000010` Do not extend a wrench with pipe unless it is designed for it.
+- Refs: OSHA-C 1926.300(a), 1926.301(a) (unverified); Mfr
 
 **H-BT-007 — Strain from applying force or handling heavy tools**
+- Applicability: Explicit for Bolt/Torque
+- Hazard: Strain from applying force or from handling heavy torque or tensioning equipment.
 - Controls:
-  - Choose a longer wrench, a multiplier or a powered tool based on the force needed and the access available — do not overpower a manual wrench.
-  - Set up to pull at waist-to-chest height, not overhead or twisted.
-  - `[if hydraulic wrench, tensioner, large impact or pump]` Move heavy tool heads, tensioners and pumps with two people or a hand line; do not climb carrying them.
-- Refs: BP.
-- Δ: Absorbs tool-handling strain. Powered equipment is not universally prescribed (Response 001).
+  - `C-000017` Choose a longer wrench, a multiplier or a powered tool based on the force needed and the access available — do not overpower a manual wrench.
+  - `C-000018` Set up to apply force at waist-to-chest height, not overhead or twisted.
+  - `C-000019` `[if hydraulic wrench, tensioner, large impact or pump]` Move heavy tool heads, tensioners and pumps with a handling method rated for their weight, configuration and access — do not climb carrying them.
+- Refs: BP
+- Δ: r2: rated handling method replaces universal two-person/hand-line (Response 002 §5).
 
 **H-BT-008 — Repetitive hand and wrist strain**
+- Applicability: Explicit for Bolt/Torque (ranks lower in core)
+- Hazard: Repetitive hand and wrist strain.
 - Controls:
-  - Rotate tasks on long bolt-up runs.
-  - Keep wrists straight.
-  - Use tools sized to the work.
-- Refs: BP. Ranks lower within the core group.
-- Δ: Wording only.
+  - `C-000020` Rotate tasks or workers on long bolting or impact runs to limit exposure.
+  - `C-000021` Keep wrists straight and use tools sized to the work.
+- Refs: BP
 
 **H-BT-009 — Loss of balance during tightening**
-- Applicability: core. When an elevation cue is present, H-BT-017 always accompanies it (Response 001).
+- Applicability: Explicit for Bolt/Torque; with elevation cue always accompanied by H-BT-017
+- Hazard: Loss of balance when a fastener breaks free or a tool slips.
 - Controls:
-  - Set your feet and brace before applying force — expect the nut to break free.
-  - `[if aerial lift]` Stand on the platform floor; never climb or stand on rails to reach a bolt.
-  - `[if ladder]` Do not apply heavy wrench force from a ladder — reposition or use a lift.
-- Refs: OSHA 1926.453(b)(2)(iv), 1926.1053(b)(22) (unverified); BP.
+  - `C-000022` Set your feet and brace before applying force — expect the nut to break free.
+  - `C-000023` `[if aerial or scissor lift]` Stand on the platform floor; never climb or stand on rails to reach the work.
+  - `C-000024` `[if ladder]` Do not apply heavy wrench force from a ladder — reposition or use a lift.
+- Refs: OSHA-C 1926.453(b)(2)(iv) (verified, Engineer); 1926.1053(b)(22) (unverified); BP
 
-**H-BT-010 — Caught in a rotating socket or extension** · *Conditional*
-- Applicability: powered wrench.
-- Hazard: Fingers, gloves, sleeves or lanyards caught in a rotating socket or extension.
+**H-BT-010 — Caught in a rotating tool, bit, socket or extension**
+- Applicability: Conditional: powered rotating tool; relationship inherited from T3
+- Hazard: Fingers, gloves, clothing or lanyards caught in a rotating tool, bit, socket or extension.
 - Controls:
-  - Never hold the socket or extension while the tool runs.
-  - Secure loose sleeves.
-  - Keep lanyards and tool tethers clear of the spinning socket.
-- Refs: Mfr; BP.
-- Δ: Reclassified and renamed. Crosswalk §B: generalization to supersede production T3 entanglement is pending.
+  - `C-000025` Never hold the socket, extension or chuck while the tool runs.
+  - `C-000026` Secure loose sleeves; keep lanyards and tool tethers clear of rotating parts.
+- Refs: Mfr; BP
+- Δ: r2: generalized (Response 002 §2); supersedes T3 "Rotating equipment entanglement".
 
 **H-BT-011 — Bolt snapping or seized nut breaking loose**
+- Applicability: Explicit for Torque; Explicit for Bolt when tightening
 - Hazard: Bolt snapping, or a seized nut breaking loose suddenly under applied force.
 - Controls:
-  - Do not exceed the specified tightening.
-  - Replace fasteners as the project requirements specify — do not reuse bolts that have stretched, galled or been over-tightened.
-  - Brace on seized or rusted nuts and keep clear of the swing.
-- Refs: Spec (RCSC reuse provisions, unverified); BP.
-- Δ: Mechanism redefined (Decision accepted).
+  - `C-000027` Do not exceed the specified tightening.
+  - `C-000028` Replace and reuse fasteners only as the project requirements specify — remove bolts that have stretched, galled or been over-tightened.
+  - `C-000022` Set your feet and brace before applying force — expect the nut to break free.
+- Refs: Spec — RCSC 2020 §2.11 reuse provisions (Architect-checked); BP
+- Δ: r2: reuse wording made project-specific (Response 002 §4).
 
-### Conditional / inferred records
-
-**H-BT-012 — Caught or crushed between shifting steel** · [FIT-UP]; Inferred from Bolt + structural member
+**H-BT-012 — Caught-between and crushing from shifting steel**
+- Applicability: [FIT-UP]; Inferred from Bolt + structural member; relationship inherited from T7 (own applicability)
+- Hazard: Caught between or crushed by shifting steel members.
 - Controls:
-  - Keep hands and body out from between members until the connection is made.
-  - Pull pins and loosen bolts only with the member supported — misaligned steel can spring when released.
-- Refs: OSHA 1926.754(a) (unverified); BP. Supersedes production T7 "Crushing from shifting steel." Crosswalk §B: "Caught-between" decision pending.
+  - `C-000029` Keep hands and body out from between members until the connection is made.
+  - `C-000030` Pull pins and loosen bolts only with the member supported — misaligned steel can spring when released.
+- Refs: OSHA-C 1926.754(a) (unverified); BP
+- Δ: r2: generalized (Response 002 §2); supersedes T7 "Crushing from shifting steel" and "Caught-between from steel components".
 
-**H-BT-013 — Structural instability or collapse** · [FIT-UP]; Inferred from Bolt + structural member
-- Cues: temporary bolts, erection bolts, guy, bracing, plumb up, temporary connection.
+**H-BT-013 — Structural instability or collapse**
+- Applicability: [FIT-UP]; Inferred from Bolt + structural member
+- Hazard: Structural instability or collapse of partially connected steel.
 - Controls:
-  - Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements.
-  - Follow the erection plan sequence.
-- Refs: OSHA 1926.754(a); 1926.752(e) where a site-specific erection plan is used (unverified).
+  - `C-000031` Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements.
+  - `C-000032` Follow the erection plan sequence.
+- Refs: OSHA-C 1926.754(a), 1926.752(e) (unverified)
 
-**H-BT-014 — Struck-by or caught-between suspended steel** · [FIT-UP]; Conditional
-- Cues: hang, set, pick, crane, on the hook, connect + structural member.
+**H-BT-014 — Struck-by or caught-between suspended steel**
+- Applicability: [FIT-UP]; Conditional (hang, set, pick, crane, on the hook)
+- Hazard: Struck by or caught between suspended structural steel. (Distinct from falling structural materials — production T7 "Struck-by from overhead steel" retained.)
 - Controls:
-  - Stay out from under the load; only the connectors make the initial connection.
-  - Use tag lines; keep hands off the load except at the connection point.
-  - Keep direct communication with the signal person.
-- Refs: OSHA 1926.753(d), 1926.760(b) (unverified). Supersedes production T7 "Suspended load during picks."
+  - `C-000033` Stay out from under the suspended load.
+  - `C-000034` Only the connectors make the initial connection.
+  - `C-000035` Use tag lines; keep hands off the load except at the connection point.
+  - `C-000036` Keep direct communication with the signal person.
+- Refs: OSHA-C 1926.753(d), 1926.760(b) (unverified)
 
-**H-BT-015 — Member movement or collapse on releasing hoisting equipment** · [FIT-UP]; Conditional
+**H-BT-015 — Member movement or collapse on releasing hoisting equipment**
+- Applicability: [FIT-UP]; Conditional
+- Hazard: Structural member moving or collapsing when the hoisting line is released.
 - Controls:
-  - Do not release the load until the connection required for that member is made.
-  - Verify stability before releasing the rigging.
-- Refs, by member type — never stated as a universal rule (unverified):
-  - Solid-web members: 1926.756(a)(1)
-  - Diagonal bracing: 1926.756(a)(2)
-  - Joists: 1926.757
-  - Columns and anchor rods: 1926.755
-- Δ: None to user text.
+  - `C-000037` Do not release the load until the connection required for that member is made and stability is verified.
+  - `C-000032` Follow the erection plan sequence.
+- Refs: OSHA-C 1926.756(a)(1) solid-web members (Architect-checked); 1926.756(a)(2) cantilevered members (Architect-checked); 1926.756(b) diagonal bracing (Architect-checked); 1926.757 joists, 1926.755 columns/anchor rods (unverified)
+- Δ: r2: diagonal bracing corrected to 1926.756(b); (a)(2) = cantilevered members (Response 002 §4). Engineer r1 mapping was wrong.
 
-**H-BT-016 — Collapse from removing bolts at a shared (double) connection** · [FIT-UP]; Conditional
-- Cues: double connection, both sides of the column, shared holes, beams over column.
-- Controls: At a shared connection, keep at least one bolt with its nut tight in the first member — unless a seat or approved support device holds it — while installing the second member.
-- Refs: OSHA 1926.756(c)(1) (unverified).
-
-**H-BT-017 — Fall from elevated work position** · Conditional on an elevation cue
+**H-BT-016 — Collapse from removing bolts at a shared (double) connection**
+- Applicability: [FIT-UP]; Conditional (double connection, shared holes, both sides of column, beam over column)
+- Hazard: First member falling when shared bolts are removed to make a double connection.
 - Controls:
-  - Use the fall protection required by company, project and equipment-manufacturer requirements for the access being used — do not start until it is in place.
-  - `[if boom lift]` Tie off to the platform's designated anchor.
-  - `[if on structural steel]` Tie off to an approved anchorage before bolting.
-- Interpretation (Response 001):
-  - Final bolting or torquing of members already erected ordinarily falls under 1926.760(a), not the connector provisions of 1926.760(b).
-  - Connector status depends on actual duties under 1926.751.
-  - No federal threshold or exception appears in user-facing text where Adena or project rules are more stringent.
-- Cross-references: aerial lift (T8) — **"Crushing / caught-between at overhead obstructions" ranks high for boom lift + structural member**; ladder (T9).
-- Refs: OSHA 1926.453(b)(2)(v), 1926.760(a) (unverified); Policy.
+  - `C-000038` At a shared connection, keep at least one bolt with its nut tight in the first member — unless a seat or approved support device holds it.
+- Refs: OSHA-C 1926.756(c)(1) — verified by Engineer; per OSHA interpretation of 05/09/2006, (c) does not apply to double connections at a beam away from a column. The hazard remains, so the record applies to all shared-bolt connections; the citation applies only at columns.
+- Δ: r2: interpretation added.
 
-**H-BT-018 — Dropped bolts, sockets, tools and components** · Conditional on an elevation cue
+**H-BT-017 — Fall from elevated work position**
+- Applicability: Conditional on elevation cue
+- Hazard: Fall from an elevated work position.
 - Controls:
-  - Keep bolts, nuts and washers in a secured bolt bag or bucket — never loose on flanges or beams.
-  - Use rated tool tethers where required.
-  - Barricade or control the area below; no one works below without protection.
-  - `[if tensioner]` Support tensioners so they cannot fall when pullers are unthreaded.
-- Refs: OSHA 1926.759(a), (b) (unverified). Supersedes production T7 "Dropped objects," T25 "Dropped objects striking workers below," and T25 "Falling tools from elevated workers."
+  - `C-000039` Use the fall protection required by company, project and equipment-manufacturer requirements for the access being used — do not start until it is in place.
+  - `C-000040` `[if boom or scissor lift]` In boom and scissor lifts, wear compatible personal fall protection attached to the manufacturer-approved anchorage point.
+  - `C-000041` `[if boom or scissor lift]` Never tie off to the steel or an adjacent structure from a lift.
+  - `C-000042` `[if on structure]` Tie off to an approved anchorage rated for fall arrest before working on steel.
+  - `C-000043` Inspect harness, lanyard or SRL and connectors before use.
+  - `C-000044` Have a rescue plan ready before work at height — a worker suspended in a harness must be reached promptly.
+- Refs: Policy (PO Decision 1 — project-specific thresholds; PO Decision 2 — tie-off in boom and scissor lifts); OSHA-C 1926.453(b)(2)(iii), (v) (verified, Engineer); 1926.760(a) (Response 001); OSHA-GI 1910.67(c)(2)(v) (verified, Engineer). Per OSHA interpretation, scissor lifts are not covered by the 1926.453 aerial lift provisions — scissor tie-off rests on Policy.
+- Δ: r2: PO Decisions 1–2; no numeric threshold; no-tie-to-structure and rescue controls added.
 
-**H-BT-019 — Noise exposure** · Conditional (canonical; Crosswalk §A-1)
-- Applicability: noise-producing work means (impact, pneumatic tools, air-driven pumps, striking), **and** nearby operations.
+**H-BT-018 — Dropped bolts, sockets, tools and components**
+- Applicability: Conditional on elevation cue; relationship inherited from T25 (Falling tools) and T7
+- Hazard: Dropped bolts, sockets, tools and tensioning components striking people below.
 - Controls:
-  - Wear hearing protection around impact tools, air tools, air-driven pumps and hammering — including workers nearby.
-  - Consider other noisy operations in the area.
-- Refs: OSHA 1926.52, 1926.101 (unverified).
+  - `C-000045` Keep bolts, nuts and washers in a secured bolt bag or bucket — never loose on flanges or beams.
+  - `C-000046` Use rated tool tethers where required.
+  - `C-000047` Barricade or control the area below; no one works below without protection.
+  - `C-000048` `[if tensioner]` Support tensioners so they cannot fall when pullers are unthreaded.
+- Refs: OSHA-C 1926.759(a), (b) (Architect-checked; steel erection scope)
+- Δ: r2: T7 "Dropped objects" and T25 "Dropped objects striking workers below" supersession withdrawn pending generalization (Crosswalk §B2).
 
-**H-BT-020 — Hand-arm vibration** · Conditional (canonical)
+**H-BT-019 — Noise exposure**
+- Applicability: Conditional: noise-producing equipment OR nearby noisy operations (either suffices)
+- Hazard: Noise exposure.
 - Controls:
-  - Rotate impact work across the crew.
-  - Keep tools maintained.
-  - Do not rely on anti-vibration gloves alone.
-- Refs: BP (ISO 5349 / ANSI S2.70, unverified). No OSHA standard.
+  - `C-000049` Wear hearing protection around noise-producing equipment and operations, including when working near others' noisy work.
+- Refs: OSHA-C 1926.52, 1926.101; OSHA-GI 1910.95; MSHA 30 CFR Part 62 (all unverified)
+- Δ: r2: OR applicability (Response 002 §5).
 
-**H-BT-021 — Socket or attachment ejection** · Conditional on a powered wrench
+**H-BT-020 — Hand-arm vibration**
+- Applicability: Conditional: impact or pneumatic tools
+- Hazard: Hand-arm vibration.
 - Controls:
-  - Use sockets rated for the tool (impact-rated on impact tools).
-  - Use the manufacturer-approved retention.
-  - Wear safety glasses.
-- Refs: Mfr; BP. 1926.302(b)(2) **not** relied on (Response 001).
+  - `C-000020` Rotate tasks or workers on long bolting or impact runs to limit exposure.
+  - `C-000050` Keep tools maintained to reduce vibration.
+  - `C-000051` Do not rely on anti-vibration gloves alone.
+- Refs: BP (ISO 5349 / ANSI S2.70, unverified); no OSHA standard
 
-**H-BT-022 — Crushing at the reaction point** · Conditional on any reaction-arm equipment (hydraulic, electric, battery, pneumatic and manual torque multipliers)
+**H-BT-021 — Socket or attachment ejection**
+- Applicability: Conditional: powered wrench
+- Hazard: Socket or attachment coming off or shattering.
 - Controls:
-  - Set the reaction arm against a solid surface and confirm the reaction direction before applying force.
-  - Keep hands, hoses and body clear of the arm and the reaction point.
-  - `[if pump operated by another person]` **Shared control SC-01:** the pump operator pressurizes only on a clear signal from the person at the tool.
-- Refs: Mfr; BP.
+  - `C-000052` Use sockets rated for the tool — impact-rated sockets on impact tools.
+  - `C-000053` Use the manufacturer-approved socket or attachment retention.
+  - `C-000054` Wear safety glasses.
+- Refs: Mfr; BP. 1926.302(b)(2) not relied on.
+- Δ: r2: tool-rated sockets, manufacturer retention.
 
-**H-BT-023 — High-pressure fluid injection** · Conditional on hydraulic wrench or tensioner (canonical)
+**H-BT-022 — Crushing at the reaction point**
+- Applicability: Conditional: any reaction-arm equipment, including manual torque multipliers
+- Hazard: Hand or body crushed at the torque reaction point.
 - Controls:
-  - Inspect hoses and fittings.
-  - Never use hands to locate leaks.
-  - Confirm the gauge reads zero before disconnecting.
-  - Do not kink, step on or drive over hoses.
-  - **Get immediate medical attention for any suspected injection injury, even if it looks minor** (Decision 4).
-- Refs: OSHA 1926.302(d)(2) (unverified); BP. Supersedes production T23 "Injection injury from high-pressure fluid."
+  - `C-000056` Set the reaction arm against a solid surface and confirm the reaction direction before applying force.
+  - `C-000057` Keep hands, hoses and body clear of the reaction arm and reaction point.
+  - `C-000001` `[if pump operated by another person]` The pump operator pressurizes only on a clear signal from the person at the tool.
+- Refs: Mfr; BP
 
-**H-BT-024 — Hydraulic hose or fitting failure** · Conditional on hydraulic wrench or tensioner
+**H-BT-023 — High-pressure fluid injection**
+- Applicability: Conditional: hydraulic wrench or tensioner; relationship inherited from T23
+- Hazard: High-pressure hydraulic fluid injection.
+- Controls:
+  - `C-000058` Inspect hydraulic hoses and fittings before use.
+  - `C-000059` Never use hands to locate leaks.
+  - `C-000060` Verify hydraulic pressure is released and address any trapped pressure or stored mechanical energy before disconnecting or removing equipment.
+  - `C-000061` Do not kink, step on or drive over hoses.
+  - `C-000062` Get immediate medical attention for any suspected injection injury, even if it looks minor.
+- Refs: OSHA-C 1926.302(d)(2) (Architect-checked); BP
+- Δ: r2: depressurization control covers trapped pressure and stored mechanical energy (Response 002 §5).
+
+**H-BT-024 — Hydraulic hose or fitting failure**
+- Applicability: Conditional: hydraulic wrench or tensioner
 - Hazard: Hydraulic hose or fitting failure — fluid spray to eyes and face, slippery surfaces.
 - Controls:
-  - Use hoses and couplers rated for the system's maximum pressure.
-  - Fully engage couplers.
-  - `[if tensioner]` Do not use torque-wrench hoses or couplers on tensioner systems unless they are rated for tensioner pressure.
-  - Clean up spilled fluid before continuing.
-- Refs: OSHA 1926.302(d)(2) (unverified); Mfr.
-- Δ: Hydraulic only (Decision accepted).
+  - `C-000063` Use hoses and couplers rated for the system's maximum pressure, with couplers fully engaged.
+  - `C-000064` `[if tensioner]` Do not use torque-wrench hoses or couplers on a tensioner system unless they are rated for tensioner pressure.
+  - `C-000065` Clean up spilled fluid before continuing.
+  - `C-000066` If hydraulic fluid gets in the eyes, flush immediately and get medical evaluation.
+  - `C-000060` Verify hydraulic pressure is released and address any trapped pressure or stored mechanical energy before disconnecting or removing equipment.
+- Refs: OSHA-C 1926.302(d)(2) (Architect-checked); Mfr
+- Δ: r2: eye-flush response proposed (Response 002 §8).
 
-**H-BT-025 — Compressed-air hose whip** · Conditional on pneumatic wrench or air-driven pump (canonical)
+**H-BT-025 — Compressed-air hose whip**
+- Applicability: Conditional: pneumatic tool or air-driven pump
+- Hazard: Air hose whipping when a coupling or tool connection separates.
 - Controls:
-  - Install whip checks at couplings.
-  - Use excess-flow valves on supply lines where required — one does not replace the other.
-  - Shut off and bleed the air before disconnecting.
-- Refs: OSHA 1926.302(b)(1), (b)(7) (unverified). Supersedes production T23 "Hose whip from disconnected line."
-- Δ: Restraint and excess-flow distinguished (Response 001).
+  - `C-000067` Use air tools with a positive connection to the hose that cannot come apart accidentally.
+  - `C-000068` Install hose restraints (whip checks) at couplings.
+  - `C-000069` Use excess-flow valves on supply lines where required — hose restraints and excess-flow valves do not replace each other.
+  - `C-000070` Shut off and bleed the air before disconnecting.
+- Refs: OSHA-C 1926.302(b)(1), (b)(7) (Architect-checked); MSHA 56.13021 (verified, Engineer — different scope: hoses of 3/4 in. ID and larger at 100 psi or more; automatic shutoff valves are an alternative)
+- Δ: r2: positive connection added separately (Response 002 §5); T23 supersession withdrawn pending generalization (Crosswalk §B2).
 
-**H-BT-026 — Electrical shock** · Conditional on corded tool or electrically powered pump
+**H-BT-026 — Electrical shock from powered tools and equipment**
+- Applicability: Conditional: corded tools or electrically powered equipment (incl. pumps); relationship inherited from T3
+- Hazard: Electrical shock from powered tools and equipment.
 - Controls:
-  - Inspect cords and plugs.
-  - Use the GFCI or other electrical protection required for the equipment and conditions.
-  - Keep cords out of water and away from pinch points.
-- Refs: OSHA 1926.404(b)(1) (unverified).
+  - `C-000071` Inspect cords and plugs before use.
+  - `C-000072` Use the GFCI or other electrical protection required for the equipment and conditions.
+  - `C-000073` Keep cords out of water and away from pinch points.
+- Refs: OSHA-C 1926.404(b)(1) (unverified); general-industry equivalent to be identified
+- Δ: r2: generalized (Response 002 §2).
 
-**H-BT-027 — Trips from hoses and cords** · Conditional on corded, pneumatic or hydraulic equipment (canonical)
+**H-BT-027 — Trips from hoses and cords**
+- Applicability: Conditional: corded, pneumatic or hydraulic equipment; relationships inherited from T2, T15
+- Hazard: Trips from hoses and cords.
 - Controls:
-  - Route hoses and cords out of walkways.
-  - `[if aerial lift]` Secure hoses and cords so they cannot snag on steel as the lift moves, while leaving enough slack for travel and avoiding entanglement points.
-- Refs: BP. Supersedes production T2 and T15 cord-trip strings.
+  - `C-000074` Route hoses and cords out of walkways.
+  - `C-000075` `[if aerial or scissor lift]` On lifts, secure hoses and cords so they cannot snag on steel as the lift moves, with enough slack for travel and without creating entanglement points.
+- Refs: BP
 
-**H-BT-028 — Falling or ejected bolt splines** · Conditional on TC installation
+**H-BT-028 — Falling or ejected bolt splines**
+- Applicability: Conditional: TC installation
+- Hazard: Falling or ejected TC bolt splines.
 - Controls:
-  - Collect splines in a bag or bucket using the wrench's ejector.
-  - Keep personnel clear below.
-- Refs: Mfr.
+  - `C-000076` Collect splines using the wrench's ejector into a bag or bucket.
+  - `C-000047` `[if elevated]` Barricade or control the area below; no one works below without protection.
+- Refs: Mfr
 
-**H-BT-029 — Flying fragments or ejected drift pin** · Conditional on striking or drift pins
+**H-BT-029 — Flying fragments or ejected drift pin**
+- Applicability: Conditional: striking or drift pins
+- Hazard: Flying fragments, or a drift pin ejected when struck.
 - Controls:
-  - Remove mushroomed or damaged striking tools and pins from service.
-  - Wear safety glasses; add a face shield for sustained striking.
-  - Keep your partner and others clear of the far side when driving pins.
-- Refs: OSHA 1926.301(c), 1926.102 (unverified).
-- Δ: Absorbs drift-pin ejection.
+  - `C-000077` Remove mushroomed or damaged striking tools and pins from service.
+  - `C-000054` Wear safety glasses.
+  - `C-000055` Add goggles or a face shield where debris or fragments can reach the face.
+  - `C-000078` Keep your partner and others clear of the far side when driving pins.
+- Refs: OSHA-C 1926.301(c), 1926.102 (unverified)
+- Δ: r2: face protection by exposure, not duration.
 
-**H-BT-030 — Hand injury from missed strikes** · Conditional on striking or drift pins
+**H-BT-030 — Hand injury from missed strikes**
+- Applicability: Conditional: striking or drift pins
+- Hazard: Hand struck by a missed hammer blow.
 - Controls:
-  - Keep hands out of the strike zone.
-  - Use a pin holder or long-handled tool to hold pins.
-- Refs: BP.
+  - `C-000079` Keep hands out of the strike zone; use a pin holder or long-handled tool to hold pins.
+- Refs: BP
 
-**H-BT-031 — Structural connection failure from incorrect installation** · Inferred from structural bolting, pretensioning or torquing
-- Controls (method-specific; **exact provisions pending validation**):
-  - Use the bolt grade, length and washers called for on the drawings.
-  - Tighten in pattern from the stiffest part of the joint outward.
-  - `[if turn-of-nut]` Snug tight first, match mark, then turn the specified rotation.
-  - `[if calibrated wrench]` Verify calibration daily with the bolts being installed.
-  - `[if TC bolt]` The spline must be sheared off — a bolt with spline intact is not tensioned.
-  - `[if DTI]` Verify gaps or indicator per manufacturer.
-  - `[if pretensioned joint]` Complete pre-installation verification before production bolting.
-  - Follow the project's bolt reuse limits.
-  - Keep bolts clean, dry and lubricated as delivered.
-- Refs: Spec — RCSC *Specification for Structural Joints Using High-Strength Bolts*; AISC 303/360 (unverified).
-- Δ: Renamed "structural"; flange joints moved to H-BT-036 (§5.3).
-
-**H-BT-032 — Debris falling into eyes during overhead bolting** · Conditional on overhead work (cues: overhead, underside, bottom flange, ceiling; or inferred from an aerial lift beneath steel)
+**H-BT-031 — Structural connection failure from incorrect installation**
+- Applicability: Inferred from structural bolting, pretensioning or torquing
+- Hazard: Structural connection failure from incorrect bolt installation or tightening.
 - Controls:
-  - Wear safety glasses; add goggles or a face shield for sustained overhead impact work.
-  - Position yourself so you are not looking straight up into the work.
-- Refs: OSHA 1926.102 (unverified); BP.
-- Δ: New (Decision 6).
+  - `C-000080` Use the bolt grade, length and washers called for on the drawings.
+  - `C-000081` Tighten in pattern from the stiffest part of the joint outward.
+  - `C-000082` `[if turn-of-nut]` Turn-of-nut: snug tight first, match mark, then turn the specified rotation.
+  - `C-000083` `[if calibrated wrench]` Calibrated wrench: verify calibration daily with the bolts being installed.
+  - `C-000084` `[if TC bolts]` TC bolts: the spline must be sheared off — a bolt with the spline intact is not tensioned.
+  - `C-000085` `[if DTI]` DTI: verify gaps or indicator per manufacturer.
+  - `C-000086` `[if pretensioned joint]` Complete pre-installation verification before production bolting of pretensioned joints.
+  - `C-000028` Replace and reuse fasteners only as the project requirements specify — remove bolts that have stretched, galled or been over-tightened.
+  - `C-000087` Keep bolts clean, dry and lubricated as delivered.
+  - `C-000027` Do not exceed the specified tightening.
+- Refs: Spec — RCSC 2020 (§2.11 Architect-checked; other provisions unverified); AISC 303/360 (unverified)
+- Δ: r2: reuse control made project-specific.
 
-### Hydraulic bolt tensioning records (Addendum 02, revised per §5)
-
-**H-BT-033 — Stud or tensioner component ejected under hydraulic pressure** · Conditional on a tensioner
+**H-BT-032 — Debris falling into eyes during overhead bolting**
+- Applicability: Conditional: overhead work cue, or inferred from lift beneath steel
+- Hazard: Scale, rust or debris falling into the eyes during overhead bolting.
 - Controls:
-  - Verify the required thread engagement of the puller on the stud before pressurizing.
-  - Confirm the tensioner and puller match the stud size and thread.
-  - Seat the bridge square and flat on the flange face.
-  - Keep everyone out of the line of force above the tools — `[if multiple tools]` around the full flange.
-  - Do not exceed the tool's rated pressure or piston stroke.
-  - If a nut will not turn, stop — do not raise pressure beyond the procedure.
-- Refs: Mfr; Spec (ASME PCC-1, unverified).
+  - `C-000054` Wear safety glasses.
+  - `C-000055` Add goggles or a face shield where debris or fragments can reach the face.
+  - `C-000088` Position yourself so you are not looking straight up into the work.
+- Refs: OSHA-C 1926.102 (unverified); BP
+- Δ: r2: protection selected by actual debris exposure (Response 002 §5).
 
-**H-BT-034 — Sudden release of stud tension during detensioning or loosening** · Conditional on detension or removal of tensioned studs
+**H-BT-033 — Stud or tensioner component ejected under hydraulic pressure**
+- Applicability: Conditional: hydraulic bolt tensioner
+- Hazard: Stud, puller or tensioner component ejected under hydraulic pressure.
 - Controls:
-  - Loosen tensioned studs only with the tensioner and the specified detensioning procedure.
-  - Never cut, hammer or impact a tensioned nut or stud loose.
-  - Keep clear of the stud axis while load is released.
-- Refs: Mfr.
-- Δ: Hydraulic depressurization controls moved to H-BT-023 / H-BT-024 (§5.3).
+  - `C-000089` Verify the required puller thread engagement on the stud before pressurizing.
+  - `C-000090` Confirm the tensioner and puller match the stud size and thread.
+  - `C-000091` Seat the bridge square and flat on the flange face.
+  - `C-000092` Keep everyone clear of the axial line of force of each tensioner or loaded stud, whatever its orientation.
+  - `C-000093` Do not exceed the tool's rated pressure or piston stroke.
+  - `C-000094` If a nut will not turn, stop — do not raise pressure beyond the procedure.
+  - `C-000016` Inspect puller threads, pistons, seals and bridges before use; remove damaged components.
+- Refs: Mfr; Spec (ASME PCC-1, unverified)
+- Δ: r2: axial line regardless of orientation (Response 002 §5).
 
-**H-BT-035 — Pinch and crush points at tensioners** · Conditional on a tensioner
+**H-BT-034 — Sudden release of stud tension during detensioning or loosening**
+- Applicability: Conditional: detensioning or removal of tensioned studs
+- Hazard: Sudden release of stud preload during detensioning, or when a tensioned nut is loosened by other means.
 - Controls:
-  - Turn nuts only through the bridge window with the tommy bar; keep fingers out of the window and from between the tool and the flange.
-  - Keep hands clear of pistons and pullers while pressurized.
-  - **Shared control SC-01** (signal before pressurizing).
-  - Disconnect or lock the pump control while positioning or adjusting tools.
-- Refs: Mfr; BP.
-- Δ: "Keep hands clear of nut-turning mechanisms" corrected (§5.3).
+  - `C-000095` Loosen tensioned studs only with the tensioner and the specified detensioning procedure.
+  - `C-000096` Never cut, hammer or impact a tensioned nut or stud loose.
+  - `C-000092` Keep everyone clear of the axial line of force of each tensioner or loaded stud, whatever its orientation.
+  - `C-000060` Verify hydraulic pressure is released and address any trapped pressure or stored mechanical energy before disconnecting or removing equipment.
+- Refs: Mfr
+- Δ: r2: depressurization/stored-energy control linked (Response 002 §5).
 
-**H-BT-036 — Pressure-boundary bolted joint failure or leak from incorrect bolt load** · Inferred from Torque, Bolt or tensioning on a flange, vessel or piping joint
+**H-BT-035 — Pinch and crush points at tensioners**
+- Applicability: Conditional: hydraulic bolt tensioner
+- Hazard: Fingers pinched or crushed at tensioners during positioning, pressurizing and nut turning.
 - Controls:
-  - Follow the specified tightening or tensioning sequence, number of passes and pressure or torque.
-  - Use the specified studs, nuts and gasket; do not reuse a gasket.
-  - `[if tensioner]` Run nuts down fully before releasing pressure.
-  - Use calibrated gauges and correctly rated equipment.
-  - Complete the required joint verification and records before return to service.
-- Refs: Spec (ASME PCC-1, unverified); OSHA 1926.64 / 1910.119(j) where PSM applies (unverified); Policy / client.
-- Δ: Scope widened from tensioning only to all flange bolt-load methods (§5.3).
+  - `C-000097` Turn nuts by the manufacturer-designated method; keep fingers out of nut-turning openings and the gap between tool and flange.
+  - `C-000098` Keep hands clear of pistons and pullers while pressurized.
+  - `C-000001` The pump operator pressurizes only on a clear signal from the person at the tool.
+  - `C-000099` Disconnect or lock the pump control while positioning or adjusting tools.
+- Refs: Mfr; BP
+- Δ: r2: manufacturer-designated nut-turning method (Response 002 §5).
+
+**H-BT-036 — Pressure-boundary bolted joint failure or leak**
+- Applicability: Inferred from Bolt, Torque or tensioning on a flange, vessel or piping joint
+- Hazard: Bolted pressure-boundary joint leaking or failing from incorrect bolt load.
+- Controls:
+  - `C-000100` Follow the specified tightening or tensioning sequence, number of passes and pressure or torque.
+  - `C-000101` Use the specified studs, nuts and gasket; do not reuse a gasket.
+  - `C-000102` `[if tensioner]` Run nuts down fully before releasing tensioner pressure.
+  - `C-000103` Use calibrated gauges and correctly rated equipment.
+  - `C-000104` Complete the required joint verification and records before return to service.
+- Refs: Spec (ASME PCC-1, unverified); OSHA-C 1926.64 / OSHA-GI 1910.119(j) where PSM applies (unverified); Policy / client
+
 
 ---
 
-## 4. Shared controls
+## 4. Jurisdiction model (Response 002 §7)
 
-| ID (provisional) | Control | Used by |
-|---|---|---|
-| SC-01 | Pump operator pressurizes only on a clear signal from the person at the tool | H-BT-022, H-BT-035 |
+Jurisdiction is an internal attribute set from the operation and work context, never from the user-facing text:
+- construction project → OSHA-C;
+- plant maintenance at a general-industry facility → OSHA-GI;
+- work on mine property (e.g. phosphate) → MSHA.
 
-Control ID scheme pending (U-1).
+Each reference is stored with its jurisdiction. Where an equivalent provision hasn't been identified, the record carries the gap rather than borrowing another jurisdiction's citation.
+
+| Topic | OSHA-C | OSHA-GI | MSHA | Status |
+|---|---|---|---|---|
+| Aerial lift fall protection | 1926.453(b)(2)(iii)–(v) | 1910.67(c)(2)(v) | 56.15005 | C and GI verified (Engineer); MSHA unverified |
+| Pneumatic hose connections | 1926.302(b)(1), (b)(7) | To be identified | 56.13021 | C Architect-checked; MSHA verified (Engineer) |
+| Hydraulic component pressure limits | 1926.302(d)(2) | To be identified | To be identified | C Architect-checked |
+| Hand tool condition | 1926.301 | 1910.242(a) | To be identified | Unverified |
+| Noise | 1926.52, 1926.101 | 1910.95 | Part 62 | Unverified |
+| Electrical protection for tools | 1926.404(b)(1) | To be identified | To be identified | Unverified |
+| Steel erection (connections, falling objects) | 1926.754–.760 | n/a | n/a | Partly Architect-checked |
+| Hazardous energy (flange cross-reference) | Cross-reference | 1910.147 | 56.14105 | Unverified |
+| PSM mechanical integrity (H-BT-036) | 1926.64 | 1910.119(j) | n/a | Unverified |
+
+**Note on MSHA 56.13021.** It has a different scope from OSHA 1926.302(b)(7):
+- hoses of 3/4 in. inside diameter or larger, at 100 psi or more;
+- safety chains or locking devices required;
+- automatic shutoff valves are an alternative.
+
+In line with rule 8, these thresholds stay internal.
 
 ---
 
 ## 5. Engineer review of Addendum 02 — hydraulic bolt tensioning
 
 ### 5.1 Classification
-Hydraulic tensioning applies axial stretch, not rotation (Addendum 02 is correct). **Recommendation:** treat the tensioner as a **work means under Bolt (0013)**, as the hydraulic torque wrench is treated, rather than creating a new "Tension" activity. Its distinct hazards attach to the work means. That keeps with CRF §8.3 ("more generic") and avoids a new activity that would collide with structural pretension, belt, post-tension and rigging senses of "tension." **Architect decision** (U-6).
+Hydraulic tensioning applies axial stretch, not rotation (Addendum 02 is correct). **Resolved (Response 002 §3):** work method under Bolt (0013); the tensioner is a work means; no Tension activity. Air-driven pump relationships accepted. No universal pressures, stroke limits or thread-engagement measurements are encoded.
 
 ### 5.2 Recognition
 - The Addendum 02 terms are accepted; detension variants and brand aliases are added (§1.3).
@@ -444,7 +581,7 @@ Hydraulic tensioning applies axial stretch, not rotation (Addendum 02 is correct
 |---|---|---|
 | H-BT-033 | Sound. Missing: puller-to-stud size and thread match (metric vs. inch, thread series), the bridge not seating square on the flange face, damaged stud threads, and the field reaction of raising pressure when a nut won't turn. With multiple tools, the line of force is the whole flange, not one axis. | Controls added |
 | H-BT-034 | As written, its controls (release pressure, verify depressurization) are hydraulic stored energy, which duplicates H-BT-023 / H-BT-024. The distinct mechanical hazard is release of **stud preload** during detensioning — or when a tensioned nut is cut, hammered or impacted loose without the tensioner. | Redefined. Gauge-zero check stays in H-BT-023. |
-| H-BT-035 | "Keep hands clear of… nut-turning mechanisms" conflicts with the procedure: the nut is turned by hand through the bridge window **while pressurized**. The control must describe how to do that safely. Communication control duplicates H-BT-022. | Corrected; shared control SC-01 |
+| H-BT-035 | "Keep hands clear of… nut-turning mechanisms" conflicts with the procedure: the nut is turned by hand through the bridge window **while pressurized**. The control must describe how to do that safely. Communication control duplicates H-BT-022. | Corrected; shared control C-000001. r2: nut-turning method is manufacturer-designated, not a universal tommy bar or bridge window (Response 002 §5). |
 | H-BT-036 | Same hazard class as H-BT-031 (Decision 2: canonical records). Kept separate because the consequence differs and drives different controls: H-BT-031 = structural collapse; H-BT-036 = loss of containment of process fluid. Flange torquing has the same consequence, so H-BT-036 covers all methods on pressure-boundary joints rather than tensioning only. | Scope widened |
 
 ### 5.4 Relationships to existing records (Addendum 02 list, reviewed)
@@ -475,7 +612,7 @@ Validation should confirm:
 ### 5.6 Simultaneous tensioning
 Multi-tool operation is covered by:
 - H-BT-033 (full-flange exclusion);
-- H-BT-035 / SC-01 (one signal controls pressurization);
+- H-BT-035 / C-000001 (one signal controls pressurization);
 - H-BT-036 (coverage sequence and passes).
 
 No separate record is needed.
@@ -510,12 +647,12 @@ No separate record is needed.
 - R-9 Splice conveyor belt → no Bolt
 - R-10 Tighten ratchet straps on load → no Torque
 - R-11 Work in tight space → no welding, no Torque
-- R-12 Check torque on pump flange bolts → Torque + H-BT-036; no [FIT-UP] records
+- R-12 Check torque on pump flange bolts → Torque + H-BT-036; no [FIT-UP] records; line-break/LOTO Conditional only (not asserted)
 - R-13 Break flange and re-torque bolts on acid line → Torque + H-BT-036 + line break / LOTO; no structural records
 - R-14 Bolt up beam connections from boom lift → overhead-crush cross-reference ranked high
 
 **Addendum 02**
-- R-15 Hydraulically tension studs on pump flange
+- R-15 Hydraulically tension studs on pump flange → tensioner records + H-BT-036; line-break/LOTO Conditional only
 - R-16 Install hydraulic bolt tensioners and tension vessel flange studs
 - R-17 Simultaneously tension multiple flange studs using hydraulic pump
 - R-18 Remove hydraulic tensioners after completing stud tensioning → tool removal; H-BT-023 depressurization; not H-BT-034 unless detensioning is recognized
@@ -530,21 +667,44 @@ No separate record is needed.
 - R-23 Detension studs and remove heat exchanger channel cover → H-BT-034 + tensioner records + flange cross-reference
 - R-24 Re-torque anchor bolts on column base plates → Torque; no [FIT-UP]
 
+**Architect Response 002**
+- R-25 Check torque on existing column connections and install bolts on the next suspended beam → existing-connection torque hazards **and** initial-connection, suspended-load and structural-stability hazards, cumulatively (clause-level scoping, §2 rule 4)
+
 ---
 
-## 8. Unresolved technical and regulatory questions
 
-| # | Question | Owner |
+---
+
+## 8. New Engineer findings in r2
+
+| # | Finding | Effect |
 |---|---|---|
-| U-1 | Canonical **control** ID scheme, and reconciliation of production HAZ_TO_CONTROL entries (Crosswalk §D) | Architect |
-| U-2 | Crosswalk §B: generalize and supersede four production strings, or retain | Architect |
-| U-3 | Meaning of production T7 "Struck-by from overhead steel" (falling vs. suspended) | Architect / PO |
-| U-4 | All citations marked (unverified), including 1926.754(a), 1926.752(e), 1926.756(a)(1)–(2), (c)(1), 1926.759(a)–(b), 1926.302(b)(1), (b)(7), (d)(2), 1926.404(b)(1), 1926.453(b)(2)(iv)–(v), 1926.1053(b)(22), 1926.64 / 1910.119(j) | Architect |
-| U-5 | RCSC/AISC provisions in H-BT-031 (methods, pre-installation verification, reuse) and ASME PCC-1 applicability for H-BT-036 — and whether client procedures govern instead | Architect |
-| U-6 | Tensioner as a work means under Bolt vs. a separate activity | Architect |
-| U-7 | Company / project fall protection requirements to drive H-BT-017 controls (boom lift, scissor lift, steel) | PO |
-| U-8 | Confirmation of crew terminology and brand aliases (§1.3) as actual Adena usage | PO |
-| U-9 | Glove cut-level and other Policy-based controls: company standard vs. per-client | PO |
-| U-10 | MSHA applicability for mining-site bolting (phosphate) — Package 001 references are OSHA 1926 only | Architect |
-| U-11 | Whether tensioner pressures commonly exceed torque-wrench hose ratings (H-BT-024 control basis) | Architect |
-| U-12 | Whether response actions beyond H-BT-023 (e.g., eye flushing for hydraulic fluid spray) belong in controls under Decision 4 | Architect |
+| F-1 | I checked **1926.756(c)(1)** against OSHA's interpretation of 05/09/2006: paragraph (c) does not apply to double connections at a beam away from a column. The hazard still exists there; the preamble describes the connector falling with collapsing double-connected members. | H-BT-016 applies to all shared-bolt double connections; the citation is limited to connections at columns. |
+| F-2 | **1926.453(b)(2)(iii)** prohibits belting off to an adjacent pole, structure or equipment from an aerial lift. This is directly relevant to bolting steel from a lift. | New control C-000041 ("Never tie off to the steel or an adjacent structure from a lift"). |
+| F-3 | OSHA has interpreted that **scissor lifts are not covered** by the 1926.453 aerial lift provisions. | The scissor lift tie-off requirement in H-BT-017 rests on PO Decision 2 (Policy), not 1926.453. Recorded internally so validation doesn't attribute it to the wrong source. |
+| F-4 | **Production control conflicts with PO Decision 1.** Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater" is a universal numeric threshold in the live app. | Not superseded (registry note R-1). Production change outside scope; recorded for PO action (U-14). |
+| F-5 | **Production C16 "Wear hearing protection when noise levels exceed 85 dBA."** Crews can't measure dBA in the field. 85 dBA is the general-industry hearing conservation action level (1910.95), not the construction requirement structure (1926.52), so as a universal statement it is questionable. | Not superseded (registry note R-2). Canonical C-000049 is exposure-based. Recorded (U-14). |
+| F-6 | Four r1 supersessions would have replaced broader production hazards with narrower bolting records: T3 kickback (drills and bits), T7 "Dropped objects" (any material), T25 "Dropped objects striking workers below," T23 "Hose whip from disconnected line" (any pressurized hose). | Withdrawn. Generalization proposals in Crosswalk §B2 (U-13). |
+| F-7 | Hydraulic depressurization (C-000060) is now one canonical control shared by H-BT-023, H-BT-024 and H-BT-034. It is broader than production C19 "Verify zero energy state" in one respect (trapped pressure *and* stored mechanical energy) and narrower in another (hydraulic only). | Neither supersedes the other; both retained. |
+
+---
+
+## 9. Unresolved technical and regulatory items
+
+| # | Item | Status | Owner |
+|---|---|---|---|
+| U-1 | Control ID scheme | **Resolved** (Response 002 §1). Registry established. Reconciliation of production control entries outside Package 001 scope is pending future packages. | — |
+| U-2 | Crosswalk §B generalizations | **Resolved** (Response 002 §2) | — |
+| U-3 | T7 "Struck-by from overhead steel" | **Resolved:** retained as falling structural materials, distinct from suspended load | — |
+| U-4 | Remaining unverified citations: 1926.754(a), 1926.752(e), 1926.753(d), 1926.755, 1926.757, 1926.760(a)–(b), 1926.300–.301, 1926.404(b)(1), 1926.1053(b)(22), 1926.52/.101/.102, 1926.95/.28, 1926.64; all OSHA-GI and MSHA references except those marked verified | Open | Architect |
+| U-5 | RCSC provisions other than §2.11 (methods, pre-installation verification); AISC 303/360; ASME PCC-1; whether client procedures govern | Open | Architect |
+| U-6 | Tensioning classification | **Resolved** (Response 002 §3) | — |
+| U-7 | Company / project fall protection requirements | **Resolved** (PO Decisions 1–2) | — |
+| U-8 | Crew terminology and brand aliases | **Resolved** (PO Decision 3) | — |
+| U-9 | Policy-based controls (hand protection and other company vs. client requirements) | **Open** — policy-specific validation (PO Decision 4) | PO |
+| U-10 | General-industry and MSHA equivalents marked "To be identified" (§4) | Open | Architect |
+| U-11 | Whether tensioner pressures commonly exceed torque-wrench hose ratings (C-000064 basis) | Open | Architect |
+| U-12 | Emergency response actions | **Resolved in principle** (Response 002 §8). C-000066 (hydraulic fluid eye flush) is proposed and needs approval. | Architect |
+| U-13 | Generalize H-BT-004, H-BT-018 and H-BT-025 so the four withdrawn supersessions can proceed (Crosswalk §B2) | Open | Architect |
+| U-14 | Production controls C1 (6-ft threshold) and C16 (85 dBA) conflict with PO Decision 1 and field usability. Change requires a PO-approved production milestone. | Open | PO |
+| U-15 | Confirm flange line-break / LOTO cross-references as Conditional, not Explicit, without an opening cue (§2 rule 6) | Open | Architect |
