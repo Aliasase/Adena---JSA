@@ -7,20 +7,24 @@
 - A policy record states a **company requirement**. It is kept distinct from regulatory requirements, client requirements, technical specifications, manufacturer instructions and best practices.
 - A policy record is never attributed to a regulation, and a regulation is never presented as company policy.
 - Policy records do not duplicate controls. They **link to canonical controls** in `SIL-CONTROL-REGISTRY.md`, and those controls cite the policy record in their internal basis.
-- **More protective governs.** Where a client, project or regulatory requirement is more protective than a policy record, the more protective requirement applies. Where overlapping activities trigger more than one requirement in the same family (for example, work gloves and A4 cut-resistant gloves), the more protective requirement governs. The less protective control is not presented as an alternative.
+- **More protective governs, for the same exposure.** Where a client, project or regulatory requirement is more protective than a policy record *for the same exposure*, it applies. Where overlapping activities trigger requirements addressing the **same exposure mechanism** (for example, work gloves vs. A4 cut-resistant gloves for cut exposure), the more protective one governs, and the less protective one is not presented as an alternative.
+- **Different exposure mechanisms are cumulative** (PO Decision 003 §6). Requirements that address different mechanisms all apply. Cut resistance does not replace thermal protection. Thermal protection does not establish A4 cut resistance. Welding during demolition must meet both hand-protection requirements. Chemical, electrical, thermal and mechanical protection are evaluated independently where those exposures coexist.
 - Only the Product Owner adds, changes or retires a policy record.
 
-**Register status:** P-000001 to P-000005. Next available: **P-000006**. Retired: none.
+**Register status:** P-000001 to P-000008. Next available: **P-000009**. Retired: none.
 
 ---
 
 | Policy ID | Requirement (company-wide) | Scope / triggers | Linked controls | Source | Notes |
 |---|---|---|---|---|---|
 | P-000001 | General-purpose work gloves are required when working with steel. | Any work with steel, unless P-000002 or a more specific task requirement governs | C-000004 | PO Decision 002 §1 | Not an A4 requirement. Task-specific chemical, thermal, electrical and mechanical hand protection still applies. |
-| P-000002 | Minimum ANSI A4 cut-resistant gloves are required for all demolition activities, knife use, and working with stainless steel lath (expanded metal). | Demolition; knife use; stainless steel lath | C-000112 | PO Decision 002 §1 | Governs over P-000001 where both apply. Not applied universally to steel work. Scope questions: U-18, U-19. |
+| P-000002 | Minimum ANSI A4 cut-resistant gloves are required for all demolition activities, knife use, and working with stainless steel lath (expanded metal). | **Demolition**, recognized contextually (cues: demo, demolish, demolition, tear out, gut, wreck, selective demolition, dismantle structure; ordinary equipment or component removal does not by itself establish demolition). **Knife use.** **Stainless steel lath only** — does not automatically extend to galvanized or other expanded metal, where hand protection is selected by the actual exposure. | C-000112 | PO Decision 002 §1; scope confirmed by PO Decision 003 §1–2 | Governs over P-000001 for cut exposure. Cumulative with thermal, chemical and electrical protection. Not applied universally to steel work. |
 | P-000003 | Fall protection is required when exposed to a fall hazard of 6 feet or greater, or at a lower height where client, project or regulatory requirements set one. Fall protection is also required where it applies regardless of height. | All work at elevation | C-000039, C-000113 | PO Decision 002 §2 (supersedes PO Decision 001 §1) | No less protective steel-erection exception is introduced. |
 | P-000004 | Personal fall protection and tie-off are required in both boom lifts and scissor lifts, using manufacturer-approved anchorage points and compatible equipment. Guardrails alone are not sufficient in scissor lifts. | Boom and scissor lifts | C-000040, C-000041 | PO Decision 001 §2; retained by PO Decision 002 §2 | — |
 | P-000005 | Hearing protection is required at noise exposure levels of 85 dBA or greater, in designated hearing protection areas, or when required for the task. | Noise exposure | C-000049 | PO Decision 002 §3 | Company requirement, not attributed universally to a regulation. Employees are not required to measure sound levels; task-based triggers apply when levels aren't measured. |
+| P-000006 | Combustibles within a minimum of 35 feet of hot work are removed, or protected with fire-resistant barriers where removal isn't possible. Greater distances apply where required. | All hot work. The exposure assessment must account for sparks and slag traveling beyond the work area, elevated hot work, floor and wall openings, adjacent and concealed spaces, and combustibles on the opposite side of the work surface. | C-000114 | PO Decision 003 §3 | 35 ft is a **minimum**, not the limit of the exposure assessment. |
+| P-000007 | Fire watch is required during hot work and for a minimum of 30 minutes after completion, with longer durations where required. | All hot work | C-000115; conditional C-000117 for additional monitoring required by the project, permit or standard | PO Decision 003 §4 | Fire watch duties and qualifications to be developed in Package 002. |
+| P-000008 | A hot work permit is required for all hot work. | All hot work | C-000116 | PO Decision 003 §5 | **No exemption** for designated welding areas or fabrication shops without explicit PO authorization. |
 
 ---
 
@@ -31,3 +35,7 @@
 | C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater" | P-000003 | Consistent with company policy. Retained. |
 | C16 "Wear hearing protection when noise levels exceed 85 dBA" | P-000005 | Consistent in threshold. Wording note: production says "exceed 85," policy says "85 or greater." A boundary difference only, to be harmonized in a future approved production milestone. |
 | C3 "Wear proper cut-resistant gloves appropriate for the task" | P-000001, P-000002 | Related. Production does not state the A4 requirement for demolition, knife use or stainless steel lath. Candidate improvement for a future milestone. |
+| C2 "Remove or protect all combustibles within 35 feet of hot work" | P-000006 | Consistent (C-000114) |
+| C2 "Assign fire watch during and for minimum 30 minutes after hot work" | P-000007 | Consistent (C-000115) |
+| C2 "Monitor area 30-60 minutes after hot work for smoldering fire" | P-000007 | Reconciled: the 30-minute minimum is C-000115; any extended monitoring is the conditional C-000117 (project, permit or standard). Not a separate universal 30–60 minute requirement. |
+| C2 "Complete hot work permit before beginning any hot work operations" | P-000008 | Consistent (C-000116) |

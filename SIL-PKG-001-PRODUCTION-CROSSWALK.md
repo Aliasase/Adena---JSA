@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Candidate crosswalk, **revision r3.1**. Not approved. Nothing in production is changed by this document. It records which production records *would* be superseded if Package 001 is approved (Architect Response 001 Decision 1; Responses 002 §2 and 003 §4). r1 is preserved at commit `0195ed9`, r2 at `4376c8e`.
+> **Repository Record (AD-008 §6):** Candidate crosswalk, **revision r3.2**. Not approved. Nothing in production is changed by this document. It records which production records *would* be superseded if Package 001 is approved (Architect Response 001 Decision 1; Responses 002 §2 and 003 §4). r1 is preserved at commit `0195ed9`, r2 at `4376c8e`.
 
-# SIL-PKG-001 — Production Record Crosswalk (r3.1)
+# SIL-PKG-001 — Production Record Crosswalk (r3.2)
 
 **Production baseline:** v1.3.0-p1, commit `8318ddb`, as extracted in `A4-LIBRARY-EXPORT.md`
 
@@ -20,7 +20,7 @@ So an H-BT record that is [FIT-UP]-constrained for bolting is *not* fit-up-const
 
 ---
 
-## A. Superseded: confirmed at least as broad (21)
+## A. Superseded: confirmed at least as broad (28)
 
 | # | Production string | Entry | Superseded by | Inherited relationships | Broadness check |
 |---|---|---|---|---|---|
@@ -45,31 +45,27 @@ So an H-BT record that is [FIT-UP]-constrained for bolting is *not* fit-up-const
 | 19 | Dropped objects | T7 | H-BT-018 | T7 | Generalized r3. Falling structural members (T7 "Struck-by from overhead steel") and suspended loads stay distinct. |
 | 20 | Dropped objects striking workers below | T25 | H-BT-018 | T25 | Generalized r3 |
 | 21 | Hose whip from disconnected line | T23 | H-BT-025 | T23 | Generalized r3. Pneumatic controls are conditional on pneumatic systems; other pressurized hoses use C-000109 / C-000110; hydraulic tool circuits stay with H-BT-023 / H-BT-024. |
+| 22 | Dropped objects from elevated platform | T8 | H-BT-018 | T8 Aerial lift | Generalized r3; accepted r3.2 |
+| 23 | Falling objects from ladder user | T9 | H-BT-018 | T9 Ladders | Accepted r3.2 |
+| 24 | Falling objects from scaffold | T10 | H-BT-018 | T10 Scaffold | Accepted r3.2 |
+| 25 | Struck-by from falling materials and tools | T25 | H-BT-018 | T25 | Accepted r3.2 |
+| 26 | Materials stored at height | T25 | H-BT-018 | T25 | Accepted r3.2 |
+| 27 | Dropped objects to floors and personnel below | T35 | H-BT-018 | T35 Roofing | Accepted r3.2 |
+| 28 | Dropped rigging hardware onto workers below | T37 | H-BT-018 | T37 Themed | Accepted r3.2 |
 
 **Canonical-record caution.** Records #11–17 make H-BT-019, H-BT-020, H-BT-023, H-BT-026 and H-BT-027 canonical across welding, carpentry, drilling, concrete and electrical work. Their bolting-specific controls carry relationship conditions so they don't appear as the only controls for unrelated work:
 - C-000020 (rotate impact work)
 - C-000064 (tensioner hoses)
 - C-000075 (lift snag)
 
-Records #18–21 make H-BT-004, H-BT-018 and H-BT-025 canonical in the same way.
+Records #18–28 make H-BT-004, H-BT-018 and H-BT-025 canonical in the same way.
 
-## A2. Proposed further supersessions after the H-BT-018 generalization — pending Architect confirmation (U-16)
+## A2. Seven additional H-BT-018 supersessions — accepted (PO Decision 003 §7), now §A rows 22–28
 
-| Production string | Entry | Proposed target | Inherited relationship |
-|---|---|---|---|
-| Dropped objects from elevated platform | T8 | H-BT-018 | T8 Aerial lift |
-| Falling objects from ladder user | T9 | H-BT-018 | T9 Ladders |
-| Falling objects from scaffold | T10 | H-BT-018 | T10 Scaffold |
-| Struck-by from falling materials and tools | T25 | H-BT-018 | T25 |
-| Materials stored at height | T25 | H-BT-018 | T25 |
-| Dropped objects to floors and personnel below | T35 | H-BT-018 | T35 Roofing |
-| Dropped rigging hardware onto workers below | T37 | H-BT-018 | T37 Themed |
-
-**Not proposed:**
-- Suspended / dropped *loads* (T5, T6, T16): suspended-load mechanism.
-- "Crush hazard from dropped material" (T17): a handling drop, not from height.
-- T7 "Struck-by from overhead steel": falling structural members (Response 003 §4).
-
+All valid production relationships are preserved. Not superseded and kept distinct:
+- suspended / dropped *loads* (T5, T6, T16);
+- "Crush hazard from dropped material" (T17, a handling drop);
+- T7 "Struck-by from overhead steel" (falling structural members).
 ---
 
 ## B. Supersession status changes
@@ -118,3 +114,13 @@ The full mapping is in `SIL-CONTROL-REGISTRY.md` (Production equivalent column, 
 
 - Production T7 recognizes `bolt-up`, `spud wrench`, `drift pin` and `erection bolt`; T3 recognizes `bolt installation`. These stay recognition terms mapped to Bolt (0013).
 - Production `tig` (T1) must use whole-term matching in Track B. It currently matches inside "tight" (R-11).
+
+## F. Hot work control reconciliation (PO Decision 003, for Package 002)
+
+Production C2 lines are matched to company policy controls C-000114 to C-000117 (registry note R-4).
+
+The 30-minute and 30–60-minute fire watch references are reconciled into:
+- **C-000115**: at least 30 minutes after hot work;
+- **C-000117**: conditional extended monitoring, where a project, permit or standard requires it.
+
+Production is unchanged. The T1 hazard crosswalk will be done in Package 002.

@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3.1 (r3 amended by PO Decision Record 002). Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
+> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3.2 (r3 amended by PO Decision Records 002 and 003). Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
 
-# Safety Intelligence Library — Package 001 (Reconciled Candidate r3.1)
+# Safety Intelligence Library — Package 001 (Reconciled Candidate r3.2)
 ## Bolt (0013) · Torque (0014) · Hydraulic Bolt Tensioning (work method under Bolt)
 
 **Status:** Candidate. Pending Architect technical validation and Product Owner approval.
@@ -23,7 +23,9 @@
 | 10 | Architect Response 003 | `SIL-PKG-001-ARCHITECT-RESPONSE-003.md` | this commit |
 | 11 | Reconciled candidate r3, crosswalk r3, control registry r3 | this file, crosswalk, registry | `d9b7a1a` |
 | 12 | PO Decision Record 002 — Company safety requirements | `SIL-PKG-001-PO-DECISION-002.md` | this commit |
-| 13 | r3.1 amendments; Company Policy Registry | this file, crosswalk, control registry, `SIL-POLICY-REGISTRY.md` | this commit |
+| 13 | r3.1 amendments; Company Policy Registry | this file, crosswalk, control registry, `SIL-POLICY-REGISTRY.md` | `54c4249` |
+| 14 | PO Decision Record 003 | `SIL-PO-DECISION-003.md` | this commit |
+| 15 | r3.2 amendments | this file, crosswalk, registries | this commit |
 
 **Reference labels:**
 
@@ -43,6 +45,14 @@
 - Everything else is **unverified**.
 
 Citations are internal only and never shown to users.
+
+### r3.2 amendment summary (PO Decision Record 003)
+
+- **Resolved:** U-16 (seven dropped-object supersessions accepted; crosswalk §A now 28), U-17 (Cornell LII accepted as a reliable secondary reproduction, with official sources preferred for final verification; labels updated), U-18 and U-19.
+- P-000002 scope is confirmed: stainless steel lath only.
+- The demolition recognition cues are adopted (§1.4).
+- **Policy precedence corrected (§2 rule 8):** "more protective governs" applies only to the *same exposure*. Requirements for different exposure mechanisms are cumulative.
+- Company hot work policies P-000006 to P-000008 and controls C-000114 to C-000117 are registered for Package 002. They have no Package 001 hazard relationships.
 
 ### r3.1 amendment summary (PO Decision Record 002)
 
@@ -176,6 +186,16 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
 
 ---
 
+### 1.4 Policy trigger recognition (PO Decisions 002–003)
+
+These cues decide when the A4 control C-000112 (P-000002) applies. They are contextual: activity, object, condition and context are all considered.
+
+| Trigger | Cues | Does **not** trigger by itself |
+|---|---|---|
+| Demolition | demo, demolish, demolition, tear out, gut, wreck, selective demolition, dismantle structure | Ordinary equipment or component removal (ACT-0007 Remove), e.g. "remove pump coupling guard." When demolition and removal occur together, both contribute their relationships. |
+| Knife use | knife, utility knife, box cutter, razor knife, hook knife, cut with a knife | Torch, plasma or abrasive cutting (Package 002 Cut, ACT-0016) |
+| Stainless steel lath | stainless steel lath, stainless lath, SS lath, stainless expanded metal | Galvanized or other expanded metal or lath. Hand protection there is selected by the actual exposure (C-000004 for steel; H-BT-002 cut relationships). |
+
 ## 2. Applicability rules (Addendum 01; Responses 001–002)
 
 1. **Cumulative.** Every recognized activity, work method, work means, object, condition and context contributes its records. Recognizing one never suppresses another.
@@ -224,7 +244,9 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
    - Where a client, project or regulatory requirement is more protective (for example, a lower fall height), the more protective requirement governs. Controls say "or at a lower height where required."
    - No less protective federal exception (for example, steel erection height allowances) is introduced.
    - Employees are never required to measure sound levels; task-based triggers still apply.
-   - **Policy precedence:** where overlapping activities trigger requirements in the same family, the more protective one governs and the less protective one is not presented as an alternative. Example: work gloves vs. A4 gloves.
+   - **Policy precedence** (PO Decision 003 §6):
+     - **Same exposure:** the more protective requirement governs, and the less protective one is not presented as an alternative. Example: work gloves vs. A4 gloves for cut exposure.
+     - **Different exposure mechanisms are cumulative:** cut resistance does not replace thermal protection; thermal protection does not establish A4 cut resistance; welding during demolition requires both; chemical, electrical, thermal and mechanical protection are evaluated independently.
 
 9. **Emergency response** (Response 002 §8). Include an immediate response action only where it materially reduces injury severity for that specific hazard:
    - H-BT-017: rescue (C-000044)
@@ -325,7 +347,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000022` Set your feet and brace before applying force — expect the nut to break free.
   - `C-000023` `[if aerial or scissor lift]` Stand on the platform floor; never climb or stand on rails to reach the work.
   - `C-000024` `[if ladder]` Do not apply heavy wrench force from a ladder — reposition or use a lift.
-- Refs: OSHA-C 1926.453(b)(2)(iv) (verified, Engineer, CFR text via LII, r3); 1926.1053(b)(22) (unverified); BP
+- Refs: OSHA-C 1926.453(b)(2)(iv) (verified, Engineer, CFR text via Cornell LII — reliable secondary reproduction, official source preferred for final verification (PO Decision 003 §7), r3); 1926.1053(b)(22) (unverified); BP
 
 **H-BT-010 — Caught in a rotating tool, bit, socket or extension**
 - Applicability: Conditional: powered rotating tool; relationship inherited from T3
@@ -402,7 +424,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000042` `[if personal fall protection used on structure]` When using personal fall protection on steel, connect to an approved anchorage rated for the system.
   - `C-000043` `[if personal fall protection used]` Inspect harness, lanyard or SRL and connectors before use.
   - `C-000044` `[if personal fall protection used]` Have a rescue plan ready before work at height — a worker suspended in a harness must be reached promptly.
-- Refs: Company policy P-000003 (6-ft trigger; lower where required) and P-000004 (tie-off in boom and scissor lifts) — PO Decision 002 supersedes PO Decision 001 §1; OSHA-C 1926.453(b)(2)(iii)–(v) — verified (Engineer, CFR text via LII, r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3); 1926.760(a) (Response 001; unverified). Per OSHA interpretation, scissor lifts are not covered by 1926.453 — scissor tie-off rests on PO Decision 2.
+- Refs: Company policy P-000003 (6-ft trigger; lower where required) and P-000004 (tie-off in boom and scissor lifts) — PO Decision 002 supersedes PO Decision 001 §1; OSHA-C 1926.453(b)(2)(iii)–(v) — verified (Engineer, CFR text via Cornell LII — reliable secondary reproduction, official source preferred for final verification (PO Decision 003 §7), r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3); 1926.760(a) (Response 001; unverified). Per OSHA interpretation, scissor lifts are not covered by 1926.453 — scissor tie-off rests on PO Decision 2.
 - Δ: r3: anchorage/inspection/rescue apply when personal fall protection is used. r3.1: C-000039 per PO Decision 002; C-000113 any-height control added.
 
 **H-BT-018 — Dropped tools, equipment, hardware or materials striking personnel below**
@@ -623,7 +645,7 @@ When it can't be decided, jurisdiction stays **undetermined**, and every applica
 
 | Topic | OSHA-C | OSHA-GI | MSHA | Verification status |
 |---|---|---|---|---|
-| Aerial lift fall protection | 1926.453(b)(2)(iii)–(v) | 1910.67(c)(2)(v) | 56.15005 | C verified (Engineer, CFR text via LII, r3); GI verified (Engineer, osha.gov, r3); MSHA unverified |
+| Aerial lift fall protection | 1926.453(b)(2)(iii)–(v) | 1910.67(c)(2)(v) | 56.15005 | C verified (Engineer, CFR text via Cornell LII — reliable secondary reproduction, official source preferred, r3); GI verified (Engineer, osha.gov, r3); MSHA unverified |
 | Steel erection connections | 1926.756(a)(1), (a)(2), (b), (c)(1)–(2) | n/a | n/a | Architect-checked; verified (Engineer, osha.gov, r3) |
 | Falling object protection (steel erection) | 1926.759(a)–(b) | To be identified | To be identified | C Architect-checked |
 | Pneumatic hose connections | 1926.302(b)(1), (b)(7) | To be identified | 56.13021 | C Architect-checked; MSHA locking-device requirement verified (Engineer, eCFR, r3); MSHA 100-psi definition unverified |
@@ -757,6 +779,13 @@ No separate record is needed.
 - R-36 Bolt beam connections from scissor lift at 4 ft platform height → C-000039 plus C-000040 / C-000041 (tie-off in scissor lifts, P-000004)
 - R-37 Torque pump flange bolts next to running pump → C-000049 by task trigger, without a measured level
 
+**PO Decision 003 (proposed)**
+- R-38 Remove pump coupling guard and re-torque bolts → no C-000112 (removal is not demolition)
+- R-39 Demo old conveyor drive and remove baseplate bolts → C-000112 (demolition) plus Bolt / Torque and removal relationships, cumulatively
+- R-40 Tie galvanized lath to rockwork frame → C-000004; **not** C-000112
+- R-41 Cut stainless steel lath with snips → C-000112
+- R-42 Torch cut beam during selective demolition → C-000112 **and** Package 002 thermal hand protection (different mechanisms, cumulative)
+
 ---
 
 
@@ -787,19 +816,19 @@ r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-6 was resolved by Re
 | U-1 | Control ID scheme | Resolved (Response 002 §1; registry accepted, Response 003 §1) | — |
 | U-2 | Crosswalk §B generalizations | Resolved | — |
 | U-3 | T7 "Struck-by from overhead steel" | Resolved — falling structural members, distinct | — |
-| U-4 | Unverified citations: 1926.754(a), 1926.752(e), 1926.753(d), 1926.755, 1926.757, 1926.760(a)–(b), 1926.300–.302 except Architect-checked items, 1926.404(b)(1), 1926.502(d)/(j), 1926.1053(b)(22), 1926.52/.101/.102, 1926.95/.28, 1926.64; all OSHA-GI and MSHA references not marked verified; MSHA 56.13021 100-psi definition | **Open** | Architect |
-| U-5 | RCSC provisions other than §2.11; AISC 303/360; ASME PCC-1; whether client procedures govern | **Open** | Architect |
+| U-4 | Unverified citations: 1926.754(a), 1926.752(e), 1926.753(d), 1926.755, 1926.757, 1926.760(a)–(b), 1926.300–.302 except Architect-checked items, 1926.404(b)(1), 1926.502(d)/(j), 1926.1053(b)(22), 1926.52/.101/.102, 1926.95/.28, 1926.64; all OSHA-GI and MSHA references not marked verified; MSHA 56.13021 100-psi definition | **Open** — validation continues in parallel with later packages (PO Decision 003 §7) | Architect |
+| U-5 | RCSC provisions other than §2.11; AISC 303/360; ASME PCC-1; whether client procedures govern | **Open** — validation continues in parallel with later packages (PO Decision 003 §7) | Architect |
 | U-6 | Tensioning classification | Resolved | — |
 | U-7 | Fall protection requirements | Resolved (PO Decisions 1–2) | — |
 | U-8 | Terminology and aliases | Resolved (PO Decision 3) | — |
-| U-9 | Policy-based controls | **Hand protection portion resolved** (PO Decision 002 §1; P-000001, P-000002). **Open:** other company vs. client requirements not yet confirmed. | PO |
-| U-10 | OSHA-GI and MSHA equivalents marked "To be identified" (§4) | **Open** | Architect |
+| U-9 | Policy-based controls | Hand protection resolved (PO Decisions 002–003). **Open:** other company vs. client requirements not yet confirmed. | PO |
+| U-10 | OSHA-GI and MSHA equivalents marked "To be identified" (§4) | **Open** — validation continues in parallel with later packages (PO Decision 003 §7) | Architect |
 | U-11 | Tensioner / torque-wrench hose compatibility | Resolved (Response 003 §2) | — |
 | U-12 | Emergency response actions | Resolved (Response 003 §3) | — |
 | U-13 | Generalize H-BT-004 / -018 / -025 | Resolved (Response 003 §4) | — |
 | U-14 | Production C1 / C16 | **Resolved — no policy conflict** (PO Decision 002 §4). Both thresholds are company policy and retained. The only remaining wording item is G-8. | — |
 | U-15 | Flange applicability | Resolved (Response 003 §6) | — |
-| U-16 | Confirm the seven additional H-BT-018 supersessions (G-4, Crosswalk r3 §A2) | **Open** | Architect |
-| U-17 | Confirm LII CFR reproduction as an acceptable primary source for verification (G-6) | **Open** | Architect |
-| U-18 | P-000002 says *stainless steel* lath. Does the A4 requirement also cover galvanized or other expanded-metal lath, or stainless only? | **Open** | PO |
-| U-19 | What counts as "demolition" for P-000002? ACT-0007 Remove (taking out equipment or components) is a separate activity. Proposed demolition cues: demo, demolish, tear out, gut, wreck, selective demolition, dismantle structure. | **Open** | PO / Architect |
+| U-16 | Seven additional H-BT-018 supersessions | **Resolved** (PO Decision 003 §7). Crosswalk §A rows 22–28; all production relationships preserved. | — |
+| U-17 | Cornell LII as a verification source | **Resolved** (PO Decision 003 §7): a reliable secondary reproduction; official regulatory sources preferred for final verification | — |
+| U-18 | A4 lath scope | **Resolved** (PO Decision 003 §1): stainless steel lath only | — |
+| U-19 | Demolition recognition | **Resolved** (PO Decision 003 §2); cues in §1.4 | — |
