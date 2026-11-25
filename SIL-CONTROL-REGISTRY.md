@@ -8,7 +8,9 @@
 - Equivalent production controls (`HAZ_TO_CONTROL` entries C*n* in `A4-LIBRARY-EXPORT.md`) are mapped below. **A production control is not retired until all of its valid relationships are accounted for.** No production control is retired at this revision.
 - New controls are appended at the next sequential number. Retired controls stay listed with status "Retired — do not reuse."
 
-**Register status:** C-000001 to C-000111 assigned (SIL-PKG-001 r3). Next available: **C-000112**. Retired: none.
+**Register status:** C-000001 to C-000113 assigned (SIL-PKG-001 r3.1). Next available: **C-000114**. Retired: none.
+
+**Company policy links:** controls that carry a company requirement cite the policy record (P-*nnnnnn*, `SIL-POLICY-REGISTRY.md`) in their Internal basis column.
 
 **Authority:** Architect Response 003 §1 makes this the permanent shared control repository for **all** Safety Intelligence Library packages. Activity-specific registries are not permitted. Later packages reuse existing controls wherever applicable.
 
@@ -31,6 +33,14 @@
 | C-000096 | "Never cut, hammer or impact a tensioned nut or stud loose." | Aligned with C-000095 |
 | C-000099 | "Disconnect or lock the pump control while positioning or adjusting tools." | §7 |
 
+**r3.1 text revisions** (PO Decision Record 002). These replace the r3 wording:
+
+| Control | r3 wording | Source of change |
+|---|---|---|
+| C-000004 | "Wear task-appropriate cut-resistant gloves where hands are exposed to sharp metal." | PO Decision 002 §1 |
+| C-000039 | "Use the fall protection required for the task and project before exposure to a fall hazard." | PO Decision 002 §2 |
+| C-000049 | "Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task." | PO Decision 002 §3 |
+
 ## Registry
 
 | Control ID | Canonical control (user-facing) | Related hazards [relationship applicability] | Production equivalent | Internal basis | Revision |
@@ -38,7 +48,7 @@
 | C-000001 | The pump operator pressurizes only on a clear signal from the person at the tool. | H-BT-022 [if pump operated by another person]; H-BT-035 | — | See related hazard refs | r2 |
 | C-000002 | Never use fingers to check or align holes — use a drift pin or spud wrench. | H-BT-001 | — | See related hazard refs | r2 |
 | C-000003 | Keep hands off mating surfaces while plies are drawn together. | H-BT-001 | — | See related hazard refs | r2 |
-| C-000004 | Wear task-appropriate cut-resistant gloves where hands are exposed to sharp metal. | H-BT-002 | C3 "Wear proper cut-resistant gloves appropriate for the task" (equivalent; no cut level per PO Decision 4) | OSHA-C 1926.95 / OSHA-GI 1910.138 (hazard-based hand protection, unverified); cut level = task/project (PO Decision 4; U-9) | r3: text revised (Response 003 §7) |
+| C-000004 | Wear work gloves when working with steel. | H-BT-002 | C3 "Wear proper cut-resistant gloves appropriate for the task" — related, not equivalent: C3 is keyword-triggered by cut/blade/knife/sharp; under PO Decision 002 knife use requires C-000112 (A4) and steel work requires C-000004 | Company policy P-000001 (PO Decision 002); OSHA-C 1926.95 / OSHA-GI 1910.138 hazard-based hand protection (unverified) | r3.1: text per PO Decision 002 §1 |
 | C-000005 | Remove burrs only where the connection or flange requirements allow it — never on gasket seating faces. | H-BT-002 | — | See related hazard refs | r2 |
 | C-000006 | Keep hands off unprotected plate, pipe and hole edges. | H-BT-002 | — | See related hazard refs | r2 |
 | C-000007 | Use the correct size wrench or socket, fully seated on the nut. | H-BT-003 | — | See related hazard refs | r2 |
@@ -73,8 +83,8 @@
 | C-000036 | Keep direct communication with the signal person. | H-BT-014 | — | See related hazard refs | r2 |
 | C-000037 | Do not release the load until the connection required for that member is made and stability is verified. | H-BT-015 | C11 "Verify support is stable before releasing rigging or mechanical hold" (equivalent for steel) | OSHA-C 1926.756(a)(1), (a)(2), (b) — Architect-checked; verified (Engineer, osha.gov, r3) | r2 |
 | C-000038 | At a shared connection, keep at least one bolt with its nut wrench-tight in the first member while making the double connection, unless a seat or equivalent device secures the first member. | H-BT-016 | — | OSHA-C 1926.756(c)(1) — verified (Engineer, osha.gov primary text, r3); applies at columns / beam webs over columns | r3: text revised (Response 003 §7) |
-| C-000039 | Use the fall protection required for the task and project before exposure to a fall hazard. | H-BT-017 | C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater" — **candidate replacement is this control's text** (Response 003 §5; production unchanged; note R-1) | Internal basis: applicable regulatory requirements (OSHA-C Subparts M, R, L; OSHA-GI Subparts D, I; MSHA 56.15005 — unverified) plus project and PO Decisions 1–2 | r3: text = U-14 candidate replacement (Response 003 §5) |
-| C-000040 | In boom and scissor lifts, wear compatible personal fall protection attached to the manufacturer-approved anchorage point. | H-BT-017 [if boom or scissor lift] | — | PO Decision 2 (Policy); OSHA-C 1926.453(b)(2)(v) for aerial lifts — verified (Engineer, CFR text via LII, r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3) | r2 |
+| C-000039 | Use required fall protection when exposed to a fall hazard of 6 feet or greater, or at a lower height where required. | H-BT-017 | C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater" — **equivalent**; 6-ft trigger confirmed as company policy P-000003 (PO Decision 002). This control adds the lower-height clause; any wording change must keep the 6-ft trigger (note R-1) | Company policy P-000003 (6-ft general trigger, PO Decision 002); lower thresholds govern where client, project or regulation require them — e.g. OSHA-GI 1910.28(b)(1) 4 ft (unverified), MSHA 56.15005 danger of falling (unverified). No steel-erection exception introduced. | r3.1: text per PO Decision 002 §2 |
+| C-000040 | In boom and scissor lifts, wear compatible personal fall protection attached to the manufacturer-approved anchorage point. | H-BT-017 [if boom or scissor lift] | — | Company policy P-000004 (PO Decision 001 §2, retained by PO Decision 002); OSHA-C 1926.453(b)(2)(v) for aerial lifts — verified (Engineer, CFR text via LII, r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3) | r2 |
 | C-000041 | Never tie off to the steel or an adjacent structure from a lift. | H-BT-017 [if boom or scissor lift] | — | OSHA-C 1926.453(b)(2)(iii) — verified (Engineer, CFR text via LII, r3); scissor lifts = Policy | r2 |
 | C-000042 | When using personal fall protection on steel, connect to an approved anchorage rated for the system. | H-BT-017 [if personal fall protection used on structure] | C1 "Use approved anchorage points rated for fall arrest forces" (equivalent) | Applies when personal fall protection is used (Response 003 §7); OSHA-C 1926.502(d) (unverified) | r3: text revised (Response 003 §7) |
 | C-000043 | Inspect harness, lanyard or SRL and connectors before use. | H-BT-017 [if personal fall protection used] | C1 "Inspect harness, lanyard, SRL, and all connectors before each use" (equivalent) | See related hazard refs | r2 |
@@ -83,7 +93,7 @@
 | C-000046 | Use rated tool tethers where required. | H-BT-018 [if tools at height] | — | See related hazard refs | r2 |
 | C-000047 | Barricade or control the area below; no one works below without protection. | H-BT-018; H-BT-028 [if elevated] | C4 "Barricade area below or around work if debris may affect others" (equivalent) | See related hazard refs | r2 |
 | C-000048 | Support tensioners so they cannot fall when pullers are unthreaded. | H-BT-018 [if tensioner] | — | See related hazard refs | r2 |
-| C-000049 | Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task. | H-BT-019 | C16 "Wear hearing protection when noise levels exceed 85 dBA" — **candidate replacement is this control's text** (Response 003 §5; production unchanged; note R-2) | Internal criteria: OSHA-C 1926.52 / 1926.101; OSHA-GI 1910.95; MSHA Part 62 (all unverified). No field estimation of sound levels. | r3: text = U-14 candidate replacement (Response 003 §5) |
+| C-000049 | Wear hearing protection when exposed to noise levels of 85 dBA or greater, in designated hearing protection areas, or when required for the task. | H-BT-019 | C16 "Wear hearing protection when noise levels exceed 85 dBA" — **equivalent**; 85 dBA confirmed as company policy P-000005 (PO Decision 002). This control adds designated-area and task triggers; any wording change must keep 85 dBA (note R-2) | Company policy P-000005 (85 dBA, PO Decision 002) — not attributed to a universal regulation. Regulatory criteria kept internally: OSHA-C 1926.52 / 1926.101; OSHA-GI 1910.95; MSHA Part 62 (all unverified). Employees are not required to measure sound levels. | r3.1: text per PO Decision 002 §3 |
 | C-000050 | Keep tools maintained to reduce vibration. | H-BT-020 | — | See related hazard refs | r2 |
 | C-000051 | Do not rely on anti-vibration gloves alone. | H-BT-020 | — | See related hazard refs | r2 |
 | C-000052 | Use sockets rated for the tool — impact-rated sockets on impact tools. | H-BT-021 | — | See related hazard refs | r2 |
@@ -146,15 +156,17 @@
 | C-000109 | Use hoses, couplings and restraints rated for the system's pressure and medium. | H-BT-025 [if other pressurized hose system] | — | Mfr; BP | r3: new |
 | C-000110 | Isolate and relieve pressure before disconnecting a pressurized hose. | H-BT-025 [if other pressurized hose system] | — | BP | r3: new |
 | C-000111 | Wear goggles instead of safety glasses where falling or airborne debris can get around glasses. | H-BT-032 [if falling debris can get around glasses] | — | OSHA-C 1926.102 (unverified) | r3: new |
+| C-000112 | Wear ANSI A4 or higher cut-resistant gloves for demolition, knife use and work with stainless steel lath (expanded metal). | H-BT-002 [if demolition, knife use or stainless steel lath] | — | Company policy P-000002 (PO Decision 002); ANSI/ISEA 105 cut scale (unverified). Governs over C-000004 where both apply. | r3.1: new (PO Decision 002 §1) |
+| C-000113 | Protect against falls at any height into or onto dangerous equipment, and guard or cover holes and openings regardless of height. | H-BT-017 [if dangerous equipment, holes or openings, or client / project rule] | — | Applicable regulation where it sets no minimum height — e.g. OSHA-C 1926.501(b)(4), (b)(8) (unverified); MSHA 56.15005 (unverified); client / project | r3.1: new (PO Decision 002 §2) |
 
 
 ## Registry notes
 
 **R-1 — Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater."**
-Conflicts with PO Decision 1. The **candidate replacement** is C-000039: "Use the fall protection required for the task and project before exposure to a fall hazard." Specific relationships for personal fall protection, anchorage, compatibility and rescue are kept in C-000040 to C-000044 (Response 003 §5). Production is unchanged until a PO-approved milestone (U-14).
+Equivalent to C-000039. The 6-ft trigger is company policy P-000003 (PO Decision 002), so **there is no conflict** (U-14 resolved). Any future wording improvement must keep the 6-ft trigger.
 
 **R-2 — Production C16 "Wear hearing protection when noise levels exceed 85 dBA."**
-The **candidate replacement** is C-000049: "Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task." Regulatory noise criteria are kept internally (Basis column), and field personnel are not asked to estimate sound levels (Response 003 §5). Production is unchanged (U-14).
+Equivalent to C-000049. 85 dBA is company policy P-000005 (PO Decision 002), so **there is no conflict** (U-14 resolved). Boundary wording differs ("exceed" vs. "or greater"); harmonize in a future approved milestone, keeping the 85 dBA requirement.
 
 **R-3 — Production C7 / C11 "Never … work under a suspended load."**
 Equivalent to C-000033 for general crews. In steel erection, C-000034 (connectors only) accompanies it, because connectors are necessarily exposed during initial connection.

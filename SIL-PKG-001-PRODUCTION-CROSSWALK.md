@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Candidate crosswalk, **revision r3**. Not approved. Nothing in production is changed by this document. It records which production records *would* be superseded if Package 001 is approved (Architect Response 001 Decision 1; Responses 002 §2 and 003 §4). r1 is preserved at commit `0195ed9`, r2 at `4376c8e`.
+> **Repository Record (AD-008 §6):** Candidate crosswalk, **revision r3.1**. Not approved. Nothing in production is changed by this document. It records which production records *would* be superseded if Package 001 is approved (Architect Response 001 Decision 1; Responses 002 §2 and 003 §4). r1 is preserved at commit `0195ed9`, r2 at `4376c8e`.
 
-# SIL-PKG-001 — Production Record Crosswalk (r3)
+# SIL-PKG-001 — Production Record Crosswalk (r3.1)
 
 **Production baseline:** v1.3.0-p1, commit `8318ddb`, as extracted in `A4-LIBRARY-EXPORT.md`
 
@@ -107,9 +107,10 @@ The full mapping is in `SIL-CONTROL-REGISTRY.md` (Production equivalent column, 
 
 **No production control entry is retired.**
 
-**U-14 candidate replacements** are prepared (Response 003 §5). Production is unchanged.
-- **C1** "100% tie-off at 6 feet or greater" → C-000039 (registry note R-1)
-- **C16** "85 dBA" → C-000049 (registry note R-2)
+**U-14 resolved — no policy conflict** (PO Decision 002 §4). Both production thresholds are confirmed company policy and retained:
+- **C1** "100% tie-off at 6 feet or greater" ≡ C-000039 / P-000003 (registry note R-1)
+- **C16** "85 dBA" ≡ C-000049 / P-000005 (registry note R-2). Only the boundary wording differs.
+- **C3** cut-resistant gloves: related to P-000001 / P-000002 (`SIL-POLICY-REGISTRY.md`). Production doesn't state the A4 triggers.
 
 ---
 

@@ -1,11 +1,11 @@
-> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3. Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
+> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3.1 (r3 amended by PO Decision Record 002). Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
 
-# Safety Intelligence Library — Package 001 (Reconciled Candidate r3)
+# Safety Intelligence Library — Package 001 (Reconciled Candidate r3.1)
 ## Bolt (0013) · Torque (0014) · Hydraulic Bolt Tensioning (work method under Bolt)
 
 **Status:** Candidate. Pending Architect technical validation and Product Owner approval.
 **Reconciled by:** Claude (Engineer), November 25, 2026.
-**Original records are preserved unchanged** in the source files below. Reconciled r1 is preserved at commit `0195ed9` and r2 at `4376c8e`.
+**Original records are preserved unchanged** in the source files below. Reconciled r1 is preserved at commit `0195ed9` r2 at `4376c8e`, and r3 at `d9b7a1a`.
 
 ### Source documents and revision history
 
@@ -21,7 +21,9 @@
 | 8 | PO Decision Record 001 | `SIL-PKG-001-PO-DECISION-001.md` | this commit |
 | 9 | Reconciled candidate r2, crosswalk r2, control registry r2 | this file, crosswalk, `SIL-CONTROL-REGISTRY.md` | `4376c8e` |
 | 10 | Architect Response 003 | `SIL-PKG-001-ARCHITECT-RESPONSE-003.md` | this commit |
-| 11 | Reconciled candidate r3, crosswalk r3, control registry r3 | this file, crosswalk, registry | this commit |
+| 11 | Reconciled candidate r3, crosswalk r3, control registry r3 | this file, crosswalk, registry | `d9b7a1a` |
+| 12 | PO Decision Record 002 — Company safety requirements | `SIL-PKG-001-PO-DECISION-002.md` | this commit |
+| 13 | r3.1 amendments; Company Policy Registry | this file, crosswalk, control registry, `SIL-POLICY-REGISTRY.md` | this commit |
 
 **Reference labels:**
 
@@ -33,7 +35,7 @@
 | Spec | RCSC / AISC / ASME |
 | Mfr | Manufacturer |
 | BP | Best practice |
-| Policy | Company or client |
+| Policy | Company (PO-confirmed, `SIL-POLICY-REGISTRY.md` P-*nnnnnn*) or client — kept distinct |
 
 **Status of each citation:**
 - "Architect-checked" = verified by the Architect in Response 002 §4.
@@ -41,6 +43,32 @@
 - Everything else is **unverified**.
 
 Citations are internal only and never shown to users.
+
+### r3.1 amendment summary (PO Decision Record 002)
+
+PO Decision 002 **supersedes** conflicting provisions of PO Decision 001 and Architect Response 003.
+
+**Company policy registry**
+- `SIL-POLICY-REGISTRY.md` created with P-000001 to P-000005. Policy records link to canonical controls rather than duplicating them.
+
+**Hand protection**
+- C-000004 is now "work gloves when working with steel" (P-000001).
+- New C-000112 requires A4 cut-resistant gloves for demolition, knife use and stainless steel lath (P-000002). It is applied to H-BT-002 as a relationship condition. Where both apply, the more protective governs.
+
+**Fall protection**
+- C-000039 now carries the 6-ft company trigger, "or at a lower height where required" (P-000003).
+- New C-000113 covers fall protection regardless of height.
+- Boom and scissor lift tie-off is unchanged (P-000004).
+
+**Hearing protection**
+- C-000049 now carries the 85 dBA company threshold, plus designated-area and task triggers (P-000005). Employees are never required to measure sound levels.
+
+**§2 rule 8 rewritten.** PO-confirmed company thresholds are kept and labeled as company policy. More protective requirements govern.
+
+**Status changes**
+- U-14 resolved: no policy conflict.
+- The hand protection portion of U-9 resolved.
+- r2 findings F-4 and F-5 withdrawn as superseded.
 
 ### r3 change summary (Architect Response 003)
 
@@ -189,7 +217,14 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
    - OSHA construction citations are not applied universally to mining or industrial maintenance.
    - User-facing text carries no citations.
 
-8. **Thresholds** (PO Decision 1). No universal numeric fall protection threshold and no universal steel-erection exception in user-facing text. Controls refer to project requirements. Federal exceptions that are less protective than verified Adena or project requirements are never introduced.
+8. **Thresholds** (PO Decision 002, superseding PO Decision 001 §1):
+   - Numeric thresholds confirmed by the PO as company policy stay in the library and are labeled as company policy, not attributed to a regulation:
+     - fall protection at 6 ft (P-000003);
+     - hearing protection at 85 dBA (P-000005).
+   - Where a client, project or regulatory requirement is more protective (for example, a lower fall height), the more protective requirement governs. Controls say "or at a lower height where required."
+   - No less protective federal exception (for example, steel erection height allowances) is introduced.
+   - Employees are never required to measure sound levels; task-based triggers still apply.
+   - **Policy precedence:** where overlapping activities trigger requirements in the same family, the more protective one governs and the less protective one is not presented as an alternative. Example: work gloves vs. A4 gloves.
 
 9. **Emergency response** (Response 002 §8). Include an immediate response action only where it materially reduces injury severity for that specific hazard:
    - H-BT-017: rescue (C-000044)
@@ -219,11 +254,12 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Explicit for Bolt/Torque; relationship inherited from T7, T31
 - Hazard: Cuts from sharp metal surfaces, burrs, pipe ends and flanges.
 - Controls:
-  - `C-000004` Wear task-appropriate cut-resistant gloves where hands are exposed to sharp metal.
+  - `C-000004` Wear work gloves when working with steel.
+  - `C-000112` `[if demolition, knife use or stainless steel lath]` Wear ANSI A4 or higher cut-resistant gloves for demolition, knife use and work with stainless steel lath (expanded metal).
   - `C-000005` Remove burrs only where the connection or flange requirements allow it — never on gasket seating faces.
   - `C-000006` Keep hands off unprotected plate, pipe and hole edges.
-- Refs: OSHA-C 1926.95, 1926.28 (unverified); Spec (faying-surface and flange-face limits, unverified); Policy (hand protection)
-- Δ: r2: generalized (Response 002 §2); no cut level (PO Decision 4).
+- Refs: Company policy P-000001, P-000002 (PO Decision 002); OSHA-C 1926.95, 1926.28 (unverified); Spec (faying-surface and flange-face limits, unverified)
+- Δ: r2: generalized. r3.1: hand protection per PO Decision 002 — work gloves for steel; A4 for demolition, knife use, stainless steel lath; more protective governs.
 
 **H-BT-003 — Wrench or socket slippage**
 - Applicability: Explicit for Bolt/Torque
@@ -359,14 +395,15 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Conditional on elevation cue
 - Hazard: Fall from an elevated work position.
 - Controls:
-  - `C-000039` Use the fall protection required for the task and project before exposure to a fall hazard.
+  - `C-000039` Use required fall protection when exposed to a fall hazard of 6 feet or greater, or at a lower height where required.
+  - `C-000113` `[if dangerous equipment, holes or openings, or client / project rule]` Protect against falls at any height into or onto dangerous equipment, and guard or cover holes and openings regardless of height.
   - `C-000040` `[if boom or scissor lift]` In boom and scissor lifts, wear compatible personal fall protection attached to the manufacturer-approved anchorage point.
   - `C-000041` `[if boom or scissor lift]` Never tie off to the steel or an adjacent structure from a lift.
   - `C-000042` `[if personal fall protection used on structure]` When using personal fall protection on steel, connect to an approved anchorage rated for the system.
   - `C-000043` `[if personal fall protection used]` Inspect harness, lanyard or SRL and connectors before use.
   - `C-000044` `[if personal fall protection used]` Have a rescue plan ready before work at height — a worker suspended in a harness must be reached promptly.
-- Refs: PO Decision 1 (project-specific thresholds) and PO Decision 2 (tie-off in boom and scissor lifts); OSHA-C 1926.453(b)(2)(iii)–(v) — verified (Engineer, CFR text via LII, r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3); 1926.760(a) (Response 001; unverified). Per OSHA interpretation, scissor lifts are not covered by 1926.453 — scissor tie-off rests on PO Decision 2.
-- Δ: r3: C-000039 = U-14 candidate text; anchorage/inspection/rescue apply when personal fall protection is used (Response 003 §7).
+- Refs: Company policy P-000003 (6-ft trigger; lower where required) and P-000004 (tie-off in boom and scissor lifts) — PO Decision 002 supersedes PO Decision 001 §1; OSHA-C 1926.453(b)(2)(iii)–(v) — verified (Engineer, CFR text via LII, r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3); 1926.760(a) (Response 001; unverified). Per OSHA interpretation, scissor lifts are not covered by 1926.453 — scissor tie-off rests on PO Decision 2.
+- Δ: r3: anchorage/inspection/rescue apply when personal fall protection is used. r3.1: C-000039 per PO Decision 002; C-000113 any-height control added.
 
 **H-BT-018 — Dropped tools, equipment, hardware or materials striking personnel below**
 - Applicability: Conditional on elevation cue; relationships inherited from T7, T8, T9, T10, T25, T35, T37
@@ -384,9 +421,9 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Conditional: noise-producing equipment OR nearby noisy operations (either suffices)
 - Hazard: Noise exposure.
 - Controls:
-  - `C-000049` Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task.
-- Refs: Internal noise criteria preserved: OSHA-C 1926.52, 1926.101; OSHA-GI 1910.95; MSHA Part 62 (all unverified). Field personnel are not asked to estimate sound levels.
-- Δ: r2: OR applicability. r3: C-000049 = U-14 candidate text.
+  - `C-000049` Wear hearing protection when exposed to noise levels of 85 dBA or greater, in designated hearing protection areas, or when required for the task.
+- Refs: Company policy P-000005 (85 dBA). Regulatory criteria internal: OSHA-C 1926.52, 1926.101; OSHA-GI 1910.95; MSHA Part 62 (all unverified). Task-based triggers apply when levels are not measured.
+- Δ: r2: OR applicability. r3.1: C-000049 per PO Decision 002.
 
 **H-BT-020 — Hand-arm vibration**
 - Applicability: Conditional: impact or pneumatic tools
@@ -592,7 +629,8 @@ When it can't be decided, jurisdiction stays **undetermined**, and every applica
 | Pneumatic hose connections | 1926.302(b)(1), (b)(7) | To be identified | 56.13021 | C Architect-checked; MSHA locking-device requirement verified (Engineer, eCFR, r3); MSHA 100-psi definition unverified |
 | Hydraulic component pressure limits | 1926.302(d)(2) | To be identified | To be identified | C Architect-checked |
 | Hand tool condition | 1926.301 | 1910.242(a) | To be identified | Unverified |
-| Noise (internal criteria only) | 1926.52, 1926.101 | 1910.95 | Part 62 | Unverified |
+| Noise (internal criteria only; company threshold = P-000005) | 1926.52, 1926.101 | 1910.95 | Part 62 | Unverified |
+| Fall protection trigger (company trigger = P-000003, 6 ft) | Subpart M (6 ft general) | 1910.28(b)(1) (4 ft) | 56.15005 (danger of falling) | Unverified. The lower GI threshold and MSHA's no-fixed-height rule govern where applicable. |
 | Electrical protection for tools | 1926.404(b)(1) | To be identified | To be identified | Unverified |
 | Hazardous energy (flange cross-reference) | Cross-reference | 1910.147 | 56.14105 | Unverified |
 | PSM mechanical integrity (H-BT-036) | 1926.64 | 1910.119(j) | n/a | Unverified |
@@ -712,6 +750,13 @@ No separate record is needed.
 - R-31 Disconnect water blast hose → H-BT-025 with C-000109 / C-000110; no pneumatic controls
 - R-32 Stage deck bundles and tools on upper level → H-BT-018 with C-000108 / C-000046; no bolt-bag control
 
+**PO Decision 002 (proposed)**
+- R-33 Bolt up beam splice at ground level → C-000004 (work gloves); **not** C-000112
+- R-34 Cut and tie stainless steel lath for rockwork with utility knife → C-000112 (A4) governs; C-000004 not presented as an alternative
+- R-35 Demolish existing steel platform and remove bolts → C-000112 (A4) governs
+- R-36 Bolt beam connections from scissor lift at 4 ft platform height → C-000039 plus C-000040 / C-000041 (tie-off in scissor lifts, P-000004)
+- R-37 Torque pump flange bolts next to running pump → C-000049 by task trigger, without a measured level
+
 ---
 
 
@@ -719,7 +764,7 @@ No separate record is needed.
 
 ## 8. Engineer findings — r3
 
-r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-4 to F-6 are resolved by Response 003 §4–5.
+r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-6 was resolved by Response 003 §4. **F-4 and F-5 are withdrawn.** PO Decision 002 confirms the 6-ft and 85 dBA thresholds as company policy, so neither is a conflict. My F-5 point that crews can't measure dBA in the field is addressed by the task-based triggers in C-000049, not by removing the threshold.
 
 | # | Finding | Effect |
 |---|---|---|
@@ -729,6 +774,8 @@ r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-4 to F-6 are resolve
 | G-4 | **Generalizing H-BT-018** makes it equivalent to seven further production strings beyond the two in U-13: T8 "Dropped objects from elevated platform," T9 "Falling objects from ladder user," T10 "Falling objects from scaffold," T25 "Struck-by from falling materials and tools" and "Materials stored at height," T35 "Dropped objects to floors and personnel below," T37 "Dropped rigging hardware onto workers below." | Proposed as supersessions in Crosswalk r3 §A2, **pending Architect confirmation**. Retained, not superseded: suspended or dropped loads (T5, T6, T16), "Crush hazard from dropped material" (T17, a handling drop, not from height) and falling structural members (T7). |
 | G-5 | **C-000096** ("Never cut, hammer or impact a tensioned nut loose") conflicted with Response 003's direction for C-000095 not to require tensioning equipment universally. Some joint procedures specify alternative removal methods. | Revised to defer to the specified removal procedure. |
 | G-6 | **Verification hygiene.** My r2 "verified, Engineer" marks for 1926.453 and 1910.67 relied on search-result text. In r3 I re-checked them against CFR text (LII reproduction for 1926.453; osha.gov for 1910.67), and the source is now named. **Architect to confirm** that the LII CFR reproduction is acceptable as a primary source, or re-check against eCFR. | Status labels updated throughout. |
+| G-8 | **Production C16 boundary wording.** It says "exceed 85 dBA"; P-000005 says "85 dBA or greater." | Boundary difference only. Harmonize in a future approved production milestone (policy registry). |
+| G-9 | **Lower regulatory fall thresholds exist.** Examples (unverified): OSHA general industry 1910.28(b)(1) at 4 ft; MSHA 56.15005 "danger of falling" with no fixed height. These matter for plant-maintenance and mine-site work. | Covered by the "or at a lower height where required" clause of C-000039 and by the jurisdiction model. Thresholds stay internal. |
 | G-7 | **Goggles.** For falling overhead debris, safety glasses alone may be bypassed. Face shields are secondary protection (C-000055). | New C-000111 "goggles where debris can get around glasses," used conditionally by H-BT-032. |
 
 ---
@@ -745,12 +792,14 @@ r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-4 to F-6 are resolve
 | U-6 | Tensioning classification | Resolved | — |
 | U-7 | Fall protection requirements | Resolved (PO Decisions 1–2) | — |
 | U-8 | Terminology and aliases | Resolved (PO Decision 3) | — |
-| U-9 | Policy-based controls (cut level by task / project; other company vs. client requirements) | **Open** | PO |
+| U-9 | Policy-based controls | **Hand protection portion resolved** (PO Decision 002 §1; P-000001, P-000002). **Open:** other company vs. client requirements not yet confirmed. | PO |
 | U-10 | OSHA-GI and MSHA equivalents marked "To be identified" (§4) | **Open** | Architect |
 | U-11 | Tensioner / torque-wrench hose compatibility | Resolved (Response 003 §2) | — |
 | U-12 | Emergency response actions | Resolved (Response 003 §3) | — |
 | U-13 | Generalize H-BT-004 / -018 / -025 | Resolved (Response 003 §4) | — |
-| U-14 | Production C1 / C16 corrections | Candidate replacements prepared (C-000039, C-000049). Production change needs a PO-approved milestone. | PO |
+| U-14 | Production C1 / C16 | **Resolved — no policy conflict** (PO Decision 002 §4). Both thresholds are company policy and retained. The only remaining wording item is G-8. | — |
 | U-15 | Flange applicability | Resolved (Response 003 §6) | — |
 | U-16 | Confirm the seven additional H-BT-018 supersessions (G-4, Crosswalk r3 §A2) | **Open** | Architect |
 | U-17 | Confirm LII CFR reproduction as an acceptable primary source for verification (G-6) | **Open** | Architect |
+| U-18 | P-000002 says *stainless steel* lath. Does the A4 requirement also cover galvanized or other expanded-metal lath, or stainless only? | **Open** | PO |
+| U-19 | What counts as "demolition" for P-000002? ACT-0007 Remove (taking out equipment or components) is a separate activity. Proposed demolition cues: demo, demolish, tear out, gut, wreck, selective demolition, dismantle structure. | **Open** | PO / Architect |
