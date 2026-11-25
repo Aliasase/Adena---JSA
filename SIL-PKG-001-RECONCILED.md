@@ -1,11 +1,11 @@
-> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r2. Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
+> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3. Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
 
-# Safety Intelligence Library — Package 001 (Reconciled Candidate r2)
+# Safety Intelligence Library — Package 001 (Reconciled Candidate r3)
 ## Bolt (0013) · Torque (0014) · Hydraulic Bolt Tensioning (work method under Bolt)
 
 **Status:** Candidate. Pending Architect technical validation and Product Owner approval.
 **Reconciled by:** Claude (Engineer), November 25, 2026.
-**Original records are preserved unchanged** in the source files below. Reconciled r1 is preserved at commit `0195ed9`.
+**Original records are preserved unchanged** in the source files below. Reconciled r1 is preserved at commit `0195ed9` and r2 at `4376c8e`.
 
 ### Source documents and revision history
 
@@ -19,7 +19,9 @@
 | 6 | Reconciled candidate r1 + crosswalk r1 | this file, `SIL-PKG-001-PRODUCTION-CROSSWALK.md` | `0195ed9` |
 | 7 | Architect Response 002 | `SIL-PKG-001-ARCHITECT-RESPONSE-002.md` | this commit |
 | 8 | PO Decision Record 001 | `SIL-PKG-001-PO-DECISION-001.md` | this commit |
-| 9 | Reconciled candidate r2, crosswalk r2, control registry | this file, crosswalk, `SIL-CONTROL-REGISTRY.md` | this commit |
+| 9 | Reconciled candidate r2, crosswalk r2, control registry r2 | this file, crosswalk, `SIL-CONTROL-REGISTRY.md` | `4376c8e` |
+| 10 | Architect Response 003 | `SIL-PKG-001-ARCHITECT-RESPONSE-003.md` | this commit |
+| 11 | Reconciled candidate r3, crosswalk r3, control registry r3 | this file, crosswalk, registry | this commit |
 
 **Reference labels:**
 
@@ -35,21 +37,44 @@
 
 **Status of each citation:**
 - "Architect-checked" = verified by the Architect in Response 002 §4.
-- "verified, Engineer" = I checked it against the primary or official source in this revision (§8).
+- "verified (Engineer, <source>, r3)" = I checked it against the named primary source and confirmed applicability (Response 003 §9).
 - Everything else is **unverified**.
 
 Citations are internal only and never shown to users.
 
-### r2 change summary
-- Canonical control IDs C-000001 to C-000104 assigned. Every control below cites its ID; full registry in `SIL-CONTROL-REGISTRY.md`.
-- Response 002 §5 corrections applied to: H-BT-007, H-BT-019, H-BT-023, H-BT-025, H-BT-032, H-BT-033, H-BT-034, H-BT-035.
-- H-BT-015 diagonal-bracing citation corrected. My r1 mapping of 1926.756(a)(2) was wrong.
-- Four crosswalk generalizations applied: H-BT-002, H-BT-010, H-BT-012, H-BT-026.
-- Four r1 supersessions withdrawn as narrower than production (Crosswalk §B2).
-- PO Decisions 1–4 applied: H-BT-017 has no numeric threshold and tie-off in boom **and** scissor lifts; H-BT-002 has no cut level.
-- Cumulative applicability corrected to clause-level scoping (§2 rule 4). A flange reference establishes context; it does not assert line breaking (§2 rule 6).
-- Jurisdiction model added (§4).
-- New Engineer findings in §8.
+### r3 change summary (Architect Response 003)
+
+**Registry**
+- Accepted as the single permanent control repository for all packages. C-000105 to C-000111 added.
+- Eleven controls revised per §7: C-000004, C-000028, C-000038, C-000039, C-000042, C-000049, C-000055, C-000066, C-000084, C-000095, C-000099. C-000096 was aligned with C-000095.
+- Registry now records the internal basis and the revision of each control.
+
+**Generalized hazards** (U-13, §4)
+- H-BT-004, H-BT-018 and H-BT-025 are generalized, with controls specific to each relationship:
+  - powered wrenches; drills and binding bits; magnetic drills;
+  - tools, equipment and materials at height;
+  - pneumatic hose systems, kept separate from other pressurized hose systems.
+- Pneumatic controls are not applied to hydraulic or process-pressure systems.
+- The four withdrawn supersessions are reconciled, and seven further equivalent production strings are identified (Crosswalk r3 §A2).
+
+**U-14 candidate replacements** (§5)
+- Production C1 and C16 replacement texts recorded as the canonical text of C-000039 and C-000049.
+- **The production app is unchanged.**
+
+**Resolved items**
+- U-11 (§2), U-12 (§3), U-13 (§4) and U-15 (§6) resolved.
+- Flange exposure cues expanded (§2 rule 6).
+- Explicitly excluded exposures are suppressed, Show More included.
+
+**Jurisdiction** (§8)
+- Context indicators are not determinations; jurisdiction may stay undetermined.
+- Hazards are never suppressed for that reason (§2 rule 7, §4).
+
+**Verification**
+- I re-checked the citations I had marked "verified, Engineer" in r2 against primary sources. One was downgraded:
+  - MSHA 56.13021's 100-psi definition came from MSHA compliance material, not the regulation text, so it is now **unverified**.
+- Added: 1926.756(a)(1), (a)(2), (b), (c)(1), (c)(2) — checked against the osha.gov primary text.
+- "Verified" now always names the source checked (§8).
 
 ---
 
@@ -146,13 +171,21 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
    - A canonical control can carry an additional condition per hazard relationship (Response 002 §1).
    - Conditions come from recognized concepts, not exact keyword matches.
 
-6. **Flange context** (Response 002 §6):
-   - A flange reference establishes context for *evaluating* line break, hazardous energy, residual pressure and chemical exposure.
-   - These cross-referenced records are **Explicit** only with an opening or breaking cue (break, open, line break, remove blind, replace gasket, disassemble, pull spool).
-   - Otherwise they are **Conditional** (ranked lower, reachable through Show More). They are never asserted for a flange inspection or torque check.
+6. **Flange context** (Responses 002 §6, 003 §6):
+   - A flange reference alone does not establish line breaking.
+   - Line break, hazardous energy, residual pressure and process-fluid / chemical records become **Explicit** when the description shows the exposure, with or without the literal words "line break." Cues include:
+     - opening: break, open, pull, split, remove blind or spool, replace gasket;
+     - disassembly: disassemble, unbolt, remove cover or bonnet;
+     - isolation: isolate, blind, block and bleed, LOTO;
+     - depressurization: drain, depressurize, vent, bleed down;
+     - process-fluid exposure: acid, caustic, chemical, process fluid, slurry, steam, ammonia.
+   - Otherwise, for process flanges these records are **Conditional** (ranked lower, reachable through Show More).
+   - **An exposure the crew explicitly excludes** (for example "torque check only — no line break," "flange not opened") is suppressed entirely. It is never reintroduced to populate Show More. The same exclusion rule applies to every record, not only flange context.
 
-7. **Jurisdiction** (Response 002 §7):
-   - Regulatory jurisdiction is set internally from the operation and work context: OSHA-C, OSHA-GI or MSHA (§4).
+7. **Jurisdiction** (Responses 002 §7, 003 §8):
+   - Construction projects, industrial facilities and mine property are **contextual indicators**, not determinations.
+   - Jurisdiction (OSHA-C, OSHA-GI, MSHA) is decided internally from the nature of the work, the operation and the jurisdictional boundaries. It may remain **undetermined** when the information isn't available.
+   - **No hazard or control is suppressed because jurisdiction is undetermined**; only the internal citation set is affected.
    - OSHA construction citations are not applied universally to mining or industrial maintenance.
    - User-facing text carries no citations.
 
@@ -161,7 +194,7 @@ Turn-of-nut (turn of nut, match mark) is recognized as a **pretensioning method*
 9. **Emergency response** (Response 002 §8). Include an immediate response action only where it materially reduces injury severity for that specific hazard:
    - H-BT-017: rescue (C-000044)
    - H-BT-023: injection (C-000062)
-   - H-BT-024: eye flush (C-000066, proposed)
+   - H-BT-024: eye flush (C-000066, accepted with revised wording, Response 003 §3)
 
    Generic emergency instructions are not repeated across records.
 
@@ -186,7 +219,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Explicit for Bolt/Torque; relationship inherited from T7, T31
 - Hazard: Cuts from sharp metal surfaces, burrs, pipe ends and flanges.
 - Controls:
-  - `C-000004` Wear the hand protection required for the task and project.
+  - `C-000004` Wear task-appropriate cut-resistant gloves where hands are exposed to sharp metal.
   - `C-000005` Remove burrs only where the connection or flange requirements allow it — never on gasket seating faces.
   - `C-000006` Keep hands off unprotected plate, pipe and hole edges.
 - Refs: OSHA-C 1926.95, 1926.28 (unverified); Spec (faying-surface and flange-face limits, unverified); Policy (hand protection)
@@ -203,15 +236,17 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Refs: OSHA-C 1926.301(b) (unverified); BP
 - Δ: Absorbs H-BT-005.
 
-**H-BT-004 — Sudden tool movement from torque reaction**
-- Applicability: Conditional: handheld powered wrench without reaction arm
-- Hazard: Powered tool twisting or kicking against the operator.
+**H-BT-004 — Sudden tool movement from torque reaction, kickback or binding**
+- Applicability: Conditional: handheld powered rotating tool (powered wrench, drill, magnetic drill); relationship inherited from T3
+- Hazard: Sudden tool movement from torque reaction, kickback or binding.
 - Controls:
   - `C-000011` Brace for the tool's reaction before starting; use the side handle where provided.
-  - `C-000012` Set direction and torque or speed before starting.
-  - `C-000013` Expect the tool to twist when the nut seats or stalls.
+  - `C-000012` `[if powered wrench]` Set direction and torque or speed before starting.
+  - `C-000013` `[if powered wrench]` Expect the tool to twist when the nut seats or stalls.
+  - `C-000106` `[if drill]` Expect the bit to bind as it breaks through — hold the drill firmly with the side handle and ease off the trigger.
+  - `C-000107` `[if magnetic drill]` Seat a magnetic drill fully on clean, flat steel and use its safety strap or chain as the manufacturer requires.
 - Refs: Mfr; BP
-- Δ: r1: reclassified conditional. r2: T3 supersession withdrawn pending generalization (Crosswalk §B2).
+- Δ: r3: generalized (Response 003 §4); supersedes T3 "Kickback / torque reaction"; relationship-specific controls.
 
 **H-BT-005 — RETIRED**
 - Applicability: —
@@ -254,7 +289,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000022` Set your feet and brace before applying force — expect the nut to break free.
   - `C-000023` `[if aerial or scissor lift]` Stand on the platform floor; never climb or stand on rails to reach the work.
   - `C-000024` `[if ladder]` Do not apply heavy wrench force from a ladder — reposition or use a lift.
-- Refs: OSHA-C 1926.453(b)(2)(iv) (verified, Engineer); 1926.1053(b)(22) (unverified); BP
+- Refs: OSHA-C 1926.453(b)(2)(iv) (verified, Engineer, CFR text via LII, r3); 1926.1053(b)(22) (unverified); BP
 
 **H-BT-010 — Caught in a rotating tool, bit, socket or extension**
 - Applicability: Conditional: powered rotating tool; relationship inherited from T3
@@ -270,7 +305,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Hazard: Bolt snapping, or a seized nut breaking loose suddenly under applied force.
 - Controls:
   - `C-000027` Do not exceed the specified tightening.
-  - `C-000028` Replace and reuse fasteners only as the project requirements specify — remove bolts that have stretched, galled or been over-tightened.
+  - `C-000028` Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected.
   - `C-000022` Set your feet and brace before applying force — expect the nut to break free.
 - Refs: Spec — RCSC 2020 §2.11 reuse provisions (Architect-checked); BP
 - Δ: r2: reuse wording made project-specific (Response 002 §4).
@@ -308,48 +343,50 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Controls:
   - `C-000037` Do not release the load until the connection required for that member is made and stability is verified.
   - `C-000032` Follow the erection plan sequence.
-- Refs: OSHA-C 1926.756(a)(1) solid-web members (Architect-checked); 1926.756(a)(2) cantilevered members (Architect-checked); 1926.756(b) diagonal bracing (Architect-checked); 1926.757 joists, 1926.755 columns/anchor rods (unverified)
-- Δ: r2: diagonal bracing corrected to 1926.756(b); (a)(2) = cantilevered members (Response 002 §4). Engineer r1 mapping was wrong.
+- Refs: OSHA-C 1926.756(a)(1) solid-web members; (a)(2) competent-person determination of additional bolts for cantilevered members; (b) diagonal bracing — all Architect-checked and verified (Engineer, osha.gov primary text, r3). 1926.757 joists, 1926.755 columns/anchor rods (unverified)
+- Δ: r2: diagonal bracing corrected to 1926.756(b). r3: verification recorded.
 
 **H-BT-016 — Collapse from removing bolts at a shared (double) connection**
 - Applicability: [FIT-UP]; Conditional (double connection, shared holes, both sides of column, beam over column)
 - Hazard: First member falling when shared bolts are removed to make a double connection.
 - Controls:
-  - `C-000038` At a shared connection, keep at least one bolt with its nut tight in the first member — unless a seat or approved support device holds it.
-- Refs: OSHA-C 1926.756(c)(1) — verified by Engineer; per OSHA interpretation of 05/09/2006, (c) does not apply to double connections at a beam away from a column. The hazard remains, so the record applies to all shared-bolt connections; the citation applies only at columns.
-- Δ: r2: interpretation added.
+  - `C-000038` At a shared connection, keep at least one bolt with its nut wrench-tight in the first member while making the double connection, unless a seat or equivalent device secures the first member.
+  - `C-000105` `[if seat or equivalent device used]` If a seat or equivalent device is used, it must be designed to carry the load and be bolted or welded to both the support and the first member before the shared nuts are removed.
+- Refs: OSHA-C 1926.756(c)(1)–(2) — verified (Engineer, osha.gov primary text, r3). Per OSHA interpretation of 05/09/2006, (c) does not apply to double connections at a beam away from a column; the hazard remains, so the record applies to all shared-bolt connections and the citation only at columns / beam webs over columns.
+- Δ: r3: reviewed against complete (c)(1)–(2) requirements (Response 003 §7); seat-device control C-000105 added.
 
 **H-BT-017 — Fall from elevated work position**
 - Applicability: Conditional on elevation cue
 - Hazard: Fall from an elevated work position.
 - Controls:
-  - `C-000039` Use the fall protection required by company, project and equipment-manufacturer requirements for the access being used — do not start until it is in place.
+  - `C-000039` Use the fall protection required for the task and project before exposure to a fall hazard.
   - `C-000040` `[if boom or scissor lift]` In boom and scissor lifts, wear compatible personal fall protection attached to the manufacturer-approved anchorage point.
   - `C-000041` `[if boom or scissor lift]` Never tie off to the steel or an adjacent structure from a lift.
-  - `C-000042` `[if on structure]` Tie off to an approved anchorage rated for fall arrest before working on steel.
-  - `C-000043` Inspect harness, lanyard or SRL and connectors before use.
-  - `C-000044` Have a rescue plan ready before work at height — a worker suspended in a harness must be reached promptly.
-- Refs: Policy (PO Decision 1 — project-specific thresholds; PO Decision 2 — tie-off in boom and scissor lifts); OSHA-C 1926.453(b)(2)(iii), (v) (verified, Engineer); 1926.760(a) (Response 001); OSHA-GI 1910.67(c)(2)(v) (verified, Engineer). Per OSHA interpretation, scissor lifts are not covered by the 1926.453 aerial lift provisions — scissor tie-off rests on Policy.
-- Δ: r2: PO Decisions 1–2; no numeric threshold; no-tie-to-structure and rescue controls added.
+  - `C-000042` `[if personal fall protection used on structure]` When using personal fall protection on steel, connect to an approved anchorage rated for the system.
+  - `C-000043` `[if personal fall protection used]` Inspect harness, lanyard or SRL and connectors before use.
+  - `C-000044` `[if personal fall protection used]` Have a rescue plan ready before work at height — a worker suspended in a harness must be reached promptly.
+- Refs: PO Decision 1 (project-specific thresholds) and PO Decision 2 (tie-off in boom and scissor lifts); OSHA-C 1926.453(b)(2)(iii)–(v) — verified (Engineer, CFR text via LII, r3); OSHA-GI 1910.67(c)(2)(v) — verified (Engineer, osha.gov, r3); 1926.760(a) (Response 001; unverified). Per OSHA interpretation, scissor lifts are not covered by 1926.453 — scissor tie-off rests on PO Decision 2.
+- Δ: r3: C-000039 = U-14 candidate text; anchorage/inspection/rescue apply when personal fall protection is used (Response 003 §7).
 
-**H-BT-018 — Dropped bolts, sockets, tools and components**
-- Applicability: Conditional on elevation cue; relationship inherited from T25 (Falling tools) and T7
-- Hazard: Dropped bolts, sockets, tools and tensioning components striking people below.
+**H-BT-018 — Dropped tools, equipment, hardware or materials striking personnel below**
+- Applicability: Conditional on elevation cue; relationships inherited from T7, T8, T9, T10, T25, T35, T37
+- Hazard: Dropped tools, equipment, hardware or materials striking personnel below. (Suspended loads and falling structural members remain distinct.)
 - Controls:
-  - `C-000045` Keep bolts, nuts and washers in a secured bolt bag or bucket — never loose on flanges or beams.
-  - `C-000046` Use rated tool tethers where required.
   - `C-000047` Barricade or control the area below; no one works below without protection.
+  - `C-000046` `[if tools at height]` Use rated tool tethers where required.
+  - `C-000045` `[if bolting hardware]` Keep bolts, nuts and washers in a secured bolt bag or bucket — never loose on flanges or beams.
+  - `C-000108` `[if materials or equipment at height]` Secure materials and equipment kept at height against displacement, back from edges and openings.
   - `C-000048` `[if tensioner]` Support tensioners so they cannot fall when pullers are unthreaded.
-- Refs: OSHA-C 1926.759(a), (b) (Architect-checked; steel erection scope)
-- Δ: r2: T7 "Dropped objects" and T25 "Dropped objects striking workers below" supersession withdrawn pending generalization (Crosswalk §B2).
+- Refs: OSHA-C 1926.759(a), (b) — Architect-checked (steel erection scope); other contexts BP / 1926.502(j) (unverified)
+- Δ: r3: generalized (Response 003 §4).
 
 **H-BT-019 — Noise exposure**
 - Applicability: Conditional: noise-producing equipment OR nearby noisy operations (either suffices)
 - Hazard: Noise exposure.
 - Controls:
-  - `C-000049` Wear hearing protection around noise-producing equipment and operations, including when working near others' noisy work.
-- Refs: OSHA-C 1926.52, 1926.101; OSHA-GI 1910.95; MSHA 30 CFR Part 62 (all unverified)
-- Δ: r2: OR applicability (Response 002 §5).
+  - `C-000049` Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task.
+- Refs: Internal noise criteria preserved: OSHA-C 1926.52, 1926.101; OSHA-GI 1910.95; MSHA Part 62 (all unverified). Field personnel are not asked to estimate sound levels.
+- Δ: r2: OR applicability. r3: C-000049 = U-14 candidate text.
 
 **H-BT-020 — Hand-arm vibration**
 - Applicability: Conditional: impact or pneumatic tools
@@ -398,21 +435,23 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000063` Use hoses and couplers rated for the system's maximum pressure, with couplers fully engaged.
   - `C-000064` `[if tensioner]` Do not use torque-wrench hoses or couplers on a tensioner system unless they are rated for tensioner pressure.
   - `C-000065` Clean up spilled fluid before continuing.
-  - `C-000066` If hydraulic fluid gets in the eyes, flush immediately and get medical evaluation.
+  - `C-000066` If hydraulic fluid enters the eyes, immediately flush with clean water, follow the SDS first-aid instructions and obtain medical evaluation.
   - `C-000060` Verify hydraulic pressure is released and address any trapped pressure or stored mechanical energy before disconnecting or removing equipment.
 - Refs: OSHA-C 1926.302(d)(2) (Architect-checked); Mfr
 - Δ: r2: eye-flush response proposed (Response 002 §8).
 
-**H-BT-025 — Compressed-air hose whip**
-- Applicability: Conditional: pneumatic tool or air-driven pump
-- Hazard: Air hose whipping when a coupling or tool connection separates.
+**H-BT-025 — Hose whip from pressurized hose or coupling separation**
+- Applicability: Conditional: pneumatic or other pressurized hose systems (not hydraulic tool circuits, covered by H-BT-023/024); relationship inherited from T23
+- Hazard: Hose whip from pressurized hose or coupling separation.
 - Controls:
-  - `C-000067` Use air tools with a positive connection to the hose that cannot come apart accidentally.
-  - `C-000068` Install hose restraints (whip checks) at couplings.
-  - `C-000069` Use excess-flow valves on supply lines where required — hose restraints and excess-flow valves do not replace each other.
-  - `C-000070` Shut off and bleed the air before disconnecting.
-- Refs: OSHA-C 1926.302(b)(1), (b)(7) (Architect-checked); MSHA 56.13021 (verified, Engineer — different scope: hoses of 3/4 in. ID and larger at 100 psi or more; automatic shutoff valves are an alternative)
-- Δ: r2: positive connection added separately (Response 002 §5); T23 supersession withdrawn pending generalization (Crosswalk §B2).
+  - `C-000067` `[if pneumatic tool]` Use air tools with a positive connection to the hose that cannot come apart accidentally.
+  - `C-000068` `[if pneumatic hose]` Install hose restraints (whip checks) at couplings.
+  - `C-000069` `[if pneumatic supply line]` Use excess-flow valves on supply lines where required — hose restraints and excess-flow valves do not replace each other.
+  - `C-000070` `[if pneumatic]` Shut off and bleed the air before disconnecting.
+  - `C-000109` `[if other pressurized hose system]` Use hoses, couplings and restraints rated for the system's pressure and medium.
+  - `C-000110` `[if other pressurized hose system]` Isolate and relieve pressure before disconnecting a pressurized hose.
+- Refs: OSHA-C 1926.302(b)(1), (b)(7) (Architect-checked; pneumatic only); MSHA 56.13021 — locking-device requirement verified (Engineer, eCFR, r3), 100 psi definition unverified
+- Δ: r3: generalized (Response 003 §4); pneumatic controls not applied to other systems.
 
 **H-BT-026 — Electrical shock from powered tools and equipment**
 - Applicability: Conditional: corded tools or electrically powered equipment (incl. pumps); relationship inherited from T3
@@ -446,7 +485,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Controls:
   - `C-000077` Remove mushroomed or damaged striking tools and pins from service.
   - `C-000054` Wear safety glasses.
-  - `C-000055` Add goggles or a face shield where debris or fragments can reach the face.
+  - `C-000055` Add a face shield over safety glasses or goggles where debris or fragments can reach the face — a face shield does not replace eye protection.
   - `C-000078` Keep your partner and others clear of the far side when driving pins.
 - Refs: OSHA-C 1926.301(c), 1926.102 (unverified)
 - Δ: r2: face protection by exposure, not duration.
@@ -466,10 +505,10 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000081` Tighten in pattern from the stiffest part of the joint outward.
   - `C-000082` `[if turn-of-nut]` Turn-of-nut: snug tight first, match mark, then turn the specified rotation.
   - `C-000083` `[if calibrated wrench]` Calibrated wrench: verify calibration daily with the bolts being installed.
-  - `C-000084` `[if TC bolts]` TC bolts: the spline must be sheared off — a bolt with the spline intact is not tensioned.
+  - `C-000084` `[if TC bolts]` TC bolts: install and inspect by the specified procedure — a bolt with the spline still on is not complete, and a sheared spline alone does not prove correct pretension.
   - `C-000085` `[if DTI]` DTI: verify gaps or indicator per manufacturer.
   - `C-000086` `[if pretensioned joint]` Complete pre-installation verification before production bolting of pretensioned joints.
-  - `C-000028` Replace and reuse fasteners only as the project requirements specify — remove bolts that have stretched, galled or been over-tightened.
+  - `C-000028` Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected.
   - `C-000087` Keep bolts clean, dry and lubricated as delivered.
   - `C-000027` Do not exceed the specified tightening.
 - Refs: Spec — RCSC 2020 (§2.11 Architect-checked; other provisions unverified); AISC 303/360 (unverified)
@@ -480,10 +519,11 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Hazard: Scale, rust or debris falling into the eyes during overhead bolting.
 - Controls:
   - `C-000054` Wear safety glasses.
-  - `C-000055` Add goggles or a face shield where debris or fragments can reach the face.
+  - `C-000111` `[if falling debris can get around glasses]` Wear goggles instead of safety glasses where falling or airborne debris can get around glasses.
+  - `C-000055` `[if debris can reach the face]` Add a face shield over safety glasses or goggles where debris or fragments can reach the face — a face shield does not replace eye protection.
   - `C-000088` Position yourself so you are not looking straight up into the work.
 - Refs: OSHA-C 1926.102 (unverified); BP
-- Δ: r2: protection selected by actual debris exposure (Response 002 §5).
+- Δ: r3: eye and supplemental face protection selected by actual exposure.
 
 **H-BT-033 — Stud or tensioner component ejected under hydraulic pressure**
 - Applicability: Conditional: hydraulic bolt tensioner
@@ -503,8 +543,8 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Conditional: detensioning or removal of tensioned studs
 - Hazard: Sudden release of stud preload during detensioning, or when a tensioned nut is loosened by other means.
 - Controls:
-  - `C-000095` Loosen tensioned studs only with the tensioner and the specified detensioning procedure.
-  - `C-000096` Never cut, hammer or impact a tensioned nut or stud loose.
+  - `C-000095` Loosen tensioned studs or nuts only by the specified safe detensioning or removal procedure.
+  - `C-000096` Do not cut, split, hammer or impact a tensioned nut or stud unless the specified removal procedure allows it.
   - `C-000092` Keep everyone clear of the axial line of force of each tensioner or loaded stud, whatever its orientation.
   - `C-000060` Verify hydraulic pressure is released and address any trapped pressure or stored mechanical energy before disconnecting or removing equipment.
 - Refs: Mfr
@@ -517,7 +557,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000097` Turn nuts by the manufacturer-designated method; keep fingers out of nut-turning openings and the gap between tool and flange.
   - `C-000098` Keep hands clear of pistons and pullers while pressurized.
   - `C-000001` The pump operator pressurizes only on a clear signal from the person at the tool.
-  - `C-000099` Disconnect or lock the pump control while positioning or adjusting tools.
+  - `C-000099` Prevent unintended pressurization while positioning or adjusting tools by following the manufacturer's isolation procedure.
 - Refs: Mfr; BP
 - Δ: r2: manufacturer-designated nut-turning method (Response 002 §5).
 
@@ -535,34 +575,27 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 
 ---
 
-## 4. Jurisdiction model (Response 002 §7)
+## 4. Jurisdiction model (Responses 002 §7, 003 §8)
 
-Jurisdiction is an internal attribute set from the operation and work context, never from the user-facing text:
-- construction project → OSHA-C;
-- plant maintenance at a general-industry facility → OSHA-GI;
-- work on mine property (e.g. phosphate) → MSHA.
+Jurisdiction is an internal attribute decided from the nature of the work, the operation and the jurisdictional boundaries. The work context is only an **indicator**:
+- construction project → likely OSHA-C;
+- industrial facility maintenance → likely OSHA-GI;
+- mine property → possibly MSHA. MSHA/OSHA boundaries depend on the operation; for example, some processing facilities are covered under the MSHA/OSHA interagency agreement.
 
-Each reference is stored with its jurisdiction. Where an equivalent provision hasn't been identified, the record carries the gap rather than borrowing another jurisdiction's citation.
+When it can't be decided, jurisdiction stays **undetermined**, and every applicable hazard and control is still presented. References are stored per jurisdiction; gaps are recorded rather than filled from another jurisdiction.
 
-| Topic | OSHA-C | OSHA-GI | MSHA | Status |
+| Topic | OSHA-C | OSHA-GI | MSHA | Verification status |
 |---|---|---|---|---|
-| Aerial lift fall protection | 1926.453(b)(2)(iii)–(v) | 1910.67(c)(2)(v) | 56.15005 | C and GI verified (Engineer); MSHA unverified |
-| Pneumatic hose connections | 1926.302(b)(1), (b)(7) | To be identified | 56.13021 | C Architect-checked; MSHA verified (Engineer) |
+| Aerial lift fall protection | 1926.453(b)(2)(iii)–(v) | 1910.67(c)(2)(v) | 56.15005 | C verified (Engineer, CFR text via LII, r3); GI verified (Engineer, osha.gov, r3); MSHA unverified |
+| Steel erection connections | 1926.756(a)(1), (a)(2), (b), (c)(1)–(2) | n/a | n/a | Architect-checked; verified (Engineer, osha.gov, r3) |
+| Falling object protection (steel erection) | 1926.759(a)–(b) | To be identified | To be identified | C Architect-checked |
+| Pneumatic hose connections | 1926.302(b)(1), (b)(7) | To be identified | 56.13021 | C Architect-checked; MSHA locking-device requirement verified (Engineer, eCFR, r3); MSHA 100-psi definition unverified |
 | Hydraulic component pressure limits | 1926.302(d)(2) | To be identified | To be identified | C Architect-checked |
 | Hand tool condition | 1926.301 | 1910.242(a) | To be identified | Unverified |
-| Noise | 1926.52, 1926.101 | 1910.95 | Part 62 | Unverified |
+| Noise (internal criteria only) | 1926.52, 1926.101 | 1910.95 | Part 62 | Unverified |
 | Electrical protection for tools | 1926.404(b)(1) | To be identified | To be identified | Unverified |
-| Steel erection (connections, falling objects) | 1926.754–.760 | n/a | n/a | Partly Architect-checked |
 | Hazardous energy (flange cross-reference) | Cross-reference | 1910.147 | 56.14105 | Unverified |
 | PSM mechanical integrity (H-BT-036) | 1926.64 | 1910.119(j) | n/a | Unverified |
-
-**Note on MSHA 56.13021.** It has a different scope from OSHA 1926.302(b)(7):
-- hoses of 3/4 in. inside diameter or larger, at 100 psi or more;
-- safety chains or locking devices required;
-- automatic shutoff valves are an alternative.
-
-In line with rule 8, these thresholds stay internal.
-
 ---
 
 ## 5. Engineer review of Addendum 02 — hydraulic bolt tensioning
@@ -670,22 +703,33 @@ No separate record is needed.
 **Architect Response 002**
 - R-25 Check torque on existing column connections and install bolts on the next suspended beam → existing-connection torque hazards **and** initial-connection, suspended-load and structural-stability hazards, cumulatively (clause-level scoping, §2 rule 4)
 
+**Engineer additions r3 (Response 003 §4, §6; proposed)**
+- R-26 Check torque on flange bolts — no line break → no line-break / LOTO / process-fluid records, **including in Show More**
+- R-27 Remove spool piece and replace gaskets on acid line → line break, residual pressure, chemical exposure Explicit (no literal "line break")
+- R-28 Torque pump flange bolts → line-break records Conditional only
+- R-29 Drill holes in beam flange with mag drill → H-BT-004 with C-000106 / C-000107; no wrench controls C-000012 / C-000013
+- R-30 Blow down air hose and disconnect impact gun → H-BT-025 pneumatic controls; not C-000109 / C-000110
+- R-31 Disconnect water blast hose → H-BT-025 with C-000109 / C-000110; no pneumatic controls
+- R-32 Stage deck bundles and tools on upper level → H-BT-018 with C-000108 / C-000046; no bolt-bag control
+
 ---
 
 
 ---
 
-## 8. New Engineer findings in r2
+## 8. Engineer findings — r3
+
+r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-4 to F-6 are resolved by Response 003 §4–5.
 
 | # | Finding | Effect |
 |---|---|---|
-| F-1 | I checked **1926.756(c)(1)** against OSHA's interpretation of 05/09/2006: paragraph (c) does not apply to double connections at a beam away from a column. The hazard still exists there; the preamble describes the connector falling with collapsing double-connected members. | H-BT-016 applies to all shared-bolt double connections; the citation is limited to connections at columns. |
-| F-2 | **1926.453(b)(2)(iii)** prohibits belting off to an adjacent pole, structure or equipment from an aerial lift. This is directly relevant to bolting steel from a lift. | New control C-000041 ("Never tie off to the steel or an adjacent structure from a lift"). |
-| F-3 | OSHA has interpreted that **scissor lifts are not covered** by the 1926.453 aerial lift provisions. | The scissor lift tie-off requirement in H-BT-017 rests on PO Decision 2 (Policy), not 1926.453. Recorded internally so validation doesn't attribute it to the wrong source. |
-| F-4 | **Production control conflicts with PO Decision 1.** Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater" is a universal numeric threshold in the live app. | Not superseded (registry note R-1). Production change outside scope; recorded for PO action (U-14). |
-| F-5 | **Production C16 "Wear hearing protection when noise levels exceed 85 dBA."** Crews can't measure dBA in the field. 85 dBA is the general-industry hearing conservation action level (1910.95), not the construction requirement structure (1926.52), so as a universal statement it is questionable. | Not superseded (registry note R-2). Canonical C-000049 is exposure-based. Recorded (U-14). |
-| F-6 | Four r1 supersessions would have replaced broader production hazards with narrower bolting records: T3 kickback (drills and bits), T7 "Dropped objects" (any material), T25 "Dropped objects striking workers below," T23 "Hose whip from disconnected line" (any pressurized hose). | Withdrawn. Generalization proposals in Crosswalk §B2 (U-13). |
-| F-7 | Hydraulic depressurization (C-000060) is now one canonical control shared by H-BT-023, H-BT-024 and H-BT-034. It is broader than production C19 "Verify zero energy state" in one respect (trapped pressure *and* stored mechanical energy) and narrower in another (hydraulic only). | Neither supersedes the other; both retained. |
+| G-1 | **C-000038 review (Response 003 §7)** against the complete 1926.756(c), checked against the osha.gov primary text. (c)(1) requires at least one bolt *with its wrench-tight nut* to remain on the first member, unless a seat or equivalent device secures it and prevents column displacement. (c)(2) requires that any seat or device be designed to carry the load during the double connection, and be bolted or welded to both the supporting member and the first member *before* the shared nuts are removed. | C-000038 revised to "wrench-tight" and "secures the first member." The device characteristics and installation sequence are a separate conditional control, C-000105. Joined into one sentence they were not field-readable. |
+| G-2 | **1926.756(a)(2)** is a *competent-person determination* of whether more than two bolts are needed for cantilevered members, not a fixed count. | H-BT-015 internal reference corrected. C-000037 user text is unchanged; it already defers to "the connection required for that member." |
+| G-3 | **1926.453(b)(2)(v)** text says "body belt … and a lanyard." Its note states body belts are not acceptable in personal fall arrest after Jan 1, 1998, and restrict them to tethering or restraint (1926.502(e)). | Supports C-000040 "compatible personal fall protection." No user text names a body belt. |
+| G-4 | **Generalizing H-BT-018** makes it equivalent to seven further production strings beyond the two in U-13: T8 "Dropped objects from elevated platform," T9 "Falling objects from ladder user," T10 "Falling objects from scaffold," T25 "Struck-by from falling materials and tools" and "Materials stored at height," T35 "Dropped objects to floors and personnel below," T37 "Dropped rigging hardware onto workers below." | Proposed as supersessions in Crosswalk r3 §A2, **pending Architect confirmation**. Retained, not superseded: suspended or dropped loads (T5, T6, T16), "Crush hazard from dropped material" (T17, a handling drop, not from height) and falling structural members (T7). |
+| G-5 | **C-000096** ("Never cut, hammer or impact a tensioned nut loose") conflicted with Response 003's direction for C-000095 not to require tensioning equipment universally. Some joint procedures specify alternative removal methods. | Revised to defer to the specified removal procedure. |
+| G-6 | **Verification hygiene.** My r2 "verified, Engineer" marks for 1926.453 and 1910.67 relied on search-result text. In r3 I re-checked them against CFR text (LII reproduction for 1926.453; osha.gov for 1910.67), and the source is now named. **Architect to confirm** that the LII CFR reproduction is acceptable as a primary source, or re-check against eCFR. | Status labels updated throughout. |
+| G-7 | **Goggles.** For falling overhead debris, safety glasses alone may be bypassed. Face shields are secondary protection (C-000055). | New C-000111 "goggles where debris can get around glasses," used conditionally by H-BT-032. |
 
 ---
 
@@ -693,18 +737,20 @@ No separate record is needed.
 
 | # | Item | Status | Owner |
 |---|---|---|---|
-| U-1 | Control ID scheme | **Resolved** (Response 002 §1). Registry established. Reconciliation of production control entries outside Package 001 scope is pending future packages. | — |
-| U-2 | Crosswalk §B generalizations | **Resolved** (Response 002 §2) | — |
-| U-3 | T7 "Struck-by from overhead steel" | **Resolved:** retained as falling structural materials, distinct from suspended load | — |
-| U-4 | Remaining unverified citations: 1926.754(a), 1926.752(e), 1926.753(d), 1926.755, 1926.757, 1926.760(a)–(b), 1926.300–.301, 1926.404(b)(1), 1926.1053(b)(22), 1926.52/.101/.102, 1926.95/.28, 1926.64; all OSHA-GI and MSHA references except those marked verified | Open | Architect |
-| U-5 | RCSC provisions other than §2.11 (methods, pre-installation verification); AISC 303/360; ASME PCC-1; whether client procedures govern | Open | Architect |
-| U-6 | Tensioning classification | **Resolved** (Response 002 §3) | — |
-| U-7 | Company / project fall protection requirements | **Resolved** (PO Decisions 1–2) | — |
-| U-8 | Crew terminology and brand aliases | **Resolved** (PO Decision 3) | — |
-| U-9 | Policy-based controls (hand protection and other company vs. client requirements) | **Open** — policy-specific validation (PO Decision 4) | PO |
-| U-10 | General-industry and MSHA equivalents marked "To be identified" (§4) | Open | Architect |
-| U-11 | Whether tensioner pressures commonly exceed torque-wrench hose ratings (C-000064 basis) | Open | Architect |
-| U-12 | Emergency response actions | **Resolved in principle** (Response 002 §8). C-000066 (hydraulic fluid eye flush) is proposed and needs approval. | Architect |
-| U-13 | Generalize H-BT-004, H-BT-018 and H-BT-025 so the four withdrawn supersessions can proceed (Crosswalk §B2) | Open | Architect |
-| U-14 | Production controls C1 (6-ft threshold) and C16 (85 dBA) conflict with PO Decision 1 and field usability. Change requires a PO-approved production milestone. | Open | PO |
-| U-15 | Confirm flange line-break / LOTO cross-references as Conditional, not Explicit, without an opening cue (§2 rule 6) | Open | Architect |
+| U-1 | Control ID scheme | Resolved (Response 002 §1; registry accepted, Response 003 §1) | — |
+| U-2 | Crosswalk §B generalizations | Resolved | — |
+| U-3 | T7 "Struck-by from overhead steel" | Resolved — falling structural members, distinct | — |
+| U-4 | Unverified citations: 1926.754(a), 1926.752(e), 1926.753(d), 1926.755, 1926.757, 1926.760(a)–(b), 1926.300–.302 except Architect-checked items, 1926.404(b)(1), 1926.502(d)/(j), 1926.1053(b)(22), 1926.52/.101/.102, 1926.95/.28, 1926.64; all OSHA-GI and MSHA references not marked verified; MSHA 56.13021 100-psi definition | **Open** | Architect |
+| U-5 | RCSC provisions other than §2.11; AISC 303/360; ASME PCC-1; whether client procedures govern | **Open** | Architect |
+| U-6 | Tensioning classification | Resolved | — |
+| U-7 | Fall protection requirements | Resolved (PO Decisions 1–2) | — |
+| U-8 | Terminology and aliases | Resolved (PO Decision 3) | — |
+| U-9 | Policy-based controls (cut level by task / project; other company vs. client requirements) | **Open** | PO |
+| U-10 | OSHA-GI and MSHA equivalents marked "To be identified" (§4) | **Open** | Architect |
+| U-11 | Tensioner / torque-wrench hose compatibility | Resolved (Response 003 §2) | — |
+| U-12 | Emergency response actions | Resolved (Response 003 §3) | — |
+| U-13 | Generalize H-BT-004 / -018 / -025 | Resolved (Response 003 §4) | — |
+| U-14 | Production C1 / C16 corrections | Candidate replacements prepared (C-000039, C-000049). Production change needs a PO-approved milestone. | PO |
+| U-15 | Flange applicability | Resolved (Response 003 §6) | — |
+| U-16 | Confirm the seven additional H-BT-018 supersessions (G-4, Crosswalk r3 §A2) | **Open** | Architect |
+| U-17 | Confirm LII CFR reproduction as an acceptable primary source for verification (G-6) | **Open** | Architect |
