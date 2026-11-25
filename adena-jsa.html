@@ -145,6 +145,10 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 /* SUPERVISOR LOCKED CARD */
 .ack-box{background:var(--red-banner);border:1.5px solid var(--red);border-radius:10px;padding:14px;font-size:13px;line-height:1.5;color:var(--gray9);margin-bottom:14px;}
 .sup-locked{border:1.5px solid var(--green);background:rgba(52,199,89,0.07);border-radius:10px;padding:14px;}
+/* A-3 — Document Integrity */
+.rev-banner{background:#fff8e1;border-bottom:1.5px solid #f59f00;padding:9px 14px;font-size:12px;font-weight:600;color:#7d5c00;display:none;position:sticky;top:112px;z-index:37;text-align:center;letter-spacing:0.2px;}
+.rev-banner.show{display:block;}
+.btn-reack{background:transparent;border:1.5px solid var(--gray5);color:var(--gray7);border-radius:8px;padding:9px 14px;font-size:13px;font-weight:bold;cursor:pointer;margin-top:10px;width:100%;}
 .sup-locked-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 .sup-sig-img{height:60px;border:1px solid var(--gray3);border-radius:6px;background:#fff;}
 .sup-locked-name{font-weight:bold;font-size:15px;}
@@ -253,6 +257,8 @@ h1,h2,h3,h4{margin:0;font-family:Georgia,serif;}
 </div>
 
 <div id="highRiskBanner" class="hr-banner"></div>
+<!-- A-3: Revision banner — shown when material content changes after any signature -->
+<div id="revisionBanner" class="rev-banner">&#9888;&#xFE0E; JSA revised since last acknowledgment &mdash; renewed supervisor acknowledgment required</div>
 
 <div class="main">
   <div id="panel-jobinfo" class="tab-panel active"></div>
@@ -1121,8 +1127,8 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
 /* ============================================================
    STORAGE / STATE
    ============================================================ */
-var APP_VERSION = '1.2.0'; /* Revision A-2 — Suggestion Intelligence */
-var APP_BUILD   = 'p1';    /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
+var APP_BUILD   = 'dev1';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 var STORAGE_KEY = 'adena_jsa_current';
 var ID_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
@@ -1183,7 +1189,10 @@ function createNewState(){
     supervisor: null,
     crew: [],
     nextStepId: 1,
-    nextCrewId: 1
+    nextCrewId: 1,
+    /* A-3 — Document Integrity */
+    snapshots: [],                       /* immutable record of content at each signature event */
+    materialChangedSinceLastSig: false   /* true when material fields changed after any signature */
   };
 }
 
@@ -1193,6 +1202,9 @@ function loadState(){
     if(raw){
       var parsed = JSON.parse(raw);
       if(parsed && parsed.job && parsed.job.date === toDateStr(new Date())){
+        /* A-3: backfill new fields for JSAs created before Revision A-3 */
+        if(!parsed.snapshots) parsed.snapshots = [];
+        if(typeof parsed.materialChangedSinceLastSig === 'undefined') parsed.materialChangedSinceLastSig = false;
         return parsed;
       }
     }
@@ -1209,8 +1221,10 @@ function persist(){
 /* Full save: touches revised timestamp, persists, refreshes footer/badges/banner */
 function saveState(){
   state.revised = new Date().toISOString();
+  checkMaterialChangeSinceLastSig(); /* A-3 */
   persist();
   updateFooter();
+  updateRevisionBanner();            /* A-3 */
 }
 
 /* Light save for plain text field edits: no structural UI to refresh besides footer timestamps */
@@ -1530,17 +1544,28 @@ function renderSupervisor(){
   var body;
   if(state.supervisor){
     var s = state.supervisor;
+    var revCount = (state.snapshots||[]).filter(function(sn){ return sn.event==='supervisor'; }).length;
+    var revLabel = revCount > 1 ? ' (Acknowledgment #'+revCount+')' : '';
+    var reackSection = '';
+    if(state.materialChangedSinceLastSig){
+      reackSection =
+        '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(245,159,0,0.3);">' +
+          '<div style="font-size:12px;color:#7d5c00;font-weight:600;margin-bottom:6px;">&#9888;&#xFE0E; JSA content has been revised since this acknowledgment. Renewed supervisor signature required before continuing work.</div>' +
+          '<button type="button" class="btn-reack" onclick="openSupervisorModal()">Re-acknowledge Revised JSA</button>' +
+        '</div>';
+    }
     body =
       '<div class="sup-locked">' +
         '<div class="sup-locked-row">' +
           '<img class="sup-sig-img" src="'+s.sig+'" alt="Supervisor signature">' +
           '<div>' +
-            '<div class="sup-locked-name">'+escapeHtml(s.name)+'</div>' +
+            '<div class="sup-locked-name">'+escapeHtml(s.name)+escapeHtml(revLabel)+'</div>' +
             '<div class="sup-locked-meta">'+escapeHtml(s.phone||'')+'</div>' +
-            '<div class="sup-locked-meta">Signed '+fmtDT(s.timestamp)+'</div>' +
+            '<div class="sup-locked-meta">Acknowledged '+fmtDT(s.timestamp)+'</div>' +
           '</div>' +
           '<span class="locked-badge">LOCKED &#10003;</span>' +
         '</div>' +
+        reackSection +
       '</div>';
   } else {
     body = '<button type="button" class="btn btn-dark btn-block" onclick="openSupervisorModal()">Sign as Supervisor</button>';
@@ -1570,10 +1595,15 @@ function renderCrew(){
       '</div>';
     }).join('');
   }
+  /* A-3 — revision notice for crew tab */
+  var revNote = '';
+  if(state.materialChangedSinceLastSig && state.crew.length > 0){
+    revNote = '<div style="background:#fff8e1;border:1px solid #f59f00;border-radius:6px;padding:9px 12px;margin:8px 0;font-size:12px;font-weight:600;color:#7d5c00;">&#9888;&#xFE0E; JSA content has been revised since existing crew acknowledgments. All crew members must re-acknowledge before work continues.</div>';
+  }
   document.getElementById('panel-crew').innerHTML =
     '<div class="card">' +
       '<div class="card-header"><span class="card-icon">&#128100;</span><h2>Crew Signatures</h2></div>' +
-      note + rowsHtml +
+      note + revNote + rowsHtml +
       '<div style="margin-top:12px;"><button type="button" class="btn-dashed-red" onclick="openCrewModal()">+ Add Crew Member</button></div>' +
     '</div>';
 }
@@ -1678,8 +1708,10 @@ function createSigPad(canvas, wrapEl){
 var supSigPad = null;
 
 function openSupervisorModal(){
-  document.getElementById('supName').value = '';
-  document.getElementById('supPhone').value = '';
+  /* A-3 — pre-populate when re-acknowledging after a revision */
+  var isReack = state.supervisor && state.materialChangedSinceLastSig;
+  document.getElementById('supName').value  = isReack ? (state.supervisor.name  || '') : '';
+  document.getElementById('supPhone').value = isReack ? (state.supervisor.phone || '') : '';
   document.getElementById('supervisorModal').style.display = 'flex';
   var wrap = document.getElementById('supSigWrap');
   wrap.classList.remove('signing','confirmed','locked');
@@ -1704,16 +1736,82 @@ function checkSupervisorReady(){
   var ready = name.length > 0 && supSigPad && !supSigPad.isEmpty();
   document.getElementById('supLockBtn').disabled = !ready;
 }
+/* ============================================================
+   A-3 — DOCUMENT INTEGRITY
+   Snapshot the material JSA content at each signature event.
+   The snapshot is an immutable record of what the signer acknowledged.
+   The active JSA state remains fully editable after any signature.
+
+   Material fields (scope, hazards, controls — require renewed acknowledgment
+   if changed after a signature):
+     job.description, hazards, hazardsOther, ppe, ppeOther,
+     permits, permitsOther, steps
+
+   Administrative fields (not material — do not require renewed acknowledgment):
+     job.project/jobNumber/location/trade/startTime/finishTime/crewSize,
+     conditions.*
+   ============================================================ */
+function snapshotMaterialContent(){
+  /* Normalize flag objects: sort keys, include only true values.
+     Prevents false-change detection from key-insertion order variation. */
+  function normalizeFlags(obj){
+    var r = {};
+    Object.keys(obj).sort().forEach(function(k){ if(obj[k]) r[k] = true; });
+    return r;
+  }
+  return {
+    jobDescription: state.job.description || '',
+    hazards:        normalizeFlags(state.hazards),
+    hazardsOther:   state.hazardsOther || '',
+    ppe:            normalizeFlags(state.ppe),
+    ppeOther:       state.ppeOther || '',
+    permits:        normalizeFlags(state.permits),
+    permitsOther:   state.permitsOther || '',
+    steps:          state.steps.map(function(s){
+                      return { id:s.id, desc:s.desc||'', hazard:s.hazard||'', control:s.control||'' };
+                    })
+  };
+}
+
+function checkMaterialChangeSinceLastSig(){
+  if(!state.snapshots || state.snapshots.length === 0){
+    state.materialChangedSinceLastSig = false;
+    return;
+  }
+  var lastSnap = state.snapshots[state.snapshots.length - 1];
+  /* Compare serialized material content — deterministic because snapshotMaterialContent
+     always produces keys in the same order. */
+  var current = JSON.stringify(snapshotMaterialContent());
+  var baseline = JSON.stringify(lastSnap.content);
+  state.materialChangedSinceLastSig = (current !== baseline);
+}
+
+function updateRevisionBanner(){
+  var el = document.getElementById('revisionBanner');
+  if(!el) return;
+  var show = state.materialChangedSinceLastSig && state.snapshots && state.snapshots.length > 0;
+  el.classList.toggle('show', show);
+}
+
 function lockSupervisor(){
   var name = document.getElementById('supName').value.trim();
   var phone = document.getElementById('supPhone').value.trim();
   if(!name || !supSigPad || supSigPad.isEmpty()) return;
-  state.supervisor = {
-    name: name,
-    phone: phone,
-    sig: supSigPad.toDataURL(),
-    timestamp: new Date().toISOString()
-  };
+  var ts = new Date().toISOString();
+  var sigData = supSigPad.toDataURL();
+  /* A-3: push an immutable snapshot of material content at this acknowledgment event */
+  if(!state.snapshots) state.snapshots = [];
+  state.snapshots.push({
+    event:      'supervisor',
+    signerName: name,
+    signerPhone: phone,
+    sig:        sigData,
+    timestamp:  ts,
+    revIndex:   state.snapshots.length,  /* 0-based position in revision history */
+    content:    snapshotMaterialContent()
+  });
+  state.supervisor = { name: name, phone: phone, sig: sigData, timestamp: ts };
+  state.materialChangedSinceLastSig = false;
   supSigPad.lock();
   closeSupervisorModal();
   onStateChanged({tab:'supervisor'});
@@ -1772,11 +1870,23 @@ function checkCrewReady(){
 function addCrewMember(){
   var name = document.getElementById('crewName').value.trim();
   if(!name || !crewSigConfirmed || !crewSigPad || crewSigPad.isEmpty()) return;
+  var ts = new Date().toISOString();
+  var sigData = crewSigPad.toDataURL();
+  /* A-3: push an immutable snapshot of material content at this crew acknowledgment */
+  if(!state.snapshots) state.snapshots = [];
+  state.snapshots.push({
+    event:      'crew',
+    signerName: name,
+    sig:        sigData,
+    timestamp:  ts,
+    revIndex:   state.snapshots.length,
+    content:    snapshotMaterialContent()
+  });
   state.crew.push({
     id: state.nextCrewId++,
     name: name,
-    sig: crewSigPad.toDataURL(),
-    timestamp: new Date().toISOString()
+    sig: sigData,
+    timestamp: ts
   });
   crewSigPad.lock();
   closeCrewModal();
@@ -2396,7 +2506,7 @@ document.addEventListener('focusin', function(e){
 
 renderAll();
 updateViewportVars();
-console.log('Adena JSA / PTP — v' + APP_VERSION + '-' + APP_BUILD + ' (Revision A-2)');
+console.log('Adena JSA / PTP — v' + APP_VERSION + '-' + APP_BUILD + ' (Revision A-3)');
 // Bind version + build footer display
 (function(){
   var el = document.getElementById('app-version-footer');

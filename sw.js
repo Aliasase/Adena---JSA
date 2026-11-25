@@ -1,5 +1,5 @@
 /* Adena JSA — Service Worker
- * Revision A-2 (v1.2.0-p1)
+ * Revision A-3 (v1.3.0-dev1)
  * Cache-first offline strategy.
  *
  * Offline reliability depends on successful installation and caching after
@@ -8,9 +8,10 @@
  * the cache.
  *
  * Cache history:
- *   adena-jsa-v1.1.0  — A-1 production
- *   adena-jsa-v1.2.0  — A-2 initial deploy
+ *   adena-jsa-v1.1.0    — A-1 production
+ *   adena-jsa-v1.2.0    — A-2 initial deploy
  *   adena-jsa-v1.2.0-p1 — A-2 patch: scroll preservation + reversible selection
+ *   adena-jsa-v1.3.0-dev1 — A-3 dev: Document Integrity (snapshot + re-acknowledge)
  */
 
 /* GOVERNING REQUIREMENT (PO-006 / 2026-11-25):
@@ -24,7 +25,7 @@
  * Active JSA data lives in localStorage and is unaffected by cache changes.
  */
 var CACHE_PREFIX = 'adena-jsa-';
-var CACHE_NAME = 'adena-jsa-v1.2.0-p1'; /* APP_BUILD = 'p1' in adena-jsa.html */
+var CACHE_NAME = 'adena-jsa-v1.3.0-dev1'; /* APP_BUILD = 'dev1' in adena-jsa.html */
 var PRECACHE_URLS = [
   './adena-jsa.html',
   './manifest.json',
