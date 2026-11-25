@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <!--
   Adena JSA / PTP Application
-  Version: 1.3.0
-  Status: Revision A-3 — Acknowledgment Workflow (authorized November 25, 2026)
-  Development branch: revision-a3
+  Version: 1.4.0
+  Status: Phase A-4 interim production release — Safety Intelligence Library Packages 001–002 (PO-008, November 25, 2026)
+  Development branch: revision-a4
   Production merge requires separate Product Owner authorization.
   See BASELINE.md in the project root for revision history.
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="application-version" content="1.3.0">
+<meta name="application-version" content="1.4.0">
 <link rel="manifest" href="./manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1144,8 +1144,8 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
 /* ============================================================
    STORAGE / STATE
    ============================================================ */
-var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
-var APP_BUILD   = 'p1';    /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_VERSION = '1.4.0'; /* Phase A-4 interim — Safety Intelligence Library (AD-009, PO-008) */
+var APP_BUILD   = 'p1';      /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 
 /* dev3: Acknowledgment statement displayed in tap-to-confirm re-acknowledgment modal.
    Stored verbatim in every supervisor_reack / crew_reack snapshot — do not change without
@@ -2202,50 +2202,627 @@ function addCrewMember(){
 }
 
 /* ============================================================
-   AI SUGGESTION ENGINE (offline, keyword-triggered)
+   SAFETY INTELLIGENCE LIBRARY (SIL) — Phase A-4 interim engine
+   v1.4.0 — Packages 001 (Bolt / Torque / Hydraulic tensioning)
+            and 002 (Weld / Cut / Grind)
+   Source of record: SIL-PKG-001-RECONCILED.md, SIL-PKG-002-RECONCILED.md,
+   SIL-CONTROL-REGISTRY.md, SIL-POLICY-REGISTRY.md (revision-a4).
+   Canonical records are cumulative with the legacy (A-2) library:
+   legacy entries outside the approved supersession scope are kept.
    ============================================================ */
 
-/**
- * getSuggestions — Suggestion engine interface (Track A / Track B boundary)
- *
- * This function is the sole entry point for all suggestion logic.
- * Track A (keyword matching) and Track B (CU reasoning engine) share
- * this identical interface. Track B replaces the function body only —
- * all consuming code is insulated from the implementation change.
- *
- * @param {string} kind
- *   'hazard'  — text is a task description; returns hazard suggestions
- *   'control' — text is a hazard description; returns control suggestions
- *
- * @param {string} text
- *   User-entered task description (kind='hazard') or hazard description
- *   (kind='control'). Empty or whitespace-only text returns [].
- *
- * @param {Object} [context]
- *   Reserved for Track B (CU reasoning engine). Ignored in A-1 and A-2.
- *   Track B shape: { sector: string, trade: string, priorHazards: string[] }
- *   Consumers must pass context if available; Track A safely ignores it.
- *
- * @returns {string[]}
- *   Array of suggestion strings. Duplicates removed.
- *
- *   A-1 behavior: results returned in existing keyword library order.
- *   No ranking is applied in A-1. Ranking begins in Revision A-2.
- *
- *   A-2 behavior: results ranked — contextual applicability first,
- *   applicable high-consequence hazards prioritized, then relevance.
- *
- *   Track B behavior: results ranked using composable CU reasoning
- *   (Activity + Object + Condition + Context). Same interface contract.
- *
- *   Consumers must not depend on a specific ordering algorithm —
- *   only on the contract that the array contains non-duplicate strings.
- *   Show More pagination is handled by the calling UI layer, not here.
- */
+var SIL_DATA = {"hazards":[{"id":"H-BT-001","t":"Pinch points while fitting and bolting connections","c":[["C-000002",""],["C-000003",""]]},{"id":"H-BT-002","t":"Cuts from sharp metal surfaces, burrs, pipe ends and flanges","c":[["C-000004",""],["C-000112","if demolition, knife use or stainless steel lath"],["C-000005",""],["C-000006",""],["C-000004","rel:H-BT-002"],["C-000112","rel:H-BT-002; if demolition, knife use or stainless steel lath"],["C-000140","rel:H-BT-002; if hot work (cumulative)"],["C-000006","rel:H-BT-002"],["C-000272","rel:H-BT-002; if heat and A4 cut requirement together"]]},{"id":"H-BT-003","t":"Wrench or socket slipping off the fastener, striking hands against steel","c":[["C-000007",""],["C-000008",""],["C-000009",""],["C-000010",""]]},{"id":"H-BT-004","t":"Sudden tool movement from torque reaction, kickback or binding","c":[["C-000011",""],["C-000012","if powered wrench"],["C-000013","if powered wrench"],["C-000106","if drill"],["C-000107","if magnetic drill"],["C-000011","rel:H-BT-004"],["C-000227","rel:H-BT-004"],["C-000228","rel:H-BT-004; if cut-off wheel"],["C-000229","rel:H-BT-004"],["C-000226","rel:H-BT-004"]]},{"id":"H-BT-006","t":"Wrench, socket, extension, multiplier or tensioner component failing under load","c":[["C-000014",""],["C-000015",""],["C-000016","if tensioner"],["C-000010",""],["C-000014","rel:H-BT-006"]]},{"id":"H-BT-007","t":"Strain from applying force or from handling heavy torque or tensioning equipment","c":[["C-000017",""],["C-000018",""],["C-000019","if hydraulic wrench, tensioner, large impact or pump"],["C-000019","rel:H-BT-007"],["C-000018","rel:H-BT-007"]]},{"id":"H-BT-008","t":"Repetitive hand and wrist strain","c":[["C-000020",""],["C-000021",""],["C-000020","rel:H-BT-008"],["C-000021","rel:H-BT-008"]]},{"id":"H-BT-009","t":"Loss of balance when a fastener breaks free or a tool slips","c":[["C-000022",""],["C-000023","if aerial or scissor lift"],["C-000024","if ladder"],["C-000022","rel:H-BT-009"]]},{"id":"H-BT-010","t":"Fingers, gloves, clothing or lanyards caught in a rotating tool, bit, socket or extension","c":[["C-000025",""],["C-000026",""],["C-000025","rel:H-BT-010"],["C-000026","rel:H-BT-010"],["C-000223","rel:H-BT-010; if wire wheel or brush"]]},{"id":"H-BT-011","t":"Bolt snapping, or a seized nut breaking loose suddenly under applied force","c":[["C-000027",""],["C-000028",""],["C-000022",""]]},{"id":"H-BT-012","t":"Caught between or crushed by shifting steel members","c":[["C-000029",""],["C-000030",""],["C-000029","rel:H-BT-012"],["C-000030","rel:H-BT-012"]]},{"id":"H-BT-013","t":"Structural instability or collapse during erection, modification or removal","c":[["C-000031","if erection or fit-up"],["C-000032","if erection or fit-up"],["C-000234","if cutting or removal"],["C-000235","if cutting or removal"],["C-000236","if cutting or removal"],["C-000031","rel:H-BT-013"],["C-000234","rel:H-BT-013"],["C-000235","rel:H-BT-013"]]},{"id":"H-BT-014","t":"Struck by or caught between suspended structural steel","c":[["C-000033",""],["C-000034",""],["C-000035",""],["C-000036",""],["C-000033","rel:H-BT-014"],["C-000036","rel:H-BT-014"]]},{"id":"H-BT-015","t":"Structural member moving or collapsing when the hoisting line is released","c":[["C-000037",""],["C-000032",""]]},{"id":"H-BT-016","t":"First member falling when shared bolts are removed to make a double connection","c":[["C-000038",""],["C-000105","if seat or equivalent device used"]]},{"id":"H-BT-017","t":"Fall from an elevated work position","c":[["C-000039",""],["C-000113","if dangerous equipment, holes or openings, or client / project rule"],["C-000040","if boom or scissor lift"],["C-000041","if boom or scissor lift"],["C-000042","if personal fall protection used on structure"],["C-000043","if personal fall protection used"],["C-000044","if personal fall protection used"],["C-000039","rel:H-BT-017"],["C-000040","rel:H-BT-017; if boom or scissor lift"],["C-000041","rel:H-BT-017; if boom or scissor lift"],["C-000245","rel:H-BT-017"]]},{"id":"H-BT-018","t":"Dropped tools, equipment, hardware or materials striking personnel below","c":[["C-000047",""],["C-000046","if tools at height"],["C-000045","if bolting hardware"],["C-000108","if materials or equipment at height"],["C-000048","if tensioner"],["C-000047","rel:H-BT-018"],["C-000233","rel:H-BT-018"],["C-000046","rel:H-BT-018; if tools at height"],["C-000108","rel:H-BT-018"]]},{"id":"H-BT-019","t":"Noise exposure","c":[["C-000049",""],["C-000049","rel:H-BT-019"]]},{"id":"H-BT-020","t":"Hand-arm vibration","c":[["C-000020",""],["C-000050",""],["C-000051",""],["C-000020","rel:H-BT-020"],["C-000050","rel:H-BT-020"],["C-000051","rel:H-BT-020"]]},{"id":"H-BT-021","t":"Socket or attachment coming off or shattering","c":[["C-000052",""],["C-000053",""],["C-000054",""]]},{"id":"H-BT-022","t":"Hand or body crushed at the torque reaction point","c":[["C-000056",""],["C-000057",""],["C-000001","if pump operated by another person"]]},{"id":"H-BT-023","t":"High-pressure hydraulic fluid injection","c":[["C-000058",""],["C-000059",""],["C-000060",""],["C-000061",""],["C-000062",""]]},{"id":"H-BT-024","t":"Hydraulic hose or fitting failure — fluid spray to eyes and face, slippery surfaces","c":[["C-000063",""],["C-000064","if tensioner"],["C-000065",""],["C-000066",""],["C-000060",""]]},{"id":"H-BT-025","t":"Hose whip from pressurized hose or coupling separation","c":[["C-000067","if pneumatic tool"],["C-000068","if pneumatic hose"],["C-000069","if pneumatic supply line"],["C-000070","if pneumatic"],["C-000109","if other pressurized hose system"],["C-000110","if other pressurized hose system"],["C-000067","rel:H-BT-025; if pneumatic"],["C-000068","rel:H-BT-025; if pneumatic"],["C-000070","rel:H-BT-025; if pneumatic"]]},{"id":"H-BT-026","t":"Electrical shock from powered tools and equipment","c":[["C-000071",""],["C-000072",""],["C-000073",""],["C-000071","rel:H-BT-026"],["C-000072","rel:H-BT-026"],["C-000073","rel:H-BT-026"]]},{"id":"H-BT-027","t":"Trips from hoses and cords","c":[["C-000074",""],["C-000075","if aerial or scissor lift"],["C-000074","rel:H-BT-027"],["C-000075","rel:H-BT-027; if aerial or scissor lift"]]},{"id":"H-BT-028","t":"Falling or ejected TC bolt splines","c":[["C-000076",""],["C-000047","if elevated"]]},{"id":"H-BT-029","t":"Flying fragments, or a drift pin ejected when struck","c":[["C-000077",""],["C-000054",""],["C-000055",""],["C-000078",""]]},{"id":"H-BT-030","t":"Hand struck by a missed hammer blow","c":[["C-000079",""]]},{"id":"H-BT-031","t":"Structural connection failure from incorrect installation, tightening or welding","c":[["C-000080","if bolted"],["C-000084","if bolted; TC bolts"],["C-000028","if bolted"],["C-000027","if bolted"],["C-000251","if welded"],["C-000252","if welded"],["C-000253","if welded"],["C-000254","if welded"],["C-000255",""]]},{"id":"H-BT-032","t":"Falling debris, particles or slag entering the eyes or ears during overhead work","c":[["C-000054",""],["C-000111","if falling debris can get around glasses"],["C-000055","if debris can reach the face"],["C-000088",""],["C-000261","if overhead thermal work"],["C-000054","rel:H-BT-032"],["C-000111","rel:H-BT-032"],["C-000055","rel:H-BT-032"],["C-000088","rel:H-BT-032"]]},{"id":"H-BT-033","t":"Stud, puller or tensioner component ejected under hydraulic pressure","c":[["C-000089",""],["C-000090",""],["C-000091",""],["C-000092",""],["C-000093",""],["C-000094",""],["C-000016",""]]},{"id":"H-BT-034","t":"Sudden release of stud preload during detensioning, or when a tensioned nut is loosened by other means","c":[["C-000095",""],["C-000096",""],["C-000092",""],["C-000060",""]]},{"id":"H-BT-035","t":"Fingers pinched or crushed at tensioners during positioning, pressurizing and nut turning","c":[["C-000097",""],["C-000098",""],["C-000001",""],["C-000099",""]]},{"id":"H-BT-036","t":"Bolted or welded pressure-boundary joint failing or leaking from incorrect assembly, welding or repair","c":[["C-000100","if bolted"],["C-000101","if bolted"],["C-000102","if bolted; if tensioner"],["C-000103","if bolted"],["C-000104",""],["C-000256","if welded"],["C-000257","if welded"],["C-000241","if welded"]]},{"id":"H-HW-001","t":"Fire from hot work sparks, slag, flame or heat","c":[["C-000114",""],["C-000115",""],["C-000116",""],["C-000118",""],["C-000119",""],["C-000120",""],["C-000121",""],["C-000126","fire watch duties"],["C-000128","fire watch duties"],["C-000129","fire watch duties"],["C-000130","fire watch duties"],["C-000131","fire watch duties"]]},{"id":"H-HW-002","t":"Fire spreading to concealed or adjacent spaces","c":[["C-000122",""],["C-000123",""],["C-000124",""],["C-000127",""],["C-000121",""]]},{"id":"H-HW-003","t":"Delayed ignition or smoldering fire after hot work","c":[["C-000115",""],["C-000117","if required by project, permit or standard"],["C-000125",""],["C-000126",""]]},{"id":"H-HW-004","t":"Explosion or fire when hot work ignites a flammable atmosphere","c":[["C-000132",""],["C-000133",""],["C-000134",""],["C-000135",""],["C-000177","if confined space"],["C-000260","if confined space"],["C-000258","if confined space"]]},{"id":"H-HW-005","t":"Combustible dust ignition or explosion","c":[["C-000136",""],["C-000137",""],["C-000138",""],["C-000139",""]]},{"id":"H-HW-006","t":"Burns from sparks, molten metal and slag","c":[["C-000140",""],["C-000141",""],["C-000142",""],["C-000143",""],["C-000144",""],["C-000047","if elevated"],["C-000272","if heat and A4 cut requirement together"]]},{"id":"H-HW-007","t":"Burns from direct torch flame","c":[["C-000145",""],["C-000146",""]]},{"id":"H-HW-008","t":"Burns from touching recently heated material","c":[["C-000147",""],["C-000148",""]]},{"id":"H-HW-009","t":"Eye and skin injury from arc or flame radiation (welder's flash)","c":[["C-000149",""],["C-000054","under welding helmet where required"],["C-000142",""],["C-000150",""]]},{"id":"H-HW-010","t":"Arc radiation reaching nearby workers","c":[["C-000151",""],["C-000152",""]]},{"id":"H-HW-011","t":"Electrical shock from the welding circuit","c":[["C-000153",""],["C-000154",""],["C-000155","if wet or conductive location"],["C-000156",""],["C-000157",""],["C-000158",""],["C-000159",""],["C-000160",""],["C-000259","if confined space"]]},{"id":"H-HW-012","t":"Inhalation of welding or cutting fume","c":[["C-000161",""],["C-000162",""],["C-000163",""],["C-000164",""]]},{"id":"H-HW-013","t":"Hexavalent chromium exposure","c":[["C-000161",""],["C-000163",""],["C-000165",""],["C-000164",""],["C-000166",""]]},{"id":"H-HW-014","t":"Zinc oxide fume exposure (metal fume fever)","c":[["C-000161",""],["C-000167",""],["C-000163",""],["C-000164",""],["C-000168",""]]},{"id":"H-HW-015","t":"Manganese fume exposure","c":[["C-000161",""],["C-000163",""],["C-000165",""],["C-000164",""]]},{"id":"H-HW-016","t":"Lead exposure from cutting, welding or grinding lead-coated surfaces","c":[["C-000161",""],["C-000169",""],["C-000167",""],["C-000165",""],["C-000164",""],["C-000166",""]]},{"id":"H-HW-017","t":"Cadmium fume exposure","c":[["C-000161",""],["C-000170",""],["C-000163",""],["C-000164",""],["C-000166",""]]},{"id":"H-HW-018","t":"Toxic gases from heating coatings, residues or solvents","c":[["C-000161",""],["C-000171",""],["C-000172",""],["C-000165",""],["C-000173",""]]},{"id":"H-HW-019","t":"Oxygen deficiency from shielding or purge gas","c":[["C-000133",""],["C-000174",""],["C-000175",""],["C-000176","if confined space"],["C-000177","if confined space"],["C-000260","if confined space"],["C-000258","if confined space"],["C-000259","if confined space"],["C-000134",""],["C-000270",""]]},{"id":"H-HW-020","t":"Oxygen enrichment increasing fire intensity","c":[["C-000178",""],["C-000179",""],["C-000174",""],["C-000133",""],["C-000177","if confined space"],["C-000260","if confined space"],["C-000258","if confined space"],["C-000134",""]]},{"id":"H-HW-021","t":"Heat stress and heat illness","c":[["C-000264",""],["C-000262",""],["C-000182",""],["C-000183",""],["C-000263",""],["C-000184",""],["C-000185",""]]},{"id":"H-HW-022","t":"Cylinder rupture or valve break-off turning the cylinder into a projectile","c":[["C-000186",""],["C-000187","if storage or transport"],["C-000188","if moving"],["C-000189","if moving"],["C-000190",""]]},{"id":"H-HW-023","t":"Cylinder damage from heat, impact or an arc strike","c":[["C-000191",""],["C-000192",""],["C-000193",""],["C-000194","if storage"],["C-000195",""]]},{"id":"H-HW-024","t":"Fuel gas leak and ignition","c":[["C-000196",""],["C-000197",""],["C-000198",""],["C-000199",""],["C-000200","if acetylene"]]},{"id":"H-HW-025","t":"Flashback or sustained backfire into the torch, hoses or regulators","c":[["C-000201",""],["C-000202",""],["C-000203",""],["C-000204",""],["C-000205",""]]},{"id":"H-HW-026","t":"Fire in oxygen equipment from oil, grease or contamination","c":[["C-000206",""],["C-000207",""],["C-000208",""],["C-000209",""]]},{"id":"H-HW-027","t":"Grinding or cut-off wheel breaking apart at speed","c":[["C-000210",""],["C-000211",""],["C-000212",""],["C-000213",""],["C-000214",""],["C-000215",""]]},{"id":"H-HW-028","t":"Cuts from contact with a spinning wheel","c":[["C-000213",""],["C-000216",""],["C-000217",""],["C-000218",""],["C-000219",""],["C-000220",""]]},{"id":"H-HW-029","t":"Flying particles, sparks and fragments","c":[["C-000054",""],["C-000055",""],["C-000221","if handheld grinding or abrasive cutting"],["C-000111","if particles can get around glasses"],["C-000120",""],["C-000222","if others nearby"],["C-000223","if wire wheel or brush"]]},{"id":"H-HW-030","t":"Tool starting unexpectedly during a wheel change or adjustment","c":[["C-000224",""],["C-000225",""]]},{"id":"H-HW-031","t":"Workpiece moving, rolling or binding during cutting or grinding","c":[["C-000218",""],["C-000217",""],["C-000226",""]]},{"id":"H-HW-032","t":"Cut-free material falling, swinging or springing","c":[["C-000230",""],["C-000231",""],["C-000232",""],["C-000233","if elevated"]]},{"id":"H-HW-034","t":"Explosion when heating, cutting or welding a container or equipment with residual contents","c":[["C-000237",""],["C-000238",""],["C-000133",""],["C-000239",""],["C-000240",""],["C-000241",""]]},{"id":"H-HW-035","t":"Release of process contents or stored energy during hot work","c":[["C-000242",""],["C-000243",""],["C-000241",""]]},{"id":"H-HW-036","t":"Fall protection equipment burned, melted or weakened by hot work","c":[["C-000244",""],["C-000245",""],["C-000246",""],["C-000158",""]]},{"id":"H-HW-037","t":"Rigging or lifting equipment weakened by heat or welding current","c":[["C-000247",""],["C-000248",""],["C-000158",""]]},{"id":"H-HW-038","t":"Clothing or protective equipment catching fire","c":[["C-000141",""],["C-000249",""],["C-000143",""],["C-000250",""]]},{"id":"H-HW-041","t":"Carbon monoxide build-up from engines, generators or fuel-fired equipment","c":[["C-000180",""],["C-000174",""],["C-000181",""]]},{"id":"H-HW-042","t":"Radioactive and respirable dust from grinding thoriated tungsten electrodes","c":[["C-000265",""],["C-000266",""],["C-000267",""],["C-000268",""],["C-000166",""],["C-000269",""],["C-000164",""]]}],"controls":{"C-000001":"The pump operator pressurizes only on a clear signal from the person at the tool","C-000002":"Never use fingers to check or align holes — use a drift pin or spud wrench","C-000003":"Keep hands off mating surfaces while plies are drawn together","C-000004":"Wear work gloves when working with steel","C-000005":"Remove burrs only where the connection or flange requirements allow it — never on gasket seating faces","C-000006":"Keep hands off unprotected plate, pipe and hole edges","C-000007":"Use the correct size wrench or socket, fully seated on the nut","C-000008":"Do not use wrenches with sprung or worn jaws","C-000009":"Pull rather than push where possible, with knuckles clear of steel","C-000010":"Do not extend a wrench with pipe unless it is designed for it","C-000011":"Brace for the tool's reaction before starting; use the side handle where provided","C-000012":"Set direction and torque or speed before starting","C-000013":"Expect the tool to twist when the nut seats or stalls","C-000014":"Inspect wrenches, sockets, extensions and multipliers before use; tag and remove damaged tools","C-000015":"Use only extensions and multipliers rated for the force applied","C-000016":"Inspect puller threads, pistons, seals and bridges before use; remove damaged components","C-000017":"Choose a longer wrench, a multiplier or a powered tool based on the force needed and the access available — do not overpower a manual wrench","C-000018":"Set up to apply force at waist-to-chest height, not overhead or twisted","C-000019":"Move heavy tool heads, tensioners and pumps with a handling method rated for their weight, configuration and access — do not climb carrying them","C-000020":"Rotate tasks or workers on long bolting or impact runs to limit exposure","C-000021":"Keep wrists straight and use tools sized to the work","C-000022":"Set your feet and brace before applying force — expect the nut to break free","C-000023":"Stand on the platform floor; never climb or stand on rails to reach the work","C-000024":"Do not apply heavy wrench force from a ladder — reposition or use a lift","C-000025":"Never hold the socket, extension or chuck while the tool runs","C-000026":"Secure loose sleeves; keep lanyards and tool tethers clear of rotating parts","C-000027":"Do not exceed the specified tightening","C-000028":"Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected","C-000029":"Keep hands and body out from between members until the connection is made","C-000030":"Pull pins and loosen bolts only with the member supported — misaligned steel can spring when released","C-000031":"Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements","C-000032":"Follow the erection plan sequence","C-000033":"Stay out from under the suspended load","C-000034":"Only the connectors make the initial connection","C-000035":"Use tag lines; keep hands off the load except at the connection point","C-000036":"Keep direct communication with the signal person","C-000037":"Do not release the load until the connection required for that member is made and stability is verified","C-000038":"At a shared connection, keep at least one bolt with its nut wrench-tight in the first member while making the double connection, unless a seat or equivalent device secures the first member","C-000039":"Use required fall protection when exposed to a fall hazard of 6 feet or greater, or at a lower height where required","C-000040":"In boom and scissor lifts, wear compatible personal fall protection attached to the manufacturer-approved anchorage point","C-000041":"Never tie off to the steel or an adjacent structure from a lift","C-000042":"When using personal fall protection on steel, connect to an approved anchorage rated for the system","C-000043":"Inspect harness, lanyard or SRL and connectors before use","C-000044":"Have a rescue plan ready before work at height — a worker suspended in a harness must be reached promptly","C-000045":"Keep bolts, nuts and washers in a secured bolt bag or bucket — never loose on flanges or beams","C-000046":"Use rated tool tethers where required","C-000047":"Barricade or control the area below; no one works below without protection","C-000048":"Support tensioners so they cannot fall when pullers are unthreaded","C-000049":"Wear hearing protection when exposed to noise levels of 85 dBA or greater, in designated hearing protection areas, or when required for the task","C-000050":"Keep tools maintained to reduce vibration","C-000051":"Do not rely on anti-vibration gloves alone","C-000052":"Use sockets rated for the tool — impact-rated sockets on impact tools","C-000053":"Use the manufacturer-approved socket or attachment retention","C-000054":"Wear safety glasses","C-000055":"Add a face shield over safety glasses or goggles where debris or fragments can reach the face — a face shield does not replace eye protection","C-000056":"Set the reaction arm against a solid surface and confirm the reaction direction before applying force","C-000057":"Keep hands, hoses and body clear of the reaction arm and reaction point","C-000058":"Inspect hydraulic hoses and fittings before use","C-000059":"Never use hands to locate leaks","C-000060":"Verify hydraulic pressure is released and address any trapped pressure or stored mechanical energy before disconnecting or removing equipment","C-000061":"Do not kink, step on or drive over hoses","C-000062":"Get immediate medical attention for any suspected injection injury, even if it looks minor","C-000063":"Use hoses and couplers rated for the system's maximum pressure, with couplers fully engaged","C-000064":"Do not use torque-wrench hoses or couplers on a tensioner system unless they are rated for tensioner pressure","C-000065":"Clean up spilled fluid before continuing","C-000066":"If hydraulic fluid enters the eyes, immediately flush with clean water, follow the SDS first-aid instructions and obtain medical evaluation","C-000067":"Use air tools with a positive connection to the hose that cannot come apart accidentally","C-000068":"Install hose restraints (whip checks) at couplings","C-000069":"Use excess-flow valves on supply lines where required — hose restraints and excess-flow valves do not replace each other","C-000070":"Shut off and bleed the air before disconnecting","C-000071":"Inspect cords and plugs before use","C-000072":"Use the GFCI or other electrical protection required for the equipment and conditions","C-000073":"Keep cords out of water and away from pinch points","C-000074":"Route hoses and cords out of walkways","C-000075":"On lifts, secure hoses and cords so they cannot snag on steel as the lift moves, with enough slack for travel and without creating entanglement points","C-000076":"Collect splines using the wrench's ejector into a bag or bucket","C-000077":"Remove mushroomed or damaged striking tools and pins from service","C-000078":"Keep your partner and others clear of the far side when driving pins","C-000079":"Keep hands out of the strike zone; use a pin holder or long-handled tool to hold pins","C-000080":"Use the bolt grade, length and washers called for on the drawings","C-000084":"TC bolts: install and inspect by the specified procedure — a bolt with the spline still on is not complete, and a sheared spline alone does not prove correct pretension","C-000088":"Position yourself so you are not looking straight up into the work","C-000089":"Verify the required puller thread engagement on the stud before pressurizing","C-000090":"Confirm the tensioner and puller match the stud size and thread","C-000091":"Seat the bridge square and flat on the flange face","C-000092":"Keep everyone clear of the axial line of force of each tensioner or loaded stud, whatever its orientation","C-000093":"Do not exceed the tool's rated pressure or piston stroke","C-000094":"If a nut will not turn, stop — do not raise pressure beyond the procedure","C-000095":"Loosen tensioned studs or nuts only by the specified safe detensioning or removal procedure","C-000096":"Do not cut, split, hammer or impact a tensioned nut or stud unless the specified removal procedure allows it","C-000097":"Turn nuts by the manufacturer-designated method; keep fingers out of nut-turning openings and the gap between tool and flange","C-000098":"Keep hands clear of pistons and pullers while pressurized","C-000099":"Prevent unintended pressurization while positioning or adjusting tools by following the manufacturer's isolation procedure","C-000100":"Follow the specified tightening or tensioning sequence, number of passes and pressure or torque","C-000101":"Use the specified studs, nuts and gasket; do not reuse a gasket","C-000102":"Run nuts down fully before releasing tensioner pressure","C-000103":"Use calibrated gauges and correctly rated equipment","C-000104":"Complete the required joint verification and records before return to service","C-000105":"If a seat or equivalent device is used, it must be designed to carry the load and be bolted or welded to both the support and the first member before the shared nuts are removed","C-000106":"Expect the bit to bind as it breaks through — hold the drill firmly with the side handle and ease off the trigger","C-000107":"Seat a magnetic drill fully on clean, flat steel and use its safety strap or chain as the manufacturer requires","C-000108":"Secure materials and equipment kept at height against displacement, back from edges and openings","C-000109":"Use hoses, couplings and restraints rated for the system's pressure and medium","C-000110":"Isolate and relieve pressure before disconnecting a pressurized hose","C-000111":"Wear goggles instead of safety glasses where falling or airborne debris can get around glasses","C-000112":"Wear ANSI A4 or higher cut-resistant gloves for demolition, knife use and work with stainless steel lath (expanded metal)","C-000113":"Protect against falls at any height into or onto dangerous equipment, and guard or cover holes and openings regardless of height","C-000114":"Remove combustible materials within 35 feet of hot work. Where removal is not possible, protect them with suitable fire-resistant barriers. Increase the protected area where required","C-000115":"Maintain fire watch during hot work and for at least 30 minutes after completion, or longer where required","C-000116":"Obtain and review the required hot work permit before beginning hot work. Comply with all permit conditions","C-000117":"Continue fire monitoring for any additional period required by the project, permit or applicable standard","C-000118":"Keep a charged, inspected fire extinguisher suited to the hazard within immediate reach of the hot work","C-000119":"Use fire-resistant blankets, curtains or shields to contain sparks and slag","C-000120":"Direct sparks, slag and particles away from people, equipment and combustibles","C-000121":"Stop hot work if the required fire protection cannot be maintained, or if concealed ignition hazards cannot be assessed and controlled","C-000122":"Check and protect the opposite side of walls, floors and ceilings before starting hot work","C-000123":"Cover or protect openings, cracks and penetrations where sparks or slag could travel","C-000124":"Inspect and protect concealed combustibles in walls, floors, cavities and insulation","C-000125":"Before releasing the fire watch, check all affected areas for smoke, heat and smoldering material","C-000126":"Assign a designated fire watch trained in the expected fire hazards and in the extinguishing equipment provided","C-000127":"Make sure the fire watch can see all affected areas; add fire watch personnel where one person cannot","C-000128":"Keep communication between the fire watch and the hot work crew; the fire watch can stop the work","C-000129":"Do not give the fire watch other duties that interfere with watching","C-000130":"Make sure the fire watch knows how to raise the alarm and start the site emergency response","C-000131":"Fight a fire only if it is within your training, the equipment available and a safe escape — otherwise raise the alarm","C-000132":"Identify flammable gas, vapor and fuel sources before hot work, and isolate or remove them","C-000133":"Test the atmosphere with calibrated equipment where required, and keep monitoring where the exposure or permit requires","C-000134":"Stop work and leave the area if atmospheric conditions become unsafe","C-000135":"Never perform ordinary hot work in a flammable or explosive atmosphere","C-000136":"Determine whether dust in the area is combustible before hot work","C-000137":"Remove combustible dust accumulations by an approved cleaning method","C-000138":"Isolate dust collectors and dust-producing equipment as required, and keep sparks out of ducts and collectors","C-000139":"Do not start hot work until combustible dust hazards are controlled","C-000140":"Wear heat-resistant gloves suited to the welding, cutting or grinding task","C-000141":"Wear flame-resistant protective clothing suited to the heat and spark exposure; avoid garments that can melt or ignite","C-000142":"Cover exposed skin against sparks, molten metal and arc radiation","C-000143":"Arrange clothing so sparks and slag cannot get trapped — close pockets, collars and cuffs","C-000144":"Position your body out of the spark and slag path","C-000145":"Keep hands and body out of the flame path, and point the torch away from people and equipment","C-000146":"Shut the torch down by the manufacturer's procedure when work stops; never leave a lit torch unattended","C-000147":"Let heated material cool, or handle it with tools or heat-resistant gloves","C-000148":"Mark or isolate recently heated material so others do not touch it","C-000149":"Use a welding helmet or filtered eye protection with the correct shade for the process and conditions","C-000150":"Inspect helmets, filter lenses and cover lenses before use; replace damaged parts","C-000151":"Set welding screens or curtains to shield nearby workers from direct and reflected radiation, without blocking ventilation","C-000152":"Keep unprotected people out of the welding and cutting area","C-000153":"Inspect welding leads, electrode holders, connectors and insulation before use; remove damaged equipment from service","C-000154":"Keep gloves and clothing dry, and do not touch the electrode or live parts with skin or wet gloves","C-000155":"Insulate yourself from the work and from ground in wet or conductive locations","C-000156":"Attach the work clamp to the workpiece as close to the weld as practical","C-000157":"Never use pipelines carrying gas or flammable liquid, or electrical conduit, as the welding return","C-000158":"Keep welding current out of bearings, rigging, hoists and fall protection — they must not become part of the circuit","C-000159":"When leaving an electrode holder, remove the electrode and place the holder where it cannot contact people or conductive objects","C-000160":"Shut off and disconnect the welding machine before servicing or adjusting it","C-000161":"Identify base metals, coatings and consumables before hot work, and review the SDS","C-000162":"Keep your head out of the fume plume","C-000163":"Use local exhaust or other effective ventilation placed to capture fume at the source","C-000164":"Where ventilation alone is not enough, use respiratory protection selected from an exposure assessment, under the respiratory protection program","C-000165":"Evaluate exposure to the specific contaminant (e.g. hexavalent chromium, lead, cadmium, manganese) as required","C-000166":"Follow the hygiene and contamination controls the exposure requires — wash before eating, and keep work clothing separate","C-000167":"Remove coatings only where the procedure allows, with controls for the removal exposure","C-000168":"Stop and report symptoms such as fever, chills or a metallic taste after hot work on galvanized metal","C-000169":"Follow the lead exposure-control procedure, including protective clothing, before cutting, welding or grinding lead-coated surfaces","C-000170":"Do not begin thermal work on cadmium-containing material until an exposure-control procedure is in place","C-000171":"Remove residues, solvents and adhesives by an approved method before heating","C-000172":"Keep chlorinated solvent vapors away from welding and other arc or flame operations","C-000173":"Do not proceed on unidentified coatings where the exposure cannot be assessed","C-000174":"Provide ventilation adequate for the gases and fume in enclosed or poorly ventilated areas","C-000175":"Direct purge gas discharge away from occupied areas, and shut off gas when not in use","C-000176":"Follow the confined-space entry and rescue procedure where it applies","C-000177":"Shut off the gas supply to the torch at a point outside the confined or enclosed space whenever the torch is not in use or is left unattended, such as during breaks","C-000178":"Check oxygen equipment for leaks before use","C-000179":"Never use oxygen for ventilation, cooling or blowing off clothing","C-000180":"Run engine-driven welders, generators and other combustion equipment outdoors, away from openings, air intakes and occupied work areas","C-000181":"Monitor for carbon monoxide where fuel-burning equipment must run near enclosed or occupied areas — monitoring does not make indoor engine operation acceptable","C-000182":"Provide drinking water, rest breaks and shade or cooling for recovery","C-000183":"Adjust work and rest periods to the heat, workload and protective clothing","C-000184":"Watch workers for signs of heat illness; stop work at the first signs","C-000185":"For suspected heat stroke, cool the person rapidly and call for emergency help","C-000186":"Secure cylinders upright against falling or displacement","C-000187":"Keep valve protection caps in place on cylinders in storage or transport","C-000188":"Before moving cylinders, remove regulators and install valve caps unless the cylinders are secured on a carrier designed for that purpose","C-000189":"Move cylinders with a cylinder cart or approved equipment; never roll, drag or use cylinders as rollers or supports","C-000190":"Never lift cylinders by their valve caps","C-000191":"Keep cylinders away from flame, sparks and slag, or shield them","C-000192":"Protect cylinders from vehicle and equipment impact","C-000193":"Keep cylinders out of welding circuits; never strike an arc on a cylinder","C-000194":"Separate stored oxygen cylinders from fuel-gas cylinders and combustibles as required","C-000195":"Follow gas-specific cylinder orientation rules, such as acetylene valve end up","C-000196":"Inspect hoses, regulators, connections and torches before use; shut off and remove defective equipment from service","C-000197":"Use equipment rated for the gas and its operating pressure","C-000198":"Leak-test connections with an approved method — never with a flame","C-000199":"Route gas hoses away from hot surfaces, sharp edges, slag and vehicle traffic","C-000200":"Never use acetylene at a working pressure exceeding 15 psig","C-000201":"Use check valves and flashback arrestors compatible with the equipment, as required — they are not interchangeable","C-000202":"Keep torch tips clean and unobstructed","C-000203":"Set operating pressures to the manufacturer's settings","C-000204":"Purge lines and light the torch by the manufacturer's procedure, using an approved striker","C-000205":"If a flashback or sustained backfire occurs, shut down by the prescribed procedure and inspect the equipment before reuse","C-000206":"Keep oil, grease and contaminants off oxygen cylinders, regulators, hoses and fittings; do not handle them with oily hands or gloves","C-000207":"Use components rated for oxygen service","C-000208":"Remove contaminated oxygen equipment from service for cleaning or replacement","C-000209":"Open cylinder valves slowly and as the gas-specific instructions require","C-000210":"Inspect wheels for cracks, chips or damage before mounting and use; ring-test where the wheel type allows","C-000211":"Use only wheels rated at or above the tool's maximum speed","C-000212":"Use the correct wheel type, size, arbor and mounting parts for the tool","C-000213":"Use the manufacturer's correct guard for the operation, installed and positioned; never remove it to reach tight areas","C-000214":"Do not side-grind or side-load wheels not designed for it","C-000215":"Mount and start new wheels by the manufacturer's instructions, standing out of line with the wheel during the first run","C-000216":"Use the side handle, and keep two hands on tools designed for two-handed use","C-000217":"Keep hands and body clear of the spinning wheel and the cutting path","C-000218":"Clamp or support the workpiece before grinding or cutting; do not hand-hold small pieces you cannot control","C-000219":"Let the wheel stop before setting the tool down","C-000220":"Never tape, wedge or otherwise defeat a grinder's on-off switch; use a lock-on only where the manufacturer provides one that releases with a single motion of the same finger","C-000221":"For all handheld grinding and abrasive cutting, wear safety glasses with a face shield over them","C-000222":"Set barriers where nearby workers could be hit by particles or sparks","C-000223":"Inspect wire wheels and brushes for loose or broken wires before use","C-000224":"Unplug the tool, remove the battery or shut off and bleed the air before changing wheels or attachments","C-000225":"Check that the switch is off and works correctly before plugging in or returning the tool to service","C-000226":"Support the material so the cut does not close onto the wheel or blade","C-000227":"Keep your body out of the kickback path","C-000228":"Do not twist or pinch a cut-off wheel in the cut","C-000229":"If the wheel binds, release the switch and follow the manufacturer's restart procedure","C-000230":"Determine how the piece will move when cut free, and support or rig it before completing the cut","C-000231":"Set an exclusion zone around the movement and drop area, and keep everyone out of the line of fire","C-000232":"Follow the approved cutting and removal sequence, coordinating with the people controlling the load","C-000233":"Contain falling slag, sparks and cut-off pieces with blankets, pans or catch protection","C-000234":"Confirm authorization and the approved sequence before cutting or removing structural members, connections, braces or welds","C-000235":"Install required supports or bracing before cutting","C-000236":"Stop work if unexpected structural movement occurs","C-000237":"Identify current and previous contents before hot work; never assume an empty container is safe","C-000238":"Isolate, drain, clean, purge or fill the container by the approved procedure before hot work","C-000239":"Vent hollow spaces and containers before heating, cutting or welding","C-000240":"Never weld or cut sealed or unidentified containers","C-000241":"Hot tapping or welding on in-service systems needs separate qualified engineering authorization — ordinary hot work controls do not cover it","C-000242":"Follow the approved isolation and energy-control procedure, and verify the safe state before work","C-000243":"Control residual pressure, temperature and chemical exposure before opening or heating the system","C-000244":"Use fall protection equipment rated for the hot work exposure — a leading-edge rating alone is not enough","C-000245":"Keep lanyards, SRLs, harness webbing and lifelines away from sparks, slag and hot surfaces, using manufacturer-approved protection","C-000246":"Inspect fall protection for burns or melting after hot work exposure; remove damaged equipment from service","C-000247":"Keep sparks, flame and slag off slings and hoists; use approved protection or rigging rated for the temperature","C-000248":"Inspect exposed rigging before further use; remove heat-damaged rigging from service","C-000249":"Keep clothing free of oil, grease and flammable contamination","C-000250":"Replace burned or damaged protective clothing","C-000251":"Follow the approved drawings and welding procedure, using qualified welders where required","C-000252":"Verify joint preparation, fit-up and any required preheat before welding","C-000253":"Keep required temporary supports in place until the welded connection is accepted","C-000254":"Complete the required inspection before the welded connection is loaded","C-000255":"Do not modify structural members without authorization","C-000256":"Follow the approved pressure-boundary welding or repair procedure, with qualified welders and the specified materials","C-000257":"Complete required examination and testing, and keep isolation in place until the equipment is accepted for service","C-000258":"Keep oxygen and fuel-gas cylinders outside confined spaces","C-000259":"Keep welding machines outside confined spaces","C-000260":"Remove torches and hoses from confined spaces overnight and at shift change, and remove disconnected open-end hoses immediately","C-000261":"During overhead welding, cutting or gouging, protect your ears from hot slag with flame-resistant coverage such as a welding cap or hood — ordinary earplugs or earmuffs are not slag protection","C-000262":"Acclimatize new and returning workers by building up heat exposure gradually","C-000263":"Use a buddy system so workers watch each other for signs of heat illness","C-000264":"Assess heat, humidity, sun, workload and the added heat load of protective clothing before and during the shift","C-000265":"Identify the tungsten electrode type before grinding — check the package or color code","C-000266":"Use non-thoriated electrodes, such as ceriated or lanthanated, where the welding process allows","C-000267":"Grind thoriated electrodes only on a dedicated grinder with dust capture","C-000268":"Do not use compressed air or dry sweeping to clean electrode grinding dust","C-000269":"Collect and dispose of electrode grinding dust as the site procedure requires","C-000270":"Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere","C-000271":"Where the task's silica control method specifies a respirator, wear the respirator it specifies","C-000272":"Where heat and cut exposures exist together, wear hand protection that meets both the heat-resistance need and the ANSI A4 cut requirement"},"conds":["fire watch duties","if acetylene","if aerial or scissor lift","if bolted","if bolted; TC bolts","if bolted; if tensioner","if bolting hardware","if boom or scissor lift","if confined space","if cutting or removal","if dangerous equipment, holes or openings, or client / project rule","if debris can reach the face","if demolition, knife use or stainless steel lath","if drill","if elevated","if erection or fit-up","if falling debris can get around glasses","if handheld grinding or abrasive cutting","if heat and A4 cut requirement together","if hydraulic wrench, tensioner, large impact or pump","if ladder","if magnetic drill","if materials or equipment at height","if moving","if other pressurized hose system","if others nearby","if overhead thermal work","if particles can get around glasses","if personal fall protection used","if personal fall protection used on structure","if pneumatic","if pneumatic hose","if pneumatic supply line","if pneumatic tool","if powered wrench","if pump operated by another person","if required by project, permit or standard","if seat or equivalent device used","if storage","if storage or transport","if tensioner","if tools at height","if welded","if wet or conductive location","if wire wheel or brush","rel:H-BT-002","rel:H-BT-002; if demolition, knife use or stainless steel lath","rel:H-BT-002; if heat and A4 cut requirement together","rel:H-BT-002; if hot work (cumulative)","rel:H-BT-004","rel:H-BT-004; if cut-off wheel","rel:H-BT-006","rel:H-BT-007","rel:H-BT-008","rel:H-BT-009","rel:H-BT-010","rel:H-BT-010; if wire wheel or brush","rel:H-BT-012","rel:H-BT-013","rel:H-BT-014","rel:H-BT-017","rel:H-BT-017; if boom or scissor lift","rel:H-BT-018","rel:H-BT-018; if tools at height","rel:H-BT-019","rel:H-BT-020","rel:H-BT-025; if pneumatic","rel:H-BT-026","rel:H-BT-027","rel:H-BT-027; if aerial or scissor lift","rel:H-BT-032","under welding helmet where required"]};
+
+/* ---------- text helpers ---------- */
+function silRx(src){ return new RegExp(src, 'i'); }
+function silAny(text, list){
+  for(var i = 0; i < list.length; i++){ if(list[i].test(text)) return true; }
+  return false;
+}
+function silNorm(s){ return (s || '').trim().replace(/\.\s*$/, '').toLowerCase(); }
+
+/* ---------- recognition vocabulary (whole-term matching) ---------- */
+var SIL_RX = {
+  fastener: silRx("\\b(bolts?|nuts?|studs?|fasteners?|anchor rods?|screws?)\\b"),
+  bolt: silRx("\\bbolt(s|ed|ing)?\\b|\\bbolt[- ]?up\\b|bolting up|bolt out|erection bolts?|make up (the )?connections?|run bolts|snug[- ]?(tight|up)|\\bsnugged\\b|\\bpre-?tension(ed|ing)?\\b|\\btc bolts?\\b|tension[- ]control bolts?|twist[- ]off bolts?|\\ba325\\b|\\ba490\\b|\\bf3125\\b|\\bf1852\\b|\\bf2280\\b|high[- ]strength bolts?|spud wrench|drift pins?|sleever bar|turn[- ]of[- ]nut|match mark"),
+  boltCtx: silRx("\\b(fasten|connect|secure|assemble|splice|fit[- ]?up)\\w*\\b"),
+  torque: silRx("\\btorqu(e|es|ed|ing)\\b|\\bre-?torqu|torque (check|wrench|gun|multiplier)|calibrated wrench|nut ?runner"),
+  tighten: silRx("\\b(re-?)?tighten(s|ed|ing)?\\b|\\brun(ning)? down\\b|final tightening"),
+  tensioner: silRx("hydraulic (bolt |stud )?tension|\\bstud tension|bolt tensioner|stud tensioner|axial (bolt )?tension|bolt stretch|stud stretch|multi-?stud tension|simultaneous (bolt |stud )?tension|\\bde-?tension|hydratight|tentec|\\bith\\b tension|enerpac.*tension|tension(ing)? (the )?(studs|flange studs)|tensioners? on (the )?(studs|flange)"),
+  detension: silRx("\\bde-?tension"),
+  existing: silRx("\\b(existing|check(ing)?|inspect(ing|ion)?|verify(ing)?|re-?torqu\\w*|re-?tighten\\w*|audit|qc)\\b"),
+  fitup: silRx("\\b(hang(ing)?|set(ting)?|connect(ing)?|fit[- ]?up|align(ing)?|drift(ing)?|make up|erect(ing|ion)?|pick(ing)?|install(ing)?|on the hook)\\b"),
+  structural: silRx("\\b(beams?|columns?|girders?|joists?|brac(e|es|ing)|truss(es)?|structural|connections?|splices?|base plates?|gussets?|purlins?|girts?|steel frame|moment frame|steel)\\b"),
+  suspended: silRx("\\b(suspended|on the hook|hanging|crane|hoist(ed|ing)?|picks?|rigged|being set|tag ?lines?)\\b"),
+  release: silRx("release (the )?(load|hook|rigging|crane|line)|unhook|let go of the (load|beam)"),
+  tempConn: silRx("\\b(temporary|temp bolts|erection bolts?|guy(ing|s)?|plumb(ing)? up)\\b"),
+  doubleConn: silRx("double connection|shared (holes|bolts)|both sides of (the )?column|beams? over (the )?column|through the (column )?web"),
+  flange: silRx("\\b(flanges?|process pip\\w*|piping|pipe ?lines?|vessels?|heat exchangers?|valves?|manways?|channel covers?|nozzles?|boilers?|steam lines?|pressure (vessel|line|boundary))\\b"),
+  pressureBoundary: silRx("\\b(flanges?|process pip\\w*|piping|pipe|pipelines?|vessels?|heat exchangers?|boilers?|steam lines?|pressure (vessel|line|boundary|piping))\\b"),
+  opening: silRx("\\b(break(ing)?|line ?break|open(ing)?|pull(ing)? (the )?(spool|blind)|blinds?|spools?|replace (the )?gaskets?|gaskets?|disassembl\\w*|unbolt\\w*|remove (the )?(cover|bonnet|channel)|isolat\\w*|lock ?out|loto|block and bleed|drain\\w*|depressur\\w*|vent(ing)?|bleed down|acid|caustic|chemical|process fluid|slurry|steam|ammonia)\\b"),
+  exclLineBreak: silRx("no line ?break|not (being )?opened|not breaking|without (opening|breaking)|torque check only|check only"),
+  exclHotWork: silRx("no hot work|cold work only|non-?sparking|cold[- ]cut"),
+  anchorBolt: silRx("anchor (bolts?|rods?)"),
+  impact: silRx("impact (wrench|gun)|rattle gun|air impact|\\bimpacts?\\b"),
+  battery: silRx("\\b(battery|cordless|electric) (torque )?(wrench|gun|impact|tool)|torque gun|nut ?runner"),
+  hydWrench: silRx("hydraulic (torque )?wrench|hytorc|square drive|low[- ]profile wrench|cassette wrench"),
+  reactionArm: silRx("torque multiplier|gear multiplier|reaction (arm|bar|foot)"),
+  pneumatic: silRx("\\bpneumatic\\b|\\bair (tool|wrench|impact|hose|grinder|ratchet|torque|hammer|chisel|line)s?\\b|\\bcompressor\\b|arc[- ]?air|air arc|air carbon arc"),
+  otherHose: silRx("water ?blast|pressure wash|hydro ?blast|steam hose|water hose|jetting"),
+  corded: silRx("\\bcorded\\b|extension cords?|\\bcords?\\b|\\bplugged\\b|\\b120 ?v\\b|electric (grinder|drill|wrench|torque|pump|heater)"),
+  tc: silRx("\\btc bolts?\\b|tension[- ]control|twist[- ]off|shear wrench|\\btc gun\\b|\\bsplines?\\b|\\bf1852\\b|\\bf2280\\b"),
+  striking: silRx("drift pins?|bull pins?|\\bsledge|\\bhammer(ing|s)?\\b|driv(e|ing) (the )?pins?|beat(ing)? (it|them)? ?in"),
+  manualWrench: silRx("spud wrench|box wrench|open[- ]end|socket wrench|hand wrench|hand tools?|\\bwrench(es)?\\b"),
+  drill: silRx("\\bdrill(s|ed|ing)?\\b"),
+  magDrill: silRx("mag(netic)? (base )?drill|mag base"),
+  weld: silRx("\\bweld(s|ed|ing|er|ers)?\\b|tack weld|stitch weld|\\bfillets?\\b|groove weld|root pass|fill pass|cap pass|hot pass|hardfacing|\\bsmaw\\b|\\bgmaw\\b|\\bgtaw\\b|\\bfcaw\\b|\\bmig\\b|\\btig\\b|flux[- ]?core|stick weld|spot weld|submerged arc|\\bstinger\\b|run(ning)? rod|welding rods?"),
+  electrodeNo: silRx("\\b(e?60(10|11|13)|e?70(14|18|24)|e?71t\\w*)\\b"),
+  electrodeCtx: silRx("\\b(run(ning)?|rod|rods|stick|bead|root|pass|electrode|electrodes|burn(ing)?)\\b"),
+  braze: silRx("\\bbraz(e|ed|ing)\\b|\\bsolder(ed|ing)?\\b"),
+  cutGeneric: silRx("\\bcut(s|ting)?\\b|\\bcut[- ]?off\\b|\\bsever(ed|ing)?\\b"),
+  cutThermal: silRx("torch[- ]?cut\\w*|cut(ting)? with (a |the )?torch|\\btorching\\b|cutting torch|oxy[- ]?(fuel|acetylene|propane|gas)|\\boxy\\b|plasma|air arc|arc[- ]?air|carbon arc|\\bgoug(e|ed|es|ing)\\b|\\bscarf(ing)?\\b|exothermic|thermal lance|burning bar|burn(ing)? (steel|bolts?|off|out|rivets?)|wash(ing)? (off )?(the )?(bolts?|rivets?|nuts?)"),
+  gouge: silRx("\\bgoug(e|ed|es|ing)\\b|air arc|arc[- ]?air|carbon arc"),
+  plasma: silRx("plasma"),
+  torch: silRx("\\btorch(es|ing)?\\b"),
+  roofTorch: silRx("roofing torch|torch[- ]?(down|applied)|modified bitumen"),
+  cutAbrasive: silRx("abrasive (cut|saw|wheel|disc)\\w*|cut[- ]?off (wheel|disc|saw|tool)|chop ?saw|zip (wheel|cut)|cut(ting)? wheel|cut with (a |an )?(grinder|cut[- ]?off)|grinder with (a )?cut"),
+  coldCut: silRx("cold saw|cold[- ]cut|dry[- ]cut saw|band ?saw|non-?sparking|\\bshears?\\b|\\bshearing\\b|\\bsnips\\b|nibbler|reciprocating saw|sawzall|porta-?band|pipe cutter"),
+  grind: silRx("\\bgrind(s|ing|er|ers)?\\b|flap (disc|wheel)|wire (wheel|cup|brush)|knot wheel|deburr\\w* with (a )?grinder|weld prep|\\bbevel(ing)?\\b"),
+  grinderFixed: silRx("bench grinder|pedestal grinder|surface grinder"),
+  grinderHand: silRx("angle grinder|die grinder|hand grinder|handheld|hand-held|4[- ]?1/2|4\\.5|\\b7 ?(inch|in\\b|\")|\\b9 ?(inch|in\\b|\")"),
+  wireWheel: silRx("wire (wheel|cup|brush)|knot wheel"),
+  wheelChange: silRx("(change|chang(ing)|replace|replacing|swap|swapping|install(ing)?|mount(ing)?) (the |a )?(grinding |cut[- ]?off |abrasive )?(wheel|disc|attachment|blade|pad)"),
+  concrete: silRx("\\b(concrete|masonry|cmu|block wall|brick|slab|mortar|grout|terrazzo|stone|granite)\\b"),
+  metal: silRx("\\b(steel|metal|iron|beams?|columns?|plates?|pipes?|piping|brackets?|welds?|flanges?|rails?|handrails?|angle iron|channels?|stainless|galvani[sz]\\w*|alumin\\w*|rebar|bolts?|studs?|tanks?|vessels?|structural|joists?|deck|rust|weldments?|frames?|lugs?|clips?|gussets?)\\b"),
+  heatFlame: silRx("rosebud|torch heat|heat(ing)? with (a |the )?torch|propane torch|flame (heat|straighten)\\w*|thaw\\w*.*torch|torch.*thaw\\w*"),
+  heatInduction: silRx("induction"),
+  heatResistance: silRx("resistance heat\\w*|heating pads?|ceramic pads?|\\bpwht\\b|post[- ]?weld heat"),
+  heatGeneric: silRx("\\bpre-?heat\\w*|\\bpost-?heat\\w*|heat straighten\\w*|flame straighten\\w*|stress reliev\\w*"),
+  demo: silRx("\\bdemo\\b|demolish\\w*|demolition|tear[- ]?out|tearing out|\\bgut(ting)?\\b|\\bwreck(ing)?\\b|dismantl\\w* (the |a )?(structure|platform|building|frame)"),
+  knife: silRx("\\bknife\\b|\\bknives\\b|box cutter|razor|hook knife|utility blade"),
+  ssLath: silRx("(stainless( steel)?|\\bss) (expanded metal|lath)|stainless lath"),
+  remove: silRx("\\b(remov(e|ed|ing|al)|pull(ing)? out|take out|taking out)\\b"),
+  oxyfuel: silRx("oxy[- ]?(fuel|acetylene|propane|gas)|\\boxy\\b|acetylene|propylene|mapp|fuel gas|cutting torch|rosebud|propane torch|torch[- ]?cut\\w*|cut(ting)? with (a |the )?torch|\\btorching\\b|braz(e|ing) torch|oxygen (and|&) (acetylene|propane)"),
+  acetylene: silRx("acetylene"),
+  oxygen: silRx("\\boxygen\\b"),
+  cylinders: silRx("\\bcylinders?\\b|\\bbottles?\\b|gas (tanks?|cylinders?)|\\bargon\\b|\\bco2\\b|mixed gas|oxygen (tank|cylinder|bottle)s?|acetylene (tank|cylinder|bottle)s?"),
+  moveCyl: silRx("\\b(mov(e|ing)|hoist(ing)?|transport(ing)?|carry(ing)?|load(ing)?|crane|lift(ing)?)\\b"),
+  storeCyl: silRx("\\b(stor(e|ed|age|ing)|cage|rack)\\b"),
+  shieldGas: silRx("shielding gas|purge gas|\\bpurg(e|ing)\\b|\\bargon\\b|\\bco2\\b|helium|\\binert\\b|\\bmig\\b|\\btig\\b|\\bgmaw\\b|\\bgtaw\\b|back purge"),
+  thoriated: silRx("thoriated|\\bewth"),
+  tungstenGrind: silRx("(grind|sharpen)\\w*.*(tungsten|electrode)|(tungsten|electrode).*(grind|sharpen)\\w*"),
+  galv: silRx("galvani[sz]\\w*|\\bgalv\\b|zinc"),
+  stainless: silRx("stainless|\\bss (pipe|steel|plate|tube)|inconel|hastelloy|chrom\\w*"),
+  lead: silRx("lead[- ]?(paint\\w*|based|coat\\w*|containing|abatement)|red lead|\\blead paint"),
+  cadmium: silRx("cadmium|cad[- ]plated"),
+  coating: silRx("\\b(paint(ed)?|coat(ed|ing|ings)|primer|primed)\\b"),
+  manganese: silRx("manganese|hardfacing"),
+  solvent: silRx("solvent|degreas\\w*|brake cleaner|chlorinated|adhesive|residue"),
+  rigging: silRx("\\b(slings?|rigging|chokers?|hoists?|chain ?falls?|come[- ]?alongs?|synthetic|nylon|web sling|round sling)\\b|suspended load"),
+  pfas: silRx("lanyards?|harness|\\bsrls?\\b|yo-?yo|lifelines?|tie[d]? off|tying off|beamer|fall protection"),
+  elevated: silRx("elevat\\w*|at height|aerial|boom lift|scissor|man ?lift|\\bjlg\\b|genie|mewp|ladders?|scaffold\\w*|\\broof\\w*|overhead|upper (level|floor)|second floor|\\bdeck\\b|catwalk|platforms?|mezzanine|\\d+ ?(ft|feet|foot)\\b|above (ground|grade)|leading edge|top of|bucket truck|on the iron|from (a |the )?lift"),
+  aerial: silRx("aerial|boom lift|scissor|man ?lift|\\bjlg\\b|genie|mewp|bucket truck|lift basket|work platform|from (a |the )?lift"),
+  boomLift: silRx("boom lift|\\bjlg\\b|articulat\\w* boom|telescopic boom|man ?lift|bucket truck|from (a |the )?boom"),
+  scissor: silRx("scissor"),
+  ladder: silRx("ladders?"),
+  overhead: silRx("overhead|over ?head|above (your )?head|underside|bottom flange|ceiling|soffit|beneath (the )?(structural|beam|connection|steel)|under(side of)? (the )?(beam|deck)"),
+  confined: silRx("confined|permit space|inside (a |the )?(tank|vessel|drum|boiler|silo|bin|hopper|duct|manhole|pipe|bucket)|(tank|vessel) (entry|interior)|crawl ?space|\\bvault\\b|tunnel"),
+  enclosed: silRx("enclosed|\\binside\\b|indoors?|basement|\\broom\\b|tunnel|poorly ventilated|\\bshop\\b|building|garage|warehouse"),
+  wet: silRx("\\b(wet|rain\\w*|water|damp|puddles?|conductive|standing water)\\b|inside (a |the )?(tank|vessel|boiler)"),
+  combustible: silRx("combustible|\\bwood(en)?\\b|cardboard|paper|insulation|pallets?|trash|foam|plastic|vegetation|\\bgrass\\b|sawdust|\\boil\\b|grease"),
+  concealed: silRx("\\b(walls?|floors?|ceilings?|penetrations?|cavit\\w+|insulat\\w+|concealed|partition|drywall|stud wall|roof deck)\\b"),
+  flammable: silRx("flammable|\\bfuel\\b|gasoline|diesel|solvent|vapou?rs?|thinner|natural gas|methane|gas line|hydrocarbon|hydrogen sulfide|explosive atmosphere"),
+  combDust: silRx("combustible dust|\\bgrain\\b|flour|sugar|\\bcoal\\b|sulfur|dust collector|baghouse|wood dust"),
+  container: silRx("\\b(tanks?|drums?|vessels?|containers?|barrels?|totes?|pails?|fuel tank|hollow)\\b"),
+  process: silRx("\\b(process|in[- ]service|live line|pressurized|hot tap\\w*|piping|pipeline|gas line|steam line)\\b"),
+  inService: silRx("in[- ]service|live line|pressurized (process )?line|hot tap\\w*|under pressure|operating line|natural gas pipeline|gas pipeline"),
+  hotEnv: silRx("\\b(hot|heat wave|summer|sun|afternoon|humid|kiln|furnace|attic|boiler room)\\b|inside (a |the )?(tank|vessel)|heat stress"),
+  othersNear: silRx("\\b(near(by)?|adjacent|next to|crew|others|public|guests?|occupied|walkway|another crew|people)\\b"),
+  combustion: silRx("engine[- ]driven|\\bgenerators?\\b|gas[- ]powered|gasoline (engine|powered)|diesel (engine|welder|powered)|propane heater|salamander|kerosene heater|torpedo heater|gas welder|portable welder|fuel[- ]fired"),
+  chip: silRx("chipping (hammer|slag)|chip(ping)? (the )?slag|slag hammer|needle scaler"),
+  smallPart: silRx("small (parts?|pieces?)|unsecured|loose (piece|material)|hand[- ]?held (piece|part)"),
+  shop: silRx("\\b(shop|fab(rication)? shop)\\b"),
+  pumpPerson: silRx("pump operator|on the pump|runs the pump"),
+  seatDevice: silRx("\\bseat(ed)? (angle|device)|erection seat|clip angle seat"),
+  heavyTool: silRx("hydraulic (torque )?wrench|tensioner|\\bpump\\b|1 ?inch (drive|impact)|large impact|cassette"),
+  ssPipe: silRx("ss pipe")
+};
+
+/* ---------- concept extraction ---------- */
+function silConcepts(text){
+  var t = (text || '').toLowerCase();
+  var R = SIL_RX, c = {};
+  function h(k){ return R[k].test(t); }
+  c.text = t;
+  c.fastener = h('fastener');
+  c.bolt = h('bolt') || (h('boltCtx') && c.fastener);
+  c.torque = h('torque') || (h('tighten') && (c.fastener || /flange/.test(t)));
+  var notBoltTension = /belt|cable|post[- ]?tension|tendon|\bguy|conveyor|pre-?tension|tension[- ]control|wire rope|strap/.test(t);
+  c.tensioner = !notBoltTension && (h('tensioner') || /hydraulically tension/.test(t) || (/\btension(s|ed|ing)?\b/.test(t) && /\b(studs?|flange bolts?)\b/.test(t)) || (/\btensioners?\b/.test(t) && /(stud|flange|bolt)/.test(t)));
+  c.detension = h('detension');
+  c.fastening = c.bolt || c.torque || c.tensioner;
+  /* bolting as an activity, not merely bolts as the object of torquing or inspection */
+  c.boltAct = c.bolt && (!c.torque || R.fitup.test(t) || /bolt[- ]?up|bolting|install\w* (the )?bolts|insert\w* bolts/.test(t));
+  c.structural = h('structural');
+  c.flange = h('flange');
+  c.pressureBoundary = h('pressureBoundary');
+  c.opening = h('opening');
+  c.exclLineBreak = h('exclLineBreak');
+  c.exclHotWork = h('exclHotWork');
+  c.suspended = h('suspended');
+  c.release = h('release');
+  c.tempConn = h('tempConn');
+  c.doubleConn = h('doubleConn');
+  c.seatDevice = h('seatDevice');
+  /* clause-level fit-up scoping (Package 001 §2 rule 4) */
+  var clauses = t.split(/\band\b|,|;|\bthen\b|\bwhile\b/);
+  c.fitupOK = clauses.some(function(cl){
+    var boltish = R.bolt.test(cl) || R.structural.test(cl) || R.torque.test(cl);
+    if(!boltish) return false;
+    return R.fitup.test(cl) || !R.existing.test(cl);
+  });
+  c.existingOnly = !c.fitupOK && clauses.some(function(cl){ return R.existing.test(cl); });
+  /* work means */
+  c.hydWrench = h('hydWrench');
+  c.reactionArm = c.hydWrench || h('reactionArm');
+  c.impact = h('impact') && (c.fastening || /wrench|gun/.test(t));
+  c.batteryTool = h('battery');
+  c.pneumatic = h('pneumatic');
+  c.powered = c.impact || c.batteryTool || c.hydWrench || (c.pneumatic && c.fastening) || /shear wrench|tc gun/.test(t);
+  c.handheldPowered = c.impact || c.batteryTool || (c.pneumatic && c.fastening);
+  c.tc = h('tc');
+  c.striking = h('striking');
+  c.manualWrench = h('manualWrench');
+  c.torqueNoMeans = c.torque && !c.powered && !c.reactionArm && !c.manualWrench;
+  c.drill = h('drill');
+  c.magDrill = h('magDrill');
+  c.corded = h('corded');
+  c.otherHose = h('otherHose');
+  c.heavyTool = h('heavyTool');
+  c.pumpPerson = h('pumpPerson');
+  /* hot work family */
+  /* 'welds' as the object of grinding, inspection or cleaning does not establish welding */
+  var tw = t.replace(/\b(grind\w*|inspect\w*|clean\w*|chip\w*|blend\w*|test\w*|x-?ray\w*|smooth\w*|finish\w*)\s+(the\s+|all\s+|out\s+)?(\w+\s+)?welds?\b/g, ' ').replace(/\bweld (prep|preparation|finishing)\b/g, ' ');
+  c.weld = R.weld.test(tw) || (h('electrodeNo') && h('electrodeCtx'));
+  c.braze = h('braze');
+  c.cutGeneric = h('cutGeneric');
+  c.coldCut = h('coldCut');
+  c.knife = h('knife');
+  c.plasma = h('plasma');
+  c.gouge = h('gouge');
+  c.roofTorch = h('roofTorch');
+  c.cutThermal = h('cutThermal') || (h('torch') && c.cutGeneric && !c.roofTorch);
+  c.cutAbrasive = h('cutAbrasive');
+  c.grind = h('grind');
+  c.grinderFixed = h('grinderFixed');
+  c.concrete = h('concrete');
+  c.metal = h('metal');
+  c.wireWheel = h('wireWheel');
+  c.wheelChange = h('wheelChange');
+  c.chip = h('chip');
+  c.heatFlame = h('heatFlame');
+  c.heatInduction = h('heatInduction') && (h('heatGeneric') || /heat/.test(t));
+  c.heatResistance = h('heatResistance');
+  c.heatGeneric = h('heatGeneric') || c.heatInduction || c.heatResistance || c.heatFlame;
+  c.oxyfuel = h('oxyfuel') || c.heatFlame || (c.cutThermal && !c.plasma && !c.gouge);
+  c.acetylene = h('acetylene');
+  c.oxygen = h('oxygen') || c.oxyfuel;
+  c.cylinders = h('cylinders');
+  c.moveCyl = c.cylinders && h('moveCyl');
+  c.storeCyl = c.cylinders && h('storeCyl');
+  c.shieldGas = h('shieldGas');
+  c.thoriated = h('thoriated') && !/non-?thoriated/.test(t);
+  c.tungstenGrind = h('tungstenGrind');
+  c.galv = h('galv'); c.stainless = h('stainless'); c.lead = h('lead'); c.cadmium = h('cadmium');
+  c.coating = h('coating'); c.manganese = h('manganese'); c.solvent = h('solvent');
+  c.rigging = h('rigging'); c.pfasCue = h('pfas');
+  /* grinding classification (Response 004 §3) */
+  c.grindMetal = c.grind && !c.concrete && (c.metal || c.weld) && !c.tungstenGrind;
+  c.grindUnknown = c.grind && !c.concrete && !c.grindMetal && !c.tungstenGrind;
+  c.grindHand = (c.grind || c.cutAbrasive) && !c.grinderFixed;
+  c.arcProcess = c.weld || c.plasma || c.gouge;
+  /* hot work classification (B-12, P2-U1): ignition-producing work */
+  var hwDefinite = c.weld || c.braze || c.cutThermal || c.gouge || c.heatFlame || c.roofTorch ||
+                   c.grindMetal || (c.cutAbrasive && !c.concrete);
+  var hwPossible = (c.grindUnknown) || (c.cutGeneric && c.metal && !c.coldCut && !c.knife && !c.cutAbrasive && !c.cutThermal) ||
+                   c.heatInduction || c.heatResistance || (c.heatGeneric && !c.heatFlame);
+  c.hotWork = !c.exclHotWork && hwDefinite;
+  c.hotWorkPossible = !c.exclHotWork && !c.hotWork && hwPossible;
+  c.cutUndetermined = c.cutGeneric && !c.cutThermal && !c.cutAbrasive && !c.coldCut && !c.knife;
+  /* policy triggers */
+  c.demo = h('demo'); c.ssLath = h('ssLath'); c.remove = h('remove');
+  c.a4 = c.demo || c.knife || c.ssLath;
+  /* conditions */
+  c.aerial = h('aerial'); c.boomLift = h('boomLift'); c.scissor = h('scissor'); c.ladder = h('ladder');
+  c.elevated = h('elevated') || c.aerial;
+  c.overhead = h('overhead');
+  c.confined = h('confined');
+  c.enclosed = h('enclosed') || c.confined;
+  c.wet = h('wet');
+  c.combustible = h('combustible');
+  c.concealed = h('concealed');
+  c.flammable = h('flammable');
+  c.combDust = h('combDust');
+  c.container = h('container');
+  c.process = h('process');
+  c.inService = h('inService');
+  c.hotEnv = h('hotEnv');
+  c.othersNear = h('othersNear');
+  c.combustion = h('combustion');
+  c.smallPart = h('smallPart');
+  c.shop = h('shop');
+  c.workAct = c.fastening || c.weld || c.braze || c.cutGeneric || c.cutThermal || c.cutAbrasive || c.grind || c.heatGeneric || c.drill;
+  return c;
+}
+
+/* ---------- hazard applicability rules: return 'E' explicit, 'I' inferred, 'C' conditional, or null ---------- */
+var SIL_RULES = {
+  'H-BT-001': function(c){ return c.boltAct && c.fitupOK ? 'E' : null; },
+  'H-BT-002': function(c){ return (c.fastening || ((c.weld || c.cutGeneric || c.cutThermal || c.cutAbrasive || c.grind) && c.metal)) ? 'E' : null; },
+  'H-BT-003': function(c){ return (c.bolt || c.torque) ? 'E' : null; },
+  'H-BT-004': function(c){ if(c.handheldPowered || c.drill || c.grindHand || c.cutAbrasive) return 'E'; return c.torqueNoMeans ? 'C' : null; },
+  'H-BT-006': function(c){ if(c.fastening) return 'E'; return (c.grind || c.cutAbrasive) ? 'C' : null; },
+  'H-BT-007': function(c){ if(c.fastening) return 'E'; return (c.weld || c.cutThermal || c.grind || c.cylinders) ? 'C' : null; },
+  'H-BT-008': function(c){ if(c.bolt || c.torque) return 'E'; return c.grind ? 'C' : null; },
+  'H-BT-009': function(c){ if(c.bolt || c.torque) return 'E'; return (c.grindHand || c.cutAbrasive) ? 'C' : null; },
+  'H-BT-010': function(c){ if(c.powered || c.drill || c.grind || c.cutAbrasive) return 'E'; return c.torqueNoMeans ? 'C' : null; },
+  'H-BT-011': function(c){ if(c.torque || (c.bolt && /tight|snug|pretension|turn/.test(c.text))) return 'E'; return c.boltAct ? 'I' : null; },
+  'H-BT-012': function(c){ if(c.boltAct && c.structural && c.fitupOK) return 'I'; return ((c.cutThermal || c.cutAbrasive || c.cutGeneric) && c.structural) ? 'C' : null; },
+  'H-BT-013': function(c){ if(c.tempConn && c.fastening) return 'E'; if(c.boltAct && c.structural && c.fitupOK) return 'I';
+                           return ((c.cutGeneric || c.cutThermal || c.demo || c.remove) && c.structural) ? 'C' : null; },
+  'H-BT-014': function(c){ return ((c.fastening || c.weld || c.cutGeneric) && c.suspended && c.fitupOK) ? 'C' : null; },
+  'H-BT-015': function(c){ return (c.boltAct && c.structural && (c.suspended || c.release) && c.fitupOK) ? 'C' : null; },
+  'H-BT-016': function(c){ return (c.bolt && c.doubleConn) ? 'E' : null; },
+  'H-BT-017': function(c){ return (c.workAct && c.elevated) ? 'E' : null; },
+  'H-BT-018': function(c){ return (c.workAct && (c.elevated || c.overhead)) ? 'E' : null; },
+  'H-BT-019': function(c){ if(c.impact || (c.pneumatic && c.workAct) || c.striking || c.grind || c.gouge || c.cutAbrasive || c.plasma || c.chip) return 'E';
+                           return c.torqueNoMeans ? 'C' : null; },
+  'H-BT-020': function(c){ return (c.impact || (c.pneumatic && c.workAct) || c.grind || c.chip) ? 'E' : null; },
+  'H-BT-021': function(c){ if(c.powered) return 'E'; return c.torqueNoMeans ? 'C' : null; },
+  'H-BT-022': function(c){ if(c.reactionArm) return 'E'; return c.torqueNoMeans ? 'C' : null; },
+  'H-BT-023': function(c){ if(c.hydWrench || c.tensioner) return 'E'; return c.torqueNoMeans ? 'C' : null; },
+  'H-BT-024': function(c){ return (c.hydWrench || c.tensioner) ? 'E' : null; },
+  'H-BT-025': function(c){ return ((c.pneumatic && c.workAct) || c.gouge || c.otherHose) ? 'E' : null; },
+  'H-BT-026': function(c){ if(c.corded) return 'E'; return (c.weld || c.grind || c.drill || c.hydWrench || c.tensioner || c.batteryTool) ? 'C' : null; },
+  'H-BT-027': function(c){ if(/\b(hoses?|cords?|leads?)\b/.test(c.text) && c.workAct) return 'E';
+                           return (c.pneumatic || c.hydWrench || c.tensioner || c.corded || c.weld || c.oxyfuel) ? 'C' : null; },
+  'H-BT-028': function(c){ return c.tc ? 'E' : null; },
+  'H-BT-029': function(c){ return c.striking ? 'E' : null; },
+  'H-BT-030': function(c){ return c.striking ? 'E' : null; },
+  'H-BT-031': function(c){ return (((c.bolt || c.torque) && c.structural) || c.tc || (c.weld && c.structural)) ? 'I' : null; },
+  'H-BT-032': function(c){ if(c.workAct && c.overhead) return 'E'; return (c.workAct && c.aerial && c.structural) ? 'I' : null; },
+  'H-BT-033': function(c){ return c.tensioner ? 'E' : null; },
+  'H-BT-034': function(c){ return c.detension ? 'E' : null; },
+  'H-BT-035': function(c){ return c.tensioner ? 'E' : null; },
+  'H-BT-036': function(c){ return ((c.fastening && c.flange) || (c.weld && c.pressureBoundary)) ? 'I' : null; },
+  'H-HW-001': function(c){ return c.hotWork ? 'E' : (c.hotWorkPossible ? 'C' : null); },
+  'H-HW-002': function(c){ if(!(c.hotWork || c.hotWorkPossible)) return null; return c.concealed ? 'E' : (c.elevated ? 'C' : null); },
+  'H-HW-003': function(c){ return c.hotWork ? 'E' : (c.hotWorkPossible ? 'C' : null); },
+  'H-HW-004': function(c){ if(!(c.hotWork || c.hotWorkPossible)) return null; if(c.flammable) return 'E'; return (c.confined || c.container) ? 'C' : null; },
+  'H-HW-005': function(c){ return ((c.hotWork || c.hotWorkPossible) && c.combDust) ? 'E' : null; },
+  'H-HW-006': function(c){ if(c.weld || c.cutThermal || c.gouge || c.grindMetal || c.braze) return 'E'; return (c.grindUnknown || c.hotWorkPossible) ? 'C' : null; },
+  'H-HW-007': function(c){ return (c.heatFlame || c.braze || (c.oxyfuel && (c.cutThermal || c.weld || c.heatGeneric)) || c.roofTorch) ? 'E' : null; },
+  'H-HW-008': function(c){ if(c.weld || c.cutThermal || c.braze || c.heatGeneric || c.gouge) return 'E'; return c.grindMetal ? 'C' : null; },
+  'H-HW-009': function(c){ return (c.arcProcess || c.oxyfuel && (c.cutThermal || c.braze || c.heatFlame)) ? 'E' : null; },
+  'H-HW-010': function(c){ if(!c.arcProcess) return null; return c.othersNear ? 'E' : 'C'; },
+  'H-HW-011': function(c){ return c.arcProcess ? 'E' : null; },
+  'H-HW-012': function(c){ if(c.weld || c.cutThermal || c.gouge || c.braze) return 'E'; return (c.heatFlame && c.coating) ? 'C' : null; },
+  'H-HW-013': function(c){ if((c.weld || c.cutThermal || c.gouge) && c.stainless) return 'E'; return (c.grind && c.stainless) ? 'C' : null; },
+  'H-HW-014': function(c){ return ((c.weld || c.cutThermal || c.gouge || c.heatFlame || c.grind) && c.galv) ? 'E' : null; },
+  'H-HW-015': function(c){ if(c.weld && c.manganese) return 'E'; return c.weld ? 'C' : null; },
+  'H-HW-016': function(c){ if((c.hotWork || c.hotWorkPossible || c.grind || c.cutGeneric || c.demo) && c.lead) return 'E'; return null; },
+  'H-HW-017': function(c){ return ((c.hotWork || c.hotWorkPossible) && c.cadmium) ? 'E' : null; },
+  'H-HW-018': function(c){ return ((c.hotWork || c.hotWorkPossible || c.heatGeneric || c.grind) && (c.coating || c.solvent)) ? 'E' : null; },
+  'H-HW-019': function(c){ if(c.shieldGas && (c.confined || c.enclosed)) return 'E'; if(c.weld && c.confined) return 'E'; return (c.shieldGas && c.weld) ? 'C' : null; },
+  'H-HW-020': function(c){ if(c.oxygen && c.confined) return 'E'; return (c.oxyfuel && c.enclosed) ? 'C' : null; },
+  'H-HW-021': function(c){ if(c.hotEnv) return 'E'; return ((c.hotWork) && (c.confined || c.enclosed)) ? 'C' : null; },
+  'H-HW-022': function(c){ if(c.cylinders) return 'E'; return (c.oxyfuel || (c.shieldGas && c.weld)) ? 'I' : null; },
+  'H-HW-023': function(c){ if(c.cylinders && c.hotWork) return 'E'; return c.oxyfuel ? 'I' : null; },
+  'H-HW-024': function(c){ return c.oxyfuel ? 'E' : null; },
+  'H-HW-025': function(c){ return c.oxyfuel ? 'E' : null; },
+  'H-HW-026': function(c){ if(c.oxygen && /\boxygen\b/.test(c.text)) return 'E'; return c.oxyfuel ? 'C' : null; },
+  'H-HW-027': function(c){ return ((c.grind && !c.tungstenGrind) || c.cutAbrasive || c.tungstenGrind) ? 'E' : null; },
+  'H-HW-028': function(c){ return (c.grind || c.cutAbrasive) ? 'E' : null; },
+  'H-HW-029': function(c){ if(c.grind || c.cutAbrasive || c.gouge || c.chip || c.wireWheel) return 'E'; return (c.weld || c.cutThermal) ? 'C' : null; },
+  'H-HW-030': function(c){ if((c.grind || c.cutAbrasive) && c.wheelChange) return 'E'; return (c.grind || c.cutAbrasive) ? 'C' : null; },
+  'H-HW-031': function(c){ if((c.grind || c.cutAbrasive || c.cutGeneric) && c.smallPart) return 'E'; return (c.grind || c.cutAbrasive || c.cutUndetermined) ? 'C' : null; },
+  'H-HW-032': function(c){ var cut = c.cutThermal || c.cutAbrasive || c.cutGeneric;
+                           if(cut && (c.structural || c.elevated || c.demo || c.remove || /pipe|piping/.test(c.text))) return 'E'; return cut ? 'C' : null; },
+  'H-HW-034': function(c){ if((c.hotWork || c.hotWorkPossible) && c.container) return 'E'; return ((c.hotWork) && c.process) ? 'C' : null; },
+  'H-HW-035': function(c){ if((c.hotWork || c.hotWorkPossible) && c.inService) return 'E'; return (c.hotWork && (c.process || c.pressureBoundary)) ? 'C' : null; },
+  'H-HW-036': function(c){ return ((c.hotWork || c.hotWorkPossible) && (c.elevated || c.pfasCue)) ? 'E' : null; },
+  'H-HW-037': function(c){ return ((c.hotWork || c.hotWorkPossible) && (c.rigging || c.suspended)) ? 'E' : null; },
+  'H-HW-038': function(c){ if(c.weld || c.cutThermal || c.gouge || c.grindMetal) return 'E'; return c.hotWorkPossible ? 'C' : null; },
+  'H-HW-041': function(c){ if(c.combustion && c.enclosed) return 'E'; return c.combustion ? 'C' : null; },
+  'H-HW-042': function(c){ return (c.thoriated && c.tungstenGrind) ? 'E' : null; }
+};
+/* records whose applicability is method-specific: legacy-inherited relationships do not
+   override a null rule result (fit-up records and the hot work family) */
+var SIL_STRICT = {'H-BT-001':1,'H-BT-012':1,'H-BT-013':1,'H-BT-014':1,'H-BT-015':1,'H-BT-016':1,'H-HW-001':1,'H-HW-003':1,
+  'H-HW-006':1,'H-HW-007':1,'H-HW-008':1,'H-HW-009':1,'H-HW-011':1,'H-HW-012':1,'H-HW-022':1,'H-HW-023':1,'H-HW-024':1,'H-HW-029':1};
+
+/* consequence tiers (applied within an applicability class only) */
+var SIL_CONSEQ = {
+  'H-BT-012':3,'H-BT-013':3,'H-BT-014':3,'H-BT-015':3,'H-BT-016':3,'H-BT-017':3,'H-BT-023':3,'H-BT-033':3,'H-BT-034':3,'H-BT-031':3,'H-BT-036':3,
+  'H-HW-001':3,'H-HW-004':3,'H-HW-005':3,'H-HW-011':3,'H-HW-013':3,'H-HW-016':3,'H-HW-017':3,'H-HW-019':3,'H-HW-020':3,'H-HW-022':3,
+  'H-HW-025':3,'H-HW-027':3,'H-HW-032':3,'H-HW-034':3,'H-HW-035':3,'H-HW-036':3,'H-HW-041':3,
+  'H-BT-004':2,'H-BT-006':2,'H-BT-010':2,'H-BT-011':2,'H-BT-018':2,'H-BT-021':2,'H-BT-022':2,'H-BT-024':2,'H-BT-025':2,'H-BT-026':2,'H-BT-028':2,'H-BT-029':2,'H-BT-032':2,'H-BT-035':2,
+  'H-HW-002':2,'H-HW-003':2,'H-HW-006':2,'H-HW-007':2,'H-HW-008':2,'H-HW-009':2,'H-HW-012':2,'H-HW-014':2,'H-HW-015':2,'H-HW-018':2,'H-HW-021':2,
+  'H-HW-023':2,'H-HW-024':2,'H-HW-026':2,'H-HW-028':2,'H-HW-029':2,'H-HW-030':2,'H-HW-031':2,'H-HW-037':2,'H-HW-038':2,'H-HW-042':2
+};
+
+/* legacy (A-2) strings superseded by canonical records, keyed "entryNumber|string"
+   (SIL-PKG-001 and SIL-PKG-002 production crosswalks). The canonical record inherits the relationship. */
+var SIL_SUPERSEDE = {
+  '7|Pinch points during bolt-up and alignment':['H-BT-001'], '7|Sharp edges on steel':['H-BT-002'], '31|Cuts from pipe ends and flanges':['H-BT-002'],
+  '3|Rotating equipment entanglement':['H-BT-010'], '3|Electrical shock':['H-BT-026'], '7|Crushing from shifting steel':['H-BT-012'],
+  '7|Caught-between from steel components':['H-BT-012'], '7|Unstable temporary structure condition':['H-BT-013'], '7|Suspended load during picks':['H-BT-014'],
+  '25|Falling tools from elevated workers':['H-BT-018'], '1|Noise exposure':['H-BT-019'], '2|Noise exposure':['H-BT-019'], '3|Noise exposure':['H-BT-019'],
+  '4|Noise exposure':['H-BT-019'], '11|Noise exposure':['H-BT-019'], '23|Noise from pneumatic tools':['H-BT-019'], '22|Noise-induced hearing damage':['H-BT-019'],
+  '22|Vibration exposure (hand-arm)':['H-BT-020'], '23|Injection injury from high-pressure fluid':['H-BT-023'], '2|Electrical cord trip hazard':['H-BT-027'],
+  '15|Trip hazard from cords and cables':['H-BT-027'], '3|Kickback / torque reaction':['H-BT-004'], '7|Dropped objects':['H-BT-018'],
+  '25|Dropped objects striking workers below':['H-BT-018'], '23|Hose whip from disconnected line':['H-BT-025'], '8|Dropped objects from elevated platform':['H-BT-018'],
+  '9|Falling objects from ladder user':['H-BT-018'], '10|Falling objects from scaffold':['H-BT-018'], '25|Struck-by from falling materials and tools':['H-BT-018'],
+  '25|Materials stored at height':['H-BT-018'], '35|Dropped objects to floors and personnel below':['H-BT-018'], '37|Dropped rigging hardware onto workers below':['H-BT-018'],
+  '1|Fire hazard / ignition source exposure':['H-HW-001'], '1|Combustible material nearby':['H-HW-001'], '35|Fire from torch application near combustibles':['H-HW-001'],
+  '1|Thermal burns from hot metal, slag, or torch':['H-HW-006','H-HW-007','H-HW-008'], '28|Hot work burns and fume from welding bucket':['H-HW-006','H-HW-012'],
+  '1|Weld fume / smoke inhalation':['H-HW-012'], '1|Arc flash / eye injury from UV exposure':['H-HW-009'], '1|Flying particles and sparks':['H-HW-029'],
+  '1|Compressed gas hazard (cylinders)':['H-HW-022','H-HW-023','H-HW-024'], '1|Electrical shock from welding equipment':['H-HW-011','H-BT-026'],
+  '1|Heat stress in enclosed or hot work area':['H-HW-021'], '28|Heat stress during welding in enclosure':['H-HW-021'], '14|Heat stress inside vessel or tank':['H-HW-021'],
+  '21|Heat stress and heat stroke':['H-HW-021'], '30|Heat stress inside vessel':['H-HW-021'], '34|Heat stress from process heat and steam':['H-HW-021'],
+  '35|Heat stress on open roof':['H-HW-021'], '38|Heat stress in open field environment':['H-HW-021'], '42|Heat stress in open exposed work areas':['H-HW-021']
+};
+/* legacy process-piping / line-break task entries demoted to conditional for flange work without an opening cue (Package 001 §2 rule 6) */
+var SIL_LINEBREAK_ENTRIES = {31:1};
+
+/* legacy control lines with an equivalent canonical control (SIL-CONTROL-REGISTRY.md) */
+var SIL_CTRL_EQ = {"Never work under a suspended load": "C-000033", "Use tag lines to control load swing where practical": "C-000035", "Verify support is stable before releasing rigging or mechanical hold": "C-000037", "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater": "C-000039", "Use approved anchorage points rated for fall arrest forces": "C-000042", "Inspect harness, lanyard, SRL, and all connectors before each use": "C-000043", "Review fall rescue plan before work begins": "C-000044", "Barricade area below or around work if debris may affect others": "C-000047", "Wear hearing protection when noise levels exceed 85 dBA": "C-000049", "Wear approved safety glasses at all times in work area": "C-000054", "Remove or protect all combustibles within 35 feet of hot work": "C-000114", "Assign fire watch during and for minimum 30 minutes after hot work": "C-000115", "Complete hot work permit before beginning any hot work operations": "C-000116", "Maintain charged fire extinguisher in the work area at all times": "C-000118", "Use fire blankets and screens to contain sparks and slag": "C-000119", "Control all sparks and slag direction away from personnel and materials": "C-000120", "Monitor workers for signs of heat illness (confusion, nausea, stopping sweating)": "C-000184", "Know site first aid response for heat stroke — cool rapidly and call 911": "C-000185", "Use buddy system in high-heat conditions": "C-000263"};
+var SIL_C2_HOTWORK = {'C-000114':1,'C-000115':1,'C-000116':1,'C-000118':1,'C-000119':1,'C-000120':1};
+var SIL_RESP_LEGACY = 'Wear appropriate respirator (N95 minimum, P100 for high exposure)';
+
+/* ---------- condition labels on hazard→control relationships ---------- */
+function silCond(label, c, hid){
+  var parts = label.split(/;\s*/);
+  for(var i = 0; i < parts.length; i++){
+    if(!silCondOne(parts[i].trim(), c, hid)) return false;
+  }
+  return true;
+}
+function silCondOne(l, c, hid){
+  if(!l) return true;
+  if(l.indexOf('rel:') === 0){ return silRelOn(l.slice(4), c); }
+  l = l.replace(/^if /, '');
+  switch(l){
+    case 'fire watch duties': return true;
+    case 'acetylene': return c.acetylene;
+    case 'aerial or scissor lift': return c.aerial;
+    case 'bolted': return c.bolt || c.torque || c.tensioner || !c.weld;
+    case 'welded': return c.weld;
+    case 'tensioner': return c.tensioner;
+    case 'TC bolts': return c.tc;
+    case 'turn-of-nut': return /turn[- ]of[- ]nut/.test(c.text);
+    case 'calibrated wrench': return /calibrated wrench/.test(c.text);
+    case 'DTI': return /\bdti\b|direct tension/.test(c.text);
+    case 'pretensioned joint': return /pretension|slip[- ]critical/.test(c.text);
+    case 'bolting hardware': return c.fastening;
+    case 'boom or scissor lift': return c.boomLift || c.scissor || c.aerial;
+    case 'confined space': return c.confined;
+    case 'cutting or removal': return c.cutGeneric || c.cutThermal || c.cutAbrasive || c.demo || c.remove;
+    case 'dangerous equipment, holes or openings, or client / project rule': return /\b(holes?|openings?|dangerous equipment|machinery)\b/.test(c.text);
+    case 'debris can reach the face': return c.grind || c.cutAbrasive || c.chip || c.overhead || c.striking;
+    case 'demolition, knife use or stainless steel lath': return c.a4;
+    case 'drill': return c.drill;
+    case 'elevated': return c.elevated || c.overhead;
+    case 'erection or fit-up': return c.fastening && c.fitupOK;
+    case 'falling debris can get around glasses': return c.overhead;
+    case 'handheld grinding or abrasive cutting': return c.grindHand;
+    case 'heat and A4 cut requirement together': return c.a4 && (c.hotWork || c.hotWorkPossible);
+    case 'hot work (cumulative)': return c.hotWork || c.hotWorkPossible;
+    case 'hydraulic wrench, tensioner, large impact or pump': return c.heavyTool;
+    case 'ladder': return c.ladder;
+    case 'magnetic drill': return c.magDrill;
+    case 'materials or equipment at height': return c.elevated;
+    case 'moving': return c.moveCyl;
+    case 'other pressurized hose system': return c.otherHose;
+    case 'others nearby': return c.othersNear;
+    case 'overhead thermal work': return c.overhead && (c.weld || c.cutThermal || c.gouge || c.braze);
+    case 'particles can get around glasses': return c.overhead || c.chip || c.wireWheel;
+    case 'personal fall protection used': return c.elevated;
+    case 'personal fall protection used on structure': return c.elevated && !c.aerial && !c.ladder;
+    case 'pneumatic': case 'pneumatic hose': case 'pneumatic supply line': case 'pneumatic tool': return c.pneumatic || c.gouge;
+    case 'powered wrench': return c.powered;
+    case 'pump operated by another person': return c.hydWrench || c.tensioner || c.pumpPerson;
+    case 'required by project, permit or standard': return true;
+    case 'seat or equivalent device used': return c.seatDevice || c.doubleConn;
+    case 'storage': return c.storeCyl;
+    case 'storage or transport': return c.storeCyl || c.moveCyl;
+    case 'tools at height': return c.elevated || c.overhead;
+    case 'wet or conductive location': return c.wet || c.confined;
+    case 'wire wheel or brush': return c.wireWheel;
+    case 'cut-off wheel': return c.cutAbrasive;
+    case 'heat and A4 cut requirement': return c.a4 && (c.hotWork || c.hotWorkPossible);
+    case 'under welding helmet where required': return c.arcProcess;
+    default: return false; /* unknown label: never assert a conditional control */
+  }
+}
+/* Package 002 relationships on Package 001 canonical hazards */
+function silRelOn(hid, c){
+  var hw = c.hotWork || c.hotWorkPossible;
+  switch(hid){
+    case 'H-BT-002': return (c.weld || c.cutGeneric || c.cutThermal || c.cutAbrasive || c.grind) && c.metal;
+    case 'H-BT-004': return c.grind || c.cutAbrasive;
+    case 'H-BT-006': return c.grind || c.cutAbrasive;
+    case 'H-BT-007': return c.weld || c.cutThermal || c.grind || c.cylinders;
+    case 'H-BT-008': case 'H-BT-009': return c.grind || c.cutAbrasive;
+    case 'H-BT-010': return c.grind || c.cutAbrasive || c.wireWheel;
+    case 'H-BT-012': case 'H-BT-013': case 'H-BT-014': return c.cutGeneric || c.cutThermal || c.cutAbrasive || c.demo;
+    case 'H-BT-017': case 'H-BT-018': case 'H-BT-032': return hw || c.grind || c.cutGeneric;
+    case 'H-BT-019': case 'H-BT-020': return c.grind || c.gouge || c.chip || c.plasma || c.cutAbrasive;
+    case 'H-BT-025': return c.gouge || (c.pneumatic && (c.grind || c.chip));
+    case 'H-BT-026': return c.weld || c.grind || c.plasma || c.drill;
+    case 'H-BT-027': return c.weld || c.oxyfuel || c.grind || c.plasma;
+    default: return false;
+  }
+}
+
+/* ---------- legacy (A-2) engine, with whole-term matching for short keywords ---------- */
+var SIL_PREFIX_OK = {demo:1,seal:1,fire:1,fume:1,dust:1,roof:1,weld:1,slab:1,fuel:1,tank:1,drag:1,heat:1,grid:1,berm:1,belt:1,soil:1,hose:1,slag:1,chip:1,boom:1,beam:1,pump:1,cold:1,rain:1,wind:1,trip:1,slip:1,fall:1};
+var SIL_KEY_CACHE = {};
+function silKeyMatch(t, k){
+  var key = k.toLowerCase();
+  if(key.length > 4 || key === 'saw') return t.indexOf(key) !== -1; /* 'saw' keeps substring matching (jigsaw, sawzall) */
+  var re = SIL_KEY_CACHE[key];
+  if(!re){
+    var esc = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    re = SIL_PREFIX_OK[key] ? new RegExp('(^|[^a-z0-9])' + esc, 'i')
+       : new RegExp('(^|[^a-z0-9])' + esc + '(s|es|ed|d|ing|er|ers|ger|gers|ging|ged|ting|ted|ping|ped|ming|med|ning|ned|ling|led)?([^a-z0-9]|$)', 'i');
+    SIL_KEY_CACHE[key] = re;
+  }
+  return re.test(t);
+}
+function silLegacy(kind, t){
+  var lib = kind === 'hazard' ? TASK_TO_HAZARD : HAZ_TO_CONTROL;
+  var scored = [];
+  lib.forEach(function(entry, idx){
+    var n = 0;
+    entry.keys.forEach(function(k){ if(silKeyMatch(t, k)) n++; });
+    if(n > 0) scored.push({entry: entry, idx: idx + 1, score: n});
+  });
+  scored.sort(function(a, b){ return b.score - a.score; });
+  var seen = {}, out = [];
+  scored.forEach(function(s){
+    (kind === 'hazard' ? s.entry.haz : s.entry.controls).forEach(function(item){
+      var k = s.idx + '|' + item;
+      if(!seen[k]){ seen[k] = true; out.push({text: item, entry: s.idx}); }
+    });
+  });
+  var hi = [], lo = [];
+  out.forEach(function(o){
+    var lower = o.text.toLowerCase();
+    (A2_HIGH_CONSEQUENCE.some(function(hc){ return lower.indexOf(hc) !== -1; }) ? hi : lo).push(o);
+  });
+  return hi.concat(lo);
+}
+
+/* ---------- indexes ---------- */
+var SIL_HZ = {}, SIL_HZ_BY_TEXT = {}, SIL_SUPERSEDED_TEXT = {};
+Object.keys(SIL_SUPERSEDE).forEach(function(k){
+  var txt = silNorm(k.slice(k.indexOf('|') + 1));
+  if(txt === 'electrical shock' || txt === 'noise exposure') return; /* also retained elsewhere or identical to canonical text */
+  SIL_SUPERSEDED_TEXT[txt] = (SIL_SUPERSEDED_TEXT[txt] || []).concat(SIL_SUPERSEDE[k]);
+});
+SIL_DATA.hazards.forEach(function(h, i){ h.ord = i; SIL_HZ[h.id] = h; SIL_HZ_BY_TEXT[silNorm(h.t)] = h; });
+
+/* ---------- hazard suggestions ---------- */
+function silHazards(text){
+  var c = silConcepts(text);
+  var t = c.text;
+  var picked = {}; /* id -> {cls, ord} */
+  function put(id, cls, ord){
+    var rank = {E:0, I:1, L:2, C:3}[cls];
+    if(!picked[id] || rank < picked[id].rank) picked[id] = {rank: rank, ord: ord};
+  }
+  Object.keys(SIL_RULES).forEach(function(id){
+    if(!SIL_HZ[id]) return;
+    var cls = SIL_RULES[id](c);
+    if(cls) put(id, cls, 0);
+  });
+  /* legacy library, with supersession */
+  var legacy = silLegacy('hazard', t);
+  var legacyOut = [];
+  var flangeCond = c.flange && !c.opening;
+  legacy.forEach(function(o, pos){
+    var key = o.entry + '|' + o.text;
+    var sup = SIL_SUPERSEDE[key];
+    if(sup){
+      var anyRule = sup.some(function(id){ return SIL_RULES[id] && SIL_RULES[id](c); });
+      sup.forEach(function(id, j){
+        if(!SIL_HZ[id]) return;
+        var r = SIL_RULES[id] ? SIL_RULES[id](c) : null;
+        if(r) return; /* rule already placed it with its own class */
+        if(SIL_STRICT[id]) return; /* method-specific record: no inheritance without its own applicability */
+        if(sup.length > 1 && (anyRule || j > 0)) return; /* split: keep only applicable parts */
+        /* within Package 001–002 scope the canonical rule governs: an inherited relationship is conditional;
+           for other trades the legacy relationship is kept at its legacy position */
+        put(id, c.workAct ? 'C' : 'L', pos);
+      });
+      return;
+    }
+    if(SIL_LINEBREAK_ENTRIES[o.entry] && c.flange){
+      if(c.exclLineBreak) return;
+      if(flangeCond){ legacyOut.push({text: o.text, rank: 3, pos: pos}); return; }
+    }
+    legacyOut.push({text: o.text, rank: 2, pos: pos});
+  });
+  /* assemble */
+  var rows = [];
+  Object.keys(picked).forEach(function(id){
+    var p = picked[id];
+    rows.push({text: SIL_HZ[id].t, rank: p.rank, q: SIL_CONSEQ[id] || 1, pos: p.rank === 2 ? p.ord : 1e6 + SIL_HZ[id].ord});
+  });
+  legacyOut.forEach(function(l){ rows.push({text: l.text, rank: l.rank, q: 0, pos: l.pos, legacy: true}); });
+  rows.sort(function(a, b){
+    if(a.rank !== b.rank) return a.rank - b.rank;
+    if(a.rank === 2) return a.pos - b.pos;      /* legacy keeps its own A-2 order */
+    if(b.q !== a.q) return b.q - a.q;            /* consequence within the class */
+    return a.pos - b.pos;
+  });
+  var seen = {}, out = [];
+  rows.forEach(function(r){ var k = silNorm(r.text); if(!seen[k]){ seen[k] = true; out.push(r.text); } });
+  return out;
+}
+
+/* ---------- control suggestions ---------- */
+function silControls(hazardText, taskText){
+  var c = silConcepts((taskText || '') + ' \n ' + (hazardText || ''));
+  /* relationship conditions are evaluated on the task description; hazard wording itself does not assert a method */
+  var cTask = (taskText && taskText.trim()) ? silConcepts(taskText) : c;
+  var ids = [], seen = {};
+  function add(id){ if(id && !seen[id] && SIL_DATA.controls[id]){ seen[id] = true; ids.push(id); } }
+  var lines = (hazardText || '').split('\n');
+  var canonHW = false;
+  lines.forEach(function(line){
+    var hs = [];
+    var h = SIL_HZ_BY_TEXT[silNorm(line)];
+    if(h) hs.push(h);
+    else (SIL_SUPERSEDED_TEXT[silNorm(line)] || []).forEach(function(id){ if(SIL_HZ[id]) hs.push(SIL_HZ[id]); }); /* hazards saved before v1.4.0 */
+    hs.forEach(function(h){
+      if(h.id === 'H-HW-001' || h.id === 'H-HW-003') canonHW = true;
+      h.c.forEach(function(rel){ if(!rel[1] || silCond(rel[1], cTask, h.id)) add(rel[0]); });
+    });
+  });
+  /* legacy (A-2) controls are kept for every hazard line, so valid legacy relationships are preserved;
+     lines with a canonical equivalent are presented once, in canonical wording */
+  var legacyLines = [];
+  var hw = cTask.hotWork || cTask.hotWorkPossible || canonHW || (!(taskText && taskText.trim()) && (c.hotWork || c.hotWorkPossible));
+  silLegacy('control', (hazardText || '').toLowerCase()).forEach(function(o){
+    if(o.text === SIL_RESP_LEGACY){ add('C-000164'); add('C-000271'); return; }
+    var eq = SIL_CTRL_EQ[o.text];
+    if(eq){
+      if(SIL_C2_HOTWORK[eq] && !hw){
+        if(eq === 'C-000118') legacyLines.push(o.text); /* keep the general extinguisher line outside hot work */
+        return;
+      }
+      add(eq); return;
+    }
+    if(o.text === 'Monitor area 30-60 minutes after hot work for smoldering fire'){ if(hw){ add('C-000115'); add('C-000117'); } return; }
+    legacyLines.push(o.text);
+  });
+  /* company policy precedence (SIL-POLICY-REGISTRY.md): same exposure → more protective governs;
+     different mechanisms are cumulative, presented as one requirement where both apply */
+  if(seen['C-000112'] && seen['C-000004']){ ids = ids.filter(function(x){ return x !== 'C-000004'; }); }
+  if(seen['C-000272']){ ids = ids.filter(function(x){ return x !== 'C-000112' && x !== 'C-000140' && x !== 'C-000004'; }); }
+  if(seen['C-000221']){ ids = ids.filter(function(x){ return x !== 'C-000055'; }); }
+  var out = [], dup = {};
+  ids.forEach(function(id){ var s = SIL_DATA.controls[id]; var k = silNorm(s); if(!dup[k]){ dup[k] = true; out.push(s); } });
+  legacyLines.forEach(function(s){ var k = silNorm(s); if(!dup[k]){ dup[k] = true; out.push(s); } });
+  return out;
+}
+
 /* A-2 suggestion page size — first batch and each Show More batch */
 var A2_PAGE_SIZE = 15;
 
-/* High-consequence hazard strings — these receive a priority score boost */
+/* High-consequence legacy hazard strings (A-2 ordering of the legacy library) */
 var A2_HIGH_CONSEQUENCE = [
   'fall','struck-by','caught-between','crush','electr','arc flash',
   'suspended load','cave-in','engulf','oxygen defici','toxic atmosphere',
@@ -2255,58 +2832,20 @@ var A2_HIGH_CONSEQUENCE = [
 
 /**
  * getSuggestions — Suggestion engine interface (Track A / Track B boundary)
- *
- * A-2 behavior: results ranked — contextual applicability first (match score),
- * high-consequence hazards prioritized within matched set, then library order.
+ * v1.4.0: Safety Intelligence Library (Packages 001–002) combined with the
+ * legacy library. Applicability first (explicit → inferred → legacy keyword →
+ * conditional), consequence within each class. No padding, no auto-selection.
  *
  * @param {string} kind   'hazard' | 'control'
- * @param {string} text   User-entered task or hazard description
- * @param {Object} [context]  Reserved for Track B. Ignored in A-2.
+ * @param {string} text   Task description (hazard) or hazard text (control)
+ * @param {Object} [context]  { task: step description } for control suggestions
  * @returns {string[]}  Ranked, deduplicated suggestion strings.
  */
-function getSuggestions(kind, text, context){ // context reserved for Track B
-  var t = (text || '').toLowerCase();
+function getSuggestions(kind, text, context){
+  var t = (text || '');
   if(!t.trim()) return [];
-  var lib = kind === 'hazard' ? TASK_TO_HAZARD : HAZ_TO_CONTROL;
-
-  /* Score each library entry by how many keywords match the input */
-  var scored = [];
-  lib.forEach(function(entry){
-    var matchCount = 0;
-    entry.keys.forEach(function(k){
-      if(t.indexOf(k.toLowerCase()) !== -1) matchCount++;
-    });
-    if(matchCount > 0){
-      scored.push({ entry: entry, score: matchCount });
-    }
-  });
-
-  /* Sort: higher match count first; stable within same score */
-  scored.sort(function(a, b){ return b.score - a.score; });
-
-  /* Collect suggestions in ranked order, deduplicating */
-  var seen = {};
-  var out = [];
-  scored.forEach(function(s){
-    var items = kind === 'hazard' ? s.entry.haz : s.entry.controls;
-    items.forEach(function(item){
-      if(!seen[item]){
-        seen[item] = true;
-        out.push(item);
-      }
-    });
-  });
-
-  /* Within the full ranked list, float high-consequence items to the top */
-  var hi = [];
-  var lo = [];
-  out.forEach(function(item){
-    var lower = item.toLowerCase();
-    var isHi = A2_HIGH_CONSEQUENCE.some(function(hc){ return lower.indexOf(hc) !== -1; });
-    if(isHi) hi.push(item); else lo.push(item);
-  });
-
-  return hi.concat(lo);
+  if(kind === 'hazard') return silHazards(t);
+  return silControls(t, context && context.task);
 }
 
 /* Track how many suggestions are currently visible per drawer (A-2 Show More) */
@@ -2335,7 +2874,7 @@ function toggleDrawer(stepId, type){
   var step = findStep(stepId);
   if(!step) return;
   var sourceText = type === 'hazard' ? step.desc : step.hazard;
-  var suggestions = getSuggestions(type, sourceText);
+  var suggestions = getSuggestions(type, sourceText, {task: step.desc});
   lastSuggestions[stepId+':'+type] = suggestions;
   drawerShownCount[stepId+':'+type] = A2_PAGE_SIZE; /* reset to first page */
   openDrawer = {stepId: stepId, type: type};
