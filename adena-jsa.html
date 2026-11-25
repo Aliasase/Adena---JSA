@@ -2,7 +2,7 @@
 <!--
   Adena JSA / PTP Application
   Version: 1.4.0
-  Status: Phase A-4 interim test build — Safety Intelligence Library Packages 001–002 (AD-009, November 25, 2026)
+  Status: Phase A-4 interim production release — Safety Intelligence Library Packages 001–002 (PO-008, November 25, 2026)
   Development branch: revision-a4
   Production merge requires separate Product Owner authorization.
   See BASELINE.md in the project root for revision history.
@@ -1144,8 +1144,8 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
 /* ============================================================
    STORAGE / STATE
    ============================================================ */
-var APP_VERSION = '1.4.0'; /* Phase A-4 interim — Safety Intelligence Library (AD-009) */
-var APP_BUILD   = 'dev1';    /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_VERSION = '1.4.0'; /* Phase A-4 interim — Safety Intelligence Library (AD-009, PO-008) */
+var APP_BUILD   = 'p1';      /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 
 /* dev3: Acknowledgment statement displayed in tap-to-confirm re-acknowledgment modal.
    Stored verbatim in every supervisor_reack / crew_reack snapshot — do not change without
