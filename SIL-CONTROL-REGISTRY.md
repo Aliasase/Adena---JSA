@@ -8,7 +8,18 @@
 - Equivalent production controls (`HAZ_TO_CONTROL` entries C*n* in `A4-LIBRARY-EXPORT.md`) are mapped below. **A production control is not retired until all of its valid relationships are accounted for.** No production control is retired at this revision.
 - New controls are appended at the next sequential number. Retired controls stay listed with status "Retired — do not reuse."
 
-**Register status:** C-000001 to C-000257 assigned. Package 001: C-000001 to C-000113. Company hot work policy controls: C-000114 to C-000117, now related to Package 002 hazards. Package 002: C-000118 to C-000257. Next available: **C-000258**. Retired: none.
+**Register status:** C-000001 to C-000272 assigned.
+
+| Range | Source |
+|---|---|
+| C-000001 to C-000113 | Package 001 |
+| C-000114 to C-000117 | Company hot work policy controls |
+| C-000118 to C-000257 | Package 002 r1 |
+| C-000258 to C-000272 | Architect Response 004 |
+
+Next available: **C-000273**. Retired: none.
+
+**Withheld from the v1.4.0-dev1 test release** (AD-009 §5). These six stay in the registry, but are not in the app until their RCSC provisions are validated (U-5): C-000081, C-000082, C-000083, C-000085, C-000086, C-000087. Each is marked in the Revision column.
 
 **Company policy links:** controls that carry a company requirement cite the policy record (P-*nnnnnn*, `SIL-POLICY-REGISTRY.md`) in their Internal basis column.
 
@@ -71,12 +82,12 @@
 | C-000024 | Do not apply heavy wrench force from a ladder — reposition or use a lift. | H-BT-009 [if ladder] | — | See related hazard refs | r2 |
 | C-000025 | Never hold the socket, extension or chuck while the tool runs. | H-BT-010; H-BT-010 (P002: Grinders, wire wheels) | — | See related hazard refs | r2 |
 | C-000026 | Secure loose sleeves; keep lanyards and tool tethers clear of rotating parts. | H-BT-010; H-BT-010 (P002: Grinders, wire wheels) | — | See related hazard refs | r2 |
-| C-000027 | Do not exceed the specified tightening. | H-BT-011; H-BT-031 | — | See related hazard refs | r2 |
-| C-000028 | Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected. | H-BT-011; H-BT-031 | — | Spec — RCSC 2020 §2.11 (Architect-checked); project requirements | r3: text revised (Response 003 §7) |
+| C-000027 | Do not exceed the specified tightening. | H-BT-011; H-BT-031 [if bolted] | — | See related hazard refs | r2 |
+| C-000028 | Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected. | H-BT-011; H-BT-031 [if bolted] | — | Spec — RCSC 2020 §2.11 (Architect-checked); project requirements | r3: text revised (Response 003 §7) |
 | C-000029 | Keep hands and body out from between members until the connection is made. | H-BT-012; H-BT-012 (P002: Cutting structural steel) | C11 "Keep body parts out of all crush zones" (broader; retain) | See related hazard refs | r2 |
 | C-000030 | Pull pins and loosen bolts only with the member supported — misaligned steel can spring when released. | H-BT-012; H-BT-012 (P002: Cutting structural steel) | — | See related hazard refs | r2 |
-| C-000031 | Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements. | H-BT-013; H-BT-013 (P002: Cutting or removing structural elements) | — | See related hazard refs | r2 |
-| C-000032 | Follow the erection plan sequence. | H-BT-013; H-BT-015 | — | See related hazard refs | r2 |
+| C-000031 | Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements. | H-BT-013 [if erection or fit-up]; H-BT-013 (P002: Cutting or removing structural elements) | — | See related hazard refs | r2 |
+| C-000032 | Follow the erection plan sequence. | H-BT-013 [if erection or fit-up]; H-BT-015 | — | See related hazard refs | r2 |
 | C-000033 | Stay out from under the suspended load. | H-BT-014; H-BT-014 (P002: Cutting members that are rigged or suspended) | C7 "Never stand or work under a suspended load"; C11 "Never work under a suspended load" (equivalent — see registry note R-3) | See related hazard refs | r2 |
 | C-000034 | Only the connectors make the initial connection. | H-BT-014 | — | See related hazard refs | r2 |
 | C-000035 | Use tag lines; keep hands off the load except at the connection point. | H-BT-014 | C7 "Use tag lines to control load swing where practical" (equivalent) | See related hazard refs | r2 |
@@ -124,14 +135,14 @@
 | C-000077 | Remove mushroomed or damaged striking tools and pins from service. | H-BT-029 | — | See related hazard refs | r2 |
 | C-000078 | Keep your partner and others clear of the far side when driving pins. | H-BT-029 | — | See related hazard refs | r2 |
 | C-000079 | Keep hands out of the strike zone; use a pin holder or long-handled tool to hold pins. | H-BT-030 | — | See related hazard refs | r2 |
-| C-000080 | Use the bolt grade, length and washers called for on the drawings. | H-BT-031 | — | See related hazard refs | r2 |
-| C-000081 | Tighten in pattern from the stiffest part of the joint outward. | H-BT-031 | — | See related hazard refs | r2 |
-| C-000082 | Turn-of-nut: snug tight first, match mark, then turn the specified rotation. | H-BT-031 [if turn-of-nut] | — | See related hazard refs | r2 |
-| C-000083 | Calibrated wrench: verify calibration daily with the bolts being installed. | H-BT-031 [if calibrated wrench] | — | See related hazard refs | r2 |
-| C-000084 | TC bolts: install and inspect by the specified procedure — a bolt with the spline still on is not complete, and a sheared spline alone does not prove correct pretension. | H-BT-031 [if TC bolts] | — | Spec — RCSC 2020 / manufacturer (unverified) | r3: text revised (Response 003 §7) |
-| C-000085 | DTI: verify gaps or indicator per manufacturer. | H-BT-031 [if DTI] | — | See related hazard refs | r2 |
-| C-000086 | Complete pre-installation verification before production bolting of pretensioned joints. | H-BT-031 [if pretensioned joint] | — | See related hazard refs | r2 |
-| C-000087 | Keep bolts clean, dry and lubricated as delivered. | H-BT-031 | — | See related hazard refs | r2 |
+| C-000080 | Use the bolt grade, length and washers called for on the drawings. | H-BT-031 [if bolted] | — | See related hazard refs | r2 |
+| C-000081 | Tighten in pattern from the stiffest part of the joint outward. | H-BT-031 [if bolted] | — | See related hazard refs | r2; **withheld from v1.4.0-dev1** — RCSC tightening-pattern provision not yet validated (U-5) |
+| C-000082 | Turn-of-nut: snug tight first, match mark, then turn the specified rotation. | H-BT-031 [if bolted; turn-of-nut] | — | See related hazard refs | r2; **withheld from v1.4.0-dev1** — RCSC turn-of-nut method detail not yet validated (U-5) |
+| C-000083 | Calibrated wrench: verify calibration daily with the bolts being installed. | H-BT-031 [if bolted; calibrated wrench] | — | See related hazard refs | r2; **withheld from v1.4.0-dev1** — RCSC calibrated-wrench verification frequency not yet validated (U-5) |
+| C-000084 | TC bolts: install and inspect by the specified procedure — a bolt with the spline still on is not complete, and a sheared spline alone does not prove correct pretension. | H-BT-031 [if bolted; TC bolts] | — | Spec — RCSC 2020 / manufacturer (unverified) | r3: text revised (Response 003 §7) |
+| C-000085 | DTI: verify gaps or indicator per manufacturer. | H-BT-031 [if bolted; DTI] | — | See related hazard refs | r2; **withheld from v1.4.0-dev1** — DTI verification detail not yet validated (U-5) |
+| C-000086 | Complete pre-installation verification before production bolting of pretensioned joints. | H-BT-031 [if bolted; pretensioned joint] | — | See related hazard refs | r2; **withheld from v1.4.0-dev1** — RCSC pre-installation verification provision not yet validated (U-5) |
+| C-000087 | Keep bolts clean, dry and lubricated as delivered. | H-BT-031 [if bolted] | — | See related hazard refs | r2; **withheld from v1.4.0-dev1** — RCSC storage/lubrication provision not yet validated (U-5) |
 | C-000088 | Position yourself so you are not looking straight up into the work. | H-BT-032; H-BT-032 (P002: Overhead welding, cutting and grinding) | — | See related hazard refs | r2 |
 | C-000089 | Verify the required puller thread engagement on the stud before pressurizing. | H-BT-033 | — | See related hazard refs | r2 |
 | C-000090 | Confirm the tensioner and puller match the stud size and thread. | H-BT-033 | — | See related hazard refs | r2 |
@@ -144,10 +155,10 @@
 | C-000097 | Turn nuts by the manufacturer-designated method; keep fingers out of nut-turning openings and the gap between tool and flange. | H-BT-035 | — | See related hazard refs | r2 |
 | C-000098 | Keep hands clear of pistons and pullers while pressurized. | H-BT-035 | — | See related hazard refs | r2 |
 | C-000099 | Prevent unintended pressurization while positioning or adjusting tools by following the manufacturer's isolation procedure. | H-BT-035 | — | Mfr isolation procedure; locking an operating control is not assumed to isolate energy (Response 003 §7) | r3: text revised (Response 003 §7) |
-| C-000100 | Follow the specified tightening or tensioning sequence, number of passes and pressure or torque. | H-BT-036 | — | See related hazard refs | r2 |
-| C-000101 | Use the specified studs, nuts and gasket; do not reuse a gasket. | H-BT-036 | — | See related hazard refs | r2 |
-| C-000102 | Run nuts down fully before releasing tensioner pressure. | H-BT-036 [if tensioner] | — | See related hazard refs | r2 |
-| C-000103 | Use calibrated gauges and correctly rated equipment. | H-BT-036 | — | See related hazard refs | r2 |
+| C-000100 | Follow the specified tightening or tensioning sequence, number of passes and pressure or torque. | H-BT-036 [if bolted] | — | See related hazard refs | r2 |
+| C-000101 | Use the specified studs, nuts and gasket; do not reuse a gasket. | H-BT-036 [if bolted] | — | See related hazard refs | r2 |
+| C-000102 | Run nuts down fully before releasing tensioner pressure. | H-BT-036 [if bolted; if tensioner] | — | See related hazard refs | r2 |
+| C-000103 | Use calibrated gauges and correctly rated equipment. | H-BT-036 [if bolted] | — | See related hazard refs | r2 |
 | C-000104 | Complete the required joint verification and records before return to service. | H-BT-036 | — | See related hazard refs | r2 |
 | C-000105 | If a seat or equivalent device is used, it must be designed to carry the load and be bolted or welded to both the support and the first member before the shared nuts are removed. | H-BT-016 [if seat or equivalent device used] | — | OSHA-C 1926.756(c)(2) — verified (Engineer, osha.gov primary text, r3) | r3: new |
 | C-000106 | Expect the bit to bind as it breaks through — hold the drill firmly with the side handle and ease off the trigger. | H-BT-004 [if drill] | — | Mfr; BP | r3: new |
@@ -208,9 +219,9 @@
 | C-000161 | Identify base metals, coatings and consumables before hot work, and review the SDS. | H-HW-012; H-HW-013; H-HW-014; H-HW-015; H-HW-016; H-HW-017; H-HW-018 | — | BP; ANSI Z49.1 (unverified) | P002 r1: new |
 | C-000162 | Keep your head out of the fume plume. | H-HW-012 | — | BP | P002 r1: new |
 | C-000163 | Use local exhaust or other effective ventilation placed to capture fume at the source. | H-HW-012; H-HW-013; H-HW-014; H-HW-015; H-HW-017 | C20 "Ensure ventilation when welding inside bucket or confined areas" (related; narrower) | OSHA-C 1926.353 (unverified); OSHA-GI 1910.252(c) (unverified) | P002 r1: new |
-| C-000164 | Where ventilation alone is not enough, use respiratory protection selected from an exposure assessment, under the respiratory protection program. | H-HW-012; H-HW-013; H-HW-014; H-HW-015; H-HW-016; H-HW-017 | C5 "Wear appropriate respirator (N95 minimum, P100 for high exposure)" (NOT equivalent — universal N95 conflicts with exposure-based selection; finding E-9) | OSHA-C 1926.103 / OSHA-GI 1910.134 (unverified) | P002 r1: new |
+| C-000164 | Where ventilation alone is not enough, use respiratory protection selected from an exposure assessment, under the respiratory protection program. | H-HW-012; H-HW-013; H-HW-014; H-HW-015; H-HW-016; H-HW-017; H-HW-042 | C5 "Wear appropriate respirator (N95 minimum, P100 for high exposure)" — **PO-approved replacement** (PO Decision 004 / Response 004 §1 P2-U12): replaced by C-000164 + C-000271 (+ C-000270 where oxygen-deficient/IDLH) in the authorized release; task-specific silica line C5 "Follow site silica exposure control plan" retained | OSHA-C 1926.103 / OSHA-GI 1910.134 (unverified) | P002 r1: new |
 | C-000165 | Evaluate exposure to the specific contaminant (e.g. hexavalent chromium, lead, cadmium, manganese) as required. | H-HW-013; H-HW-015; H-HW-016; H-HW-018 | — | OSHA-C 1926.1126, 1926.62, 1926.1127; OSHA-GI 1910.1026, 1910.1025, 1910.1027 (all unverified) | P002 r1: new |
-| C-000166 | Follow the hygiene and contamination controls the exposure requires — wash before eating, and keep work clothing separate. | H-HW-013; H-HW-016; H-HW-017 | — | Substance-specific standards (unverified) | P002 r1: new |
+| C-000166 | Follow the hygiene and contamination controls the exposure requires — wash before eating, and keep work clothing separate. | H-HW-013; H-HW-016; H-HW-017; H-HW-042 | — | Substance-specific standards (unverified) | P002 r1: new |
 | C-000167 | Remove coatings only where the procedure allows, with controls for the removal exposure. | H-HW-014; H-HW-016 | — | BP; OSHA-C 1926.354 (unverified) | P002 r1: new |
 | C-000168 | Stop and report symptoms such as fever, chills or a metallic taste after hot work on galvanized metal. | H-HW-014 | — | BP | P002 r1: new |
 | C-000169 | Follow the lead exposure-control procedure, including protective clothing, before cutting, welding or grinding lead-coated surfaces. | H-HW-016 | — | OSHA-C 1926.62 / OSHA-GI 1910.1025 (unverified) | P002 r1: new |
@@ -221,11 +232,11 @@
 | C-000174 | Provide ventilation adequate for the gases and fume in enclosed or poorly ventilated areas. | H-HW-019; H-HW-020; H-HW-041 | C6 "Provide adequate ventilation — forced air if in enclosed space" (related) | OSHA-C 1926.353 (unverified) | P002 r1: new |
 | C-000175 | Direct purge gas discharge away from occupied areas, and shut off gas when not in use. | H-HW-019 | — | BP | P002 r1: new |
 | C-000176 | Follow the confined-space entry and rescue procedure where it applies. | H-HW-019 [if confined space] | — | OSHA-C Subpart AA / OSHA-GI 1910.146 (unverified) | P002 r1: new |
-| C-000177 | Remove torches and gas hoses from confined spaces during breaks and at shift end; keep cylinders and welding machines outside. | H-HW-004 [if confined space]; H-HW-019 [if confined space]; H-HW-020 [if confined space] | — | OSHA-C 1926.353(b) (unverified); BP | P002 r1: new |
+| C-000177 | Shut off the gas supply to the torch at a point outside the confined or enclosed space whenever the torch is not in use or is left unattended, such as during breaks. | H-HW-004 [if confined space]; H-HW-019 [if confined space]; H-HW-020 [if confined space] | — | OSHA-C 1926.352(g) (paragraph letter per GPO archive layout) — verified (Engineer, official CFR text (GPO archive), r2); OSHA-GI 1910.252(a)(4)(ii) — verified (Engineer, Cornell LII (secondary), r2) | P002 r2: Response 004 §3 (split of C-000177) |
 | C-000178 | Check oxygen equipment for leaks before use. | H-HW-020 | — | BP | P002 r1: new |
-| C-000179 | Never use oxygen for ventilation, cooling or blowing off clothing. | H-HW-020 | — | BP; ANSI Z49.1 (unverified) | P002 r1: new |
-| C-000180 | Place engine-driven welders and generators outdoors, with exhaust directed away from work areas, openings and air intakes. | H-HW-041 | — | BP | P002 r1: new |
-| C-000181 | Monitor for carbon monoxide where fuel-burning equipment runs in or near enclosed areas. | H-HW-041 | — | BP | P002 r1: new |
+| C-000179 | Never use oxygen for ventilation, cooling or blowing off clothing. | H-HW-020 | — | OSHA-C 1926.353(a)(1) — verified (Engineer, osha.gov, r2) | P002 r2: basis verified |
+| C-000180 | Run engine-driven welders, generators and other combustion equipment outdoors, away from openings, air intakes and occupied work areas. | H-HW-041 | — | BP | P002 r2: Response 004 §2 (P2-U6) |
+| C-000181 | Monitor for carbon monoxide where fuel-burning equipment must run near enclosed or occupied areas — monitoring does not make indoor engine operation acceptable. | H-HW-041 | — | BP | P002 r2: Response 004 §2 (P2-U6) |
 | C-000182 | Provide drinking water, rest breaks and shade or cooling for recovery. | H-HW-021 | — | BP | P002 r1: new |
 | C-000183 | Adjust work and rest periods to the heat, workload and protective clothing. | H-HW-021 | C17 "Adjust work scheduling to avoid peak heat hours where possible" (related) | BP | P002 r1: new |
 | C-000184 | Watch workers for signs of heat illness; stop work at the first signs. | H-HW-021 | C17 "Monitor workers for signs of heat illness (confusion, nausea, stopping sweating)" (equivalent) | BP | P002 r1: new |
@@ -244,7 +255,7 @@
 | C-000197 | Use equipment rated for the gas and its operating pressure. | H-HW-024 | — | Mfr | P002 r1: new |
 | C-000198 | Leak-test connections with an approved method — never with a flame. | H-HW-024 | — | BP; ANSI Z49.1 (unverified) | P002 r1: new |
 | C-000199 | Route gas hoses away from hot surfaces, sharp edges, slag and vehicle traffic. | H-HW-024 | — | BP | P002 r1: new |
-| C-000200 | Do not use acetylene above 15 psig. | H-HW-024 [if acetylene] | — | OSHA-GI 1910.253(a)(2) (unverified); ANSI Z49.1 (unverified) — numeric user-facing value pending decision P2-U7 | P002 r1: new |
+| C-000200 | Never use acetylene at a working pressure exceeding 15 psig. | H-HW-024 [if acetylene] | — | OSHA-GI 1910.253(a)(2) 'under no condition … utilized at a pressure in excess of 15 psig' — verified (Engineer, osha.gov; govinfo, r2); OSHA-C 1926.350(j) adopts ANSI Z49.1-1967 technical portions (OSHA interpretation 1975-07-07) — Z49.1 text unverified. Manufacturer instructions may set lower pressures. | P002 r2: Response 004 §1 (PO P2-U7) |
 | C-000201 | Use check valves and flashback arrestors compatible with the equipment, as required — they are not interchangeable. | H-HW-025 | — | Mfr; ANSI Z49.1 (unverified) | P002 r1: new |
 | C-000202 | Keep torch tips clean and unobstructed. | H-HW-025 | — | Mfr | P002 r1: new |
 | C-000203 | Set operating pressures to the manufacturer's settings. | H-HW-025 | — | Mfr | P002 r1: new |
@@ -264,8 +275,8 @@
 | C-000217 | Keep hands and body clear of the spinning wheel and the cutting path. | H-HW-028; H-HW-031 | — | BP | P002 r1: new |
 | C-000218 | Clamp or support the workpiece before grinding or cutting; do not hand-hold small pieces you cannot control. | H-HW-028; H-HW-031 | — | BP | P002 r1: new |
 | C-000219 | Let the wheel stop before setting the tool down. | H-HW-028 | — | Mfr | P002 r1: new |
-| C-000220 | Use grinders with a constant-pressure switch where required, and never lock or tape the switch on. | H-HW-028 | — | OSHA-C 1926.300(d) (unverified) — pending P2-U8 | P002 r1: new |
-| C-000221 | For handheld grinding and abrasive cutting, wear a face shield over safety glasses. | H-HW-029 [if handheld grinding or abrasive cutting] | — | Classification pending P2-U2 (Mfr / BP / company policy) | P002 r1: new |
+| C-000220 | Never tape, wedge or otherwise defeat a grinder's on-off switch; use a lock-on only where the manufacturer provides one that releases with a single motion of the same finger. | H-HW-028 | — | OSHA-C 1926.300(d)(2) — momentary-contact on-off control; lock-on permitted if turnoff by a single motion of the same finger(s) — verified (Engineer, official CFR text (govinfo 2014 edition), r2). MSHA 57.14116 requires constant hand pressure for hand-held grinders (underground) — Part 56 equivalent unverified; stricter where MSHA applies. | P002 r2: Response 004 §2 (P2-U8) |
+| C-000221 | For all handheld grinding and abrasive cutting, wear safety glasses with a face shield over them. | H-HW-029 [if handheld grinding or abrasive cutting] | — | Company policy P-000009 (PO Decision 004 via Response 004 §1) — not attributed to OSHA. Face shield supplements, never replaces, primary eye protection. | P002 r2: Response 004 §1 (PO P2-U2) |
 | C-000222 | Set barriers where nearby workers could be hit by particles or sparks. | H-HW-029 [if others nearby] | C4 "Barricade area below or around work if debris may affect others" (related) | BP | P002 r1: new |
 | C-000223 | Inspect wire wheels and brushes for loose or broken wires before use. | H-HW-029 [if wire wheel or brush]; H-BT-010 (P002: Grinders, wire wheels) [if wire wheel or brush] | — | Mfr | P002 r1: new |
 | C-000224 | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels or attachments. | H-HW-030 | — | Mfr; BP | P002 r1: new |
@@ -278,14 +289,14 @@
 | C-000231 | Set an exclusion zone around the movement and drop area, and keep everyone out of the line of fire. | H-HW-032 | — | BP | P002 r1: new |
 | C-000232 | Follow the approved cutting and removal sequence, coordinating with the people controlling the load. | H-HW-032 | — | BP | P002 r1: new |
 | C-000233 | Contain falling slag, sparks and cut-off pieces with blankets, pans or catch protection. | H-HW-032 [if elevated]; H-BT-018 (P002: Hot work at height) | — | BP; P-000006 | P002 r1: new |
-| C-000234 | Confirm authorization and the approved sequence before cutting or removing structural members, connections, braces or welds. | H-HW-033; H-BT-013 (P002: Cutting or removing structural elements) | — | BP; erection / demolition plan (unverified) | P002 r1: new |
-| C-000235 | Install required supports or bracing before cutting. | H-HW-033; H-BT-013 (P002: Cutting or removing structural elements) | — | BP | P002 r1: new |
-| C-000236 | Stop work if unexpected structural movement occurs. | H-HW-033 | — | BP | P002 r1: new |
+| C-000234 | Confirm authorization and the approved sequence before cutting or removing structural members, connections, braces or welds. | H-BT-013 [if cutting or removal]; H-BT-013 (P002: Cutting or removing structural elements) | — | BP; erection / demolition plan (unverified) | P002 r1: new |
+| C-000235 | Install required supports or bracing before cutting. | H-BT-013 [if cutting or removal]; H-BT-013 (P002: Cutting or removing structural elements) | — | BP | P002 r1: new |
+| C-000236 | Stop work if unexpected structural movement occurs. | H-BT-013 [if cutting or removal] | — | BP | P002 r1: new |
 | C-000237 | Identify current and previous contents before hot work; never assume an empty container is safe. | H-HW-034 | — | OSHA-C 1926.352(i) — verified (Engineer, official CFR text (GPO archive), r1) | P002 r1: new |
 | C-000238 | Isolate, drain, clean, purge or fill the container by the approved procedure before hot work. | H-HW-034 | — | OSHA-C 1926.352(i) — verified (Engineer, official CFR text (GPO archive), r1) | P002 r1: new |
 | C-000239 | Vent hollow spaces and containers before heating, cutting or welding. | H-HW-034 | — | OSHA-GI 1910.252(a)(3)(ii) — verified (Engineer, eCFR, r1) | P002 r1: new |
 | C-000240 | Never weld or cut sealed or unidentified containers. | H-HW-034 | — | BP | P002 r1: new |
-| C-000241 | Hot tapping or welding on in-service systems needs separate qualified engineering authorization — ordinary hot work controls do not cover it. | H-HW-034; H-HW-035; H-HW-040 | — | Architect Package 002 §4; client / owner procedure | P002 r1: new |
+| C-000241 | Hot tapping or welding on in-service systems needs separate qualified engineering authorization — ordinary hot work controls do not cover it. | H-BT-036 [if welded]; H-HW-034; H-HW-035 | — | Architect Package 002 §4; client / owner procedure | P002 r1: new |
 | C-000242 | Follow the approved isolation and energy-control procedure, and verify the safe state before work. | H-HW-035 | C19 "Verify zero energy state before beginning work" (related; broader) | OSHA-GI 1910.147 (unverified); site procedure | P002 r1: new |
 | C-000243 | Control residual pressure, temperature and chemical exposure before opening or heating the system. | H-HW-035 | C22 "Depressurize, drain, and verify zero pressure before breaking any flange or fitting" (related) | Site procedure | P002 r1: new |
 | C-000244 | Use fall protection equipment rated for the hot work exposure — a leading-edge rating alone is not enough. | H-HW-036 | — | Mfr | P002 r1: new |
@@ -295,13 +306,28 @@
 | C-000248 | Inspect exposed rigging before further use; remove heat-damaged rigging from service. | H-HW-037 | — | Mfr; ASME B30 series (unverified) | P002 r1: new |
 | C-000249 | Keep clothing free of oil, grease and flammable contamination. | H-HW-038 | — | BP | P002 r1: new |
 | C-000250 | Replace burned or damaged protective clothing. | H-HW-038 | — | BP | P002 r1: new |
-| C-000251 | Follow the approved drawings and welding procedure, using qualified welders where required. | H-HW-039 | — | Spec — AWS D1.1 (structural) / ASME (pressure) (unverified) | P002 r1: new |
-| C-000252 | Verify joint preparation, fit-up and any required preheat before welding. | H-HW-039 | — | Spec — AWS D1.1 (unverified) | P002 r1: new |
-| C-000253 | Keep required temporary supports in place until the welded connection is accepted. | H-HW-039 | — | Spec / erection plan (unverified) | P002 r1: new |
-| C-000254 | Complete the required inspection before the welded connection is loaded. | H-HW-039 | — | Spec — AWS D1.1 (unverified) | P002 r1: new |
-| C-000255 | Do not modify structural members without authorization. | H-HW-039 | — | BP; engineer of record | P002 r1: new |
-| C-000256 | Follow the approved pressure-boundary welding or repair procedure, with qualified welders and the specified materials. | H-HW-040 | — | Spec — ASME (unverified) | P002 r1: new |
-| C-000257 | Complete required examination and testing, and keep isolation in place until the equipment is accepted for service. | H-HW-040 | — | Spec — ASME (unverified) | P002 r1: new |
+| C-000251 | Follow the approved drawings and welding procedure, using qualified welders where required. | H-BT-031 [if welded] | — | Spec — AWS D1.1 (structural) / ASME (pressure) (unverified) | P002 r1: new |
+| C-000252 | Verify joint preparation, fit-up and any required preheat before welding. | H-BT-031 [if welded] | — | Spec — AWS D1.1 (unverified) | P002 r1: new |
+| C-000253 | Keep required temporary supports in place until the welded connection is accepted. | H-BT-031 [if welded] | — | Spec / erection plan (unverified) | P002 r1: new |
+| C-000254 | Complete the required inspection before the welded connection is loaded. | H-BT-031 [if welded] | — | Spec — AWS D1.1 (unverified) | P002 r1: new |
+| C-000255 | Do not modify structural members without authorization. | H-BT-031 | — | BP; engineer of record | P002 r1: new |
+| C-000256 | Follow the approved pressure-boundary welding or repair procedure, with qualified welders and the specified materials. | H-BT-036 [if welded] | — | Spec — ASME (unverified) | P002 r1: new |
+| C-000257 | Complete required examination and testing, and keep isolation in place until the equipment is accepted for service. | H-BT-036 [if welded] | — | Spec — ASME (unverified) | P002 r1: new |
+| C-000258 | Keep oxygen and fuel-gas cylinders outside confined spaces. | H-HW-004 [if confined space]; H-HW-019 [if confined space]; H-HW-020 [if confined space] | — | OSHA-C 1926.350(b)(4) — verified (Engineer, eCFR; OSHA interpretation 1975-07-07, r2) | P002 r2: new (Response 004) |
+| C-000259 | Keep welding machines outside confined spaces. | H-HW-011 [if confined space]; H-HW-019 [if confined space] | — | OSHA-GI 1910.252(a)(4) welding machines left outside (secondary sources only — unverified); BP | P002 r2: new (Response 004) |
+| C-000260 | Remove torches and hoses from confined spaces overnight and at shift change, and remove disconnected open-end hoses immediately. | H-HW-004 [if confined space]; H-HW-019 [if confined space]; H-HW-020 [if confined space] | — | OSHA-C 1926.352(g) — verified (Engineer, official CFR text (GPO archive), r2) | P002 r2: new (Response 004) |
+| C-000261 | During overhead welding, cutting or gouging, protect your ears from hot slag with flame-resistant coverage such as a welding cap or hood — ordinary earplugs or earmuffs are not slag protection. | H-BT-032 [if overhead thermal work] | — | BP; Response 004 §2 (P2-U4) | P002 r2: new (Response 004) |
+| C-000262 | Acclimatize new and returning workers by building up heat exposure gradually. | H-HW-021 | — | BP | P002 r2: new (Response 004) |
+| C-000263 | Use a buddy system so workers watch each other for signs of heat illness. | H-HW-021 | C17 "Use buddy system in high-heat conditions" (equivalent) | BP | P002 r2: new (Response 004) |
+| C-000264 | Assess heat, humidity, sun, workload and the added heat load of protective clothing before and during the shift. | H-HW-021 | — | BP | P002 r2: new (Response 004) |
+| C-000265 | Identify the tungsten electrode type before grinding — check the package or color code. | H-HW-042 | — | BP; AWS safety guidance (unverified) | P002 r2: new (Response 004) |
+| C-000266 | Use non-thoriated electrodes, such as ceriated or lanthanated, where the welding process allows. | H-HW-042 | — | BP | P002 r2: new (Response 004) |
+| C-000267 | Grind thoriated electrodes only on a dedicated grinder with dust capture. | H-HW-042 | — | BP | P002 r2: new (Response 004) |
+| C-000268 | Do not use compressed air or dry sweeping to clean electrode grinding dust. | H-HW-042 | — | BP | P002 r2: new (Response 004) |
+| C-000269 | Collect and dispose of electrode grinding dust as the site procedure requires. | H-HW-042 | — | BP; site / regulatory waste requirements (unverified) | P002 r2: new (Response 004) |
+| C-000270 | Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere. | H-HW-019 | — | OSHA-C 1926.103 / OSHA-GI 1910.134 (unverified); Response 004 §1 P2-U12 | P002 r2: new (Response 004) |
+| C-000271 | Where the task's silica control method specifies a respirator, wear the respirator it specifies. | No active relationship (retired hazard only) — retained | — | OSHA-C 1926.1153 Table 1 (unverified); task-specific requirement preserved (Response 004 §1) | P002 r2: new (Response 004) |
+| C-000272 | Where heat and cut exposures exist together, wear hand protection that meets both the heat-resistance need and the ANSI A4 cut requirement. | H-HW-006 [if heat and A4 cut requirement together]; H-BT-002 (P002: Weld / Cut / Grind) [if heat and A4 cut requirement together] | — | P-000002 + thermal protection; PO Decision 003 §6; Response 004 §3 | P002 r2: new (Response 004) |
 
 
 ## Registry notes
@@ -327,3 +353,13 @@ They will be reconciled in the packages that own those activities.
 - additional monitoring required by a project, permit or standard is the distinct conditional control C-000117.
 
 No universal 30–60 minute requirement is created. Production is unchanged until a PO-approved milestone.
+
+**R-5 — Production C5 respirator line (PO-approved correction, PO Decision 004 via Response 004 §1, P2-U12).** In v1.4.0-dev1, C5 "Wear appropriate respirator (N95 minimum, P100 for high exposure)" is replaced by:
+- C-000164 (exposure-based selection under the respiratory program);
+- C-000271 (the respirator specified by the task's silica control method).
+
+C5 "Follow site silica exposure control plan" is retained. C-000270 (no air-purifying respirator in an oxygen-deficient or IDLH atmosphere) relates to H-HW-019.
+
+**R-6 — Legacy control substitution in v1.4.0-dev1.** Where a production control line is recorded above as *equivalent*, the app presents it once, in canonical wording. Exceptions:
+- C2 hot work lines appear only when hot work is recognized.
+- "Maintain charged fire extinguisher in the work area at all times" keeps its legacy wording outside hot work.

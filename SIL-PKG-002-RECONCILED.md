@@ -1,10 +1,13 @@
 > **Repository Record (AD-008 §6):** Reconciled **candidate** package with the Engineer independent review. Not approved. Citations not marked "verified" are not validated. No application implementation or production release is authorized.
 
-# Safety Intelligence Library — Package 002 (Reconciled Candidate r1)
+# Safety Intelligence Library — Package 002 (Reconciled Candidate r2)
 ## Weld (ACT-0015) · Cut (ACT-0016, thermal and abrasive) · Grind (ACT-0018)
 
 **Source:** `SIL-PKG-002.md` (Architect candidate, baseline `c630be6`; original preserved verbatim)
 **Reviewed by:** Claude (Engineer), November 25, 2026 · **Branch:** `revision-a4`
+**Revision history:**
+- r1 = Engineer independent review, commit `28f34c6`, preserved unaltered as `SIL-PKG-002-ENGINEER-REVIEW.md`.
+- r2 = Architect Response 004 and PO Decision 004 incorporated (this file).
 **Companion files:**
 - `SIL-CONTROL-REGISTRY.md` — C-000118 to C-000257 added
 - `SIL-PKG-002-PRODUCTION-CROSSWALK.md`
@@ -16,6 +19,43 @@
 - Everything else is unverified.
 
 ---
+
+## r2 — Architect Response 004 reconciliation
+
+**Resulting counts**
+
+| Item | Count |
+|---|---|
+| Hazard identifiers | 78 (Package 001: 36 · Package 002: 42) |
+| Active hazards | **74** |
+| Retired hazards | 4 (H-BT-005, H-HW-033, H-HW-039, H-HW-040) |
+| Canonical controls | **272** (C-000001 to C-000272); next C-000273 |
+| Withheld from v1.4.0-dev1 | 6 |
+| Company policies | **9** (P-000001 to P-000009) |
+
+**PO decisions applied (PO Decision 004, recorded in Response 004 §1)**
+- **P2-U1:** all ignition-producing grinding and abrasive cutting is hot work, including in shops. Non-ignition grinding and cutting is not.
+- **P2-U2:** new policy **P-000009** (safety glasses + face shield for all handheld grinding and abrasive cutting) is linked to C-000221.
+- **P2-U7:** C-000200 now reads "Never use acetylene at a working pressure exceeding 15 psig." Verified against 1910.253(a)(2) on osha.gov (see §7).
+- **P2-U12:** respirator correction (production C5 → C-000164 + C-000271; C-000270 no air-purifying respirator in oxygen-deficient or IDLH atmospheres).
+- **P2-U14:** brand aliases accepted, as context-dependent recognition only.
+
+**Architectural decisions applied (Response 004 §2–§3)**
+
+| Item | Change |
+|---|---|
+| P2-U3 | H-HW-033 / 039 / 040 **retired**; absorbed into H-BT-013 / 031 / 036 (see Package 001 r3.3) |
+| P2-U4 | H-BT-032 generalized to eyes and ears; C-000261 thermal ear protection added |
+| P2-U5 | H-HW-021 is the shared canonical heat-stress record. Controls expanded: C-000262 acclimatization, C-000263 buddy system, C-000264 assessment. All nine production heat-stress strings consolidated. |
+| P2-U6 | H-HW-041 accepted and generalized to all combustion equipment. Relocating outdoors comes first; monitoring is not authorization to run engines indoors. |
+| P2-U8 | C-000220 revised: do not defeat the switch; manufacturer lock-on allowed only where it releases with one motion of the same finger. Basis: 1926.300(d)(2), verified. |
+| P2-U9 | New **H-HW-042**, thoriated tungsten grinding. Controls C-000265 to C-000269, plus reused C-000166 hygiene and C-000164 respirator. |
+| P2-U13 | Welding radiation kept separate from electrical arc flash |
+| P2-U15 | Electrode numbers recognized only with weld context |
+| C-000177 split | Gas-supply shutoff (C-000177), torch and hose removal (C-000260), cylinders outside (C-000258), welding machines outside (C-000259) |
+| Heating recognition | Flame, induction and resistance heating are distinguished. Induction and resistance heating don't establish fuel gas or flashback, and are treated as *possible* hot work (P2-U16). |
+| Grinding recognition | An unspecified grinder is not metal grinding: hot work is conditional until a metal cue appears; concrete is never hot work by default |
+| Cumulative PPE | C-000272 combined heat + A4 hand protection replaces separate C-000112 / C-000140 where both apply |
 
 ## 0. Review summary
 
@@ -79,6 +119,13 @@ The Architect recognition library (Package 002 §2) is accepted, with these addi
 | Abrasive cut / grind | zip wheel, zip cut, cut-off zip, 4-1/2 grinder, 7 inch grinder, 9 inch grinder, hand grinder, flap wheel, knot wheel, strip paint with grinder | Cut (abrasive) / Grind |
 | Brand aliases (recognition only; PO to confirm usage — P2-U14) | Lincoln, Miller, Hypertherm, Arcair, Broco | Work means only; never in user-facing controls |
 
+**r2 recognition rules (Response 004)**
+- **Heating methods:** flame heating (rosebud, propane torch, torch heat, flame straightening) establishes flame burns and fuel gas. Induction and resistance heating (PWHT pads, ceramic pads) establish heating and contact-burn hazards but **not** fuel gas or flashback. Generic preheat, postheat or heat straightening establishes heating only.
+- **Grinding:** metal grinding is hot work only with a metal cue. Concrete or masonry grinding is never hot work by default. "Grind welds" does not establish welding — the weld is the object.
+- **Brands:** Lincoln, Miller, Hypertherm, Arcair and Broco never establish an activity on their own. "Miller" and "Lincoln" can also be names.
+- **Electrode numbers:** 7018, 6010 and the like establish welding only alongside run, rod, stick, bead, root, pass or electrode.
+- **Thoriated:** "non-thoriated" never establishes H-HW-042.
+
 **Added collision rules**
 - **"Lead" / "leads"** in a welding context (welding leads, stinger lead, ground lead, run leads) does **not** establish lead exposure (E-7).
 - **"Spot"** establishes welding only as "spot weld(ing)." "Spotter" never does. This matters because Adena uses spotters for telehandlers and trucks.
@@ -92,7 +139,7 @@ The Architect recognition library (Package 002 §2) is accepted, with these addi
 
 ---
 
-## 3. Reconciled hazard records
+## 3. Reconciled hazard records (r2)
 
 Each control shows its canonical ID. `[condition]` marks a relationship-specific condition. The Architect's original wording is preserved in `SIL-PKG-002.md`.
 
@@ -146,9 +193,11 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000133` Test the atmosphere with calibrated equipment where required, and keep monitoring where the exposure or permit requires.
   - `C-000134` Stop work and leave the area if atmospheric conditions become unsafe.
   - `C-000135` Never perform ordinary hot work in a flammable or explosive atmosphere.
-  - `C-000177` `[if confined space]` Remove torches and gas hoses from confined spaces during breaks and at shift end; keep cylinders and welding machines outside.
+  - `C-000177` `[if confined space]` Shut off the gas supply to the torch at a point outside the confined or enclosed space whenever the torch is not in use or is left unattended, such as during breaks.
+  - `C-000260` `[if confined space]` Remove torches and hoses from confined spaces overnight and at shift change, and remove disconnected open-end hoses immediately.
+  - `C-000258` `[if confined space]` Keep oxygen and fuel-gas cylinders outside confined spaces.
 - Refs: OSHA-C 1926.352(c)
-- Review: Accept.
+- Review: Accept. r2: C-000177 split into independent controls (Response 004 §3).
 
 **H-HW-005 — Combustible dust ignition or explosion**
 - Applicability: Conditional: combustible dust, dust collectors, enclosed process equipment
@@ -171,6 +220,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000143` Arrange clothing so sparks and slag cannot get trapped — close pockets, collars and cuffs.
   - `C-000144` Position your body out of the spark and slag path.
   - `C-000047` `[if elevated]` Barricade or control the area below; no one works below without protection.
+  - `C-000272` `[if heat and A4 cut requirement together]` Where heat and cut exposures exist together, wear hand protection that meets both the heat-resistance need and the ANSI A4 cut requirement.
 - Refs: OSHA-C 1926.95 (unverified)
 - Review: Accept with corrections: clothing controls shared with H-HW-038. Supersedes T1 'Thermal burns…' (split with H-HW-007, H-HW-008).
 
@@ -224,6 +274,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000158` Keep welding current out of bearings, rigging, hoists and fall protection — they must not become part of the circuit.
   - `C-000159` When leaving an electrode holder, remove the electrode and place the holder where it cannot contact people or conductive objects.
   - `C-000160` Shut off and disconnect the welding machine before servicing or adjusting it.
+  - `C-000259` `[if confined space]` Keep welding machines outside confined spaces.
 - Refs: OSHA-C 1926.351
 - Review: Accept with corrections: added no-pipeline/conduit return (1926.351(c)(2)) and unattended-holder controls. Supersedes T1 'Electrical shock from welding equipment' (split with H-BT-026).
 
@@ -318,10 +369,14 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000174` Provide ventilation adequate for the gases and fume in enclosed or poorly ventilated areas.
   - `C-000175` Direct purge gas discharge away from occupied areas, and shut off gas when not in use.
   - `C-000176` `[if confined space]` Follow the confined-space entry and rescue procedure where it applies.
-  - `C-000177` `[if confined space]` Remove torches and gas hoses from confined spaces during breaks and at shift end; keep cylinders and welding machines outside.
+  - `C-000177` `[if confined space]` Shut off the gas supply to the torch at a point outside the confined or enclosed space whenever the torch is not in use or is left unattended, such as during breaks.
+  - `C-000260` `[if confined space]` Remove torches and hoses from confined spaces overnight and at shift change, and remove disconnected open-end hoses immediately.
+  - `C-000258` `[if confined space]` Keep oxygen and fuel-gas cylinders outside confined spaces.
+  - `C-000259` `[if confined space]` Keep welding machines outside confined spaces.
   - `C-000134` Stop work and leave the area if atmospheric conditions become unsafe.
+  - `C-000270` Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere.
 - Refs: OSHA-C Subpart AA (unverified)
-- Review: Accept with corrections: added removal of hoses and torches from confined spaces during breaks.
+- Review: Accept with corrections: added removal of hoses and torches from confined spaces during breaks. r2: C-000177 split into independent controls (Response 004 §3).
 
 **H-HW-020 — Oxygen enrichment**
 - Applicability: Conditional: oxygen equipment in enclosed or poorly ventilated areas
@@ -331,21 +386,26 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000179` Never use oxygen for ventilation, cooling or blowing off clothing.
   - `C-000174` Provide ventilation adequate for the gases and fume in enclosed or poorly ventilated areas.
   - `C-000133` Test the atmosphere with calibrated equipment where required, and keep monitoring where the exposure or permit requires.
-  - `C-000177` `[if confined space]` Remove torches and gas hoses from confined spaces during breaks and at shift end; keep cylinders and welding machines outside.
+  - `C-000177` `[if confined space]` Shut off the gas supply to the torch at a point outside the confined or enclosed space whenever the torch is not in use or is left unattended, such as during breaks.
+  - `C-000260` `[if confined space]` Remove torches and hoses from confined spaces overnight and at shift change, and remove disconnected open-end hoses immediately.
+  - `C-000258` `[if confined space]` Keep oxygen and fuel-gas cylinders outside confined spaces.
   - `C-000134` Stop work and leave the area if atmospheric conditions become unsafe.
 - Refs: BP; ANSI Z49.1 (unverified)
-- Review: Accept with corrections: added hose and torch removal from confined spaces.
+- Review: Accept with corrections: added hose and torch removal from confined spaces. r2: C-000177 split into independent controls (Response 004 §3).
 
 **H-HW-021 — Heat stress**
-- Applicability: Conditional: hot environments, prolonged thermal work, restrictive protective clothing, enclosed areas
+- Applicability: Conditional: hot environments, prolonged thermal work, restrictive protective clothing, enclosed areas — all activities and industries (shared canonical, P2-U5)
 - Hazard: Heat stress and heat illness.
 - Controls:
+  - `C-000264` Assess heat, humidity, sun, workload and the added heat load of protective clothing before and during the shift.
+  - `C-000262` Acclimatize new and returning workers by building up heat exposure gradually.
   - `C-000182` Provide drinking water, rest breaks and shade or cooling for recovery.
   - `C-000183` Adjust work and rest periods to the heat, workload and protective clothing.
+  - `C-000263` Use a buddy system so workers watch each other for signs of heat illness.
   - `C-000184` Watch workers for signs of heat illness; stop work at the first signs.
   - `C-000185` For suspected heat stroke, cool the person rapidly and call for emergency help.
 - Refs: BP
-- Review: Accept with corrections: neutral canonical text; heat-stroke response added (Response 002 §8). Proposed canonical for all production heat-stress strings (P2-U5).
+- Review: Accept with corrections (r1). r2: approved as shared canonical heat-stress record; controls expanded (Response 004 §2); nine production strings consolidated.
 
 **H-HW-022 — Compressed gas cylinder rupture or projectile**
 - Applicability: Conditional: cylinder handling, transport, storage or use
@@ -379,7 +439,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000197` Use equipment rated for the gas and its operating pressure.
   - `C-000198` Leak-test connections with an approved method — never with a flame.
   - `C-000199` Route gas hoses away from hot surfaces, sharp edges, slag and vehicle traffic.
-  - `C-000200` `[if acetylene]` Do not use acetylene above 15 psig.
+  - `C-000200` `[if acetylene]` Never use acetylene at a working pressure exceeding 15 psig.
 - Refs: OSHA-C 1926.350(f)
 - Review: Accept with corrections: acetylene pressure limit proposed (P2-U7).
 
@@ -428,7 +488,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000217` Keep hands and body clear of the spinning wheel and the cutting path.
   - `C-000218` Clamp or support the workpiece before grinding or cutting; do not hand-hold small pieces you cannot control.
   - `C-000219` Let the wheel stop before setting the tool down.
-  - `C-000220` Use grinders with a constant-pressure switch where required, and never lock or tape the switch on.
+  - `C-000220` Never tape, wedge or otherwise defeat a grinder's on-off switch; use a lock-on only where the manufacturer provides one that releases with a single motion of the same finger.
 - Refs: OSHA-C 1926.303(b); 1926.300(d) (unverified)
 - Review: Accept with corrections: constant-pressure switch control proposed (P2-U8).
 
@@ -438,13 +498,13 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Controls:
   - `C-000054` Wear safety glasses.
   - `C-000055` Add a face shield over safety glasses or goggles where debris or fragments can reach the face — a face shield does not replace eye protection.
-  - `C-000221` `[if handheld grinding or abrasive cutting]` For handheld grinding and abrasive cutting, wear a face shield over safety glasses.
+  - `C-000221` `[if handheld grinding or abrasive cutting]` For all handheld grinding and abrasive cutting, wear safety glasses with a face shield over them.
   - `C-000111` `[if particles can get around glasses]` Wear goggles instead of safety glasses where falling or airborne debris can get around glasses.
   - `C-000120` Direct sparks, slag and particles away from people, equipment and combustibles.
   - `C-000222` `[if others nearby]` Set barriers where nearby workers could be hit by particles or sparks.
   - `C-000223` `[if wire wheel or brush]` Inspect wire wheels and brushes for loose or broken wires before use.
-- Refs: OSHA-C 1926.102; 1926.303(c) eye protection (unverified)
-- Review: Accept with corrections: the handheld face-shield requirement needs a basis (P2-U2). Supersedes T1 'Flying particles and sparks'.
+- Refs: OSHA-C 1926.102; 1926.303(c) eye protection (unverified); company policy P-000009
+- Review: Accept with corrections. r2: C-000221 is company policy P-000009 (PO Decision 004).
 
 **H-HW-030 — Unexpected startup during wheel changes or adjustment**
 - Applicability: Conditional: servicing, adjusting or changing attachments on abrasive tools
@@ -477,14 +537,10 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Review: Accept; kept distinct from H-BT-018 and H-BT-014, as the Architect proposed.
 
 **H-HW-033 — Structural instability following cutting or weld removal**
-- Applicability: Conditional: cutting or removing load-bearing members, connections, braces or structural welds
+- Applicability: Retired
 - Hazard: Structural instability or collapse after cutting or removing structural elements.
-- Controls:
-  - `C-000234` Confirm authorization and the approved sequence before cutting or removing structural members, connections, braces or welds.
-  - `C-000235` Install required supports or bracing before cutting.
-  - `C-000236` Stop work if unexpected structural movement occurs.
 - Refs: BP
-- Review: **Proposed consolidation into H-BT-013** (same mechanism; P2-U3). Kept active until the Architect decides.
+- Review: **RETIRED** — consolidated into H-BT-013 (Response 004 §2, P2-U3). Identifier never reused. Historical record preserved in `SIL-PKG-002.md` and P002 r1 (`28f34c6`).
 
 **H-HW-034 — Explosion during hot work on containers or process equipment**
 - Applicability: Conditional: tanks, drums, vessels, piping or equipment that contains or contained hazardous material
@@ -542,36 +598,40 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Review: Accept; shares canonical clothing controls with H-HW-006.
 
 **H-HW-039 — Structural weld failure**
-- Applicability: Inferred: load-bearing structural welding and weld repair
+- Applicability: Retired
 - Hazard: Structural welded connection failing from incorrect procedure, fit-up or inspection.
-- Controls:
-  - `C-000251` Follow the approved drawings and welding procedure, using qualified welders where required.
-  - `C-000252` Verify joint preparation, fit-up and any required preheat before welding.
-  - `C-000253` Keep required temporary supports in place until the welded connection is accepted.
-  - `C-000254` Complete the required inspection before the welded connection is loaded.
-  - `C-000255` Do not modify structural members without authorization.
 - Refs: Spec — AWS D1.1 (unverified)
-- Review: **Proposed consolidation into a generalized H-BT-031** ('Structural connection failure from incorrect installation', bolted or welded; P2-U3).
+- Review: **RETIRED** — consolidated into H-BT-031 (Response 004 §2, P2-U3). Identifier never reused. Historical record preserved in `SIL-PKG-002.md` and P002 r1 (`28f34c6`).
 
 **H-HW-040 — Pressure-boundary weld failure**
-- Applicability: Inferred: welding or repair of pressure-containing piping, vessels and equipment
+- Applicability: Retired
 - Hazard: Pressure-boundary weld failing or leaking.
-- Controls:
-  - `C-000256` Follow the approved pressure-boundary welding or repair procedure, with qualified welders and the specified materials.
-  - `C-000257` Complete required examination and testing, and keep isolation in place until the equipment is accepted for service.
-  - `C-000241` Hot tapping or welding on in-service systems needs separate qualified engineering authorization — ordinary hot work controls do not cover it.
 - Refs: Spec — ASME (unverified)
-- Review: **Proposed consolidation into a generalized H-BT-036** ('Pressure-boundary joint failure or leak', bolted or welded; P2-U3).
+- Review: **RETIRED** — consolidated into H-BT-036 (Response 004 §2, P2-U3). Identifier never reused. Historical record preserved in `SIL-PKG-002.md` and P002 r1 (`28f34c6`).
 
-**H-HW-041 — Carbon monoxide from fuel-burning equipment**
-- Applicability: Conditional: engine-driven welders, generators, or fuel-fired preheating in enclosed or poorly ventilated areas
-- Hazard: Carbon monoxide build-up from fuel-burning equipment.
+**H-HW-041 — Carbon monoxide from combustion equipment**
+- Applicability: Conditional: engine-driven welders, generators, combustion-powered equipment and fuel-fired heaters in or near enclosed or poorly ventilated areas (generalized for reuse, P2-U6)
+- Hazard: Carbon monoxide build-up from engines, generators or fuel-fired equipment.
 - Controls:
-  - `C-000180` Place engine-driven welders and generators outdoors, with exhaust directed away from work areas, openings and air intakes.
-  - `C-000181` Monitor for carbon monoxide where fuel-burning equipment runs in or near enclosed areas.
+  - `C-000180` Run engine-driven welders, generators and other combustion equipment outdoors, away from openings, air intakes and occupied work areas.
   - `C-000174` Provide ventilation adequate for the gases and fume in enclosed or poorly ventilated areas.
+  - `C-000181` Monitor for carbon monoxide where fuel-burning equipment must run near enclosed or occupied areas — monitoring does not make indoor engine operation acceptable.
 - Refs: BP
-- Review: **New — Engineer proposal** (P2-U6).
+- Review: **New — accepted** (Response 004 §2, P2-U6); generalized.
+
+**H-HW-042 — Radioactive and respirable dust from grinding thoriated tungsten electrodes**
+- Applicability: Conditional: grinding or sharpening an electrode identified as thoriated (not all TIG welding; not all tungsten grinding)
+- Hazard: Radioactive and respirable dust from grinding thoriated tungsten electrodes.
+- Controls:
+  - `C-000265` Identify the tungsten electrode type before grinding — check the package or color code.
+  - `C-000266` Use non-thoriated electrodes, such as ceriated or lanthanated, where the welding process allows.
+  - `C-000267` Grind thoriated electrodes only on a dedicated grinder with dust capture.
+  - `C-000268` Do not use compressed air or dry sweeping to clean electrode grinding dust.
+  - `C-000166` Follow the hygiene and contamination controls the exposure requires — wash before eating, and keep work clothing separate.
+  - `C-000269` Collect and dispose of electrode grinding dust as the site procedure requires.
+  - `C-000164` Where ventilation alone is not enough, use respiratory protection selected from an exposure assessment, under the respiratory protection program.
+- Refs: BP; AWS safety guidance (unverified)
+- Review: **New** (Response 004 §2, P2-U9).
 
 
 ---
@@ -582,7 +642,7 @@ Under Package 002 §6, these Package 001 records gain relationships to Weld, Cut
 
 | Canonical hazard | Package 002 relationship | Controls [relationship condition] |
 |---|---|---|
-| H-BT-002 | Weld / Cut / Grind — sharp edges, cut-offs, burrs | C-000004; C-000112 [if demolition, knife use or stainless steel lath]; C-000140 [if hot work (cumulative)]; C-000006 |
+| H-BT-002 | Weld / Cut / Grind — sharp edges, cut-offs, burrs | C-000004; C-000112 [if demolition, knife use or stainless steel lath]; C-000140 [if hot work (cumulative)]; C-000006; C-000272 [if heat and A4 cut requirement together] |
 | H-BT-004 | Grind / abrasive Cut — wheel binding and kickback | C-000011; C-000227; C-000228 [if cut-off wheel]; C-000229; C-000226 |
 | H-BT-006 | Tool and attachment failure outside wheel rupture | C-000014 |
 | H-BT-007 | Handling cylinders, welding machines, heavy grinders | C-000019; C-000018 |
@@ -600,7 +660,6 @@ Under Package 002 §6, these Package 001 records gain relationships to Weld, Cut
 | H-BT-026 | Welding machine and grinder supply power | C-000071; C-000072; C-000073 |
 | H-BT-027 | Welding leads, gas hoses, grinder cords | C-000074; C-000075 [if aerial or scissor lift] |
 | H-BT-032 | Overhead welding, cutting and grinding — debris and slag (generalization pending P2-U4) | C-000054; C-000111; C-000055; C-000088 |
-
 
 The six grinder-specific controls from Package 002 §6 are:
 
@@ -654,6 +713,23 @@ Architect scenarios 1–28 are accepted unchanged (`SIL-PKG-002.md` §10).
 | 42 | Weld beam from boom lift with lanyard near the weld | H-HW-036 thermal PFAS damage + C-000158 stray current + C-000041 no tie-off to structure |
 | 43 | Weld on natural gas pipeline | High-consequence specialized work (C-000241); no pipeline return (C-000157) |
 
+**Response 004 scenarios (accepted into the permanent library)**
+
+| # | Scenario | Expected |
+|---|---|---|
+| R4-1 | Grind steel brackets in fabrication shop | Hot work permit, combustible protection, fire watch, safety glasses and face shield |
+| R4-2 | Grind concrete floor | Abrasive tool hazards; no metal hot work |
+| R4-3 | Grind thoriated tungsten electrode | H-HW-042 |
+| R4-4 | Grind non-thoriated tungsten electrode | No H-HW-042 |
+| R4-5 | Induction preheat structural connection | Heating and thermal hazards; no fuel gas or flashback |
+| R4-6 | Rosebud preheat structural connection | Flame heating, hot work, fuel gas |
+| R4-7 | Apply flammable coating | No hot work permit or fire watch |
+| R4-8 | Weld using engine-driven welder inside building | H-HW-041; relocate combustion source outdoors |
+| R4-9 | Overhead welding beneath structural connection | Eye and ear slag exposure, burns, falling material |
+| R4-10 | Check bolt torque and weld adjacent connection | Cumulative, with method-specific controls |
+
+All scenarios run against the implemented app in v1.4.0-dev1 (`tests/`).
+
 ---
 
 ## 7. Citation verification
@@ -683,37 +759,47 @@ Checked against authoritative text in this review. Every other reference in the 
 | 1926.303(b) | Abrasive wheel guards | osha.gov | C-000213 |
 | 1926.303(c)(7) | Wheels inspected and ring-tested before mounting | CFR text (2008 edition copy); NIOSH checklist | C-000210 |
 
+**Added in r2:**
+
+| Provision | What it says (paraphrased) | Source checked | Used by |
+|---|---|---|---|
+| 1910.253(a)(2) | Acetylene never generated, piped (except approved manifolds) or used above 15 psig | osha.gov; govinfo | C-000200 |
+| 1926.300(d)(2) | Angle grinders over 2 in.: momentary-contact switch; lock-on permitted if it releases by a single motion of the same finger | Official CFR text (govinfo) | C-000220 |
+| 1926.350(b)(4) | Oxygen and fuel-gas cylinders not taken into confined spaces | eCFR; OSHA interpretation 1975-07-07 | C-000258 |
+| 1926.352(g) (letter per GPO layout) | Shut off gas supply outside enclosed space when torch is idle; remove torch and hose overnight and at shift change; remove open-end hoses | Official CFR text (GPO archive) | C-000177, C-000260 |
+| 1926.353(a)(1) | Oxygen not used for ventilation, cooling, blowing dust off clothing or cleaning | osha.gov | C-000179 |
+
 **Not verified and needing attention:**
 - 1926.353 (ventilation; confined-space torch and hose removal)
 - 1926.354 (preservative coatings)
 - 1926.102 shade table
-- 1926.300(d) switches
 - 1926.62 / .1126 / .1127
 - 1910.215(d)(1) (secondary source only)
-- 1910.253(a)(2) (acetylene limit)
 - all MSHA Part 56 welding and fire provisions
 - NFPA 51B, ANSI Z49.1, ANSI B7.1, AWS, ASME
 
 ---
 
-## 8. Unresolved items — Package 002
+## 8. Unresolved items — Package 002 (r2)
 
-| # | Item | Owner |
+| # | Item | Status |
 |---|---|---|
-| P2-U1 | **Confirm B-12:** spark-producing metal grinding and abrasive cutting are hot work, so permit, 35 ft and fire watch apply to every such step with no shop exemption (E-11) | PO |
-| P2-U2 | Basis for the universal handheld grinder face shield (C-000221): manufacturer instruction, best practice, or company policy (E-10) | PO |
-| P2-U3 | Consolidate H-HW-033 → H-BT-013, H-HW-039 → H-BT-031 (generalized), H-HW-040 → H-BT-036 (generalized) (E-8) | Architect |
-| P2-U4 | Generalize H-BT-032 to overhead work, covering eyes and ears (E-12) | Architect |
-| P2-U5 | H-HW-021 as the canonical heat-stress record; supersede nine production heat-stress strings (E-13) | Architect |
-| P2-U6 | Accept new H-HW-041 carbon monoxide (E-5) | Architect |
-| P2-U7 | Numeric user-facing acetylene limit (C-000200) — include the number, or "maximum safe pressure" only (E-14) | Architect / PO |
-| P2-U8 | Constant-pressure switch control (C-000220) — verify the 1926.300(d) basis (E-15) | Architect |
-| P2-U9 | Thoriated tungsten electrode grinding (TIG) — include a radioactive dust control, or leave out of scope | Architect |
-| P2-U10 | Unverified citations listed in §7 | Architect |
-| P2-U11 | MSHA Part 56 equivalents for welding, compressed gas, fire prevention and PPE | Architect |
-| P2-U12 | Production C5 "N95 minimum" conflicts with exposure-based respirator selection (E-9) — future approved milestone | PO |
-| P2-U13 | Production T1 "Arc flash / eye injury from UV exposure" — wording collides with electrical arc flash; resolved by supersession to H-HW-009 | — (resolved by crosswalk) |
-| P2-U14 | Welding brand aliases (Lincoln, Miller, Hypertherm, Arcair, Broco) as Adena usage | PO |
-| P2-U15 | Electrode classification recognition (7018, 6010, etc.) with weld context | Architect |
+| P2-U1 | Hot work classification of grinding | **Resolved** — PO Decision 004 |
+| P2-U2 | Handheld grinder face shield | **Resolved** — policy P-000009 |
+| P2-U3 | Consolidations | **Resolved** — 3 identifiers retired |
+| P2-U4 | H-BT-032 generalization | **Resolved** |
+| P2-U5 | Heat stress canonical | **Resolved** — 9 production strings consolidated |
+| P2-U6 | Carbon monoxide | **Resolved** — H-HW-041 accepted and generalized |
+| P2-U7 | Acetylene numeric limit | **Resolved** — included; 1910.253(a)(2) verified |
+| P2-U8 | Grinder switch | **Resolved** — revised; 1926.300(d)(2) verified |
+| P2-U9 | Thoriated tungsten | **Resolved** — H-HW-042 |
+| P2-U10 | Unverified citations (§7 list) | **Open** — validation continues (Architect) |
+| P2-U11 | MSHA Part 56 equivalents. MSHA 57.14116 (underground) requires constant hand pressure on hand-held grinders; the Part 56 equivalent and its effect on lock-on switches are unverified. | **Open** (Architect) |
+| P2-U12 | Production respirator line | **Resolved** — replaced in v1.4.0-dev1 (PO-approved) |
+| P2-U13 | Welding radiation vs. arc flash | **Resolved** |
+| P2-U14 | Brand aliases | **Resolved** |
+| P2-U15 | Electrode numbers | **Resolved** — context-dependent |
+| P2-U16 | **New:** are induction and resistance heating (PWHT) hot work under P-000008? Implemented as *possible* hot work (conditional permit, clearance and fire watch) pending PO decision. | **Open** (PO) |
+| P2-U17 | **New:** C-000259 (welding machines outside confined spaces) basis — construction text not located; general-industry text seen only in secondary sources | **Open** (Architect) |
 
-Package 001 items U-4, U-5, U-9 and U-10 remain open in `SIL-PKG-001-RECONCILED.md`.
+Package 001 items U-4, U-5, U-9, U-10 and U-20 remain open in `SIL-PKG-001-RECONCILED.md`.

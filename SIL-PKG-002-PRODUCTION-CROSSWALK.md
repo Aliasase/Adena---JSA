@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Candidate crosswalk, revision r1. Not approved. Nothing in production is changed by this document. It records which production records would be superseded if Package 002 is approved.
+> **Repository Record (AD-008 §6):** Candidate crosswalk, revision r2 (Architect Response 004). Not approved. Nothing in production is changed by this document. It records which production records would be superseded if Package 002 is approved.
 
-# SIL-PKG-002 — Production Record Crosswalk (r1)
+# SIL-PKG-002 — Production Record Crosswalk (r2)
 
 **Production baseline:** v1.3.0-p1, commit `8318ddb` (`A4-LIBRARY-EXPORT.md`)
 **Rules carried from Package 001:**
@@ -30,7 +30,7 @@
 
 T1 "Noise exposure" was already superseded by H-BT-019 (Package 001).
 
-## A2. Proposed — heat stress (P2-U5, pending Architect)
+## A2. Heat stress — accepted (Response 004 §2, P2-U5); all inherit relationships to H-HW-021
 
 | Production string | Entry | Proposed target |
 |---|---|---|
@@ -90,8 +90,8 @@ This is an intended behavior change from production.
 | C17 Heat Stress | Monitor workers for signs of heat illness… | C-000184 | Equivalent |
 | C17 | Adjust work scheduling to avoid peak heat hours where possible | C-000183 | Related (canonical is broader) |
 | C17 | Know site first aid response for heat stroke — cool rapidly and call 911 | C-000185 | Equivalent |
-| C17 | Use buddy system in high-heat conditions | — | Retained; no canonical equivalent yet. Candidate for H-HW-021. |
-| C5 Silica / Dust | Wear appropriate respirator (N95 minimum, P100 for high exposure) | C-000164 | **Not equivalent** (E-9, P2-U12) |
+| C17 | Use buddy system in high-heat conditions | C-000263 | Equivalent (r2) |
+| C5 Silica / Dust | Wear appropriate respirator (N95 minimum, P100 for high exposure) | C-000164 + C-000271 | **Replaced** in v1.4.0-dev1 (PO-approved, P2-U12). "Follow site silica exposure control plan" retained. |
 | C6 Chemical / Respiratory | Provide adequate ventilation — forced air if in enclosed space | C-000174 | Related |
 | C13 Confined Space | Test atmosphere … before and continuously during entry | C-000133 | Related (confined-space scope retained) |
 | C20 Dragline | Ensure ventilation when welding inside bucket or confined areas | C-000163, C-000174 | Related (dragline context retained) |

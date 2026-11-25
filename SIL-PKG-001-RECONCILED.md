@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3.2 (r3 amended by PO Decision Records 002 and 003). Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
+> **Repository Record (AD-008 §6):** Reconciled **candidate** package, revision r3.3 (r3 amended by PO Decision Records 002–003 and Architect Response 004). Not approved. Citations not marked as checked, company policy, and structural or flange specifications are **not** treated as validated. No application implementation or production release is authorized.
 
-# Safety Intelligence Library — Package 001 (Reconciled Candidate r3.2)
+# Safety Intelligence Library — Package 001 (Reconciled Candidate r3.3)
 ## Bolt (0013) · Torque (0014) · Hydraulic Bolt Tensioning (work method under Bolt)
 
 **Status:** Candidate. Pending Architect technical validation and Product Owner approval.
@@ -25,7 +25,9 @@
 | 12 | PO Decision Record 002 — Company safety requirements | `SIL-PKG-001-PO-DECISION-002.md` | this commit |
 | 13 | r3.1 amendments; Company Policy Registry | this file, crosswalk, control registry, `SIL-POLICY-REGISTRY.md` | `54c4249` |
 | 14 | PO Decision Record 003 | `SIL-PO-DECISION-003.md` | this commit |
-| 15 | r3.2 amendments | this file, crosswalk, registries | this commit |
+| 15 | r3.2 amendments | this file, crosswalk, registries | `c630be6` |
+| 16 | Architect Response 004; AD-009 | `SIL-PKG-002-ARCHITECT-RESPONSE-004.md`, `ADENA_JSA_AD-009.md` | this commit |
+| 17 | r3.3 amendments (consolidations from Package 002) | this file | this commit |
 
 **Reference labels:**
 
@@ -45,6 +47,24 @@
 - Everything else is **unverified**.
 
 Citations are internal only and never shown to users.
+
+### r3.3 amendment summary (Architect Response 004)
+
+**Consolidations.** Three Package 002 records are retired permanently and absorbed into Package 001 canonical records:
+
+| Retired | Absorbed into | New canonical wording |
+|---|---|---|
+| H-HW-033 | H-BT-013 | Structural instability or collapse |
+| H-HW-039 | H-BT-031 | Structural connection failure |
+| H-HW-040 | H-BT-036 | Pressure-boundary joint failure or leakage |
+
+Controls are method-specific: `[if bolted]`, `[if welded]`, `[if erection or fit-up]`, `[if cutting or removal]`. Welding controls never appear only because bolting is recognized, and the reverse.
+
+**H-BT-032 generalized.** Now "Falling debris, particles or slag entering the eyes or ears during overhead work." Adds C-000261 (thermal ear protection from slag). Ordinary hearing protection is not slag protection.
+
+**Hazard text cleanup.** Internal crosswalk notes moved out of the user-facing hazard text of H-BT-014 and H-BT-018.
+
+**Withheld from the v1.4.0-dev1 test release** (AD-009 §5; still in the library). Six RCSC method-specific controls on H-BT-031 — C-000081, C-000082, C-000083, C-000085, C-000086, C-000087 — pending validation (U-5). Each is marked in §3.
 
 ### r3.2 amendment summary (PO Decision Record 003)
 
@@ -378,16 +398,20 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Δ: r2: generalized (Response 002 §2); supersedes T7 "Crushing from shifting steel" and "Caught-between from steel components".
 
 **H-BT-013 — Structural instability or collapse**
-- Applicability: [FIT-UP]; Inferred from Bolt + structural member
-- Hazard: Structural instability or collapse of partially connected steel.
+- Applicability: [FIT-UP] Inferred from Bolt + structural member; Conditional for cutting, removal or modification of load-bearing members, connections, braces or structural welds (absorbs H-HW-033)
+- Hazard: Structural instability or collapse during erection, modification or removal.
 - Controls:
-  - `C-000031` Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements.
-  - `C-000032` Follow the erection plan sequence.
+  - `C-000031` `[if erection or fit-up]` Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements.
+  - `C-000032` `[if erection or fit-up]` Follow the erection plan sequence.
+  - `C-000234` `[if cutting or removal]` Confirm authorization and the approved sequence before cutting or removing structural members, connections, braces or welds.
+  - `C-000235` `[if cutting or removal]` Install required supports or bracing before cutting.
+  - `C-000236` `[if cutting or removal]` Stop work if unexpected structural movement occurs.
 - Refs: OSHA-C 1926.754(a), 1926.752(e) (unverified)
+- Δ:  P002 r2: generalized; absorbs retired H-HW-033 (Response 004 §2).
 
 **H-BT-014 — Struck-by or caught-between suspended steel**
-- Applicability: [FIT-UP]; Conditional (hang, set, pick, crane, on the hook)
-- Hazard: Struck by or caught between suspended structural steel. (Distinct from falling structural materials — production T7 "Struck-by from overhead steel" retained.)
+- Applicability: [FIT-UP]; Conditional (hang, set, pick, crane, on the hook) — Distinct from falling structural members (production T7 'Struck-by from overhead steel' retained).
+- Hazard: Struck by or caught between suspended structural steel.
 - Controls:
   - `C-000033` Stay out from under the suspended load.
   - `C-000034` Only the connectors make the initial connection.
@@ -428,8 +452,8 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Δ: r3: anchorage/inspection/rescue apply when personal fall protection is used. r3.1: C-000039 per PO Decision 002; C-000113 any-height control added.
 
 **H-BT-018 — Dropped tools, equipment, hardware or materials striking personnel below**
-- Applicability: Conditional on elevation cue; relationships inherited from T7, T8, T9, T10, T25, T35, T37
-- Hazard: Dropped tools, equipment, hardware or materials striking personnel below. (Suspended loads and falling structural members remain distinct.)
+- Applicability: Conditional on elevation cue; relationships inherited from T7, T8, T9, T10, T25, T35, T37 — Suspended loads and falling structural members remain distinct records.
+- Hazard: Dropped tools, equipment, hardware or materials striking personnel below.
 - Controls:
   - `C-000047` Barricade or control the area below; no one works below without protection.
   - `C-000046` `[if tools at height]` Use rated tool tethers where required.
@@ -556,33 +580,39 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000079` Keep hands out of the strike zone; use a pin holder or long-handled tool to hold pins.
 - Refs: BP
 
-**H-BT-031 — Structural connection failure from incorrect installation**
-- Applicability: Inferred from structural bolting, pretensioning or torquing
-- Hazard: Structural connection failure from incorrect bolt installation or tightening.
+**H-BT-031 — Structural connection failure**
+- Applicability: Inferred from structural bolting, pretensioning, torquing or structural welding (absorbs H-HW-039)
+- Hazard: Structural connection failure from incorrect installation, tightening or welding.
 - Controls:
-  - `C-000080` Use the bolt grade, length and washers called for on the drawings.
-  - `C-000081` Tighten in pattern from the stiffest part of the joint outward.
-  - `C-000082` `[if turn-of-nut]` Turn-of-nut: snug tight first, match mark, then turn the specified rotation.
-  - `C-000083` `[if calibrated wrench]` Calibrated wrench: verify calibration daily with the bolts being installed.
-  - `C-000084` `[if TC bolts]` TC bolts: install and inspect by the specified procedure — a bolt with the spline still on is not complete, and a sheared spline alone does not prove correct pretension.
-  - `C-000085` `[if DTI]` DTI: verify gaps or indicator per manufacturer.
-  - `C-000086` `[if pretensioned joint]` Complete pre-installation verification before production bolting of pretensioned joints.
-  - `C-000028` Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected.
-  - `C-000087` Keep bolts clean, dry and lubricated as delivered.
-  - `C-000027` Do not exceed the specified tightening.
+  - `C-000080` `[if bolted]` Use the bolt grade, length and washers called for on the drawings.
+  - `C-000081` `[if bolted]` Tighten in pattern from the stiffest part of the joint outward. *(withheld from v1.4.0-dev1)*
+  - `C-000082` `[if bolted; turn-of-nut]` Turn-of-nut: snug tight first, match mark, then turn the specified rotation. *(withheld from v1.4.0-dev1)*
+  - `C-000083` `[if bolted; calibrated wrench]` Calibrated wrench: verify calibration daily with the bolts being installed. *(withheld from v1.4.0-dev1)*
+  - `C-000084` `[if bolted; TC bolts]` TC bolts: install and inspect by the specified procedure — a bolt with the spline still on is not complete, and a sheared spline alone does not prove correct pretension.
+  - `C-000085` `[if bolted; DTI]` DTI: verify gaps or indicator per manufacturer. *(withheld from v1.4.0-dev1)*
+  - `C-000086` `[if bolted; pretensioned joint]` Complete pre-installation verification before production bolting of pretensioned joints. *(withheld from v1.4.0-dev1)*
+  - `C-000028` `[if bolted]` Replace fasteners that are damaged, galled, necked down or improperly tightened, as the project requirements specify — the stretch from correct pretensioning is expected.
+  - `C-000087` `[if bolted]` Keep bolts clean, dry and lubricated as delivered. *(withheld from v1.4.0-dev1)*
+  - `C-000027` `[if bolted]` Do not exceed the specified tightening.
+  - `C-000251` `[if welded]` Follow the approved drawings and welding procedure, using qualified welders where required.
+  - `C-000252` `[if welded]` Verify joint preparation, fit-up and any required preheat before welding.
+  - `C-000253` `[if welded]` Keep required temporary supports in place until the welded connection is accepted.
+  - `C-000254` `[if welded]` Complete the required inspection before the welded connection is loaded.
+  - `C-000255` Do not modify structural members without authorization.
 - Refs: Spec — RCSC 2020 (§2.11 Architect-checked; other provisions unverified); AISC 303/360 (unverified)
-- Δ: r2: reuse control made project-specific.
+- Δ: r2: reuse control made project-specific. P002 r2: generalized; absorbs retired H-HW-039; bolting and welding controls method-specific (Response 004 §2).
 
-**H-BT-032 — Debris falling into eyes during overhead bolting**
-- Applicability: Conditional: overhead work cue, or inferred from lift beneath steel
-- Hazard: Scale, rust or debris falling into the eyes during overhead bolting.
+**H-BT-032 — Falling debris, particles or slag entering the eyes or ears during overhead work**
+- Applicability: Conditional: overhead work cue (bolting, welding, cutting, grinding), or inferred from a lift beneath steel
+- Hazard: Falling debris, particles or slag entering the eyes or ears during overhead work.
 - Controls:
   - `C-000054` Wear safety glasses.
   - `C-000111` `[if falling debris can get around glasses]` Wear goggles instead of safety glasses where falling or airborne debris can get around glasses.
   - `C-000055` `[if debris can reach the face]` Add a face shield over safety glasses or goggles where debris or fragments can reach the face — a face shield does not replace eye protection.
   - `C-000088` Position yourself so you are not looking straight up into the work.
+  - `C-000261` `[if overhead thermal work]` During overhead welding, cutting or gouging, protect your ears from hot slag with flame-resistant coverage such as a welding cap or hood — ordinary earplugs or earmuffs are not slag protection.
 - Refs: OSHA-C 1926.102 (unverified); BP
-- Δ: r3: eye and supplemental face protection selected by actual exposure.
+- Δ: r3: eye and supplemental face protection selected by actual exposure. P002 r2: generalized (Response 004 §2, P2-U4).
 
 **H-BT-033 — Stud or tensioner component ejected under hydraulic pressure**
 - Applicability: Conditional: hydraulic bolt tensioner
@@ -620,16 +650,20 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Refs: Mfr; BP
 - Δ: r2: manufacturer-designated nut-turning method (Response 002 §5).
 
-**H-BT-036 — Pressure-boundary bolted joint failure or leak**
-- Applicability: Inferred from Bolt, Torque or tensioning on a flange, vessel or piping joint
-- Hazard: Bolted pressure-boundary joint leaking or failing from incorrect bolt load.
+**H-BT-036 — Pressure-boundary joint failure or leakage**
+- Applicability: Inferred from Bolt, Torque, tensioning or welding on a flange, vessel or piping pressure boundary (absorbs H-HW-040)
+- Hazard: Bolted or welded pressure-boundary joint failing or leaking from incorrect assembly, welding or repair.
 - Controls:
-  - `C-000100` Follow the specified tightening or tensioning sequence, number of passes and pressure or torque.
-  - `C-000101` Use the specified studs, nuts and gasket; do not reuse a gasket.
-  - `C-000102` `[if tensioner]` Run nuts down fully before releasing tensioner pressure.
-  - `C-000103` Use calibrated gauges and correctly rated equipment.
+  - `C-000100` `[if bolted]` Follow the specified tightening or tensioning sequence, number of passes and pressure or torque.
+  - `C-000101` `[if bolted]` Use the specified studs, nuts and gasket; do not reuse a gasket.
+  - `C-000102` `[if bolted; if tensioner]` Run nuts down fully before releasing tensioner pressure.
+  - `C-000103` `[if bolted]` Use calibrated gauges and correctly rated equipment.
   - `C-000104` Complete the required joint verification and records before return to service.
+  - `C-000256` `[if welded]` Follow the approved pressure-boundary welding or repair procedure, with qualified welders and the specified materials.
+  - `C-000257` `[if welded]` Complete required examination and testing, and keep isolation in place until the equipment is accepted for service.
+  - `C-000241` `[if welded]` Hot tapping or welding on in-service systems needs separate qualified engineering authorization — ordinary hot work controls do not cover it.
 - Refs: Spec (ASME PCC-1, unverified); OSHA-C 1926.64 / OSHA-GI 1910.119(j) where PSM applies (unverified); Policy / client
+- Δ:  P002 r2: generalized; absorbs retired H-HW-040 (Response 004 §2).
 
 
 ---
@@ -832,3 +866,4 @@ r2 findings F-1 to F-7 are preserved at commit `4376c8e`. F-6 was resolved by Re
 | U-17 | Cornell LII as a verification source | **Resolved** (PO Decision 003 §7): a reliable secondary reproduction; official regulatory sources preferred for final verification | — |
 | U-18 | A4 lath scope | **Resolved** (PO Decision 003 §1): stainless steel lath only | — |
 | U-19 | Demolition recognition | **Resolved** (PO Decision 003 §2); cues in §1.4 | — |
+| U-20 | Implementation note: the six withheld RCSC controls return to the app once U-5 is validated | **Open** | Architect |
