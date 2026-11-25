@@ -1456,13 +1456,13 @@ function renderStepCard(step, idx){
         '</div>' +
         '<div class="step-col">' +
           '<div class="step-col-label">Hazard</div>' +
-          '<textarea class="text-area" id="step-hazard-'+step.id+'" onfocus="closeAllDrawers()" oninput="updateStepField('+step.id+',\'hazard\',this.value)">'+escapeHtml(step.hazard)+'</textarea>' +
+          '<textarea class="text-area" id="step-hazard-'+step.id+'" onfocus="closeAllDrawers()" oninput="updateStepField('+step.id+',\'hazard\',this.value)" onblur="deduplicateStepField('+step.id+',\'hazard\')">'+escapeHtml(step.hazard)+'</textarea>' +
           '<button type="button" class="ai-btn" onclick="toggleDrawer('+step.id+',\'hazard\')">Hazard Suggestions</button>' +
           '<div class="ai-drawer" id="drawer-hazard-'+step.id+'"></div>' +
         '</div>' +
         '<div class="step-col">' +
           '<div class="step-col-label">Control</div>' +
-          '<textarea class="text-area" id="step-control-'+step.id+'" onfocus="closeAllDrawers()" oninput="updateStepField('+step.id+',\'control\',this.value)">'+escapeHtml(step.control)+'</textarea>' +
+          '<textarea class="text-area" id="step-control-'+step.id+'" onfocus="closeAllDrawers()" oninput="updateStepField('+step.id+',\'control\',this.value)" onblur="deduplicateStepField('+step.id+',\'control\')">'+escapeHtml(step.control)+'</textarea>' +
           '<button type="button" class="ai-btn" onclick="toggleDrawer('+step.id+',\'control\')">Control Suggestions</button>' +
           '<div class="ai-drawer" id="drawer-control-'+step.id+'"></div>' +
         '</div>' +
@@ -1977,12 +1977,44 @@ function handleDrawerClick(evt){
 function addSuggestion(stepId, type, text){
   var step = findStep(stepId);
   if(!step) return;
-  var current = step[type] || '';
+  var textarea = document.getElementById('step-'+type+'-'+stepId);
+  /* Read from textarea.value so manually-typed text is caught by dup check
+     even if oninput hasn't fully committed to step data yet */
+  var current = textarea ? textarea.value : (step[type] || '');
   if(current.toLowerCase().indexOf(text.toLowerCase()) !== -1) return;
   var newVal = current.trim() ? current.trim() + '\n' + text : text;
   step[type] = newVal;
-  var textarea = document.getElementById('step-'+type+'-'+stepId);
   if(textarea) textarea.value = newVal;
+  onFieldChanged();
+  refreshDrawerContent(stepId, type);
+}
+
+/* Remove exact-duplicate lines (case-insensitive). Preserves distinct
+   entries — including entries that differ only in wording/detail — to
+   avoid silently dropping intentional control variations (Architect note). */
+function deduplicateLines(text){
+  var lines = text.split('\n');
+  var seen = {};
+  var out = [];
+  lines.forEach(function(line){
+    var key = line.trim().toLowerCase();
+    if(!key) return; /* skip blank lines */
+    if(!seen[key]){ seen[key] = true; out.push(line); }
+  });
+  return out.join('\n');
+}
+
+/* Called onblur from hazard/control textareas. Silently removes exact
+   duplicates from the displayed field and step data model. */
+function deduplicateStepField(stepId, type){
+  var step = findStep(stepId);
+  if(!step) return;
+  var textarea = document.getElementById('step-'+type+'-'+stepId);
+  var current = textarea ? textarea.value : (step[type] || '');
+  var deduped = deduplicateLines(current);
+  if(deduped === current) return; /* nothing to do */
+  step[type] = deduped;
+  if(textarea) textarea.value = deduped;
   onFieldChanged();
   refreshDrawerContent(stepId, type);
 }
