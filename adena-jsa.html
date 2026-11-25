@@ -1939,14 +1939,19 @@ function renderDrawerContent(stepId, type, step, suggestions){
   var visible = suggestions.slice(0, shown);
   var remaining = suggestions.length - shown;
 
+  /* Preserve scroll position across re-renders (e.g. after tapping a suggestion) */
+  var oldList = el.querySelector('.drawer-list');
+  var savedScroll = oldList ? oldList.scrollTop : 0;
+
   var listHtml;
   if(suggestions.length === 0){
     listHtml = '<div class="drawer-empty">No suggestions found. Enter items manually.</div>';
   } else {
     listHtml = visible.map(function(s, idx){
       var added = currentVal.indexOf(s.toLowerCase()) !== -1;
+      /* Always include data attributes so added items are tappable for removal */
       return '<div class="drawer-item'+(added?' added':'')+'" '+
-        (added ? '' : 'data-stepid="'+stepId+'" data-type="'+type+'" data-idx="'+idx+'"') +
+        'data-stepid="'+stepId+'" data-type="'+type+'" data-idx="'+idx+'"'+
         '>'+(added?'&#10003; ':'')+escapeHtml(s)+'</div>';
     }).join('');
     if(remaining > 0){
@@ -1960,6 +1965,10 @@ function renderDrawerContent(stepId, type, step, suggestions){
       '<button type="button" class="drawer-done" onclick="closeAllDrawers()">Done</button></div>' +
     '<div class="drawer-list" onclick="handleDrawerClick(event)">'+listHtml+'</div>';
   el.classList.add('show');
+
+  /* Restore scroll position after innerHTML replacement */
+  var newList = el.querySelector('.drawer-list');
+  if(newList && savedScroll) newList.scrollTop = savedScroll;
 }
 
 function handleDrawerClick(evt){
@@ -1971,7 +1980,11 @@ function handleDrawerClick(evt){
   var arr = lastSuggestions[stepId+':'+type] || [];
   var text = arr[idx];
   if(text === undefined) return;
-  addSuggestion(stepId, type, text);
+  if(item.classList.contains('added')){
+    removeSuggestion(stepId, type, text);
+  } else {
+    addSuggestion(stepId, type, text);
+  }
 }
 
 function addSuggestion(stepId, type, text){
@@ -1983,6 +1996,22 @@ function addSuggestion(stepId, type, text){
   var current = textarea ? textarea.value : (step[type] || '');
   if(current.toLowerCase().indexOf(text.toLowerCase()) !== -1) return;
   var newVal = current.trim() ? current.trim() + '\n' + text : text;
+  step[type] = newVal;
+  if(textarea) textarea.value = newVal;
+  onFieldChanged();
+  refreshDrawerContent(stepId, type);
+}
+
+function removeSuggestion(stepId, type, text){
+  var step = findStep(stepId);
+  if(!step) return;
+  var textarea = document.getElementById('step-'+type+'-'+stepId);
+  var current = textarea ? textarea.value : (step[type] || '');
+  /* Remove lines that exactly match the suggestion text (case-insensitive) */
+  var lines = current.split('\n').filter(function(line){
+    return line.trim().toLowerCase() !== text.trim().toLowerCase();
+  });
+  var newVal = lines.join('\n').trim();
   step[type] = newVal;
   if(textarea) textarea.value = newVal;
   onFieldChanged();
