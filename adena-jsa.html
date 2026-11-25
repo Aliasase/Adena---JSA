@@ -1145,7 +1145,7 @@ var HI_PERMIT_KEYS = PERMITS.filter(function(p){return p.hi;}).map(function(p){r
    STORAGE / STATE
    ============================================================ */
 var APP_VERSION = '1.3.0'; /* Revision A-3 — Document Integrity */
-var APP_BUILD   = 'dev4';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
+var APP_BUILD   = 'dev5';  /* Build tag — must match sw.js CACHE_NAME suffix on every deploy */
 
 /* dev3: Acknowledgment statement displayed in tap-to-confirm re-acknowledgment modal.
    Stored verbatim in every supervisor_reack / crew_reack snapshot — do not change without
@@ -2010,10 +2010,13 @@ function confirmSupReack(){
    Prioritizes Supervisor tab when both supervisor and crew are pending. */
 function goBannerTab(){
   var ackSt = getAckStatus();
-  if(ackSt.supervisor && ackSt.supervisor.current === false){
-    showTab('supervisor');
-  } else {
+  /* dev5: Prioritize crew tab — route to crew if any crew member has outstanding ack;
+     fall back to supervisor tab only if crew is current and supervisor is pending. */
+  var crewOutstanding = ackSt.crew.some(function(e){ return e.current === false; });
+  if(crewOutstanding){
     showTab('crew');
+  } else if(ackSt.supervisor && ackSt.supervisor.current === false){
+    showTab('supervisor');
   }
 }
 
