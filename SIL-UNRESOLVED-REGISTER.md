@@ -2,7 +2,7 @@
 
 # Safety Intelligence Library — Consolidated Unresolved Register
 
-**Status at the v1.4.1-p1 production release (November 26, 2026, PO-009):** 9 carried open (Packages 001–002) · 4 open and 1 deferred (P3-U16) from Package 003 · 3 recognition defects and 1 document integrity defect scheduled for the next authorized development cycle (P3-U17 to P3-U19; A3-U1) · 7 open from the Package 004 candidate review (P4-U1 to P4-U7) · closed in Package 003: 13 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U13, U14, U15). Package 003 implementation and field acceptance are complete (PO-009); Phase A-4 remains open.
+**Status at the v1.4.1-p1 production release (November 26, 2026, PO-009):** 9 carried open (Packages 001–002) · 4 open and 1 deferred (P3-U16) from Package 003 · 3 recognition defects and 1 document integrity defect scheduled for the next authorized development cycle (P3-U17 to P3-U19; A3-U1) · 6 open from the Package 004 review (P4-U2 to P4-U5, P4-U8, P4-U9) · closed in Package 003: 13 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U13, U14, U15). Package 003 implementation and field acceptance are complete (PO-009); Phase A-4 remains open.
 **Correction rule for P3-U17 to P3-U19:** preserve cumulative applicability — where the task establishes several work methods or exposures (e.g. fabricating a spool and then breaking an existing process flange; cutting steel; torch-applied and adhered roofing in one task), every applicable relationship still applies.
 Resolved items from earlier packages stay recorded in their package files. "Verified (Engineer, …)" records the Engineer's check of a source; it is not Architect validation (Architect Response 005 §13).
 
@@ -38,13 +38,12 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 
 | # | Item | Owner |
 |---|---|---|
-| P4-U1 | Product Owner policy decisions 1–10 (review §5): critical-lift classification, lift plans, wind and lightning, rigging inspection, tag lines (including MSHA sites), Lift Director, personnel platforms, forklift / telehandler / excavator lifting, withholding personnel-lifting controls, MSHA site list | PO |
-| P4-U2 | Architect validation of the reconciliation: 38 retained and 37 consolidated hazard IDs, proposed controls C-000419 to C-000518 (including 6 Engineer additions) and the applicability rules | Architect |
+| P4-U2 | Architect record-level validation of the r2 reconciliation: 39 retained and 37 consolidated hazard IDs, proposed controls C-000419 to C-000527 (6 Engineer additions, 9 from Architect Response 001), applicability rules and the production crosswalk | Architect |
 | P4-U3 | Proposed changes to approved records P-1 to P-5: text generalizations T-15 to T-19, steel-erection control scoping, legacy supersessions, overhead beam clamps and trolleys to H-RH-060, equipment lifting points | Architect / PO |
-| P4-U4 | Personnel hoisting: 1926.1431 paragraphs beyond (a) and (b)(1) not verified; controls C-000504 to C-000511 need validation before implementation | Architect |
-| P4-U5 | Unverified references (review §4): 1926.1419–1428, 1926.1427, 1926.1424, 1926.1415–1416, other 1926.1404 paragraphs, 1910.179, 1926.602 / 1910.178, ASME B30 series, 1926.753(e) | Architect |
-| P4-U6 | Tag lines on MSHA-regulated sites (30 CFR 56.16007(a), verified) versus candidate §6 | Architect / PO |
-| P4-U7 | Gap: steel-erection multiple lifts (1926.753(e)) are not covered by the candidate | Architect |
+| P4-U4 | Personnel hoisting: C-000506 to C-000511 **withheld** (Architect Response 001) pending technical and regulatory validation; 1926.1431 paragraphs beyond (a) and (b)(1) not verified | Architect |
+| P4-U5 | Unverified references (review §4): 1926.1419–1428, 1926.1427, 1926.1424, 1926.1415–1416, other 1926.1404 paragraphs, 1910.179, 1926.602 / 1910.178, ASME B30 series | Architect |
+| P4-U8 | Steel-erection personnel hoisting: 1926.753(a) excludes 1926.1431(a); evaluate the remaining steel-erection provisions separately (Architect Response 001) | Architect |
+| P4-U9 | Multiple-lift rigging outside steel erection (e.g. precast): the current Subpart CC equivalent of former 1926.550(a)(19) was not verified | Architect |
 
 ## Closed
 
@@ -61,4 +60,7 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 | P3-U9 | Electromagnetic fields near induction heating | **Closed** — new canonical H-DF-041 (AR-005 §9). |
 | P3-U14 | 99% filter efficiency in C-000395 | **Closed** — approved, AD-010 §1; scoped to prescribed dust-collection methods (§3.1). |
 | P3-U15 | C-000164 rewording | **Closed** — approved, AD-010 §1; wording per §3.8. |
+| P4-U1 | Package 004 Product Owner policy decisions 1–10 | **Closed** — decisions 1–8 by SIL PO Decision 007 (no Adena-specific requirements; follow the more protective applicable requirement); decision 9 by Architect Response 001 (withhold unvalidated personnel-hoisting controls); decision 10: mine sites recognized from task context. |
+| P4-U6 | Tag lines on MSHA-regulated sites | **Closed** — Architect Response 001: recognize the MSHA requirement (C-000519); no universal tag-line requirement. |
+| P4-U7 | Multiple-lift rigging gap | **Closed** — added in Package 004 r2 (H-RH-076, C-000522 to C-000527); 1926.753(e) verified by the Engineer. |
 | P3-U13 | v1.4.0-p1 defects F-1 to F-16 (Crosswalk §C) | **Closed** — corrected in v1.4.1-dev1, accepted after PO physical testing of v1.4.1-dev4, and released to production in v1.4.1-p1 (PO-009). |

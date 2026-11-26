@@ -1,22 +1,22 @@
-> **Repository Record (AD-008 §6):** Engineer reconciliation of the SIL-PKG-004 candidate (Rigging and Hoisting), revision r1, against the v1.4.1-p1 canonical library. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
+> **Repository Record (AD-008 §6):** Engineer reconciliation of the SIL-PKG-004 candidate (Rigging and Hoisting), revision r2 — r1 plus Architect Response 001 and SIL PO Decision 007 — against the v1.4.1-p1 canonical library. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
 
-# SIL-PKG-004 — Rigging and Hoisting (Reconciled r1)
+# SIL-PKG-004 — Rigging and Hoisting (Reconciled r2)
 
-**Candidate:** `SIL-PKG-004.md` (Architect, Candidate 1.0, November 26, 2026) · **Baseline:** v1.4.1-p1 (122 hazard IDs, 418 controls, 10 policies) · **Reviewed by:** Claude (Engineer), November 26, 2026 · **Companion records:** `SIL-PKG-004-ENGINEER-REVIEW.md`, `SIL-PKG-004-PRODUCTION-CROSSWALK.md`, `SIL-PKG-004-REGRESSION.md`
+**Candidate:** `SIL-PKG-004.md` (Architect, Candidate 1.0, November 26, 2026) · **Baseline:** v1.4.1-p1 (122 hazard IDs, 418 controls, 10 policies) · **Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `637b067` · r2 Architect Response 001 and SIL PO Decision 007 (§11) · **Companion records:** `SIL-PKG-004-ENGINEER-REVIEW.md`, `SIL-PKG-004-PRODUCTION-CROSSWALK.md`, `SIL-PKG-004-REGRESSION.md`
 
 ## 1. Summary
 
 | Item | Candidate | Reconciled |
 |---|---|---|
-| Hazard records | 75 provisional (H-RH-001 to H-RH-075) | **38 new canonical records** keep their candidate IDs · **12** consolidated into 7 existing records (5 need a text generalization, T-15 to T-19) · **25** consolidated into a retained new record. All 75 IDs stay registered; the 37 consolidated IDs are retired and never reused. |
-| Controls | 161 candidate lines (§5) | **100 new canonical controls**, proposed C-000419 to C-000518 (6 of them Engineer additions for §4 hazards that had no candidate control) · 5 candidate lines answered by existing controls (C-000033, C-000231, C-000242, C-000243, C-000247, C-000407) · 64 candidate lines merged into a control drafted from another line (duplicates across activity groups — §5: do not create duplicate controls). Next available after registration: C-000519. |
+| Hazard records | 75 provisional (H-RH-001 to H-RH-075) | **39 new canonical records** — 38 keep their candidate IDs, plus H-RH-076 (multiple-lift rigging) added by Architect Response 001 · **12** consolidated into 7 existing records (5 need a text generalization, T-15 to T-19) · **25** consolidated into a retained new record. All 76 IDs are registered; the 37 consolidated IDs are retired and never reused. |
+| Controls | 161 candidate lines (§5) | **109 new canonical controls**, proposed C-000419 to C-000527 (6 Engineer additions for §4 hazards that had no candidate control; 9 added in r2 for Architect Response 001; 6 personnel-hoisting controls **withheld** pending validation) · 5 candidate lines answered by existing controls (C-000033, C-000231, C-000242, C-000243, C-000247, C-000407) · 64 candidate lines merged into a control drafted from another line (duplicates across activity groups — §5: do not create duplicate controls). Next available after registration: C-000528. |
 | Text revisions of approved records | — | T-15 to T-19 (H-BT-014, H-HW-037, H-BT-007, H-BT-002, H-BT-015) — prior wording kept so saved JSAs still map |
-| Policy records | 8 PO decisions requested (§8) | None created. Two decisions added by the Engineer (review §5). |
-| Regression scenarios | 50 required (§10) | 50 required + 9 negative + 8 mixed = 67 (`SIL-PKG-004-REGRESSION.md`) |
+| Policy records | 8 PO decisions requested (§8) | **None** — SIL PO Decision 007: no Adena-specific requirements beyond the defaults; apply regulatory, manufacturer and project/client requirements, the more protective where they overlap. |
+| Regression scenarios | 50 required (§10) | 50 required + 9 negative + 8 mixed + 12 required by Architect Response 001 = 79 (`SIL-PKG-004-REGRESSION.md`) |
 
-Identifiers above are proposed. Hazard IDs H-RH-001 to H-RH-075 and controls C-000419 to C-000518 are entered in the permanent registries only after Architect validation; until then this document is the record of the proposal.
+Identifiers above are proposed. Hazard IDs H-RH-001 to H-RH-075 and controls C-000419 to C-000527 are entered in the permanent registries only after Architect validation; until then this document is the record of the proposal.
 
-## 2. Hazard reconciliation (all 75 candidate records)
+## 2. Hazard reconciliation (75 candidate records + 1 added by Architect Response 001)
 
 | Candidate | Candidate hazard | Disposition | Canonical record |
 |---|---|---|---|
@@ -79,8 +79,8 @@ Identifiers above are proposed. Hazard IDs H-RH-001 to H-RH-075 and controls C-0
 | H-RH-057 | Uncontrolled load transfer between lifting devices | Consolidated into retained Package 004 record — retired | H-RH-056 — "Unequal or shifting load share between cranes, or uncontrolled transfer between lifting devices" |
 | H-RH-058 | Sudden center-of-gravity changes during upending, tailing or rotation | Consolidated into retained Package 004 record — retired | H-RH-006 — "Load shifting, tipping or rotating from an unknown or changing center of gravity, including during tailing, upending or turning" |
 | H-RH-059 | Load failure from inadequate temporary reinforcement or structural rigidity | **New canonical record** (ID kept) | H-RH-059 — "Load buckling, bending or breaking from inadequate stiffness or temporary bracing" |
-| H-RH-060 | Failure of supporting structures used to suspend hoists or rigging | **New canonical record** (ID kept) | H-RH-060 — "Failure or displacement of the beam, structure, trolley or anchorage supporting a hoist, winch or pulling device" |
-| H-RH-061 | Uncontrolled movement from improper winch or pulling-device anchorage | Consolidated into retained Package 004 record — retired | H-RH-060 — "Failure or displacement of the beam, structure, trolley or anchorage supporting a hoist, winch or pulling device" |
+| H-RH-060 | Failure of supporting structures used to suspend hoists or rigging | **New canonical record** (ID kept) | H-RH-060 — "Failure, displacement or unintended travel of the beam clamp, trolley, structure or anchorage supporting a hoist, winch or pulling device" |
+| H-RH-061 | Uncontrolled movement from improper winch or pulling-device anchorage | Consolidated into retained Package 004 record — retired | H-RH-060 — "Failure, displacement or unintended travel of the beam clamp, trolley, structure or anchorage supporting a hoist, winch or pulling device" |
 | H-RH-062 | Rope or cable failure from improper reeving, bending or sheave compatibility | **New canonical record** (ID kept) | H-RH-062 — "Rope, block or sheave failure from improper reeving, bending or block loading" |
 | H-RH-063 | Load release following loss of vacuum or magnetic holding force | **New canonical record** (ID kept) | H-RH-063 — "Load released or slipping from a lifting clamp, vacuum lifter or lifting magnet" |
 | H-RH-064 | Plate or beam slipping from an incorrectly applied lifting clamp | Consolidated into retained Package 004 record — retired | H-RH-063 — "Load released or slipping from a lifting clamp, vacuum lifter or lifting magnet" |
@@ -95,6 +95,7 @@ Identifiers above are proposed. Hazard IDs H-RH-001 to H-RH-075 and controls C-0
 | H-RH-073 | Failure of personnel lifting equipment or its supporting system | **New canonical record** (ID kept) | H-RH-073 — "Personnel platform, suspension system or supporting equipment failure" |
 | H-RH-074 | Personnel trapped, suspended or stranded during personnel lifting operations | **New canonical record** (ID kept) | H-RH-074 — "Personnel trapped, stranded or suspended in a crane-suspended platform" |
 | H-RH-075 | Load or rigging failure from improper use of a pulling device for overhead lifting | **New canonical record** (ID kept) | H-RH-075 — "Load falling from a pulling-only device used for overhead lifting" |
+| H-RH-076 | *(added by Architect Response 001)* Multiple-lift rigging / christmas-treeing | **New canonical record** (ID kept) | H-RH-076 — "Multiple suspended members in a multiple lift colliding, falling or overloading the rigging assembly or an attachment point" |
 
 ## 3. Proposed text generalizations of approved records
 
@@ -116,6 +117,7 @@ Relationship conditions are evaluated on the task description (Package 001–003
 
 **H-BT-014 — Struck by, or caught between, a suspended or moving load** · *existing record*
 
+- `C-000519` `[if mine site and the load may need steadying or guidance]` At a mine, attach tag lines to suspended loads that may need steadying or guidance.
 - `C-000033` Stay out from under the suspended load *(existing)*
 - `C-000034` `[if structural steel erection]` Only the connectors make the initial connection *(existing)*
 - `C-000035` `[if structural steel erection]` Use tag lines; keep hands off the load except at the connection point *(existing)*
@@ -212,6 +214,7 @@ Relationship conditions are evaluated on the task description (Package 001–003
 **H-RH-022 — Entangled in, or pulled off balance by, tag lines, ropes or a moving load**
 
 - `C-000459` Never wrap a tag line around your hand, wrist or body.
+- `C-000520` Position tag-line handlers clear of the fall zone, pinch points and the load's path, where they can let go if the load moves unexpectedly.
 - `C-000461` Do not try to hold or stop a moving load with your body — let go and get clear.
 - `C-000458` Use tag lines or another load-control method where the load needs steadying or guidance and they can be used safely.
 
@@ -243,7 +246,7 @@ Relationship conditions are evaluated on the task description (Package 001–003
 - `C-000423` Confirm the load chart or rated capacity that applies to the actual equipment configuration and radius, and keep the total load within it.
 - `C-000453` Verify the counterweight, boom, jib and reeving configuration matches the lift plan and load chart before lifting.
 - `C-000499` `[if forklift, telehandler or excavator]` Lift a suspended load with a forklift, telehandler or excavator only with an attachment or lifting point approved for that equipment, using the capacity information for that configuration — standard fork or bucket capacity does not apply.
-- `C-000425` `[if critical or complex lift]` Confirm the project's lift classification, lift-plan and approval requirements, and have any required plan approved before lifting.
+- `C-000425` `[if critical or complex lift]` Confirm the lift classification, lift-plan and approval requirements that apply — regulatory, manufacturer, project or client — and have any required plan approved before lifting.
 
 **H-RH-035 — Side loading of the boom, hook, hoist or lifting hardware**
 
@@ -286,22 +289,23 @@ Relationship conditions are evaluated on the task description (Package 001–003
 **H-RH-044 — Electrical contact or arcing from overhead power lines to the crane, load, rigging or tag lines**
 
 - `C-000476` Before setting up or moving the equipment, identify overhead power lines and other electrical sources within reach of the boom, load, rigging and tag lines at their full range of movement.
-- `C-000477` Maintain the minimum approach distance required for the line voltage and equipment, with the required warning lines, barricades, proximity devices or dedicated spotter.
-- `C-000478` Treat every line as energized until the utility or responsible electrical authority verifies it de-energized and grounded, and coordinate that where the clearance cannot otherwise be kept.
-- `C-000479` Stop if the required clearance cannot be maintained.
-- `C-000480` Establish an emergency response for electrical contact, and keep everyone away from equipment, loads and rigging that may be energized.
-- `C-000516` `[if tag lines are used]` Use non-conductive tag lines where tag lines are used near power lines.
+- `C-000477` `[if overhead power lines are identified]` Maintain the minimum approach distance required for the line voltage and equipment, with the required warning lines, barricades, proximity devices or dedicated spotter.
+- `C-000478` `[if overhead power lines are identified]` Treat every line as energized until the utility or responsible electrical authority verifies it de-energized and grounded, and coordinate that where the clearance cannot otherwise be kept.
+- `C-000479` `[if overhead power lines are identified]` Stop if the required clearance cannot be maintained.
+- `C-000480` `[if overhead power lines are identified]` Establish an emergency response for electrical contact, and keep everyone away from equipment, loads and rigging that may be energized.
+- `C-000516` `[if tag lines are used near identified power lines]` Use non-conductive tag lines where tag lines are used near power lines.
 
 **H-RH-046 — Wind or gusts moving the load or reducing crane stability and capacity**
 
 - `C-000481` Evaluate wind and gusts against the manufacturer's limits and the load's surface area — no single wind-speed limit fits every crane and load.
 - `C-000482` Monitor the weather and stop lifting when conditions prevent safe control of the load.
 - `C-000458` Use tag lines or another load-control method where the load needs steadying or guidance and they can be used safely.
+- `C-000519` `[if mine site]` At a mine, attach tag lines to suspended loads that may need steadying or guidance.
 - `C-000464` Control load swing and rotation throughout hoisting, travel and landing.
 
 **H-RH-048 — Lightning strike exposure**
 
-- `C-000483` Follow the project's lightning suspension and resumption procedure.
+- `C-000483` Follow the applicable lightning suspension and resumption procedure.
 - `C-000482` Monitor the weather and stop lifting when conditions prevent safe control of the load.
 
 **H-RH-049 — Operator or signal person unable to see the load, personnel, landing area or obstructions**
@@ -330,20 +334,23 @@ Relationship conditions are evaluated on the task description (Package 001–003
 - `C-000487` Determine each lifting device's share of the load at every stage of the lift — including changes in center of gravity, radius and orientation — and keep each within its capacity.
 - `C-000488` Do not release one lifting device until the receiving device is verified to be supporting the load safely, and prevent unplanned load transfer between devices.
 - `C-000468` Give operating instructions from one designated person or a coordinated plan, so instructions do not conflict.
-- `C-000425` Confirm the project's lift classification, lift-plan and approval requirements, and have any required plan approved before lifting.
+- `C-000425` Confirm the lift classification, lift-plan and approval requirements that apply — regulatory, manufacturer, project or client — and have any required plan approved before lifting.
 - `C-000426` Stop and reassess when the load, equipment configuration, operating conditions or load behavior differ from the plan.
-- `C-000430` Assign lift supervision suited to the complexity of the operation, under the project's lift classification and any Lift Director requirement.
+- `C-000430` Assign lift supervision suited to the complexity of the operation, meeting any applicable regulatory, project or client Lift Director requirement.
 
 **H-RH-059 — Load buckling, bending or breaking from inadequate stiffness or temporary bracing**
 
 - `C-000517` Verify long, flexible or partially assembled loads have the temporary bracing or lifting arrangement needed to keep them from buckling or breaking during the lift.
 - `C-000447` `[if spreader bar or lifting beam]` Verify spreader bars, lifting beams and other below-the-hook devices are rated and suitable for the configuration being used.
 
-**H-RH-060 — Failure or displacement of the beam, structure, trolley or anchorage supporting a hoist, winch or pulling device**
+**H-RH-060 — Failure, displacement or unintended travel of the beam clamp, trolley, structure or anchorage supporting a hoist, winch or pulling device**
 
-- `C-000489` Verify the beam, structure or anchorage supporting a hoist, trolley or pulling device can carry the anticipated load, and that a trolley cannot run off the end of the beam.
-- `C-000490` Use a hoist or pulling device rated and approved for the operation — never use equipment intended only for pulling to suspend a load overhead.
+- `C-000489` Verify the beam, structure or anchorage supporting a hoist, trolley or pulling device can carry the anticipated load in the direction it will be loaded.
+- `C-000406` `[if beam clamp or trolley]` Select a rated clamp or trolley compatible with the beam dimensions and intended application. Install and secure it according to the manufacturer's instructions to prevent unintended movement or disengagement while allowing designed travel where applicable. Keep fingers clear of jaws and pinch points during positioning and adjustment *(existing)*
+- `C-000407` `[if beam clamp or trolley]` Inspect the clamp before each use for damage, deformation, worn jaws, missing or damaged locking parts and illegible markings, and remove any defective clamp from service *(existing)*
 - `C-000437` Load hooks, shackles, hoists and other lifting hardware only in their intended direction — no side loading of hardware or crane booms unless the equipment and operation are designed and approved for it.
+- `C-000521` `[if trolley or monorail]` Verify end stops or other end-of-travel protection keep the trolley or hoist from running off the beam.
+- `C-000490` Use a hoist or pulling device rated and approved for the operation — never use equipment intended only for pulling to suspend a load overhead.
 - `C-000492` Keep the load chain or rope straight and correctly seated — not twisted, kinked or wrapped around the load.
 - `C-000493` Do not extend a hoist's operating handle or add force beyond what the manufacturer permits.
 - `C-000494` Do not use a hoist's load chain as a sling unless the hoist is designed for it.
@@ -385,22 +392,37 @@ Relationship conditions are evaluated on the task description (Package 001–003
 
 **H-RH-073 — Personnel platform, suspension system or supporting equipment failure**
 
-- `C-000504` Hoist personnel by crane only where the project has determined that conventional access — ladder, stairway, scaffold, aerial lift or personnel hoist — would be more hazardous or is not possible, and the lift is authorized.
+- `C-000504` `[if not steel erection]` Hoist personnel by crane only where the project has determined that conventional access — ladder, stairway, scaffold, aerial lift or personnel hoist — would be more hazardous or is not possible, and the lift is authorized.
 - `C-000505` Use a personnel platform and suspension system designed for hoisting personnel and suited to the equipment.
-- `C-000507` Complete the required inspections, trial lift and proof test before personnel are hoisted.
-- `C-000506` Plan the personnel lift with a pre-lift meeting of the operator, signal person, platform occupants and the person responsible for the task.
+- `C-000507` **— withheld pending validation (Architect Response 001)** Complete the required inspections, trial lift and proof test before personnel are hoisted.
+- `C-000506` **— withheld pending validation (Architect Response 001)** Plan the personnel lift with a pre-lift meeting of the operator, signal person, platform occupants and the person responsible for the task.
 
 **H-RH-074 — Personnel trapped, stranded or suspended in a crane-suspended platform**
 
-- `C-000511` Have emergency lowering and rescue arrangements in place before personnel are hoisted.
-- `C-000509` Keep continuous communication with the platform occupants, and move the platform slowly and under control.
-- `C-000508` Platform occupants use the fall protection required for the personnel platform.
-- `C-000510` Do not hoist personnel in wind, lightning or other conditions outside the platform and equipment limits.
+- `C-000511` **— withheld pending validation (Architect Response 001)** Have emergency lowering and rescue arrangements in place before personnel are hoisted.
+- `C-000509` **— withheld pending validation (Architect Response 001)** Keep continuous communication with the platform occupants, and move the platform slowly and under control.
+- `C-000508` **— withheld pending validation (Architect Response 001)** Platform occupants use the fall protection required for the personnel platform.
+- `C-000510` **— withheld pending validation (Architect Response 001)** Do not hoist personnel in wind, lightning or other conditions outside the platform and equipment limits.
+- `C-000457` Keep everyone out of the load's fall zone except workers needed to hook, unhook, guide or land the load or make the initial connection.
+- `C-000466` Maintain communication with the operator throughout the lift, and stop movement whenever required communication is lost.
 
 **H-RH-075 — Load falling from a pulling-only device used for overhead lifting**
 
 - `C-000490` Use a hoist or pulling device rated and approved for the operation — never use equipment intended only for pulling to suspend a load overhead.
-- `C-000489` Verify the beam, structure or anchorage supporting a hoist, trolley or pulling device can carry the anticipated load, and that a trolley cannot run off the end of the beam.
+- `C-000489` Verify the beam, structure or anchorage supporting a hoist, trolley or pulling device can carry the anticipated load in the direction it will be loaded.
+
+**H-RH-076 — Multiple suspended members in a multiple lift colliding, falling or overloading the rigging assembly or an attachment point**
+
+- `C-000522` Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and within the number of members the applicable requirements allow.
+- `C-000523` Use a multiple-lift rigging assembly with a certified maximum capacity for the total assembly and for each attachment point, and keep the total load within both the rigging rating and the crane's rated capacity.
+- `C-000524` Only personnel trained in multiple-lift procedures take part in a multiple lift.
+- `C-000525` Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and keep the required spacing between members so they cannot contact each other.
+- `C-000526` Set the members from the bottom up in the planned sequence, keeping connectors clear of the remaining suspended members.
+- `C-000527` Use controlled load lowering whenever the load is over the connectors.
+- `C-000419` Determine the load weight before lifting, and include the rigging, lifting accessories and below-the-hook attachments in the total load on the equipment.
+- `C-000457` Keep everyone out of the load's fall zone except workers needed to hook, unhook, guide or land the load or make the initial connection.
+- `C-000037` Do not release the load until the connection required for that member is made and stability is verified *(existing)*
+- `C-000031` Leave temporary bolts, bracing and guying in place until removal is authorized under the erection sequence and stability requirements *(existing)*
 
 **H-BT-018 — Dropped tools, equipment, hardware or materials striking personnel below** · *existing record*
 
@@ -420,12 +442,12 @@ Relationship conditions are evaluated on the task description (Package 001–003
 | C-000422 | Establish the lift sequence, hoisting route, travel path and landing location before hoisting, using routes that keep the load away from people. | 5 | R (1926.1425(a), verified); BP |
 | C-000423 | Confirm the load chart or rated capacity that applies to the actual equipment configuration and radius, and keep the total load within it. | 6, 49, 51 | R; M |
 | C-000424 | Identify adjacent operations that could interfere with the lift, and coordinate with the affected crews. | 8, 76 | BP |
-| C-000425 | Confirm the project's lift classification, lift-plan and approval requirements, and have any required plan approved before lifting. | 10, 114 | PO (decisions 1, 2); BP |
+| C-000425 | Confirm the lift classification, lift-plan and approval requirements that apply — regulatory, manufacturer, project or client — and have any required plan approved before lifting. | 10, 114 | R; M; project (SIL PO Decision 007 — no Adena-specific threshold) |
 | C-000426 | Stop and reassess when the load, equipment configuration, operating conditions or load behavior differ from the plan. | 11, 120 | BP |
 | C-000427 | Use riggers qualified for the rigging assigned to them. | 12 | R (1926.1425(c)(3), 1926.753(c)(2), verified) |
 | C-000428 | Use operators who meet the training, qualification and certification requirements for the specific equipment. | 13 | R (1926.1427, not verified in this review) |
 | C-000429 | Assign a qualified signal person, or a spotter where required, when the operator cannot see the load, the landing area or the travel path, or when site rules require one. | 14, 68, 112 | R (1926.1419–1428, not verified); PO |
-| C-000430 | Assign lift supervision suited to the complexity of the operation, under the project's lift classification and any Lift Director requirement. | 15 | PO (decision 6) |
+| C-000430 | Assign lift supervision suited to the complexity of the operation, meeting any applicable regulatory, project or client Lift Director requirement. | 15 | R; project (SIL PO Decision 007) |
 | C-000431 | Review the lift plan, roles, signals and stop-work responsibilities with everyone involved before the lift begins. | 9, 16, 17 | BP |
 | C-000432 | Inspect rigging and lifting accessories before use, and remove from service any that meet the applicable removal criteria. | 18, 31 | R (1926.251(a), verified); C |
 | C-000433 | Verify rigging identification and rated capacity are legible where required — do not use rigging that cannot be identified. | 19 | R (1910.184 identification, verified); C |
@@ -478,13 +500,13 @@ Relationship conditions are evaluated on the task description (Package 001–003
 | C-000480 | Establish an emergency response for electrical contact, and keep everyone away from equipment, loads and rigging that may be energized. | 97, 98 | R (1926.1408(g) training, not verified); BP |
 | C-000481 | Evaluate wind and gusts against the manufacturer's limits and the load's surface area — no single wind-speed limit fits every crane and load. | 99, 101 | M; R (1926.1417(h) storm warning, verified); PO (decision 3) |
 | C-000482 | Monitor the weather and stop lifting when conditions prevent safe control of the load. | 100, 102 | BP |
-| C-000483 | Follow the project's lightning suspension and resumption procedure. | 103 | PO (decision 3) |
+| C-000483 | Follow the applicable lightning suspension and resumption procedure. | 103 | M; project (SIL PO Decision 007) |
 | C-000484 | Maintain lighting and visibility, and stop movement when the operator or signal person cannot see or monitor the operation. | 104, 105 | BP |
 | C-000485 | Travel with a suspended load only where the manufacturer allows it, using the travel or pick-and-carry capacity for that configuration. | 107, 108 | M |
 | C-000486 | Check the travel route for slope, ground support and overhead clearance, and keep the load position and travel speed within the manufacturer's limits. | 109, 110 | M; BP |
 | C-000487 | Determine each lifting device's share of the load at every stage of the lift — including changes in center of gravity, radius and orientation — and keep each within its capacity. | 115, 116, 117 | C; BP |
 | C-000488 | Do not release one lifting device until the receiving device is verified to be supporting the load safely, and prevent unplanned load transfer between devices. | 119, 121 | BP |
-| C-000489 | Verify the beam, structure or anchorage supporting a hoist, trolley or pulling device can carry the anticipated load, and that a trolley cannot run off the end of the beam. | 122 | C; BP; E (trolley run-off) |
+| C-000489 | Verify the beam, structure or anchorage supporting a hoist, trolley or pulling device can carry the anticipated load in the direction it will be loaded. | 122 | C; BP |
 | C-000490 | Use a hoist or pulling device rated and approved for the operation — never use equipment intended only for pulling to suspend a load overhead. | 123, 131 | M |
 | C-000491 | Inspect the hoist's hooks, chain or rope, brake and attachment points before use. | 124 | C (ASME B30 hoist volumes, not verified); M |
 | C-000492 | Keep the load chain or rope straight and correctly seated — not twisted, kinked or wrapped around the load. | 125 | M; C |
@@ -501,12 +523,12 @@ Relationship conditions are evaluated on the task description (Package 001–003
 | C-000503 | Support the equipment with the rigging or temporary supports before removing load-bearing fasteners or connections. | 151 | BP |
 | C-000504 | Hoist personnel by crane only where the project has determined that conventional access — ladder, stairway, scaffold, aerial lift or personnel hoist — would be more hazardous or is not possible, and the lift is authorized. | 154 | R (1926.1431(a), verified; not applicable to steel erection per 1926.753(a), verified); PO (decision 7) |
 | C-000505 | Use a personnel platform and suspension system designed for hoisting personnel and suited to the equipment. | 155 | R (1926.1431(b)(1), verified) |
-| C-000506 | Plan the personnel lift with a pre-lift meeting of the operator, signal person, platform occupants and the person responsible for the task. | 156 | R (1926.1431, paragraph not verified) |
-| C-000507 | Complete the required inspections, trial lift and proof test before personnel are hoisted. | 157 | R (1926.1431, paragraphs not verified) |
-| C-000508 | Platform occupants use the fall protection required for the personnel platform. | 158 | R (not verified) |
-| C-000509 | Keep continuous communication with the platform occupants, and move the platform slowly and under control. | 159 | R (not verified); BP |
-| C-000510 | Do not hoist personnel in wind, lightning or other conditions outside the platform and equipment limits. | 160 | R (numeric wind limit not verified — none placed in user-facing text); M |
-| C-000511 | Have emergency lowering and rescue arrangements in place before personnel are hoisted. | 161 | BP |
+| C-000506 **(withheld)** | Plan the personnel lift with a pre-lift meeting of the operator, signal person, platform occupants and the person responsible for the task. | 156 | R (1926.1431, paragraph not verified) |
+| C-000507 **(withheld)** | Complete the required inspections, trial lift and proof test before personnel are hoisted. | 157 | R (1926.1431, paragraphs not verified) |
+| C-000508 **(withheld)** | Platform occupants use the fall protection required for the personnel platform. | 158 | R (not verified) |
+| C-000509 **(withheld)** | Keep continuous communication with the platform occupants, and move the platform slowly and under control. | 159 | R (not verified); BP |
+| C-000510 **(withheld)** | Do not hoist personnel in wind, lightning or other conditions outside the platform and equipment limits. | 160 | R (numeric wind limit not verified — none placed in user-facing text); M |
+| C-000511 **(withheld)** | Have emergency lowering and rescue arrangements in place before personnel are hoisted. | 161 | BP |
 | C-000512 | Keep hands and fingers out from between slings, hardware and the load while attaching and tensioning rigging. | 32 | BP |
 | C-000513 | Assemble and disassemble the crane only by the manufacturer's procedure, under the designated assembly/disassembly director. | — *(Engineer addition)* | E; R (1926.1404(a), verified via state plan summary) |
 | C-000514 | Before removing boom or jib pins, block or support the sections, and keep everyone out from under them and out of their path if they move. | — *(Engineer addition)* | E; R (1926.1404, paragraph not verified) |
@@ -514,6 +536,15 @@ Relationship conditions are evaluated on the task description (Package 001–003
 | C-000516 | Use non-conductive tag lines where tag lines are used near power lines. | — *(Engineer addition)* | E; R (1926.1408(b)(2), verified) |
 | C-000517 | Verify long, flexible or partially assembled loads have the temporary bracing or lifting arrangement needed to keep them from buckling or breaking during the lift. | — *(Engineer addition)* | E; BP |
 | C-000518 | Use blocks and sheaves sized for the rope, reeve them as the manufacturer or lift plan requires, and account for the higher load on a snatch block's anchorage. | — *(Engineer addition)* | E; C; M |
+| C-000519 | At a mine, attach tag lines to suspended loads that may need steadying or guidance. | — *(Architect Response 001)* | AR-001; R (30 CFR 56.16007(a), 77.210(c), verified) |
+| C-000520 | Position tag-line handlers clear of the fall zone, pinch points and the load's path, where they can let go if the load moves unexpectedly. | — *(Architect Response 001)* | AR-001; BP |
+| C-000521 | Verify end stops or other end-of-travel protection keep the trolley or hoist from running off the beam. | — *(Architect Response 001)* | AR-001; C; M |
+| C-000522 | Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and within the number of members the applicable requirements allow. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(1), verified) |
+| C-000523 | Use a multiple-lift rigging assembly with a certified maximum capacity for the total assembly and for each attachment point, and keep the total load within both the rigging rating and the crane's rated capacity. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(2)–(3), verified; safety factor not placed in user-facing text) |
+| C-000524 | Only personnel trained in multiple-lift procedures take part in a multiple lift. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(1)(iv), verified) |
+| C-000525 | Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and keep the required spacing between members so they cannot contact each other. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(4), verified; spacing value not placed in user-facing text) |
+| C-000526 | Set the members from the bottom up in the planned sequence, keeping connectors clear of the remaining suspended members. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(5), verified) |
+| C-000527 | Use controlled load lowering whenever the load is over the connectors. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(6), verified) |
 
 Basis tags: R regulatory (verification status in the Engineer review §4) · C consensus standard · M manufacturer · BP recognized practice · PO needs a Product Owner decision · E Engineer addition. No basis tag or citation appears in user-facing text.
 
@@ -695,23 +726,25 @@ These implement candidate §6 and the Engineer findings. None is implemented.
    - **Tower cranes:** take the power-line, swing-area and stability records. Ground records apply only where set-up is described.
    - **Overhead bridge, gantry, jib and monorail cranes and hoists:** none of the ground, outrigger, counterweight or power-line records (§6).
    - **Chain falls, lever hoists, come-alongs, Tirfor-type devices and winches:** H-RH-060, H-RH-023 and H-RH-075 by their use.
-5. **Power lines.** H-RH-044 is *Explicit* when lines are named. It is *Conditional* for any mobile, boom-type or tower crane operation with no lines named, because a work-zone assessment for power lines is required before every equipment operation (1926.1408(a), verified). It also applies to traveling equipment without a load (1926.1411). It is not presented for bridge cranes or hoists.
+5. **Power lines** *(revised r2, Architect Response 001)*. The work-zone **assessment** is distinguished from confirmed **exposure**. For mobile, boom-type and tower crane operations, H-RH-044 is presented *Conditional* with the assessment control only (C-000476), unless the context establishes that no overhead lines are present. When overhead power lines are identified, H-RH-044 is *Explicit*, ranked first, and the clearance, de-energizing, stop and emergency controls are added. Bridge, gantry and jib crane operations take none of the mobile-crane clearance controls; their own electrical exposures (runway conductors, festoons, pendant controls, maintenance on energized crane circuits) keep the existing electrical records.
 6. **Pulling vs. lifting.** A come-along, winch or Tirfor-type device used to pull horizontally takes H-RH-023 and H-RH-060, not suspended-load records. Using a pulling-only device for an overhead lift takes H-RH-075 first.
 7. **Clamp roles** (extends the Package 003 distinction):
    - **Lifting clamps gripping the load** (plate, beam, pipe and drum clamps): H-RH-063, with C-000407 and the clamp-selection controls.
-   - **Overhead beam clamps or trolleys used to hang a hoist:** H-RH-060, with C-000406 and C-000407.
+   - **Overhead beam clamps or trolleys used to hang a hoist:** H-RH-060, with structure capacity and loading direction (C-000489, C-000437), attachment compatibility and disengagement (C-000406), inspection (C-000407) and end-of-travel protection for trolleys and monorails (C-000521) *(r2)*.
    - **Fall protection anchorage connectors:** unchanged — H-DF-042 to H-DF-044.
    - **Clamp hardware for hangers and supports:** fastening only.
    A task naming more than one role keeps all applicable records.
 8. **Process equipment.** Lifting new fabricated pipe spools, pumps or vessels takes no process-isolation or process-contents records (P3-U17). Removing *existing* process equipment, or any task with process-system context, adds H-RH-071 with C-000242 and C-000243.
 9. **Vessels.** Lifting, tailing or upending a vessel is not vessel entry. Confined-space entry records require entry cues.
 10. **Multiple lifting devices.** Tandem, two-crane, tailing-crane and hoist-to-hoist transfers take H-RH-056 first and the load-share controls.
-11. **Personnel hoisting.** Only explicit terms: personnel platform, man basket, crane basket, work basket on the hook, "hoist personnel". Crane use alone does not establish it. MEWPs and forklift-mounted work platforms are not crane-suspended platforms (§6).
+11. **Personnel hoisting** *(revised r2)*. Recognition and H-RH-073 / H-RH-074 are retained. Only C-000504 (restriction — not presented for steel erection, which is evaluated separately) and C-000505 (platform) are presented. C-000506 to C-000511 are **withheld** pending validation. Independently applicable controls (fall zone, communication, crane stability, power lines) still apply. Nothing presented implies the personnel lift is authorized.
 12. **Critical and complex lifts.** Explicit terms (critical lift, engineered lift, tandem, near power lines, over occupied areas) rank H-RH-032 and the plan and supervision controls. No percentage-of-capacity threshold is used (§6).
-13. **Tag lines.** Tag-line controls attach to H-BT-014, H-RH-046 and H-RH-022 where the load needs steadying, not to every lift. H-RH-022 is presented when tag lines, ropes or hand-guiding are named. Near power lines the non-conductive control is added. On MSHA-regulated sites tag lines are required where a suspended load needs steadying or guidance (30 CFR 56.16007(a), verified) — see review E-2 and PO decision 5.
+13. **Tag lines** *(revised r2)*. There is no universal tag-line requirement. On a mine site (mine, quarry, pit operations, or the task naming MSHA), C-000519 is presented for suspended loads that may need steadying or guidance. Tag-line use adds the entanglement (H-RH-022), handler-position (C-000520), non-conductive (near identified lines) and recoil considerations.
 14. **Independent exposures preserved.** Electrical, fall, hot work, excavation, confined-space, chemical and process records apply on their own cues and are never suppressed because rigging is the primary activity (§6).
 15. **Landing and release.** Land, set, place, rest and secure take H-RH-018, H-RH-069 and H-BT-015. Removing, releasing or unhooking rigging takes H-BT-015 and H-RH-023, never demolition records.
 16. **Assembly and disassembly.** "Assemble", "erect", "dismantle" or "disassemble" a crane, or counterweight installation, takes H-RH-039 first, never demolition or entertainment-rigging records.
+17. **Multiple-lift rigging** *(r2)*. Christmas-treeing, multiple-lift rigging assemblies and multiple-member steel lifts take H-RH-076 first, with C-000522 to C-000527. They also take H-BT-014 (personnel beneath the remaining suspended members), C-000037 (premature release) and C-000031 (stability of members already placed). A tandem or two-crane lift (H-RH-056) and a single load on a multi-leg sling (H-RH-003) are not multiple lifts. Multiple lifts of members other than beams and similar structural members are recognized, and C-000522 states the restriction.
+18. **More protective requirement** *(SIL PO Decision 007)*. Where regulatory, manufacturer and project or client requirements overlap, the controls defer to the more protective one. No Adena-specific threshold or definition is introduced.
 
 ## 8. Ranking (candidate §7)
 
@@ -729,8 +762,9 @@ These implement candidate §6 and the Engineer findings. None is implemented.
 | Snagged load | H-RH-054 |
 | Pulling-only device used to lift | H-RH-075 |
 | Crane assembly or disassembly | H-RH-039 |
+| Christmas-treeing / multiple-lift rigging | H-RH-076 |
 
-Consequence class 3 (highest) is proposed for H-RH-002, 029, 030, 039, 041, 044, 056, 063, 066, 071, 073, 074 and 075, and for H-BT-014 / H-BT-015. Class 2 is proposed for the rest. The initial suggestion count, Show More, no padding and no automatic selection are unchanged.
+Consequence class 3 (highest) is proposed for H-RH-002, 029, 030, 039, 041, 044, 056, 063, 066, 071, 073, 074, 075 and 076, and for H-BT-014 / H-BT-015. Class 2 is proposed for the rest. The initial suggestion count, Show More, no padding and no automatic selection are unchanged.
 
 ## 9. Legacy library — proposed supersession and collision corrections
 
@@ -774,3 +808,19 @@ Consequence class 3 (highest) is proposed for H-RH-002, 029, 030, 039, 041, 044,
 ## 10. Scheduled corrections carried with Package 004 (§11)
 
 A3-U1 (legacy signed JSA document integrity), P3-U17 (pipe-spool fabrication), P3-U18 (sharp-metal control applicability) and P3-U19 (non-torch roofing) keep their approved requirements (`SIL-UNRESOLVED-REGISTER.md`). Regression scenarios 12, 2, 3, 22 and N-series cover the Package 004 interaction with P3-U17 and P3-U18.
+
+## 11. r2 — Architect Response 001 and SIL PO Decision 007
+
+`SIL-PKG-004-ARCHITECT-RESPONSE-001.md` and `SIL-PO-DECISION-007.md` are preserved verbatim.
+
+| Disposition | r2 change |
+|---|---|
+| Reconciliation approach accepted; record-level acceptance pending, with P-1 to P-5 | No change. P-1 to P-5 stay proposed. |
+| Electrical: assessment vs. exposure | §7.5. Clearance controls on H-RH-044 apply only when lines are identified. *Conditional* for mobile, boom-type and tower crane operations unless the context establishes no lines. None of these on bridge cranes. |
+| Tag lines: MSHA requirement; no universal requirement; conductivity, entanglement, recoil, positioning, effectiveness | C-000519 (mine sites) and C-000520 (handler position). §7.13. |
+| Four clamp applications accepted; hoist-support clamps and trolleys | H-RH-060 retitled to include unintended travel. C-000406, C-000407 and C-000521 (end-of-travel) attached. C-000489 reworded to capacity and loading direction. §7.7. |
+| Multiple-lift rigging added | New record H-RH-076 and controls C-000522 to C-000527. Numeric limits verified against 1926.753(e) by the Engineer but kept out of user-facing text. §7.17. |
+| Personnel hoisting: retain recognition, withhold unvalidated controls, no implied authorization, steel erection separate | C-000506 to C-000511 withheld. C-000504 not presented for steel erection. §7.11. |
+| 20 production defects accepted, subject to crosswalk review; A3-U1 and P3-U17 to P3-U19 preserved | No change. |
+| 12 additional regression scenarios | `SIL-PKG-004-REGRESSION.md` §D |
+| SIL PO Decision 007: no Adena-specific requirements; follow the more protective requirement; no unsupported thresholds | No policy records. Rewording: C-000425 (lift plan), C-000430 (supervision) and C-000483 (lightning) defer to applicable requirements. §7.18. |

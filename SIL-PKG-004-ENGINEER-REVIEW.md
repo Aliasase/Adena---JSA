@@ -1,6 +1,6 @@
 > **Repository Record (AD-008 §6):** Engineer independent review of the SIL-PKG-004 candidate (Rigging and Hoisting), November 26, 2026. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
 
-# SIL-PKG-004 — Engineer Review (r1)
+# SIL-PKG-004 — Engineer Review (r1, with r2 addendum §8)
 
 **Candidate:** `SIL-PKG-004.md` (Architect, Candidate 1.0) · **Baseline:** v1.4.1-p1 · **Reviewer:** Claude (Engineer) · **Scope:** review and reconciliation only (candidate §12)
 
@@ -112,3 +112,49 @@ None is assumed. No Adena policy record is created from industry practice (candi
 - The scheduled corrections A3-U1 and P3-U17 to P3-U19.
 
 Nothing has been implemented, built or deployed. Production stays v1.4.1-p1, and the training address serves v1.4.1-p1.
+
+## 8. r2 addendum — Architect Response 001 and SIL PO Decision 007
+
+Both are preserved verbatim: `SIL-PKG-004-ARCHITECT-RESPONSE-001.md` and `SIL-PO-DECISION-007.md`. The r2 changes are listed in `SIL-PKG-004-RECONCILED.md` §11.
+
+**Multiple-lift requirements, verified by the Engineer against 1926.753(e) on November 26, 2026** (osha.gov, Cornell LII, 2006 CFR via govinfo archive):
+
+| Provision | Requirement | In user-facing text |
+|---|---|---|
+| (e)(1) | Use a multiple-lift rigging assembly. Maximum of five members per lift. Only beams and similar structural members. Personnel trained per 1926.761(c)(1). Crane use not contrary to the manufacturer's specifications. | C-000522, C-000524 — the member count is not stated |
+| (e)(2) | Assembly components specifically designed, with a maximum capacity for the total assembly and for each attachment point. Certified by the manufacturer or a qualified rigger, based on the manufacturer's specifications with a 5 to 1 safety factor. | C-000523 — safety factor not stated |
+| (e)(3) | Total load within the hoisting equipment load chart and the rigging rating chart. | C-000523 |
+| (e)(4) | Members attached at their center of gravity and kept reasonably level. Rigged from the top down. At least 7 ft (2.1 m) apart. | C-000525 — spacing not stated |
+| (e)(5) | Members set from the bottom up. | C-000526 |
+| (e)(6) | Controlled load lowering whenever the load is over the connectors. | C-000527 |
+
+**Outside steel erection.** An OSHA interpretation (2009) treats multiple-lift rigging of other members, such as precast, as effectively prohibited. It cites former 1926.550(a)(19); the current Subpart CC equivalent was not verified in this review. Rule §7.17 recognizes such tasks, and C-000522 states that multiple lifts are limited to beams and similar members.
+
+**Status of earlier findings:**
+
+| Finding | r2 status |
+|---|---|
+| E-2 MSHA tag lines | Resolved by Architect Response 001. C-000519 is presented on mine sites; there is no universal requirement. |
+| E-3 Power lines | Resolved. The assessment is distinguished from exposure; clearance controls apply only when lines are identified (§7.5). |
+| E-4 Personnel hoisting | Resolved. C-000506 to C-000511 are withheld; C-000504 and C-000505 are presented; C-000504 is not presented for steel erection. Steel erection is evaluated separately (P4-U8). |
+| E-5 Clamp roles | Four applications accepted. Hoist-support controls are completed (C-000406, C-000407, C-000437, C-000489, C-000521). P-4 still needs record-level acceptance. |
+| E-9 Multiple lifts | Resolved in r2 by H-RH-076 and C-000522 to C-000527. |
+| §5 decisions 1–8 | Resolved by SIL PO Decision 007: no Adena-specific requirements. |
+| §5 decision 9 | Resolved by Architect Response 001 (withhold). |
+| §5 decision 10 | Resolved: mine sites are recognized from task context. A task at an MSHA site that doesn't say so gets the general tag-line rule. |
+
+**Counts in r2:**
+- **Hazard IDs:** 76 registered on validation (39 active, 37 retired).
+- **Proposed controls:** 109 (C-000419 to C-000527). 6 are Engineer additions, 9 come from Architect Response 001, and 6 are withheld.
+- **Regression:** 79 scenarios.
+
+**Still pending:**
+- record-level Architect acceptance (P4-U2)
+- the proposed changes P-1 to P-5 (P4-U3)
+- personnel-hoisting validation (P4-U4)
+- unverified references (P4-U5)
+- steel-erection personnel hoisting (P4-U8)
+- multiple lifts outside steel erection (P4-U9)
+- review of the production crosswalk (Architect Response 001)
+
+No implementation or deployment is authorized.
