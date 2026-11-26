@@ -61,6 +61,19 @@ unless a revision package specifically directs otherwise:
 | A-4 dev v1.4.1-dev4 | **Test build only (not production).** Approved by the Architect disposition of dev4; deployed to the `revision-a4` Netlify branch preview only. Architect supplemental directive: temporary fall protection anchorage connectors — new hazards H-DF-042 to H-DF-044 (100 active), new controls C-000408 to C-000418 (412 in the app). CACHE_NAME `adena-jsa-v1.4.1-dev4`. See `SIL-ENGINE-v1.4.1.md` §9. Production remains v1.4.0-p1. | 1.4.1-dev4 |
 | A-4 p1 v1.4.1-p1 | **Phase A-4 production release — Package 003** (PO-009). The PO-accepted v1.4.1-dev4 build (`5c53b81`) was promoted unchanged. Only the release identifiers changed: APP_BUILD `p1`, CACHE_NAME `adena-jsa-v1.4.1-p1`, header status comment. Library: 122 hazard IDs (100 active, 22 retired), 418 controls (412 in the app; six RCSC withheld), 10 policies. Package 003 implementation and field acceptance complete; Phase A-4 remains open. Rollback baseline v1.4.0-p1 (`76ac7c7`). See `SIL-ENGINE-v1.4.1.md` §10. | 1.4.1-p1 |
 
+## Approved Development Baseline
+
+**v1.4.1-p1** (`54a2199`, merged to main as `6557a04`) is the approved baseline for subsequent development (Architect disposition of the PO-009 release closure, November 26, 2026; `SIL-ARCHITECT-DISPOSITION-PO-009-CLOSURE.md`).
+
+- Package 003 implementation and field acceptance are complete. Phase A-4 remains open.
+- **Environment rule (PO, November 26, 2026):**
+  - The Netlify training/testing environment advances through development builds on `revision-a4`.
+  - GitHub Pages (`main`) stays on the latest approved production release.
+  - When a development build is approved for production, both environments are synchronized to it.
+- **Environment separation:** production (`aliasase.github.io`) and Netlify (`*.netlify.app`) are different origins. Active JSA storage (`localStorage`) and service worker caches are therefore held separately by the browser.
+- **Recorded for the next authorized development cycle:** recognition defects P3-U17 to P3-U19 (`SIL-UNRESOLVED-REGISTER.md`).
+- **Package 004:** awaits the Architect's SIL-PKG-004 candidate library.
+
 ## Production Baseline Tags
 
 | Tag | Commit | Release | Status |

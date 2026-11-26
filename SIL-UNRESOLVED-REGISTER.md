@@ -2,7 +2,8 @@
 
 # Safety Intelligence Library — Consolidated Unresolved Register
 
-**Status at the v1.4.1-p1 production release (November 26, 2026, PO-009):** 9 carried open (Packages 001–002) · 4 open and 1 deferred (P3-U16) from Package 003 · closed in Package 003: 13 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U13, U14, U15). Package 003 implementation and field acceptance are complete (PO-009); Phase A-4 remains open.
+**Status at the v1.4.1-p1 production release (November 26, 2026, PO-009):** 9 carried open (Packages 001–002) · 4 open and 1 deferred (P3-U16) from Package 003 · 3 recognition defects recorded for the next authorized development cycle (P3-U17 to P3-U19, Architect disposition of the PO-009 release closure) · closed in Package 003: 13 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U13, U14, U15). Package 003 implementation and field acceptance are complete (PO-009); Phase A-4 remains open.
+**Correction rule for P3-U17 to P3-U19:** preserve cumulative applicability — where the task establishes several work methods or exposures (e.g. fabricating a spool and then breaking an existing process flange; cutting steel; torch-applied and adhered roofing in one task), every applicable relationship still applies.
 Resolved items from earlier packages stay recorded in their package files. "Verified (Engineer, …)" records the Engineer's check of a source; it is not Architect validation (Architect Response 005 §13).
 
 ## Open — carried from Packages 001 and 002
@@ -28,6 +29,9 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 | P3-U11 | OSHA-GI and MSHA (Parts 56, 62) equivalents for drilling, PAT and nailers | Architect |
 | P3-U12 | Retrieve and review the OSHA interpretation on gas-actuated tool training under 1926.302(e). Equipment-specific instruction is kept regardless (C-000405). | Architect |
 | P3-U16 | **Deferred library expansion** (Architect disposition of ED-6, November 26, 2026): foundation, geotechnical and surface-mining drill-rig operations. A bare "drill rig" step returns no hazards in v1.4.1; existing production drilling and mining coverage is preserved. Recorded only — not authorization to develop the package. | Architect / PO |
+| P3-U17 | **Recognition defect** (Architect disposition, PO-009 release closure): distinguish pipe-spool fabrication from existing process-piping work. Shop or field fabrication of new spools ("pipe spool", flange fit-up on new pipe) must not establish in-service process hazards or line-break / depressurization controls without process-system context. | Engineer (next authorized development cycle) |
+| P3-U18 | **Recognition defect** (Architect disposition, PO-009 release closure): sharp-metal exposure (H-BT-002, "Sharp edges on steel") must not independently trigger cutting-tool controls (line of cut, blades, cutting zone). Cutting-tool controls require a cutting activity in the task. | Engineer (next authorized development cycle) |
+| P3-U19 | **Recognition defect** (Architect disposition, PO-009 release closure): non-torch roofing methods (e.g. TPO, EPDM, mechanically fastened or adhered systems) must not automatically trigger torch and hot-kettle hazards. Torch and kettle hazards require torch-applied, hot-mopped, built-up or kettle work in the task. | Engineer (next authorized development cycle) |
 
 ## Closed
 
