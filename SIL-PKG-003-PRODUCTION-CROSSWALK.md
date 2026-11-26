@@ -1,23 +1,24 @@
-> **Repository Record (AD-008 §6):** Candidate crosswalk for Package 003, revision r1. Not approved. Nothing in production is changed by this document (SIL PO Decision 005 §6).
+> **Repository Record (AD-008 §6):** Candidate crosswalk for Package 003, revision r2 (Architect Response 005 §3 accepted with conditions). Not approved. Nothing in production is changed by this document (SIL PO Decision 005 §6).
 
-# SIL-PKG-003 — Production Record Crosswalk (r1)
+# SIL-PKG-003 — Production Record Crosswalk (r2)
 
 **Production baseline:** v1.4.0-p1, commit `76ac7c7` (legacy library `TASK_TO_HAZARD` T*n* / `HAZ_TO_CONTROL` H*n* / controls C*n*, as exported in `A4-LIBRARY-EXPORT.md`).
 **Rules carried from Packages 001–002:**
 - A supersession stands only if the canonical record is at least as broad as the production string.
 - The canonical record inherits every production relationship (task-entry keywords), with that relationship's own applicability, except where a collision rule (§B) removes a false relationship.
 - **Split supersession:** where one production string combines several mechanisms, every listed canonical record supersedes it and inherits the relationship.
+- **AR-005 §3 conditions:** consequence strings (rows 1, 4, 15) are retained until their mechanisms are fully represented; valid legacy relationships outside the reviewed scope are preserved; **contradictory or less protective legacy controls are not shown alongside their approved replacements** (§D); the duplicate flying-debris suggestions (rows 2, 12, 20) resolve to H-HW-029.
 - A production string that names a **consequence** rather than a mechanism ("Hand injury") is not superseded by a single record. It is retained until the Architect decides.
 
 ---
 
-## A. Production hazard strings — supersession proposals (P3-U4)
+## A. Production hazard strings — supersession (accepted with conditions, AR-005 §3)
 
 | # | Production entry | Production string | Proposed canonical | Applicability correction | Disposition |
 |---|---|---|---|---|---|
 | 1 | T2 Drilling / Fastening / Anchoring | Puncture hazard | — | — | **Retain** — ambiguous (bit, swarf or fastener). Architect to decide. |
 | 2 | T2 | Flying debris / chips | H-HW-029 | — | Supersede |
-| 3 | T2 | Eye injury | H-HW-029 | — | Supersede — consequence string, but T2's only eye mechanism is flying chips |
+| 3 | T2 | Eye injury | H-HW-029 | **Within the reviewed T2 drilling relationship only** | Supersede — T2's only eye mechanism is flying chips; any other relationship keeps the string (AR-005 §3) |
 | 4 | T2 | Hand injury | — | — | **Retain** — consequence, several mechanisms |
 | 5 | T2 | Rotating equipment entanglement | H-BT-010 | — | Supersede |
 | 6 | T2 | Kickback / torque reaction | H-BT-004 | — | Supersede |
@@ -33,7 +34,7 @@
 | 16 | T10 Concrete / Masonry | Respirable silica exposure | H-DF-017 | — | Supersede |
 | 17 | T10 | Skin irritation and chemical burns from cement | H-DF-022 | Wet cementitious work | Supersede |
 | 18 | T10 | Slurry slip hazard | H-DF-021 | — | Supersede |
-| 19 | T10 | Dust inhalation | — | — | **Retain** — for concrete this is silica (row 16); not H-DF-018 |
+| 19 | T10 | Dust inhalation | — | — | **Retain** — concrete dust is kept where material composition is uncertain (AR-005 §3); not H-DF-018 |
 | 20 | T21 Noise / Vibration | Flying debris from vibrating tool | H-HW-029 | — | Supersede — **resolves the AD-009 known limitation** (near-duplicate beside H-HW-029) |
 | 21 | T21 | Vibration exposure (hand-arm) | H-BT-020 | — | Supersede |
 | 22 | T21 | Noise-induced hearing damage | H-BT-019 | — | Supersede |
@@ -50,7 +51,7 @@ T10 "Vibration exposure from jackhammer", T17 / T38 "Silica and dust exposure" a
 | T2 | anchor | Inspect / check an existing anchor must not establish drilling (F-7). |
 | T2 | fastener, bolt installation | Overlap with Package 001 bolting kept; no change. |
 | T2 | tapcon | Brand → concrete screw installation only. |
-| T3 | hilti gun, ramset, deck gun | Hilti gun and Ramset → powder-actuated; deck gun ambiguous, PAT only with other PAT cues (SIL PO Decision 006 §3). |
+| T3 | hilti gun, ramset, deck gun | "Hilti gun" and "Ramset gun" → powder-actuated; standalone "ramset" needs PAT fastening context (production key to be narrowed); deck gun ambiguous, PAT only with other PAT cues (SIL PO Decision 006 §3; AR-005 §5). |
 | T3 | nail gun | Does not establish pneumatic operation. |
 | T3 | gas nailer | Gas-actuated: not oxy-fuel, not hot work. |
 | T5 Crane Operations | boom | "Boom lift" must not establish crane operations (F-4). |
@@ -64,9 +65,9 @@ T10 "Vibration exposure from jackhammer", T17 / T38 "Silica and dust exposure" a
 
 ---
 
-## C. v1.4.0-p1 behaviors found by the candidate scenarios (P3-U13)
+## C. v1.4.0-p1 behaviors found by the candidate scenarios (P3-U13 — accepted, AR-005 §14)
 
-Each was observed by running the scenario text through the production engine (`getSuggestions('hazard', …)`, November 26, 2026). For correction at implementation only.
+Each was observed by running the scenario text through the production engine (`getSuggestions('hazard', …)`, November 26, 2026). Accepted as application recognition and applicability defects, for correction at the authorized implementation. **Corrections must be phrase-scoped, contextual and cumulative — no global keyword exclusions** (AR-005 §14; regression D-10).
 
 | # | Scenario | Observed in v1.4.0-p1 | Correct behavior |
 |---|---|---|---|
@@ -95,10 +96,11 @@ Each was observed by running the scenario text through the production engine (`g
 |---|---|---|---|
 | C5 (silica) | "Follow site silica exposure control plan" | C-000319 | Equivalent — supersede |
 | C5 | "Avoid dry sweeping — use wet methods or HEPA vacuum" | C-000318 | Equivalent — supersede |
-| C5 | "Use wet cutting or grinding methods where feasible" | C-000315 | Related, **not** equivalent ("where feasible" is weaker than a specified Table 1 method) — retain for non-drilling tasks |
+| C5 | "Use wet cutting or grinding methods where feasible" | C-000315 | Related, **not** equivalent ("where feasible" is weaker than a specified Table 1 method). **Not shown where H-DF-017 applies to drilling** (AR-005 §3); retained for other tasks |
 | C5 | "Use HEPA vacuum attachment on grinders and saws" | C-000315, C-000317 | Related — retain for grinders and saws |
 | C5 | "Review SDS for silica content of material before work" | C-000314 | Related — retain |
 | C5 | "Maintain good housekeeping to prevent dust accumulation" | C-000318 | Related — retain |
 | C4 (debris) | "Wear approved safety glasses…", "Use face shield…" | C-000054, C-000055 | Already equivalent (Package 001) |
 | C6 (chemical) | "Review SDS…", "Wear chemical-resistant gloves…", "Wear eye and face protection for splash or mist exposure" | C-000334, C-000335, C-000331 | Equivalent **for anchor adhesives only** — C6 lines stay for other chemicals |
 | C15 (slip) | "Clean spills promptly and mark wet areas" | C-000065 | Already equivalent |
+| C3 (cut) | "Wear proper cut-resistant gloves appropriate for the task" | C-000276 | **Contradictory** at the spindle — not shown for the exposed rotating-machinery operation; retained for handling steps (AR-005 §3–§4) |
