@@ -48,7 +48,7 @@
 
 ## Package 003 policy relationships (candidate)
 
-- **P-000001 at exposed rotating machinery — pending PO decision (P3-U1).** At a drill press or other exposed rotating spindle, chuck or bit, gloves can be caught and pull the hand in. Proposed precedence: C-000276 ("Do not wear gloves at an exposed rotating spindle…") presents in place of C-000004 for that step; P-000001 continues to apply to handling the steel before and after drilling. **Not applied until the PO decides.**
+- **P-000001 at exposed rotating machinery — decided, SIL PO Decision 006 §1 (P3-U1 closed).** At a drill press or other exposed rotating spindle, chuck or bit, gloves can be caught and pull the hand in. Precedence: C-000276 ("Do not wear gloves at an exposed rotating spindle…") presents in place of C-000004 for that step; P-000001 continues to apply to handling the steel before and after drilling.
 - **P-000002** applies to drilling or fastening during demolition, knife use and stainless steel lath. Stainless steel alone does not establish lath.
 - **P-000006 to P-000008** — drilling and mechanical fastening are not hot work. Powder- and gas-actuated fastening are not hot work absent an ignition exposure or project requirement. Cumulative where the task also welds, cuts or grinds.
 - **P-000009** is not extended to drilling or fastening.

@@ -18,7 +18,7 @@ Baseline evidence: every §A scenario was also run against v1.4.0-p1; observed d
 | A-4 | Core drill post-tensioned slab | H-DF-015 (C-000306, C-000307), H-DF-012, H-DF-017 | — |
 | A-5 | Mag drill holes in vertical column | H-DF-010 (C-000107, C-000291), H-BT-018 | Magnetic lifting; silica |
 | A-6 | Mag drill holes overhead in beam flange | H-DF-010 ranked high, H-BT-032, H-BT-018 (H-BT-017 only with an elevation cue) | Process piping (F-3) |
-| A-7 | Drill press small steel brackets | H-BT-010, H-HW-031 (C-000218), H-BT-021 (C-000284 conditional) | C-000004 and C-000276 together — **pending P3-U1** |
+| A-7 | Drill press small steel brackets | H-BT-010 with C-000276, H-HW-031 (C-000218), H-BT-021 (C-000284 conditional) | C-000004 at the spindle (replaced by C-000276 — SIL PO Decision 006 §1) |
 | A-8 | Install wedge anchors in concrete | H-DF-024, H-DF-017, drilling records | H-DF-023 |
 | A-9 | Install adhesive anchors overhead | H-DF-023, H-DF-024 [if adhesive] (C-000343, C-000345), H-BT-032, H-DF-017 | Coating records (F-6) |
 | A-10 | Install fall protection anchor in structural concrete | H-DF-026, H-DF-024, H-BT-013 [structural], H-DF-017 | — |
@@ -75,17 +75,17 @@ Baseline evidence: every §A scenario was also run against v1.4.0-p1; observed d
 | C-3 | Directional bore under road for conduit | Excavation / utility records | ACT-0017 drilling records |
 | C-4 | Drill blast holes with drill rig | Production T39 surface mining | Handheld drilling records |
 | C-5 | Hot tap process line | C-000241 (Package 002) | Thread tapping |
-| C-6 | Shoot pins into deck with Hilti gun | PAT records if P3-U6 accepts the term; otherwise fastening context only | — |
-| C-7 | Deck gun | Nothing established alone (P3-U6) | PAT records |
+| C-6 | Shoot pins into deck with Hilti gun | H-DF-027, H-DF-028, H-DF-029; C-000354 (SIL PO Decision 006 §3) | — |
+| C-7 | Deck gun | Nothing established alone (SIL PO Decision 006 §3) | PAT records |
 | C-8 | Drill holes in beam flange from boom lift | H-DF / drilling, H-BT-017 lift | Process piping (F-3); crane (F-4) |
 | C-9 | Drill concrete with hammer drill | H-DF-017, H-BT-020 | H-BT-029, H-BT-030 (F-2) |
 | C-10 | Core drill PT slab | H-DF-015 | — |
 | C-11 | PT session after shift | — | H-DF-015 |
 | C-12 | Hot rivet structural connection | Heating / hot work (P3-U8) | — |
 | C-13 | Install structural rivets with lockbolt tool | Fastening records | Hot work |
-| C-14 | Drill press steel brackets wearing gloves | Per P3-U1 decision | Contradictory glove guidance |
+| C-14 | Drill press steel brackets wearing gloves | C-000276; P-000001 for handling the steel | C-000004 at the spindle (SIL PO Decision 006 §1) |
 | C-15 | Fasten metal track with screw gun | Fastening records | Drywall silica (F-14) |
-| C-16 | Clean drilled holes with compressed air | H-DF-040 (C-000391); silica housekeeping (C-000318) with a silica cue | C-000392 until P3-U5 decided |
+| C-16 | Clean drilled holes with compressed air | H-DF-040 (C-000391, C-000392); silica housekeeping (C-000318) with a silica cue | — |
 | C-17 | Wet core through slab above occupied office | H-DF-012, H-DF-021 runoff (C-000328) | — |
 | C-18 | Charge cordless drill batteries | H-DF-039 (C-000384) | — |
 | C-19 | Annular cutter on mag base drilling plate | H-DF-010 | Magnetic lifting |

@@ -2,7 +2,7 @@
 
 # Safety Intelligence Library — Consolidated Unresolved Register
 
-**Status at P003 r1 (November 26, 2026):** 9 carried open (Packages 001–002) · 13 new (Package 003) · 1 closed this revision (P2-U16).
+**Status at P003 r1.1 (November 26, 2026):** 9 carried open (Packages 001–002) · 10 open from Package 003 · closed this revision: P2-U16 (SIL PO Decision 005), P3-U1, P3-U5, P3-U6 (SIL PO Decision 006).
 Resolved items from earlier packages stay recorded in their package files.
 
 ## Open — carried from Packages 001 and 002
@@ -23,12 +23,9 @@ Resolved items from earlier packages stay recorded in their package files.
 
 | # | Item | Owner |
 |---|---|---|
-| P3-U1 | **Gloves at exposed rotating spindles vs. P-000001.** C-000276 ("Do not wear gloves at an exposed rotating spindle…") conflicts with C-000004 for steel work at a drill press. Proposed precedence in `SIL-POLICY-REGISTRY.md`. Held until decided. | PO |
 | P3-U2 | Accept the 12 proposed text generalizations (T-1 to T-12): 8 hazards, 4 controls | Architect |
 | P3-U3 | Accept the 18 consolidations — notably H-DF-004 → H-BT-021 (not H-BT-006), H-DF-025 → H-DF-024, H-DF-033 → H-DF-028, H-DF-040 split | Architect |
 | P3-U4 | Production supersession proposals (Crosswalk §A rows 1–23, §D) — including the retained consequence strings ("Puncture hazard", "Hand injury", "Hand and foot injury") | Architect |
-| P3-U5 | **Numeric user-facing text:** C-000392 — compressed air for cleaning reduced below 30 psi (1926.302(b)(4), verified). Include as written, or withhold the number. | PO |
-| P3-U6 | PAT field vocabulary: "Hilti gun", "Ramset", "shoot / shot pins" (PAT recognition?) and "deck gun" (currently ambiguous) | PO |
 | P3-U7 | Adhesive anchors installed overhead or upwardly inclined under sustained tension — additional design and installer requirements (ACI 318, unverified) | Architect |
 | P3-U8 | Hot structural riveting as hot work (heated rivets) vs. cold structural fasteners | Architect |
 | P3-U9 | Electromagnetic-field exposure near induction heating equipment (implanted medical devices) — scope for a record | Architect |
@@ -41,4 +38,7 @@ Resolved items from earlier packages stay recorded in their package files.
 
 | # | Item | Resolution |
 |---|---|---|
+| P3-U1 | Gloves at exposed rotating spindles vs. P-000001 | **Closed** — SIL PO Decision 006 §1: C-000276 presents in place of C-000004 at an exposed rotating spindle, chuck or bit; P-000001 continues for handling the steel before and after. |
+| P3-U5 | 30 psi cleaning air in user-facing text | **Closed** — SIL PO Decision 006 §2: C-000392 user-facing as written (1926.302(b)(4), verified). |
+| P3-U6 | PAT field vocabulary | **Closed** — SIL PO Decision 006 §3: "Hilti gun", "Ramset", "shoot pins", "shot pins" establish powder-actuated work; Hilti or Ramset alone does not; "deck gun" stays ambiguous (PAT only with other PAT cues). |
 | P2-U16 | Induction and resistance heating as hot work | **Closed** — SIL PO Decision 005 §2: hot work when the process creates an ignition hazard; conditional when ignition potential can't be established; thermal, electrical and equipment hazards independent. Implementation rule: `SIL-PKG-003-RECONCILED.md` §3.2. |

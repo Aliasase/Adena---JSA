@@ -63,7 +63,7 @@ Next available: **C-000394**. Retired: none.
 | T-11 | C-000019 | Move heavy tool heads, tensioners and pumps with a handling method rated for their weight, configuration and access — do not climb carrying them | Move heavy tool heads, tensioners, pumps and core drill rigs with a handling method rated for their weight, configuration and access — do not climb carrying them |
 | T-12 | C-000020 | Rotate tasks or workers on long bolting or impact runs to limit exposure | Rotate tasks or workers on long bolting, impact, drilling or fastening runs to limit exposure |
 
-**P003 r1 controls pending a PO decision** (written, not implementable until decided): C-000276 (P3-U1, gloves at rotating spindles vs. P-000001); C-000392 (P3-U5, numeric 30 psi).
+**P003 r1.1:** C-000276 and C-000392 were held pending PO decisions; both were cleared by SIL PO Decision 006 (P3-U1, P3-U5).
 
 ## Registry
 
@@ -344,7 +344,7 @@ Next available: **C-000394**. Retired: none.
 | C-000273 | Keep hands off turning bits, cutters and chucks — never guide or steady a turning bit by hand. | H-BT-010 (P003: H-DF-001) [if drill] | — | BP; Mfr | P003 r1: new |
 | C-000274 | Let the bit or cutter stop turning before touching it, the chuck or the workpiece. | H-BT-010 (P003: H-DF-001) [if drill] | — | BP; Mfr | P003 r1: new |
 | C-000275 | Remove jewelry and secure long hair before using a drill or other rotating tool. | H-BT-010 (P003: H-DF-002) [if drill] | — | BP; OSHA-GI 1910.212 general machine guarding principle (unverified) | P003 r1: new |
-| C-000276 | Do not wear gloves at an exposed rotating spindle, chuck or bit, such as at a drill press — use a work method that keeps hands away from the rotation. | H-BT-010 (P003: H-DF-002) [if drill press or exposed rotating spindle] | — | BP; Mfr. **Conflicts with P-000001 for steel work — pending PO decision (P3-U1). Not for implementation until decided.** | P003 r1: new — **pending PO decision P3-U1** |
+| C-000276 | Do not wear gloves at an exposed rotating spindle, chuck or bit, such as at a drill press — use a work method that keeps hands away from the rotation. | H-BT-010 (P003: H-DF-002) [if drill press or exposed rotating spindle] | — | BP; Mfr. Precedence over C-000004 / P-000001 at the spindle approved — SIL PO Decision 006 §1 (P3-U1 closed). | P003 r1: new; r1.1 precedence approved (SIL PO Decision 006 §1) |
 | C-000277 | Keep drill press and machine guards in place and adjusted as the manufacturer requires. | H-BT-010 (P003: H-DF-001) [if drill press or machine]; H-BT-010 (P003: H-DF-002) [if drill press or machine] | — | OSHA-C 1926.300(b) / OSHA-GI 1910.212 (unverified); Mfr | P003 r1: new |
 | C-000278 | Stop the tool before clearing chips or swarf, and clear them with a brush, hook or magnet — never with bare hands. | H-BT-010 (P003: H-DF-002) [if drill]; H-HW-029 (P003: H-DF-006) [if drill]; H-BT-002 (P003: H-DF-007) [if drill] | — | BP | P003 r1: new |
 | C-000279 | If the bit binds, release the trigger and let the drill stop before freeing it. | H-BT-004 (P003: H-DF-003) [if drill] | — | Mfr; BP | P003 r1: new |
@@ -460,7 +460,7 @@ Next available: **C-000394**. Retired: none.
 | C-000389 | Inspect air hoses and couplings before use. | H-BT-025 (P003: from H-DF-040 (hose items)) [if pneumatic] | — | BP | P003 r1: new |
 | C-000390 | Do not exceed the manufacturer's safe operating pressure for hoses, valves, fittings and air tools. | H-BT-025 (P003: from H-DF-040 (hose items)) [if pneumatic] | — | OSHA-C 1926.302(b) — verified (Engineer, osha.gov, P003 r1) — (b)(5) | P003 r1: new |
 | C-000391 | Never point compressed air at yourself or anyone else, or use it to clean skin or clothing. | H-DF-040 (P003) | — | BP; OSHA-C 1926.302(b) — verified (Engineer, osha.gov, P003 r1) — (b)(4) | P003 r1: new |
-| C-000392 | Use compressed air for cleaning only when it is reduced to less than 30 psi, with effective chip guarding and the required PPE — except for concrete form, mill scale and similar cleaning. | H-DF-040 (P003) [if compressed-air cleaning] | — | OSHA-C 1926.302(b) — verified (Engineer, osha.gov, P003 r1) — (b)(4). **Numeric user-facing text — PO decision required (P3-U5).** | P003 r1: new — **pending PO decision P3-U5** |
+| C-000392 | Use compressed air for cleaning only when it is reduced to less than 30 psi, with effective chip guarding and the required PPE — except for concrete form, mill scale and similar cleaning. | H-DF-040 (P003) [if compressed-air cleaning] | — | OSHA-C 1926.302(b) — verified (Engineer, osha.gov, P003 r1) — (b)(4). Numeric user-facing text approved — SIL PO Decision 006 §2 (P3-U5 closed). | P003 r1: new; r1.1 user-facing number approved (SIL PO Decision 006 §2) |
 | C-000393 | Before induction or resistance heating, determine whether heated surfaces or equipment can ignite nearby materials — where they can, the work is hot work. | H-HW-001 (P003: SIL PO Decision 005 §2) [if induction or resistance heating] | — | Company policy scope P-000006 to P-000008 per SIL PO Decision 005 §2 | P003 r1: new |
 
 

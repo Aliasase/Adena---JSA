@@ -5,7 +5,7 @@
 
 **Source:** `SIL-PKG-003.md` (Architect candidate, November 26, 2026; original preserved verbatim)
 **Decision record:** `SIL-PO-DECISION-005.md` (preserved verbatim), incorporated here
-**Reviewed by:** Claude (Engineer), November 26, 2026 · **Branch:** `revision-a4` · **Baselines:** production v1.4.0-p1 `76ac7c7`, development `edab953`
+**Reviewed by:** Claude (Engineer), November 26, 2026 · **Revision:** r1.1 — SIL PO Decision 006 incorporated (P3-U1, P3-U5, P3-U6 closed) · **Branch:** `revision-a4` · **Baselines:** production v1.4.0-p1 `76ac7c7`, development `edab953`
 
 **Companion files:**
 - `SIL-CONTROL-REGISTRY.md` — C-000273 to C-000393 added; relationships appended to 46 existing controls; 6 proposed text revisions
@@ -14,11 +14,12 @@
 - `SIL-PKG-003-PRODUCTION-CROSSWALK.md` — production entries, supersession proposals and v1.4.0-p1 defects found
 - `SIL-PKG-003-REGRESSION.md` — 68 regression scenarios (Architect 40, PO 8, Engineer 20)
 - `SIL-UNRESOLVED-REGISTER.md` — **new**: consolidated open items, Packages 001–003
+- `SIL-PO-DECISION-006.md` — PO decisions on P3-U1, P3-U5 and P3-U6 (r1.1)
 
 **Labels:**
 - References: OSHA-C, OSHA-GI, MSHA, Spec, Mfr, BP, SDS, company policy P-*nnnnnn*.
 - "verified (Engineer, *source*, P003 r1)" means I checked the text against the named source and confirmed applicability (Response 003 §9; PO Decision 003 §7). Everything else is unverified.
-- No numeric anchor embedment, spacing, edge distance, torque, cure time, misfire waiting period, substrate thickness, magnetic or vacuum mounting value, or respiratory exposure duration is introduced (candidate §9). Two verified regulatory numbers are recorded internally only; one proposed user-facing number awaits a PO decision (P3-U5).
+- No numeric anchor embedment, spacing, edge distance, torque, cure time, misfire waiting period, substrate thickness, magnetic or vacuum mounting value, or respiratory exposure duration is introduced (candidate §9). Two verified regulatory numbers are recorded internally only; one regulatory number (30 psi, 1926.302(b)(4)) is user-facing by PO decision (SIL PO Decision 006 §2).
 
 ---
 
@@ -33,7 +34,7 @@
 - **Hazard identifiers:** 78 → **118** registered; active **74 → 96**; retired 4 → 22.
 - **Controls:** **121** new canonical controls, **C-000273 to C-000393**. Next available: **C-000394**. 46 existing controls reused across 22 existing records (§5).
 - **Policies:** **10** confirmed (P-000010 added by SIL PO Decision 005 §1).
-- **Implementable once approved:** 119 of 121 new controls. Two wait on PO decisions: C-000276 (P3-U1) and C-000392 (P3-U5). The six RCSC controls stay withheld (U-5, U-20).
+- **Implementable once approved:** all 121 new controls (SIL PO Decision 006 cleared C-000276 and C-000392). The six RCSC controls stay withheld (U-5, U-20).
 - **Proposed text generalizations** of approved records: 12 (8 hazards, 4 controls — §1.2). All need Architect acceptance before implementation; none changes an identifier.
 
 **Citations:** 5 provisions verified against authoritative text — 1926.302(b), 1926.302(e), 1926.1153 (Table 1 rows (vi)–(ix), (f), (g)(1)), 1926.416(a)(3), 1926.502(d)(15). Two candidate assumptions are corrected by them (E-6, E-8).
@@ -48,16 +49,16 @@
 | E-1 | **Many candidate records duplicate an existing mechanism.** 16 of 40 candidates describe a mechanism already held by a Package 001 or 002 canonical record, and 2 more duplicate another Package 003 candidate (E-2, E-3). The 16 cover rotating contact and entanglement, kickback, attachment failure, flying particles, sharp edges, workpiece movement, unexpected startup, shock, pinch, striking, strain, vibration, ejected parts. Under Response 001 Decision 2, canonical records are generalized rather than duplicated. | Consolidated into the existing record; drilling detail kept as relationship-specific controls. 8 hazard texts proposed for generalization (§1.2). |
 | E-2 | **H-DF-024 and H-DF-025 are one consequence** (anchor fails under load) with method-specific controls. | H-DF-025 consolidated into H-DF-024; adhesive controls conditional `[if adhesive]`. |
 | E-3 | **H-DF-033 (nail deflection) is the H-DF-028 mechanism at lower energy.** | Consolidated into H-DF-028, renamed "ricochet, deflection, fragmentation or rebound"; method conditions keep PAT substrate, power and shield controls off nailers. |
-| E-4 | **Glove conflict at rotating machinery.** H-DF-002 says not to wear gloves where they can be caught at exposed rotating machinery. P-000001 requires work gloves for all steel work. At a drill press drilling steel brackets (scenario 7), the app would show both — contradictory guidance, which the candidate's scenario 7 forbids ("no unsafe blanket glove instruction"). The candidate says to resolve the conflict through a safe work method; only the PO can scope a company policy. | C-000276 held **pending PO decision P3-U1**. Proposed precedence: at an exposed rotating spindle, chuck or bit, C-000276 presents in place of C-000004, and P-000001 applies to handling the steel before and after drilling. |
+| E-4 | **Glove conflict at rotating machinery.** H-DF-002 says not to wear gloves where they can be caught at exposed rotating machinery. P-000001 requires work gloves for all steel work. At a drill press drilling steel brackets (scenario 7), the app would show both — contradictory guidance, which the candidate's scenario 7 forbids ("no unsafe blanket glove instruction"). The candidate says to resolve the conflict through a safe work method; only the PO can scope a company policy. | **Decided — SIL PO Decision 006 §1.** At an exposed rotating spindle, chuck or bit, C-000276 presents in place of C-000004, and P-000001 applies to handling the steel before and after drilling. |
 | E-5 | **H-DF-004 belongs with H-BT-021, not H-BT-006.** H-BT-006 is failure of a force-multiplying tool under load (wrenches, multipliers, tensioners). A bit or cutter breaking or coming loose is the H-BT-021 mechanism (attachment coming off or shattering). | Consolidated into H-BT-021 (generalized, T-5). Deviation from the candidate's pointer — Architect to confirm (P3-U3). |
 | E-6 | **Silica Table 1 verified, and it changes two assumptions.** (a) Row (vii), handheld and stand-mounted drills including impact and rotary hammer drills: shroud or cowling with dust collection, HEPA-filtered vacuum for hole cleaning, **no respirator required** at any duration. Row (vi), rig-mounted core saws or drills: integrated water delivery, **no respirator**. Row (viii), dowel drilling rigs (outdoors only): APF 10. (b) **Handheld core drilling is not a Table 1 task** — it needs the exposure-assessment route under (d). The candidate's "wet drilling does not necessarily eliminate respirator requirements" is correct for dowel rigs and non-Table-1 tasks, but a universal respirator line would contradict Table 1 for handheld drills. | C-000315 names the specified method without a respirator; C-000271 (respirator only where the method specifies one) gets its first active relationship; C-000164 covers exposure-assessed tasks. Production T2 shows silica for **all** drilling, including steel and wood (defect F-1). |
 | E-7 | **The production library mis-recognizes drilling and fastening tasks.** Running the 40 scenarios through v1.4.0-p1: "rotary hammer" and "hammer drill" trigger the drift-pin and missed-hammer-blow records; "beam flange" triggers process piping; "boom lift" triggers crane operations; "SDS Max" and "adhesive" trigger chemical and coating categories (including "Confined space entry for interior coating"); "steel track" triggers drywall joint-compound silica; "heating" triggers weather hazards (lightning); "inspect existing fall protection anchor" triggers drilling hazards. A battery brad nailer and blind riveting return **zero** suggestions. | 16 defects recorded (Crosswalk §C) with collision rules (§2.3). For implementation; not fixed now (SIL PO Decision 005 §6). |
 | E-8 | **1926.302(e) contains no misfire waiting period (verified).** Any waiting period comes from ANSI A10.3 (incorporated by (e)(12), text not reviewed) or the manufacturer. | C-000365 names no number — consistent with the candidate. |
 | E-9 | **Missing: wet-coring runoff.** Water and slurry from coring through a slab run through the hole to the floor below, onto electrical equipment and onto people. | C-000328 added to H-DF-021 `[if drilling through a floor, slab or wall]`. |
-| E-10 | **Verified regulatory controls missing from the candidate.** 1926.302(b)(2) safety clip or retainer on pneumatic percussion tools; (b)(5) manufacturer's safe operating pressure for hoses and fittings; (e)(11) shield, guard or attachment recommended by the manufacturer; (b)(4) compressed air for cleaning reduced below 30 psi, with exceptions. | C-000285, C-000390, C-000359 added. C-000392 (30 psi) written but **held for a PO decision on numeric user-facing text** (P3-U5), as with P2-U7. |
+| E-10 | **Verified regulatory controls missing from the candidate.** 1926.302(b)(2) safety clip or retainer on pneumatic percussion tools; (b)(5) manufacturer's safe operating pressure for hoses and fittings; (e)(11) shield, guard or attachment recommended by the manufacturer; (b)(4) compressed air for cleaning reduced below 30 psi, with exceptions. | C-000285, C-000390, C-000359 added. C-000392 (30 psi) user-facing — **SIL PO Decision 006 §2**. |
 | E-11 | **"Structural riveting" is ambiguous for hot work.** Historic structural riveting heats rivets (hot work); modern structural "riveting" with lockbolts or blind fasteners is cold. Themed-entertainment renovation can involve either. | Recognition: "hot rivet(ing)", "heat rivets", "rivet forge" establish heating and hot work; "structural riveting" alone does not. Architect to confirm (P3-U8). |
 | E-12 | **Induction and resistance heating (SIL PO Decision 005 §2).** v1.4.0-p1 also shows H-HW-006 "Burns from sparks, molten metal and slag" for induction preheating — neither process produces sparks, molten metal or slag (defect F-11). The library has no record for the strong magnetic fields near induction coils, which manufacturers warn about for workers with implanted medical devices. | §3 sets the implementation rule. Induction and resistance heating do not establish H-HW-006, H-HW-024 or H-HW-025. Electromagnetic-field exposure flagged for Architect scope (P3-U9); no record created. |
-| E-13 | **Field vocabulary for powder-actuated tools.** "Hilti gun", "Ramset", "shoot pins" and "shot pins" are common field terms for a PAT, but Hilti and Ramset also make drills, anchors and gas tools. Production T3 already uses "hilti gun" and "ramset" as keys. "Deck gun" can mean a PAT, a screw gun for decking, or a fire monitor. | Brand rule kept (candidate §2). PO vocabulary decision requested (P3-U6), as with P2-U14. |
+| E-13 | **Field vocabulary for powder-actuated tools.** "Hilti gun", "Ramset", "shoot pins" and "shot pins" are common field terms for a PAT, but Hilti and Ramset also make drills, anchors and gas tools. Production T3 already uses "hilti gun" and "ramset" as keys. "Deck gun" can mean a PAT, a screw gun for decking, or a fire monitor. | **Decided — SIL PO Decision 006 §3:** "Hilti gun", "Ramset", "shoot pins" and "shot pins" establish powder-actuated work; Hilti or Ramset alone still establishes nothing. "Deck gun" stays ambiguous — PAT only alongside other PAT cues. |
 | E-14 | **Fall protection anchorage capacity verified** — 1926.502(d)(15): 5,000 lb per employee attached, or designed as part of a complete system with a safety factor of at least two under a qualified person's supervision. | Recorded internally only. H-DF-026 controls state the approval route, not the number (candidate §9). |
 | E-15 | **Gas-actuated tools.** 1926.302(e) is titled for powder-actuated tools. An OSHA interpretation addresses whether gas-actuated tools need the same model-specific training (title seen; letter not reviewed). | Training control kept PAT-only. Architect to review the interpretation (P3-U12). |
 | E-16 | **"Drill" and "bore" collisions outside the package's scope:** fire, evacuation, emergency and rescue drills; drill rigs, blast-hole and rock drilling (surface mining, production T39); horizontal directional drilling, jack-and-bore and tunnel boring (excavation). | Collision rules §2.3. |
@@ -95,7 +96,7 @@ The Architect recognition library (candidate §2–§3) is accepted, with these 
 | Mechanical anchors (wedge, sleeve, drop-in, expansion, concrete screw, Tapcon) | Anchor installation: H-DF-024, plus drilling | "Tapcon" is a concrete-screw brand: recognized as concrete screw installation only. |
 | Adhesive / epoxy anchors, bonded threaded rod | H-DF-024 `[if adhesive]`, H-DF-023, plus drilling | Adhesive alone does not establish anchor installation. |
 | Fall protection, lifting, davit or suspended-access anchor + install / set / drill | H-DF-026, H-DF-024, plus drilling | Inspect / check / verify an existing anchor establishes none of these. |
-| Powder-actuated (PAT, powder-actuated, powder-driven, shoot pins / shot pins with fastening context) | H-DF-027, H-DF-028, H-DF-029, H-DF-030, H-DF-031 (conditional), H-BT-019 | P-000010 applies. PAT requires fastening context where ambiguous. |
+| Powder-actuated (PAT, powder-actuated, powder-driven, Hilti gun, Ramset, shoot / shot pins — SIL PO Decision 006 §3) | H-DF-027, H-DF-028, H-DF-029, H-DF-030, H-DF-031 (conditional), H-BT-019 | P-000010 applies. PAT requires fastening context where ambiguous. |
 | Gas-actuated fastening (gas-actuated tool, fuel cell, gas nailer) | H-DF-028, H-DF-029, H-DF-031, H-DF-032 (nailer form) | Not oxy-fuel; not hot work; P-000010 does not apply. |
 | Nailers and staplers (pneumatic, framing, finish, brad, roofing, staple gun, battery nail gun) | H-DF-032, H-DF-028 `[if nailer or stapler]`, H-DF-029 | Pneumatic establishes H-BT-025 and H-DF-040 only with an air cue (pneumatic, air, compressor, hose). |
 | Riveting (rivet gun, blind riveter, pop rivet) | H-BT-028 `[if riveting]`, H-BT-001, H-BT-002 | Hot riveting cues establish heating and hot work (E-11). |
@@ -139,8 +140,8 @@ The candidate's 18 rules (§7) are accepted unchanged. The Engineer adds these �
 | bit | "Bit" establishes drilling only as drill / hole-saw / core / SDS bit, or with drill context. |
 | pin | "Shot pin", "drive pin" → powder-actuated with fastening context; "drift pin" keeps H-BT-029; "pinch" is never "pin". |
 | shot / shoot | "Shoot pins / shot pins" → PAT; "shot blast", "shotcrete" do not. |
-| gun | Nail gun → nailer; powder gun / Hilti gun / Ramset → PAT candidate (P3-U6); impact gun, screw gun, MIG gun keep their meanings. |
-| deck gun | Ambiguous (PAT, decking screw gun, fire monitor) — establishes nothing alone (P3-U6). |
+| gun | Nail gun → nailer; powder gun, Hilti gun, Ramset (gun) → powder-actuated (SIL PO Decision 006 §3; Hilti or Ramset alone establishes nothing); impact gun, screw gun, MIG gun keep their meanings. |
+| deck gun | Ambiguous (PAT, decking screw gun, fire monitor) — establishes nothing alone; PAT only alongside other PAT cues such as shoot, pins, powder or loads (SIL PO Decision 006 §3). |
 | mag | "Mag drill" → magnetic drilling; nailer "magazine" and lifting magnet do not. |
 | PT | Post-tensioned only with concrete, slab or tendon context. |
 | rivet | "Hot rivet(ing)", "heat rivets", "rivet forge" → heating / hot work; other riveting does not (E-11, P3-U8). |
@@ -199,10 +200,10 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Controls:
   - `C-000026` Secure loose sleeves; keep lanyards and tool tethers clear of rotating parts.
   - `C-000275` `[if drill]` *(new)* Remove jewelry and secure long hair before using a drill or other rotating tool.
-  - `C-000276` `[if drill press or exposed rotating spindle]` *(new)* Do not wear gloves at an exposed rotating spindle, chuck or bit, such as at a drill press — use a work method that keeps hands away from the rotation. **[pending P3-U1]**
+  - `C-000276` `[if drill press or exposed rotating spindle]` *(new)* Do not wear gloves at an exposed rotating spindle, chuck or bit, such as at a drill press — use a work method that keeps hands away from the rotation.
   - `C-000277` `[if drill press or machine]` *(new)* Keep drill press and machine guards in place and adjusted as the manufacturer requires.
   - `C-000278` `[if drill]` *(new)* Stop the tool before clearing chips or swarf, and clear them with a brush, hook or magnet — never with bare hands.
-- Review: Consolidated into H-BT-010 as the Architect directed. The glove control conflicts with P-000001 (steel work gloves) at a drill press — **PO decision P3-U1** before implementation (E-4).
+- Review: Consolidated into H-BT-010 as the Architect directed. The glove control conflicts with P-000001 (steel work gloves) at a drill press (E-4) — resolved by SIL PO Decision 006 §1: the no-gloves control takes precedence at the spindle.
 
 **H-DF-003 — Sudden drill movement from binding or breakthrough** · *Consolidated into H-BT-004 — identifier retired, never reused*
 - Applicability: Explicit: handheld drills, rotary hammers, hole saws, large-diameter drilling (via H-BT-004)
@@ -638,9 +639,9 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Hazard: Compressed air entering the skin, eyes or body.
 - Controls:
   - `C-000391` *(new)* Never point compressed air at yourself or anyone else, or use it to clean skin or clothing.
-  - `C-000392` `[if compressed-air cleaning]` *(new)* Use compressed air for cleaning only when it is reduced to less than 30 psi, with effective chip guarding and the required PPE — except for concrete form, mill scale and similar cleaning. **[pending P3-U5]**
+  - `C-000392` `[if compressed-air cleaning]` *(new)* Use compressed air for cleaning only when it is reduced to less than 30 psi, with effective chip guarding and the required PPE — except for concrete form, mill scale and similar cleaning.
 - Related canonical records: H-BT-025 [if pneumatic]
-- Review: Split, as the candidate allows: **injection** → new canonical H-DF-040; **hose whip and coupling** → H-BT-025 [if pneumatic], with C-000067 to C-000070 plus the new air-hose inspection and operating-pressure controls added there. 1926.302(b)(4)–(5) verified; the 30 psi value needs a PO decision (P3-U5).
+- Review: Split, as the candidate allows: **injection** → new canonical H-DF-040; **hose whip and coupling** → H-BT-025 [if pneumatic], with C-000067 to C-000070 plus the new air-hose inspection and operating-pressure controls added there. 1926.302(b)(4)–(5) verified; the 30 psi value is user-facing per SIL PO Decision 006 §2.
 
 ---
 
@@ -703,7 +704,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 
 | Policy | Package 003 relationship |
 |---|---|
-| P-000001 Steel work gloves | Applies to handling steel when drilling or fastening. **Conflict at exposed rotating spindles (E-4) — pending P3-U1.** |
+| P-000001 Steel work gloves | Applies to handling steel when drilling or fastening. At an exposed rotating spindle, chuck or bit, the no-gloves control presents in place of C-000004 (SIL PO Decision 006 §1). |
 | P-000002 A4 cut gloves | Applies to drilling or fastening during demolition, knife use and stainless steel lath (scenario 23). Stainless steel alone does not establish lath (scenario 22). |
 | P-000003 Fall protection | Elevated drilling and fastening via H-BT-017. C-000113 for openings left by coring (H-DF-012). |
 | P-000004 Boom / scissor tie-off | Unchanged; applies to drilling from lifts (scenario 27). |
@@ -741,12 +742,9 @@ Full text and owners: `SIL-UNRESOLVED-REGISTER.md`.
 
 | # | Item | Owner |
 |---|---|---|
-| P3-U1 | Gloves at exposed rotating spindles vs. P-000001 (E-4) | PO |
 | P3-U2 | Accept the 12 proposed text generalizations T-1 to T-12 | Architect |
 | P3-U3 | Accept the 18 consolidations, including H-DF-004 → H-BT-021 (E-5), H-DF-025 → H-DF-024, H-DF-033 → H-DF-028 | Architect |
 | P3-U4 | Production supersession proposals (Crosswalk §A) | Architect |
-| P3-U5 | Numeric user-facing text: 30 psi cleaning air (C-000392) | PO |
-| P3-U6 | PAT field vocabulary: Hilti gun, Ramset, shoot / shot pins, deck gun | PO |
 | P3-U7 | Adhesive anchors installed overhead or horizontally under sustained tension — additional design and installer requirements (ACI 318, unverified) | Architect |
 | P3-U8 | Hot structural riveting as hot work (E-11) | Architect |
 | P3-U9 | Electromagnetic-field exposure near induction heating (E-12) | Architect |
@@ -756,3 +754,4 @@ Full text and owners: `SIL-UNRESOLVED-REGISTER.md`.
 | P3-U13 | v1.4.0-p1 defects F-1 to F-16 — correct at implementation | Engineer (on authorization) |
 
 **Closed by SIL PO Decision 005:** P2-U16 (induction and resistance heating).
+**Closed by SIL PO Decision 006:** P3-U1 (no-gloves control takes precedence at exposed rotating spindles), P3-U5 (30 psi user-facing), P3-U6 (Hilti gun, Ramset, shoot / shot pins recognized as PAT; deck gun ambiguous).

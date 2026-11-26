@@ -50,7 +50,7 @@ T10 "Vibration exposure from jackhammer", T17 / T38 "Silica and dust exposure" a
 | T2 | anchor | Inspect / check an existing anchor must not establish drilling (F-7). |
 | T2 | fastener, bolt installation | Overlap with Package 001 bolting kept; no change. |
 | T2 | tapcon | Brand → concrete screw installation only. |
-| T3 | hilti gun, ramset, deck gun | Brand and ambiguous terms — P3-U6. |
+| T3 | hilti gun, ramset, deck gun | Hilti gun and Ramset → powder-actuated; deck gun ambiguous, PAT only with other PAT cues (SIL PO Decision 006 §3). |
 | T3 | nail gun | Does not establish pneumatic operation. |
 | T3 | gas nailer | Gas-actuated: not oxy-fuel, not hot work. |
 | T5 Crane Operations | boom | "Boom lift" must not establish crane operations (F-4). |
