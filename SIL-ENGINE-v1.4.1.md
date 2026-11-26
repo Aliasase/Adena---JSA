@@ -43,6 +43,17 @@ These were needed to make the approved regression scenarios pass. None adds a nu
 | ED-5 | Loading or tensioning an adhesive anchor establishes H-DF-024 and puts it first | A-34 |
 | ED-6 | "Drill rig" no longer matches the legacy rigging entry (suspended-load hazards); production/rig drilling with no handheld tool named is not handheld drilling | C-4 |
 
+### Architect disposition (November 26, 2026 — `SIL-PKG-003-ARCHITECT-DISPOSITION-ED.md`)
+
+| # | Disposition | Engineer action |
+|---|---|---|
+| ED-1 | Accepted, subject to keeping pinch points where the installation method creates them | v1.4.1-dev1 kept H-BT-001 for mechanical anchors but dropped it for clamp-type anchors (beam clamps, beam trolleys, sliding beam anchors). **Corrected in the working tree, not yet deployed** (pending build). |
+| ED-2 | Accepted | — |
+| ED-3 | Accepted, subject to contextual hot work classification and independent recognition of pressure, process contents and stored energy | v1.4.1-dev1 treated every "hot tap" as hot work, including a mechanical tap with no welding, and treated "no welding" as welding. **Corrected in the working tree, not yet deployed:** a welded hot tap is hot work; a mechanical tap (bolt-on saddle, tapping machine, no welding) makes hot work conditional; a negated welding statement doesn't establish welding. Pressure and stored-energy hazards appear in all three cases. |
+| ED-4 | Held pending the exact task wording and the two dust suggestions | Awaiting PO task text |
+| ED-5 | Accepted | — |
+| ED-6 | Accepted; P3-U16 recorded as a deferred library expansion (not authorized) | Recorded in `SIL-UNRESOLVED-REGISTER.md`. Existing production drilling and mining coverage is preserved. |
+
 ## 4. Counts as implemented
 
 | Item | Count |

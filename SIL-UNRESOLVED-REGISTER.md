@@ -2,7 +2,7 @@
 
 # Safety Intelligence Library — Consolidated Unresolved Register
 
-**Status at P003 r2.1 (November 26, 2026, AD-010):** 9 carried open (Packages 001–002) · 5 open from Package 003 · closed in Package 003: 12 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U14, U15). P3-U13 defects corrected in v1.4.1-dev1 (see `SIL-ENGINE-v1.4.1.md`).
+**Status at P003 r2.1 (November 26, 2026, AD-010):** 9 carried open (Packages 001–002) · 5 open and 1 deferred (P3-U16) from Package 003 · closed in Package 003: 12 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U14, U15). P3-U13 defects corrected in v1.4.1-dev1 (see `SIL-ENGINE-v1.4.1.md`).
 Resolved items from earlier packages stay recorded in their package files. "Verified (Engineer, …)" records the Engineer's check of a source; it is not Architect validation (Architect Response 005 §13).
 
 ## Open — carried from Packages 001 and 002
@@ -28,6 +28,7 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 | P3-U11 | OSHA-GI and MSHA (Parts 56, 62) equivalents for drilling, PAT and nailers | Architect |
 | P3-U12 | Retrieve and review the OSHA interpretation on gas-actuated tool training under 1926.302(e). Equipment-specific instruction is kept regardless (C-000405). | Architect |
 | P3-U13 | v1.4.0-p1 defects F-1 to F-16 (Crosswalk §C) — **corrected in v1.4.1-dev1**; stays open until PO physical testing confirms and a production release carries the fixes | Engineer / PO |
+| P3-U16 | **Deferred library expansion** (Architect disposition of ED-6, November 26, 2026): foundation, geotechnical and surface-mining drill-rig operations. A bare "drill rig" step returns no hazards in v1.4.1; existing production drilling and mining coverage is preserved. Recorded only — not authorization to develop the package. | Architect / PO |
 
 ## Closed
 
