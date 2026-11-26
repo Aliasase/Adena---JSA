@@ -111,6 +111,22 @@ Baseline evidence: every §A scenario was also run against v1.4.0-p1; observed d
 | D-14 | Through-drill wall into occupied office with conduit in the wall | H-DF-012 (C-000298, C-000299), H-DF-013 (C-000301, C-000302, C-000304) | — |
 
 
-## Execution record — v1.4.1-dev1 (AD-010 §7)
+## E. PO field testing and Architect disposition scenarios (added November 26, 2026 — v1.4.1-dev2)
 
-All 82 scenarios are automated in `tests/sil-pkg003.js` (D-12 runs as two task texts) together with the AD-010 acceptance checks and the F-1 to F-16 defect checks. Result on November 26, 2026: 526 / 526 assertions pass; the existing `tests/sil-regression.js` suite passes 447 / 447. Scenario text and expectations above are unchanged. Details: `SIL-ENGINE-v1.4.1.md` §5.
+| # | Task | Must include | Must not include |
+|---|---|---|---|
+| ED-1-1 to ED-1-6 | Install clamp anchors · Install beam clamps · Install clamp-on anchor · Install beam anchor · Install beam trolley · Install sliding beam anchor | H-BT-001 (pinch points); H-DF-026 (anchor failure, slipping or detachment); C-000346, C-000406 (clamp selection, compatibility, installation, securing), C-000407 (clamp inspection) | Drilling, powered-tool, adhesive, curing, silica, noise or elevated-work records (H-DF-024, H-DF-023, H-DF-017, H-BT-010, H-BT-004, H-BT-021, H-BT-026, H-HW-029, H-BT-019, H-BT-018, H-BT-013); C-000339 (drill-and-set), C-000345 (cure), C-000224, C-000002; legacy leading-edge, suspended-load, overhead and puncture lines. Recognition does not require "fall protection" in the task. |
+| ED-1-7 | Install beam clamp at leading edge | H-BT-001, H-DF-026, H-BT-018; fall protection controls; legacy leading-edge fall exposure | H-DF-024, H-BT-010 |
+| ED-1-8 | Install beam clamp and drill holes for wedge anchors in concrete | H-BT-001, H-DF-026, H-DF-024, H-BT-010, H-DF-017; C-000406 and C-000339 | — |
+| ED-1-9 | Hang chain hoist from beam clamp and rig the load | H-DF-026, H-BT-001, C-000406; legacy suspended-load and swinging-load lines | H-BT-010, H-DF-024 |
+| ED-1-10 | Inspect existing beam clamp before use | H-DF-026; C-000403, C-000404, C-000407 | C-000406, C-000339; H-BT-001, H-DF-024, H-BT-010 |
+| ED-1a / ED-1b / ED-1c | Install wedge anchor for fall protection anchorage · Install beam clamp fall protection anchor on steel beam · Inspect existing fall protection anchor | H-BT-001 and H-DF-026 on both installations | H-BT-001 on the inspection |
+| ED-3a | Hot tap process line | H-HW-001 explicit; H-HW-035; legacy pressurized-line and stored-pressure lines | — |
+| ED-3b | Hot tap with mechanical saddle, no welding | H-HW-001 conditional; pressure lines | H-HW-009 |
+| ED-3c | Cold tap process line with mechanical tapping machine | Pressure lines | H-HW-001 |
+| ED-3d | Weld hot tap fitting on live gas line | H-HW-001 explicit; H-HW-004; H-HW-035 | — |
+| ED-6a | Drill blast holes with drill rig | Blast flyrock exposure; rockfall | — |
+
+## Execution record — v1.4.1-dev2 (AD-010 §7; PO field-testing corrections)
+
+All 82 scenarios (D-12 runs as two task texts) and the 18 §E scenarios are automated in `tests/sil-pkg003.js`, together with the AD-010 acceptance checks and the F-1 to F-16 defect checks. Result on November 26, 2026: 740 / 740 assertions pass; the existing `tests/sil-regression.js` suite passes 447 / 447. Scenario text and expectations in §A to §D are unchanged. Details: `SIL-ENGINE-v1.4.1.md` §5 and §7.

@@ -8,7 +8,7 @@
 **Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `52ce59d` · r1.1 SIL PO Decision 006 `7c6ddc6` · r2 Architect Response 005 `e2f768b` · **r2.1 — AD-010 incorporated; implemented in v1.4.1-dev1** · **Branch:** `revision-a4` · **Baselines:** production v1.4.0-p1 `76ac7c7`, development `edab953`
 
 **Companion files:**
-- `SIL-CONTROL-REGISTRY.md` — C-000273 to C-000405 added; relationships appended to 46 existing controls; 5 accepted text revisions of approved controls
+- `SIL-CONTROL-REGISTRY.md` — C-000273 to C-000407 added; relationships appended to 46 existing controls; 5 accepted text revisions of approved controls
 - `SIL-POLICY-REGISTRY.md` — P-000010 added; Package 003 policy relationships; induction/resistance heating scope
 - `SIL-HAZARD-REGISTRY.md` — **new**: every hazard identifier across Packages 001–003, with status
 - `SIL-PKG-003-PRODUCTION-CROSSWALK.md` — production entries, supersession proposals and v1.4.0-p1 defects found
@@ -42,7 +42,7 @@
 | §3.7 E-13 | Standalone "Ramset" wording corrected: Hilti gun, Ramset gun and shoot / shot pins establish PAT work; standalone brand names do not. |
 | §3.8 C-000164 | T-13 wording keeps contaminant-based selection, assigned protection factor, the respiratory protection program and the oxygen-deficient / IDLH restriction. |
 
-**Text revisions of approved records:** 14 (8 hazards, 6 controls) — the 13 accepted by AR-005 plus T-14. Implemented in v1.4.1-dev1; production v1.4.0-p1 keeps the earlier wording until a production release is authorized.
+**Text revisions of approved records:** 14 (8 hazards, 6 controls) — the 13 accepted by AR-005 plus T-14. Implemented in v1.4.1-dev1 and dev2; production v1.4.0-p1 keeps the earlier wording until a production release is authorized.
 
 ---
 
@@ -84,10 +84,10 @@
 
 **Totals (approved by AD-010 for the isolated test release):**
 - **Hazard identifiers:** 78 → **119** registered; active **74 → 97**; retired 4 → 22.
-- **Controls:** **133** new canonical controls, **C-000273 to C-000405**. Next available: **C-000406**. 46 existing controls reused across 22 existing records (§5).
+- **Controls:** **135** new canonical controls, **C-000273 to C-000407**. Next available: **C-000408**. 46 existing controls reused across 22 existing records (§5).
 - **Policies:** **10** confirmed (P-000010 added by SIL PO Decision 005 §1).
-- **Implemented in v1.4.1-dev1:** 133 of 133 new controls (AD-010). The six RCSC controls stay withheld (U-5, U-20).
-- **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in v1.4.1-dev1; none changes an identifier.
+- **Implemented in v1.4.1-dev2:** 135 of 135 new controls — 133 approved by AD-010, plus C-000406 and C-000407 added for PO field testing (ED-1; Architect validation pending). The six RCSC controls stay withheld (U-5, U-20).
+- **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in v1.4.1-dev1 and dev2; none changes an identifier.
 
 **Citations:** 5 provisions verified against authoritative text — 1926.302(b), 1926.302(e), 1926.1153 (Table 1 rows (vi)–(ix), (f), (g)(1)), 1926.416(a)(3), 1926.502(d)(15). Two candidate assumptions are corrected by them (E-6, E-8).
 
@@ -534,7 +534,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Controls:
   - `C-000346` *(new)* Use only anchors approved for fall protection, suspended access or lifting, as the application requires — never an ordinary construction anchor without that approval.
   - `C-000347` `[if installing]` *(new)* Install life-safety and lifting anchors to a design or approval by a qualified person or engineer.
-  - `C-000339` `[if installing]` *(new)* Drill, clean and set each anchor by the approved installation instructions, including hole diameter, depth, embedment, edge distance and spacing.
+  - `C-000339` `[if installing a drilled-in or post-installed anchor]` *(new)* Drill, clean and set each anchor by the approved installation instructions, including hole diameter, depth, embedment, edge distance and spacing.
   - `C-000341` `[if installing]` *(new)* Complete the required inspection, testing and acceptance before loading the anchor.
   - `C-000403` `[if inspecting, testing or using an existing anchor]` *(new)* Before using an existing anchor, confirm it is approved and identified for the application, and inspect it for damage, corrosion, deformation or movement.
   - `C-000404` `[if inspecting, testing or using an existing anchor]` *(new)* Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it.
@@ -653,7 +653,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000003` Keep hands off mating surfaces while plies are drawn together.
   - `C-000376` *(new)* Agree on hand placement with anyone holding the material being fastened.
   - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand. *(proposed generalization T-9)*
-  - `C-000224` Unplug the tool, remove the battery or shut off and bleed the air before changing wheels, bits or attachments, clearing jams or making adjustments. For stationary machinery, also control stored energy and apply the required lockout/tagout before servicing. *(proposed generalization T-10)*
+  - `C-000224` `[if powered or tool-driven fastening]` Unplug the tool, remove the battery or shut off and bleed the air before changing wheels, bits or attachments, clearing jams or making adjustments. For stationary machinery, also control stored energy and apply the required lockout/tagout before servicing. *(proposed generalization T-10)*
 - Review: Consolidated into H-BT-001 (generalized, T-1b).
 
 **H-DF-036 — Impact injuries from hammer-driven anchor setting** · *Consolidated into H-BT-029, H-BT-030 — identifier retired, never reused*
@@ -770,7 +770,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 | C-000173 | Do not proceed on unidentified coatings where the exposure cannot be assessed. | H-DF-019 (P003) |
 | C-000218 | Clamp or support the workpiece before grinding or cutting; do not hand-hold small pieces you cannot control. | H-BT-010 (P003: H-DF-001) [if small workpiece]; H-HW-031 (P003: H-DF-008); H-DF-028 (P003) [if small workpiece]; H-DF-028 (P003: H-DF-033) [if small workpiece]; H-BT-001 (P003: H-DF-035) [if small workpiece] |
 | C-000222 | Set barriers where nearby workers could be hit by particles or sparks. | H-HW-029 (P003: H-DF-006) [if others nearby] |
-| C-000224 | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels or attachments. | H-HW-030 (P003: H-DF-009); H-DF-032 (P003); H-BT-001 (P003: H-DF-035) |
+| C-000224 | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels or attachments. | H-HW-030 (P003: H-DF-009); H-DF-032 (P003); H-BT-001 (P003: H-DF-035) [if powered or tool-driven fastening] |
 | C-000225 | Check that the switch is off and works correctly before plugging in or returning the tool to service. | H-HW-030 (P003: H-DF-009) |
 | C-000227 | Keep your body out of the kickback path. | H-BT-004 (P003: H-DF-003) [if large-diameter drilling or hole saw] |
 | C-000231 | Set an exclusion zone around the movement and drop area, and keep everyone out of the line of fire. | H-DF-012 (P003) |

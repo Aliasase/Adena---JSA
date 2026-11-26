@@ -8,7 +8,7 @@
 - Equivalent production controls (`HAZ_TO_CONTROL` entries C*n* in `A4-LIBRARY-EXPORT.md`) are mapped below. **A production control is not retired until all of its valid relationships are accounted for.** No production control is retired at this revision.
 - New controls are appended at the next sequential number. Retired controls stay listed with status "Retired — do not reuse."
 
-**Register status:** C-000001 to C-000405 assigned.
+**Register status:** C-000001 to C-000407 assigned.
 
 | Range | Source |
 |---|---|
@@ -17,9 +17,10 @@
 | C-000118 to C-000257 | Package 002 r1 |
 | C-000258 to C-000272 | Architect Response 004 |
 | C-000273 to C-000393 | Package 003 r1 (candidate — SIL PO Decision 005 §4) |
-| C-000394 to C-000405 | Package 003 r2 (candidate — Architect Response 005) |
+| C-000394 to C-000405 | Package 003 r2 (Architect Response 005; approved AD-010) |
+| C-000406 to C-000407 | PO field testing of v1.4.1-dev1 (ED-1 clamp-type anchors) — Engineer draft, Architect validation pending |
 
-Next available: **C-000406**. Retired: none.
+Next available: **C-000408**. Retired: none.
 
 **Withheld from the v1.4.0-dev1 test release** (AD-009 §5). These six stay in the registry, but are not in the app until their RCSC provisions are validated (U-5): C-000081, C-000082, C-000083, C-000085, C-000086, C-000087. Each is marked in the Revision column.
 
@@ -55,7 +56,7 @@ Next available: **C-000406**. Retired: none.
 | C-000049 | "Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task." | PO Decision 002 §3 |
 
 
-**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in v1.4.1-dev1** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
+**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in v1.4.1-dev1 and v1.4.1-dev2** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
 
 | # | Control | Prior wording (v1.4.0-p1) | Revised wording (v1.4.1-dev1) |
 |---|---|---|---|
@@ -295,7 +296,7 @@ Next available: **C-000406**. Retired: none.
 | C-000221 | For all handheld grinding and abrasive cutting, wear safety glasses with a face shield over them. | H-HW-029 [if handheld grinding or abrasive cutting] | — | Company policy P-000009 (PO Decision 004 via Response 004 §1) — not attributed to OSHA. Face shield supplements, never replaces, primary eye protection. | P002 r2: Response 004 §1 (PO P2-U2) |
 | C-000222 | Set barriers where nearby workers could be hit by particles or sparks. | H-HW-029 [if others nearby]; H-HW-029 (P003: H-DF-006) [if others nearby] | C4 "Barricade area below or around work if debris may affect others" (related) | BP | P002 r1: new |
 | C-000223 | Inspect wire wheels and brushes for loose or broken wires before use. | H-HW-029 [if wire wheel or brush]; H-BT-010 (P002: Grinders, wire wheels) [if wire wheel or brush] | — | Mfr | P002 r1: new |
-| C-000224 | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels, bits or attachments, clearing jams or making adjustments. For stationary machinery, also control stored energy and apply the required lockout/tagout before servicing. | H-HW-030; H-HW-030 (P003: H-DF-009); H-DF-032 (P003); H-BT-001 (P003: H-DF-035) | — | Mfr; BP | P002 r1: new; P003 T-10: text revised (H-DF-009, 032, 035) — implemented in v1.4.1-dev1; v1.4.0-p1 keeps the prior wording |
+| C-000224 | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels, bits or attachments, clearing jams or making adjustments. For stationary machinery, also control stored energy and apply the required lockout/tagout before servicing. | H-HW-030; H-HW-030 (P003: H-DF-009); H-DF-032 (P003); H-BT-001 (P003: H-DF-035) [if powered or tool-driven fastening] | — | Mfr; BP | P002 r1: new; P003 T-10: text revised (H-DF-009, 032, 035) — implemented in v1.4.1-dev1; v1.4.0-p1 keeps the prior wording |
 | C-000225 | Check that the switch is off and works correctly before plugging in or returning the tool to service. | H-HW-030; H-HW-030 (P003: H-DF-009) | — | Mfr | P002 r1: new |
 | C-000226 | Support the material so the cut does not close onto the wheel or blade. | H-HW-031; H-BT-004 (P002: Grind / abrasive Cut) | — | BP | P002 r1: new |
 | C-000227 | Keep your body out of the kickback path. | H-BT-004 (P002: Grind / abrasive Cut); H-BT-004 (P003: H-DF-003) [if large-diameter drilling or hole saw] | — | Mfr; BP | P002 r1: new |
@@ -410,7 +411,7 @@ Next available: **C-000406**. Retired: none.
 | C-000336 | Provide the ventilation the SDS requires, especially in enclosed areas. | H-DF-023 (P003) | C6 "Provide adequate ventilation — forced air if in enclosed space" (related) | SDS | P003 r1: new |
 | C-000337 | Handle, store, clean up and dispose of the product as the manufacturer and SDS specify. | H-DF-023 (P003) | — | SDS; Mfr | P003 r1: new |
 | C-000338 | Install only the anchor type, size and system specified for the application and substrate — no substitutions without approval. | H-DF-024 (P003) | — | Spec; anchor evaluation report; engineer of record | P003 r1: new |
-| C-000339 | Drill, clean and set each anchor by the approved installation instructions, including hole diameter, depth, embedment, edge distance and spacing. | H-DF-024 (P003); H-DF-024 (P003: H-DF-025); H-DF-026 (P003) [if installing] | — | Mfr; Spec (no numeric values introduced) | P003 r1: new |
+| C-000339 | Drill, clean and set each anchor by the approved installation instructions, including hole diameter, depth, embedment, edge distance and spacing. | H-DF-024 (P003); H-DF-024 (P003: H-DF-025); H-DF-026 (P003) [if installing a drilled-in or post-installed anchor] | — | Mfr; Spec (no numeric values introduced) | P003 r1: new |
 | C-000340 | Use the specified setting tool, and tighten to the specified installation torque where one is given. | H-DF-024 (P003) [if mechanical anchor] | — | Mfr; Spec (no numeric values introduced) | P003 r1: new |
 | C-000341 | Complete the required inspection, testing and acceptance before loading the anchor. | H-DF-024 (P003); H-DF-024 (P003: H-DF-025); H-DF-026 (P003) [if installing] | — | Spec; ACI 318 Ch. 17 (unverified) | P003 r1: new |
 | C-000342 | Check the adhesive system's approval, expiration date and storage conditions before use. | H-DF-024 (P003) [if adhesive]; H-DF-024 (P003: H-DF-025) | — | Mfr; Spec | P003 r1: new |
@@ -477,11 +478,13 @@ Next available: **C-000406**. Retired: none.
 | C-000403 | Before using an existing anchor, confirm it is approved and identified for the application, and inspect it for damage, corrosion, deformation or movement. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor] | — | Mfr; Spec; OSHA-C 1926.502(d)(15) — verified (Engineer, osha.gov, P003 r1) | P003 r2: new (Architect Response 005) |
 | C-000404 | Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor] | — | Mfr; BP | P003 r2: new (Architect Response 005) |
 | C-000405 | Operate a nailer, stapler or gas-actuated tool only after instruction on that tool and its manufacturer's instructions. | H-DF-028 (P003) [if gas-actuated]; H-DF-032 (P003) | — | Mfr; AR-005 §13 (equipment-specific instruction retained regardless of regulatory classification — P3-U12) | P003 r2: new (Architect Response 005) |
+| C-000406 | Select a clamp-type anchor rated for the application and compatible with the beam size, flange width and flange thickness; install it by the manufacturer's instructions, tighten and lock it, and confirm it cannot slide or come off the member before use. Keep fingers clear of the jaws and flange while positioning and tightening. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if installing a clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1 — Engineer draft, Architect validation pending; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000407 | Inspect the clamp before each use for damage, deformation, worn jaws, missing or damaged locking parts and illegible markings, and remove any defective clamp from service. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1 — Engineer draft, Architect validation pending) | P003 r2: new (Architect Response 005) |
 
 
 ## Registry notes
 
-**R-7 — Package 003 (candidate).** C-000273 to C-000405 are candidate controls (SIL PO Decision 005 §4–§6; Architect Response 005): registered, not implemented. Relationships tagged "P003" on existing controls are candidate relationships with the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
+**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010 and are implemented in the v1.4.1 test builds (not in production v1.4.0-p1). C-000406 and C-000407 were added for PO field testing (ED-1) and are implemented in v1.4.1-dev2, pending Architect validation. Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
 
 **R-1 — Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater."**
 Equivalent to C-000039. The 6-ft trigger is company policy P-000003 (PO Decision 002), so **there is no conflict** (U-14 resolved). Any future wording improvement must keep the 6-ft trigger.

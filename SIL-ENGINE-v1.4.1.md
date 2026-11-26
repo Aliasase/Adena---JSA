@@ -1,9 +1,9 @@
 > **Repository Record (AD-008 §6):** Implementation record for the v1.4.1-dev1 test release (AD-010). Test build only — not a production release. Production remains v1.4.0-p1 on `main` / GitHub Pages. No merge to `main` is authorized.
 
-# Safety Intelligence Library Engine — v1.4.1-dev1
+# Safety Intelligence Library Engine — v1.4.1-dev1 / dev2
 
 **Authority:** AD-010 (PO, November 26, 2026) · SIL-PKG-003 r2 (`e2f768b`) · Architect Response 005 · SIL PO Decisions 005 and 006
-**Branch:** `revision-a4` · **Build:** `APP_VERSION 1.4.1`, `APP_BUILD dev1`, `CACHE_NAME adena-jsa-v1.4.1-dev1`
+**Branch:** `revision-a4` · **Builds:** `1.4.1-dev1` (`CACHE_NAME adena-jsa-v1.4.1-dev1`), superseded on the preview by `1.4.1-dev2` (`CACHE_NAME adena-jsa-v1.4.1-dev2`) — see §7
 **Base:** v1.4.0 engine (`SIL-ENGINE-v1.4.0.md`). Everything in that record still applies unless changed below.
 
 ## 1. What changed in the application
@@ -47,10 +47,10 @@ These were needed to make the approved regression scenarios pass. None adds a nu
 
 | # | Disposition | Engineer action |
 |---|---|---|
-| ED-1 | Accepted, subject to keeping pinch points where the installation method creates them | v1.4.1-dev1 kept H-BT-001 for mechanical anchors but dropped it for clamp-type anchors (beam clamps, beam trolleys, sliding beam anchors). **Corrected in the working tree, not yet deployed** (pending build). |
+| ED-1 | Accepted, subject to keeping pinch points where the installation method creates them | Corrected in v1.4.1-dev2, extended by PO field-testing direction (`SIL-PO-FIELD-TEST-ED-1.md`) — §7. |
 | ED-2 | Accepted | — |
-| ED-3 | Accepted, subject to contextual hot work classification and independent recognition of pressure, process contents and stored energy | v1.4.1-dev1 treated every "hot tap" as hot work, including a mechanical tap with no welding, and treated "no welding" as welding. **Corrected in the working tree, not yet deployed:** a welded hot tap is hot work; a mechanical tap (bolt-on saddle, tapping machine, no welding) makes hot work conditional; a negated welding statement doesn't establish welding. Pressure and stored-energy hazards appear in all three cases. |
-| ED-4 | Held pending the exact task wording and the two dust suggestions | Awaiting PO task text |
+| ED-3 | Accepted, subject to contextual hot work classification and independent recognition of pressure, process contents and stored energy | v1.4.1-dev1 treated every "hot tap" as hot work, including a mechanical tap with no welding, and treated "no welding" as welding. **Corrected in v1.4.1-dev2:** a welded hot tap is hot work; a mechanical tap (bolt-on saddle, tapping machine, no welding) makes hot work conditional; a negated welding statement doesn't establish welding. Pressure and stored-energy hazards appear in all three cases. |
+| ED-4 | Held, then accepted and closed by the PO (`SIL-PO-FIELD-TEST-ED-1.md`) | — |
 | ED-5 | Accepted | — |
 | ED-6 | Accepted; P3-U16 recorded as a deferred library expansion (not authorized) | Recorded in `SIL-UNRESOLVED-REGISTER.md`. Existing production drilling and mining coverage is preserved. |
 
@@ -81,3 +81,64 @@ These were needed to make the approved regression scenarios pass. None adds a nu
 - `tests/sil-pkg003.js` resolves suggestions to IDs by exact wording from the embedded library; it carries its own case list and control-key map, so it must be updated alongside any future wording or ID change.
 - Defects F-1 to F-16 (P3-U13) are corrected in this build but stay open until PO physical testing and a production release.
 - Recognition is vocabulary-based. Uncommon phrasing will fall back to the legacy library and manual entry, which remain unrestricted.
+
+## 7. v1.4.1-dev2 — field-testing corrections (November 26, 2026)
+
+**Authority:** Architect disposition of ED-1 to ED-6 (`SIL-PKG-003-ARCHITECT-DISPOSITION-ED.md`); PO field-testing direction (`SIL-PO-FIELD-TEST-ED-1.md`). **Build:** `APP_BUILD dev2`, `CACHE_NAME adena-jsa-v1.4.1-dev2`. The diff against dev1 is confined to the engine region, `SIL_DATA` and the version identifiers.
+
+### Clamp-type anchors (ED-1)
+
+- **Terms recognized:** clamp anchors, clamp-on anchors, beam clamps, girder clamps, beam anchors, beam trolleys, trolley anchors, sliding (beam) anchors. Recognition does not require "fall protection".
+- **Treated as one device:** the words "beam", "clamp" and "anchor" inside these phrases establish no other activity. They no longer trigger the drilling/anchoring keyword entry, the rigging entry or steel-erection/elevated-work entries.
+- **Hazards (canonical reuse):**
+  - H-BT-001 — pinch points while fitting, bolting, anchoring or fastening.
+  - H-DF-026 — failure of an anchor used for fall protection, suspended access or lifting.
+- **Not assumed without context:**
+  - drilling and post-installed anchors: H-DF-024; C-000339 "Drill, clean and set…" is now scoped to drilled-in or post-installed anchors
+  - adhesive anchoring and curing
+  - silica
+  - powered tools: C-000224 on H-BT-001 is now scoped to powered or tool-driven fastening
+  - bolt fit-up (C-000002, drift pin)
+  - elevated work
+- **Context preserved:** leading-edge, drilling, wedge-anchor, concrete and rigging context in the same step still brings its own hazards. See scenarios ED-1-7 to ED-1-9.
+- **Inspecting an existing clamp:** inspection and removal-from-service controls apply; installation controls and pinch points don't.
+- **New controls** (PO-directed; Engineer draft, Architect validation pending; no numeric values):
+  - **C-000406** — "Select a clamp-type anchor rated for the application and compatible with the beam size, flange width and flange thickness; install it by the manufacturer's instructions, tighten and lock it, and confirm it cannot slide or come off the member before use. Keep fingers clear of the jaws and flange while positioning and tightening."
+  - **C-000407** — "Inspect the clamp before each use for damage, deformation, worn jaws, missing or damaged locking parts and illegible markings, and remove any defective clamp from service."
+
+### Hot tap (ED-3)
+
+- A welded hot tap is hot work.
+- A mechanical tap (bolt-on saddle, tapping machine, "no welding") makes hot work conditional.
+- A cold tap is not hot work.
+- "No welding" / "without welding" no longer establishes welding.
+- Pressure, process-contents and stored-energy hazards appear in every case.
+
+### Counts in dev2
+
+| Item | Count |
+|---|---|
+| Hazards | 97 active (unchanged) |
+| Controls in the registry | 407 |
+| Controls in the application | 401 (407 less the 6 withheld RCSC controls) |
+| Policies | 10 |
+| Additional controls withheld | None |
+
+### Tests (dev2)
+
+| Suite | Result |
+|---|---|
+| `tests/sil-pkg003.js`: 82 scenarios plus 18 §E field-testing / disposition scenarios, acceptance and defect checks | 740 / 740 pass |
+| `tests/sil-regression.js` | 447 / 447 pass |
+| `tests/browser-functional.js` | 22 / 22 pass |
+| Update path v1.4.0-p1 → dev2 | 9 / 9 pass |
+| Update path dev1 → dev2 | 9 / 9 pass |
+
+The first v1.4.0-p1 → dev2 run reported the old page after update. The local test server was sending a stale Last-Modified date on files extracted by `git archive`, which let the browser serve them from its HTTP cache. Re-staged with fresh file times, the run passed. Netlify revalidates on every request, so this doesn't apply to the preview.
+
+### Observed, not changed (existing v1.4.0 behavior)
+
+- **Process-piping controls on unrelated steps.** H-BT-002 ("…pipe ends and flanges") pulls the legacy process-piping controls (depressurize, line break permit) into its control list. This happens on any step with that hazard, e.g. "Erect steel beams at leading edge". The same output occurs in production v1.4.0-p1.
+- **Roofing hazards from "roof edge".** "Roof edge" matches the legacy roofing entry and brings torch, kettle and membrane hazards onto non-roofing steps.
+
+Both need a phrase-scoped correction. Neither was changed here because both are outside the ED-1 / ED-3 scope.
