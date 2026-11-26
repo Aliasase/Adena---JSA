@@ -127,6 +127,41 @@ Baseline evidence: every §A scenario was also run against v1.4.0-p1; observed d
 | ED-3d | Weld hot tap fitting on live gas line | H-HW-001 explicit; H-HW-004; H-HW-035 | — |
 | ED-6a | Drill blast holes with drill rig | Blast flyrock exposure; rockfall | — |
 
-## Execution record — v1.4.1-dev2 (AD-010 §7; PO field-testing corrections)
+## F. Production-defect corrections — Architect disposition of v1.4.1-dev2 (added November 26, 2026 — v1.4.1-dev3)
 
-All 82 scenarios (D-12 runs as two task texts) and the 18 §E scenarios are automated in `tests/sil-pkg003.js`, together with the AD-010 acceptance checks and the F-1 to F-16 defect checks. Result on November 26, 2026: 740 / 740 assertions pass; the existing `tests/sil-regression.js` suite passes 447 / 447. Scenario text and expectations in §A to §D are unchanged. Details: `SIL-ENGINE-v1.4.1.md` §5 and §7.
+**PD-1.** Sharp-metal hazard wording does not establish process-system controls. These controls are: depressurize, double block and bleed, line break permit. They require process-system context in the task.
+
+**PD-2.** A roof location establishes fall exposure without assuming roofing. Roofing relationships apply only when roofing work is recognized.
+
+| # | Task | Must include | Must not include |
+|---|---|---|---|
+| PD-1a | Erect steel beams at leading edge | Leading-edge fall exposure | Process-piping controls |
+| PD-1b | Install beam clamp at leading edge | H-DF-026 | Process-piping controls |
+| PD-1c | Drill steel angle with a cordless drill | H-BT-002 | Process-piping controls |
+| PD-1d | Drill holes in beam flange from boom lift | H-BT-010 | Process-piping controls |
+| PD-1e (mixed) | Drill steel angle and break flange on process line | H-BT-002, H-BT-010; process-piping controls | — |
+| PD-1f | Break flange on ammonia line | Process-piping controls | — |
+| PD-1g | Torque process pipe flange | H-BT-036; process-piping controls | — |
+| PD-2a | Install beam clamp at roof edge | H-BT-017 explicit, H-BT-001, H-DF-026; C-000039 | Roofing hazards; cutting-tool controls |
+| PD-2b | Replace HVAC unit on roof | H-BT-017 inferred | Roofing hazards |
+| PD-2c | Install conduit along parapet | H-BT-017 explicit | Roofing hazards |
+| PD-2d | Install metal roof deck | Leading-edge fall exposure (decking) | Roofing hazards |
+| PD-2e (mixed) | Torch-down membrane at roof edge | H-HW-007; all roofing hazards, including roof-perimeter fall exposure | — |
+| PD-2f | Re-roof building with TPO membrane | Roof-perimeter fall exposure; membrane slips | — |
+| PD-2g | Install roof flashing at parapet | Roof-perimeter fall exposure | H-BT-017 (the roofing relationship carries it) |
+| PD-2h (mixed) | Install beam clamp at roof edge, then torch-down membrane | H-DF-026, H-BT-001, H-HW-007; roofing hazards | — |
+
+Roofing hazards: torch and kettle burns, membrane slips, asphalt and torch fumes, unstable substrate, and roof-perimeter fall exposure. Process-piping controls: depressurize, double block and bleed or blind, and line break permit.
+
+## Execution record — v1.4.1-dev3
+
+**Coverage:** `tests/sil-pkg003.js` automates the following, together with the AD-010 acceptance checks, the F-1 to F-16 defect checks, and the C-000406 / C-000407 wording and clamp-type distinction checks:
+- the 82 scenarios in §A to §D (D-12 runs as two task texts)
+- the 18 §E scenarios
+- the 15 §F scenarios
+
+**Result (November 26, 2026):**
+- `tests/sil-pkg003.js`: 835 / 835 assertions pass.
+- `tests/sil-regression.js`: 447 / 447 pass.
+
+Scenario text and expectations in §A to §E are unchanged. Details: `SIL-ENGINE-v1.4.1.md` §8.

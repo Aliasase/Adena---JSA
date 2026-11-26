@@ -1739,6 +1739,236 @@ const CASES = [
 "Rock face instability and rockfall"
 ]
 }
+],
+[
+"PD-1a",
+"Erect steel beams at leading edge",
+{
+"incT": [
+"Fall exposure at leading edge and open sides"
+],
+"excCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-1b",
+"Install beam clamp at leading edge",
+{
+"inc": [
+"H-DF-026"
+],
+"excCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-1c",
+"Drill steel angle with a cordless drill",
+{
+"inc": [
+"H-BT-002"
+],
+"excCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-1d",
+"Drill holes in beam flange from boom lift",
+{
+"inc": [
+"H-BT-010"
+],
+"excCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-1e",
+"Drill steel angle and break flange on process line",
+{
+"inc": [
+"H-BT-002",
+"H-BT-010"
+],
+"incCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-1f",
+"Break flange on ammonia line",
+{
+"incCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-1g",
+"Torque process pipe flange",
+{
+"inc": [
+"H-BT-036"
+],
+"incCT": [
+"Depressurize, drain, and verify zero pressure before breaking any flange or fitting",
+"Double block and bleed or blind/blank lines before breaking into process piping",
+"Obtain line break permit as required by site procedure"
+]
+}
+],
+[
+"PD-2a",
+"Install beam clamp at roof edge",
+{
+"inc": [
+"H-BT-017",
+"H-BT-001",
+"H-DF-026"
+],
+"cls": {
+"H-BT-017": "E"
+},
+"incC": [
+"C-000039"
+],
+"excT": [
+"Thermal burns from torch and hot kettle",
+"Slips on membrane or wet surface",
+"Fume inhalation from asphalt and torch",
+"Unstable or wet substrate",
+"Fall exposure at leading edge and roof perimeter"
+],
+"excCT": [
+"Keep bystanders out of the cutting zone"
+]
+}
+],
+[
+"PD-2b",
+"Replace HVAC unit on roof",
+{
+"inc": [
+"H-BT-017"
+],
+"cls": {
+"H-BT-017": "I"
+},
+"excT": [
+"Thermal burns from torch and hot kettle",
+"Slips on membrane or wet surface",
+"Fume inhalation from asphalt and torch",
+"Unstable or wet substrate",
+"Fall exposure at leading edge and roof perimeter"
+]
+}
+],
+[
+"PD-2c",
+"Install conduit along parapet",
+{
+"inc": [
+"H-BT-017"
+],
+"cls": {
+"H-BT-017": "E"
+},
+"excT": [
+"Thermal burns from torch and hot kettle",
+"Slips on membrane or wet surface",
+"Fume inhalation from asphalt and torch",
+"Unstable or wet substrate",
+"Fall exposure at leading edge and roof perimeter"
+]
+}
+],
+[
+"PD-2d",
+"Install metal roof deck",
+{
+"incT": [
+"Fall exposure at leading edge and open sides"
+],
+"excT": [
+"Thermal burns from torch and hot kettle",
+"Slips on membrane or wet surface",
+"Fume inhalation from asphalt and torch",
+"Unstable or wet substrate",
+"Fall exposure at leading edge and roof perimeter"
+]
+}
+],
+[
+"PD-2e",
+"Torch-down membrane at roof edge",
+{
+"inc": [
+"H-HW-007"
+],
+"incT": [
+"Thermal burns from torch and hot kettle",
+"Slips on membrane or wet surface",
+"Fume inhalation from asphalt and torch",
+"Unstable or wet substrate",
+"Fall exposure at leading edge and roof perimeter"
+]
+}
+],
+[
+"PD-2f",
+"Re-roof building with TPO membrane",
+{
+"incT": [
+"Fall exposure at leading edge and roof perimeter",
+"Slips on membrane or wet surface"
+]
+}
+],
+[
+"PD-2g",
+"Install roof flashing at parapet",
+{
+"incT": [
+"Fall exposure at leading edge and roof perimeter"
+],
+"exc": [
+"H-BT-017"
+]
+}
+],
+[
+"PD-2h",
+"Install beam clamp at roof edge, then torch-down membrane",
+{
+"inc": [
+"H-DF-026",
+"H-BT-001",
+"H-HW-007"
+],
+"incT": [
+"Fall exposure at leading edge and roof perimeter",
+"Thermal burns from torch and hot kettle"
+]
+}
 ]
 ];
 CASES.forEach(([id, task, sp]) => {
@@ -1750,6 +1980,7 @@ CASES.forEach(([id, task, sp]) => {
   (sp.excC || []).forEach(x => check(id + ' no control ' + x, !r.cids.includes(x), task));
   (sp.incT || []).forEach(s => check(id + ' keeps "' + s + '"', r.hz.some(h => norm(h) === norm(s)), task));
   (sp.excT || []).forEach(s => check(id + ' drops "' + s + '"', !r.hz.some(h => norm(h) === norm(s)), task));
+  (sp.incCT || []).forEach(s => check(id + ' keeps control "' + s + '"', r.ctl.some(h => norm(h) === norm(s)), task));
   (sp.excCT || []).forEach(s => check(id + ' drops control "' + s + '"', !r.ctl.some(h => norm(h) === norm(s)), task));
   if(sp.first) check(id + ' first ' + sp.first, r.ids[0] === sp.first, r.ids.slice(0, 3).join(','));
   if(sp.variant) check(id + ' assessment form of H-DF-017', r.ids.includes('H-DF-017*') && !r.ids.includes('H-DF-017'), r.ids.join(','));
@@ -1757,6 +1988,12 @@ CASES.forEach(([id, task, sp]) => {
   check(id + ' no duplicate suggestions', new Set(r.hz.map(norm)).size === r.hz.length && new Set(r.ctl.map(norm)).size === r.ctl.length);
 });
 /* ---- acceptance checks (AD-010 §3, §4, §7) ---- */
+// Architect disposition of dev2: C-000406 wording; fixed clamps, sliding beam anchors and trolleys stay distinct
+check('C-000406 approved wording', E.SIL_DATA.controls['C-000406'] === "Select a rated clamp or trolley compatible with the beam dimensions and intended application. Install and secure it according to the manufacturer's instructions to prevent unintended movement or disengagement while allowing designed travel where applicable. Keep fingers clear of jaws and pinch points during positioning and adjustment", E.SIL_DATA.controls['C-000406']);
+check('C-000407 accepted as written', /^Inspect the clamp before each use/.test(E.SIL_DATA.controls['C-000407']));
+[['Install beam clamp', false], ['Install clamp anchors', false], ['Install sliding beam anchor', true], ['Install beam trolley', true]].forEach(([t, travel]) => {
+  const c = E.silConcepts(t);
+  check('clamp type kept distinct: ' + t, c.clampAnchor && c.clampTravel === travel && c.clampFixed === !travel); });
 const I = k => IDS[k];
 // §3.2 assessment form carries only the identification and assessment controls
 { const ctl = E.getSuggestions('control', E.SIL_HZ['H-DF-017'].tc, {task: 'Drill unspecified material'}).map(c => ctlId[norm(c)]);

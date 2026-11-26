@@ -1,9 +1,9 @@
 > **Repository Record (AD-008 §6):** Implementation record for the v1.4.1-dev1 test release (AD-010). Test build only — not a production release. Production remains v1.4.0-p1 on `main` / GitHub Pages. No merge to `main` is authorized.
 
-# Safety Intelligence Library Engine — v1.4.1-dev1 / dev2
+# Safety Intelligence Library Engine — v1.4.1-dev1 to dev3
 
 **Authority:** AD-010 (PO, November 26, 2026) · SIL-PKG-003 r2 (`e2f768b`) · Architect Response 005 · SIL PO Decisions 005 and 006
-**Branch:** `revision-a4` · **Builds:** `1.4.1-dev1` (`CACHE_NAME adena-jsa-v1.4.1-dev1`), superseded on the preview by `1.4.1-dev2` (`CACHE_NAME adena-jsa-v1.4.1-dev2`) — see §7
+**Branch:** `revision-a4` · **Builds:** `1.4.1-dev1` (`CACHE_NAME adena-jsa-v1.4.1-dev1`), then `1.4.1-dev2` (§7) and `1.4.1-dev3` (`CACHE_NAME adena-jsa-v1.4.1-dev3`, §8), the build now on the preview
 **Base:** v1.4.0 engine (`SIL-ENGINE-v1.4.0.md`). Everything in that record still applies unless changed below.
 
 ## 1. What changed in the application
@@ -142,3 +142,54 @@ The first v1.4.0-p1 → dev2 run reported the old page after update. The local t
 - **Roofing hazards from "roof edge".** "Roof edge" matches the legacy roofing entry and brings torch, kettle and membrane hazards onto non-roofing steps.
 
 Both need a phrase-scoped correction. Neither was changed here because both are outside the ED-1 / ED-3 scope.
+
+## 8. v1.4.1-dev3 — Architect disposition of dev2 (November 26, 2026)
+
+**Authority:** `SIL-PKG-003-ARCHITECT-DISPOSITION-DEV2.md`. **Build:** `APP_BUILD dev3`, `CACHE_NAME adena-jsa-v1.4.1-dev3`. Production v1.4.0-p1 is unchanged.
+
+### Controls
+- **C-000406:** revised to the Architect's wording, verbatim.
+- **C-000407:** accepted as written.
+- **Clamp types kept distinct:** recognition records fixed clamps (clamp, clamp-on, beam and girder clamps, beam anchors) separately from travelling devices (sliding beam anchors, beam trolleys). Regression checks confirm each type.
+
+### PD-1 — process-system controls need process-system context
+- **Cause:** legacy control entries were matched against the wording of each hazard line. "…pipe ends and flanges" in H-BT-002 matched the legacy process-piping entry, so depressurize, double block and bleed, and line break permit appeared on any step with sharp metal.
+- **Correction:** the relationship is now gated, not the phrase. The legacy process-system control entries are 22 (process piping / line break), 23 (vessel entry) and 24 (chemical plant). They apply only when the task itself establishes process-system context, by either:
+  - a process-system cue in the task: process line or plant, line break, opening or breaking a line or flange, hot or cold tap, tie-in, in-service, live or pressurized line, a named chemical, steam, gas or fuel line, vessel, tank, reactor or exchanger; or
+  - a task that the legacy library itself classifies as process piping, process vessel or process plant work (hazard entries 30, 31, 34). This keeps production coverage for tasks such as flange make-up.
+- **Not changed:** hazard wording no longer establishes process context. Steps with no task description keep the previous behavior.
+
+### PD-2 — roof location vs. roofing work
+- **Cause:** the legacy roofing entry (35) matched the bare word "roof", so any rooftop step got torch, hot kettle, membrane, asphalt and substrate hazards.
+- **Correction:**
+  - **Roofing work** is recognized only from roofing activity cues: roofing, re-roofing, roofers, membrane, built-up roof, torch-applied or torch-down, kettle, hot tar or asphalt, waterproofing, shingles, TPO, EPDM, modified bitumen, tear-off, flashing, cap sheet, or roof repair, replacement or coating.
+  - **Without roofing work,** roof location words don't match the roofing entry.
+  - **Roof as a location** establishes elevation and H-BT-017 fall exposure:
+    - explicit at a roof edge, perimeter, parapet, opening, hatch or skylight
+    - inferred elsewhere on a roof
+  - **When roofing work is recognized,** the roofing relationships carry fall exposure, so H-BT-017 isn't added beside the roofing fall line.
+  - **Metal or steel roof decking** is treated as decking and uses the decking fall relationship.
+- **Same class of defect:** location wording in hazard lines (leading edge, roof edge, open sides) no longer matches the legacy cutting-tool control entry through the word "edge".
+
+### Counts (dev3)
+| Item | Count |
+|---|---|
+| Hazards | 97 active (unchanged) |
+| Controls in the registry | 407 |
+| Controls in the application | 401 (6 RCSC withheld) |
+| Policies | 10 |
+| Additional controls withheld | None |
+
+### Tests (dev3)
+| Suite | Result |
+|---|---|
+| `tests/sil-pkg003.js`: §A to §D (82), §E (18) and §F (15) scenarios, plus acceptance, defect, wording and clamp-type checks | 835 / 835 pass |
+| `tests/sil-regression.js` | 447 / 447 pass |
+| `tests/browser-functional.js` | 22 / 22 pass |
+| Update path v1.4.0-p1 → dev3 | 9 / 9 pass |
+| Update path dev2 → dev3 | 9 / 9 pass |
+
+### Observed, not changed (existing behavior; for Architect review)
+- **Task-keyword process classification.** Pipe fabrication tasks such as "Grind burrs off pipe spool in fab shop" are still classified as process piping by the legacy library's task keywords ("pipe spool", "flange"). They therefore keep the process-fluid hazards and process-piping controls, as in production. Narrowing this would reduce existing production coverage, so it was left for an Architect decision.
+- **Cutting-tool controls from sharp-metal wording.** H-BT-002 / "Sharp edges on steel" still bring the legacy cutting-tool controls (line of cut, blades, cutting zone) to non-cutting steel work, through the words "cut" and "sharp".
+- **Torch and kettle hazards on roofing.** Roofing recognized from non-torch systems (e.g. TPO) still brings the roofing entry's torch and kettle hazards, as in production.

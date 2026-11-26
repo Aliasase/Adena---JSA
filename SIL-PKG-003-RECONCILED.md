@@ -42,7 +42,7 @@
 | §3.7 E-13 | Standalone "Ramset" wording corrected: Hilti gun, Ramset gun and shoot / shot pins establish PAT work; standalone brand names do not. |
 | §3.8 C-000164 | T-13 wording keeps contaminant-based selection, assigned protection factor, the respiratory protection program and the oxygen-deficient / IDLH restriction. |
 
-**Text revisions of approved records:** 14 (8 hazards, 6 controls) — the 13 accepted by AR-005 plus T-14. Implemented in v1.4.1-dev1 and dev2; production v1.4.0-p1 keeps the earlier wording until a production release is authorized.
+**Text revisions of approved records:** 14 (8 hazards, 6 controls) — the 13 accepted by AR-005 plus T-14. Implemented in the v1.4.1 test builds; production v1.4.0-p1 keeps the earlier wording until a production release is authorized.
 
 ---
 
@@ -86,8 +86,8 @@
 - **Hazard identifiers:** 78 → **119** registered; active **74 → 97**; retired 4 → 22.
 - **Controls:** **135** new canonical controls, **C-000273 to C-000407**. Next available: **C-000408**. 46 existing controls reused across 22 existing records (§5).
 - **Policies:** **10** confirmed (P-000010 added by SIL PO Decision 005 §1).
-- **Implemented in v1.4.1-dev2:** 135 of 135 new controls — 133 approved by AD-010, plus C-000406 and C-000407 added for PO field testing (ED-1; Architect validation pending). The six RCSC controls stay withheld (U-5, U-20).
-- **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in v1.4.1-dev1 and dev2; none changes an identifier.
+- **Implemented in v1.4.1-dev3:** 135 of 135 new controls — 133 approved by AD-010, plus C-000406 (wording per the Architect disposition of dev2) and C-000407 (accepted as written), added for PO field testing (ED-1). The six RCSC controls stay withheld (U-5, U-20).
+- **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in the v1.4.1 test builds; none changes an identifier.
 
 **Citations:** 5 provisions verified against authoritative text — 1926.302(b), 1926.302(e), 1926.1153 (Table 1 rows (vi)–(ix), (f), (g)(1)), 1926.416(a)(3), 1926.502(d)(15). Two candidate assumptions are corrected by them (E-6, E-8).
 

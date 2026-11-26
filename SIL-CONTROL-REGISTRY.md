@@ -18,7 +18,7 @@
 | C-000258 to C-000272 | Architect Response 004 |
 | C-000273 to C-000393 | Package 003 r1 (candidate — SIL PO Decision 005 §4) |
 | C-000394 to C-000405 | Package 003 r2 (Architect Response 005; approved AD-010) |
-| C-000406 to C-000407 | PO field testing of v1.4.1-dev1 (ED-1 clamp-type anchors) — Engineer draft, Architect validation pending |
+| C-000406 to C-000407 | PO field testing of v1.4.1-dev1 (ED-1 clamp-type anchors); C-000406 revised and C-000407 accepted by the Architect disposition of dev2 |
 
 Next available: **C-000408**. Retired: none.
 
@@ -56,7 +56,7 @@ Next available: **C-000408**. Retired: none.
 | C-000049 | "Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task." | PO Decision 002 §3 |
 
 
-**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in v1.4.1-dev1 and v1.4.1-dev2** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
+**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in the v1.4.1 test builds (dev1 to dev3)** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
 
 | # | Control | Prior wording (v1.4.0-p1) | Revised wording (v1.4.1-dev1) |
 |---|---|---|---|
@@ -478,13 +478,13 @@ Next available: **C-000408**. Retired: none.
 | C-000403 | Before using an existing anchor, confirm it is approved and identified for the application, and inspect it for damage, corrosion, deformation or movement. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor] | — | Mfr; Spec; OSHA-C 1926.502(d)(15) — verified (Engineer, osha.gov, P003 r1) | P003 r2: new (Architect Response 005) |
 | C-000404 | Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor] | — | Mfr; BP | P003 r2: new (Architect Response 005) |
 | C-000405 | Operate a nailer, stapler or gas-actuated tool only after instruction on that tool and its manufacturer's instructions. | H-DF-028 (P003) [if gas-actuated]; H-DF-032 (P003) | — | Mfr; AR-005 §13 (equipment-specific instruction retained regardless of regulatory classification — P3-U12) | P003 r2: new (Architect Response 005) |
-| C-000406 | Select a clamp-type anchor rated for the application and compatible with the beam size, flange width and flange thickness; install it by the manufacturer's instructions, tighten and lock it, and confirm it cannot slide or come off the member before use. Keep fingers clear of the jaws and flange while positioning and tightening. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if installing a clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1 — Engineer draft, Architect validation pending; no numeric value introduced) | P003 r2: new (Architect Response 005) |
-| C-000407 | Inspect the clamp before each use for damage, deformation, worn jaws, missing or damaged locking parts and illegible markings, and remove any defective clamp from service. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1 — Engineer draft, Architect validation pending) | P003 r2: new (Architect Response 005) |
+| C-000406 | Select a rated clamp or trolley compatible with the beam dimensions and intended application. Install and secure it according to the manufacturer's instructions to prevent unintended movement or disengagement while allowing designed travel where applicable. Keep fingers clear of jaws and pinch points during positioning and adjustment. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if installing a clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1; wording per Architect disposition of v1.4.1-dev2; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000407 | Inspect the clamp before each use for damage, deformation, worn jaws, missing or damaged locking parts and illegible markings, and remove any defective clamp from service. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1; accepted as written by Architect disposition of v1.4.1-dev2) | P003 r2: new (Architect Response 005) |
 
 
 ## Registry notes
 
-**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010 and are implemented in the v1.4.1 test builds (not in production v1.4.0-p1). C-000406 and C-000407 were added for PO field testing (ED-1) and are implemented in v1.4.1-dev2, pending Architect validation. Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
+**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010 and are implemented in the v1.4.1 test builds (not in production v1.4.0-p1). C-000406 and C-000407 were added for PO field testing (ED-1) and accepted by the Architect (C-000406 as revised); implemented in v1.4.1-dev3. Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
 
 **R-1 — Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater."**
 Equivalent to C-000039. The 6-ft trigger is company policy P-000003 (PO Decision 002), so **there is no conflict** (U-14 resolved). Any future wording improvement must keep the 6-ft trigger.
