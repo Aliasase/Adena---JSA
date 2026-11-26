@@ -153,15 +153,43 @@ Baseline evidence: every §A scenario was also run against v1.4.0-p1; observed d
 
 Roofing hazards: torch and kettle burns, membrane slips, asphalt and torch fumes, unstable substrate, and roof-perimeter fall exposure. Process-piping controls: depressurize, double block and bleed or blind, and line break permit.
 
-## Execution record — v1.4.1-dev3
+## G. Temporary fall protection anchorage connectors — Architect supplemental directive (added November 26, 2026 — v1.4.1-dev4)
 
-**Coverage:** `tests/sil-pkg003.js` automates the following, together with the AD-010 acceptance checks, the F-1 to F-16 defect checks, and the C-000406 / C-000407 wording and clamp-type distinction checks:
+**Abbreviations used in this table:**
+- **Travel controls:** C-000410 to C-000414 (travel path, disengagement points, usable flange, no improvised stops, approved travel stops).
+- **Connector controls:** C-000408 (approved compatible connector) and C-000417 (inspect before each use).
+- **Clamp controls:** C-000346, C-000406, C-000407 (generic clamp-anchor controls).
+- **FP records:** H-DF-042 to H-DF-044.
+- **FP controls:** C-000408 to C-000418.
+
+| # | Task | Must include | Must not include |
+|---|---|---|---|
+| FP-1 | Install beamers | H-DF-026, H-DF-042, H-BT-001, H-BT-017, H-BT-018, H-DF-043, H-DF-044; connector controls, C-000409, C-000418, C-000415, C-000416, travel controls | Clamp controls; H-DF-024, H-BT-010 |
+| FP-2 | Use beamers while erecting structural steel | H-DF-026, H-DF-042, H-BT-017, H-DF-043, H-DF-044; travel controls; steel erection hazards (leading edge, overhead steel) | H-DF-024 |
+| FP-3 | Inspect sliding beam anchors | H-DF-026; connector controls; C-000404 | H-BT-001, H-BT-017, H-BT-018, FP records; C-000418, C-000415, C-000416 |
+| FP-4 | Install pivot D-ring sliding beam clamp | H-DF-026, H-DF-042, H-BT-001, H-BT-017, H-DF-043, H-DF-044; connector controls, C-000409, C-000418, C-000415, travel controls | Clamp controls |
+| FP-5 | Walk along beam using a beamer | H-DF-042, H-BT-017, H-DF-043, H-DF-044; C-000415, C-000416, travel controls | — |
+| FP-6 | Slide beamer toward beam end | H-DF-042 **first**; travel controls; C-000415 | — |
+| FP-7 | Use beamer on beam with connection tabs and an air gap at the end | H-DF-042 **first**; travel controls; C-000409 | — |
+| FP-8 | Transfer between beams using sliding beam anchors | H-DF-042 **first**; H-BT-017, H-BT-001; C-000415, C-000418, travel controls | — |
+| FP-9 | Remove temporary beam anchors | H-BT-017, H-BT-018, H-BT-001; C-000415, C-000418 | FP records; demolition hazards |
+| FP-10 | Install lifting beam clamps for rigging | H-DF-026, H-BT-001; C-000406, C-000407; rigging hazards | FP records, H-BT-017; FP controls |
+| FP-11 | Install fixed fall protection beam clamps | H-DF-026, H-DF-042, H-BT-001, H-BT-017, H-DF-043, H-DF-044; connector controls, C-000409, C-000418, C-000415 | Travel controls; clamp controls; maintenance hazards from "fixed" |
+| FP-12 | Use sliding beam anchors near flange discontinuities | H-DF-042 **first**; travel controls | Process-piping hazards; H-BT-036 |
+| FP-13 to FP-22 | Beam strap anchor (fixed, no jaws) · beam glide anchor · temporary beam anchorage connector · sliding beam clamp anchor · tie off to beam clamp · beam clamp to hang a chain hoist (rigging) · beam trolley for a monorail hoist (material handling) · beam clamp for conduit hangers (fastening hardware) · beam clamp for fall protection plus a separate rigging clamp (mixed) · reposition fall protection beam clamp | Recognition by name or by fall protection context; rigging, material-handling and fastening-hardware uses keep their own relationships | FP records and FP controls on rigging, material-handling and hardware uses; jaw and travel controls on a beam strap |
+
+ED-1-6 ("Install sliding beam anchor") is revised under this directive: a sliding beam anchor is a temporary fall protection anchorage connector. It now takes the FP records and FP controls in place of the generic clamp controls. The other ED-1 expectations are unchanged.
+
+## Execution record — v1.4.1-dev4
+
+**Coverage:** `tests/sil-pkg003.js` automates the following, together with the AD-010 acceptance checks, the F-1 to F-16 defect checks and the wording and clamp-type checks:
 - the 82 scenarios in §A to §D (D-12 runs as two task texts)
-- the 18 §E scenarios
+- the 18 §E scenarios (ED-1-6 revised as noted in §G)
 - the 15 §F scenarios
+- the 22 §G scenarios
 
 **Result (November 26, 2026):**
-- `tests/sil-pkg003.js`: 835 / 835 assertions pass.
+- `tests/sil-pkg003.js`: 1,143 / 1,143 assertions pass.
 - `tests/sil-regression.js`: 447 / 447 pass.
 
-Scenario text and expectations in §A to §E are unchanged. Details: `SIL-ENGINE-v1.4.1.md` §8.
+Details: `SIL-ENGINE-v1.4.1.md` §9.

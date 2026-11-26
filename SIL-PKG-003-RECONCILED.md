@@ -8,7 +8,7 @@
 **Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `52ce59d` · r1.1 SIL PO Decision 006 `7c6ddc6` · r2 Architect Response 005 `e2f768b` · **r2.1 — AD-010 incorporated; implemented in v1.4.1-dev1** · **Branch:** `revision-a4` · **Baselines:** production v1.4.0-p1 `76ac7c7`, development `edab953`
 
 **Companion files:**
-- `SIL-CONTROL-REGISTRY.md` — C-000273 to C-000407 added; relationships appended to 46 existing controls; 5 accepted text revisions of approved controls
+- `SIL-CONTROL-REGISTRY.md` — C-000273 to C-000418 added; relationships appended to 46 existing controls; 5 accepted text revisions of approved controls
 - `SIL-POLICY-REGISTRY.md` — P-000010 added; Package 003 policy relationships; induction/resistance heating scope
 - `SIL-HAZARD-REGISTRY.md` — **new**: every hazard identifier across Packages 001–003, with status
 - `SIL-PKG-003-PRODUCTION-CROSSWALK.md` — production entries, supersession proposals and v1.4.0-p1 defects found
@@ -79,14 +79,14 @@
 
 | Disposition | Count | Records |
 |---|---|---|
-| New canonical record (candidate identifier kept) | 23 | H-DF-010, H-DF-011, H-DF-012, H-DF-013, H-DF-014, H-DF-015, H-DF-017, H-DF-018, H-DF-019, H-DF-021, H-DF-022, H-DF-023, H-DF-024, H-DF-026, H-DF-027, H-DF-028, H-DF-029, H-DF-030, H-DF-031, H-DF-032, H-DF-039, H-DF-040, H-DF-041 |
+| New canonical record (candidate identifier kept) | 26 | H-DF-010, H-DF-011, H-DF-012, H-DF-013, H-DF-014, H-DF-015, H-DF-017, H-DF-018, H-DF-019, H-DF-021, H-DF-022, H-DF-023, H-DF-024, H-DF-026, H-DF-027, H-DF-028, H-DF-029, H-DF-030, H-DF-031, H-DF-032, H-DF-039, H-DF-040, H-DF-041, H-DF-042, H-DF-043, H-DF-044 |
 | Consolidated into an existing Package 001–002 record (16) or another Package 003 record (2) — identifier retired, never reused | 18 | H-DF-001 → H-BT-010; H-DF-002 → H-BT-010; H-DF-003 → H-BT-004; H-DF-004 → H-BT-021; H-DF-005 → H-BT-021; H-DF-006 → H-HW-029; H-DF-007 → H-BT-002, H-HW-008; H-DF-008 → H-HW-031; H-DF-009 → H-HW-030; H-DF-016 → H-BT-013; H-DF-020 → H-BT-026; H-DF-025 → H-DF-024; H-DF-033 → H-DF-028; H-DF-034 → H-BT-028; H-DF-035 → H-BT-001; H-DF-036 → H-BT-029, H-BT-030; H-DF-037 → H-BT-007, H-BT-008; H-DF-038 → H-BT-020 |
 
 **Totals (approved by AD-010 for the isolated test release):**
-- **Hazard identifiers:** 78 → **119** registered; active **74 → 97**; retired 4 → 22.
-- **Controls:** **135** new canonical controls, **C-000273 to C-000407**. Next available: **C-000408**. 46 existing controls reused across 22 existing records (§5).
+- **Hazard identifiers:** 78 → **122** registered; active **74 → 100**; retired 4 → 22.
+- **Controls:** **146** new canonical controls, **C-000273 to C-000418**. Next available: **C-000419**. 46 existing controls reused across 22 existing records (§5).
 - **Policies:** **10** confirmed (P-000010 added by SIL PO Decision 005 §1).
-- **Implemented in v1.4.1-dev3:** 135 of 135 new controls — 133 approved by AD-010, plus C-000406 (wording per the Architect disposition of dev2) and C-000407 (accepted as written), added for PO field testing (ED-1). The six RCSC controls stay withheld (U-5, U-20).
+- **Implemented in v1.4.1-dev4:** 146 of 146 new controls — 133 approved by AD-010; C-000406 (Architect wording) and C-000407 from PO field testing (ED-1); C-000408 to C-000418 from the Architect supplemental directive on temporary fall protection anchorage connectors. The six RCSC controls stay withheld (U-5, U-20).
 - **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in the v1.4.1 test builds; none changes an identifier.
 
 **Citations:** 5 provisions verified against authoritative text — 1926.302(b), 1926.302(e), 1926.1153 (Table 1 rows (vi)–(ix), (f), (g)(1)), 1926.416(a)(3), 1926.502(d)(15). Two candidate assumptions are corrected by them (E-6, E-8).
@@ -532,12 +532,14 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Explicit: installing, inspecting, testing or using fall protection, suspended access, lifting or life-safety anchors. Installation controls apply only when an anchor is being installed (AR-005 §12).
 - Hazard: Failure of an anchor used for fall protection, suspended access or lifting.
 - Controls:
-  - `C-000346` *(new)* Use only anchors approved for fall protection, suspended access or lifting, as the application requires — never an ordinary construction anchor without that approval.
+  - `C-000346` `[if not a temporary beam anchorage connector]` *(new)* Use only anchors approved for fall protection, suspended access or lifting, as the application requires — never an ordinary construction anchor without that approval.
   - `C-000347` `[if installing]` *(new)* Install life-safety and lifting anchors to a design or approval by a qualified person or engineer.
   - `C-000339` `[if installing a drilled-in or post-installed anchor]` *(new)* Drill, clean and set each anchor by the approved installation instructions, including hole diameter, depth, embedment, edge distance and spacing.
-  - `C-000341` `[if installing]` *(new)* Complete the required inspection, testing and acceptance before loading the anchor.
+  - `C-000341` `[if installing an anchor other than a temporary beam anchorage connector]` *(new)* Complete the required inspection, testing and acceptance before loading the anchor.
   - `C-000403` `[if inspecting, testing or using an existing anchor]` *(new)* Before using an existing anchor, confirm it is approved and identified for the application, and inspect it for damage, corrosion, deformation or movement.
-  - `C-000404` `[if inspecting, testing or using an existing anchor]` *(new)* Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it.
+  - `C-000404` `[if inspecting, testing or using an existing anchor or anchorage connector]` *(new)* Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it.
+  - `C-000408` `[if temporary beam anchorage connector]` *(new)* Use an approved fall protection anchorage connector compatible with the beam dimensions, flange configuration and intended application.
+  - `C-000417` `[if temporary beam anchorage connector]` *(new)* Inspect the anchorage connector before each use and remove defective equipment from service.
 - Related canonical records: H-BT-017 [if fall protection]
 - Review: New canonical record. 1926.502(d)(15) verified: 5,000 lb per employee attached, or designed as part of a complete system with a safety factor of at least two under a qualified person's supervision. **No numeric capacity is placed in user-facing text** (candidate §9).
 
@@ -722,6 +724,33 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000401` *(new)* Keep the separation the manufacturer requires from energized induction coils and associated equipment.
   - `C-000402` *(new)* Do not bypass protective barriers or equipment safeguards.
 - Review: New canonical record added by Architect Response 005 §9 (closes P3-U9). No universal separation distance or medical-device exclusion is introduced without equipment-specific validation.
+
+**H-DF-042 — Unintended travel or disengagement of a beam anchorage connector** · *New canonical record*
+- Applicability: Explicit: installing, using or repositioning a temporary fall protection anchorage connector that clamps onto or travels along a beam flange (beamers, sliding beam anchors and clamps, pivot D-ring beam anchors, fall protection beam clamps, beam glide anchors). Covers travel beyond the beam end or through a flange gap, splice, connection or other discontinuity, jaws not fully engaged, an incompatible flange and loosening or unintentional release. Not for lifting clamps, material-handling trolleys or clamp hardware for hangers and supports.
+- Hazard: Beam anchorage connector traveling off the beam end or through a flange gap or discontinuity, or disengaging from the flange.
+- Controls:
+  - `C-000408` *(new)* Use an approved fall protection anchorage connector compatible with the beam dimensions, flange configuration and intended application.
+  - `C-000409` `[if jaw-type connector]` *(new)* Verify both jaws are fully engaged on the beam flange and the locking mechanism is secured according to the manufacturer's instructions before connecting.
+  - `C-000410` `[if sliding beam anchor]` *(new)* Before using a sliding beam anchor, inspect the entire intended travel path.
+  - `C-000411` `[if sliding beam anchor]` *(new)* Identify beam ends, flange discontinuities, gaps, connection tabs and other locations where the anchor could disengage.
+  - `C-000412` `[if sliding beam anchor]` *(new)* Do not allow a sliding beam anchor to travel beyond the usable beam flange.
+  - `C-000413` `[if sliding beam anchor]` *(new)* Do not rely on connection tabs, bolts or adjacent structural members as travel stops unless they have been specifically verified as suitable for that purpose.
+  - `C-000414` `[if sliding beam anchor]` *(new)* Where required, use manufacturer-approved travel stops or another approved method to prevent unintended disengagement. Do not improvise travel stops or modify the equipment.
+- Review: New canonical record (Architect supplemental directive — temporary fall protection anchorage connectors): unintended travel and disengagement, which H-DF-026 (anchor failure) does not adequately describe. Improper jaw engagement, incompatible flange dimensions or configuration and unintentional release or loosening are disengagement mechanisms of this record.
+
+**H-DF-043 — Swing fall** · *New canonical record*
+- Applicability: Explicit: using, installing or repositioning a temporary fall protection anchorage connector.
+- Hazard: Swing fall — striking structure or a lower level after a fall from an offset anchorage.
+- Controls:
+  - `C-000416` *(new)* Evaluate swing fall exposure and available fall clearance before use.
+- Review: New canonical record (Architect supplemental directive): no existing canonical record describes swing fall exposure.
+
+**H-DF-044 — Insufficient fall clearance** · *New canonical record*
+- Applicability: Explicit: using, installing or repositioning a temporary fall protection anchorage connector.
+- Hazard: Insufficient fall clearance — striking a lower level or obstruction before the fall is arrested.
+- Controls:
+  - `C-000416` *(new)* Evaluate swing fall exposure and available fall clearance before use.
+- Review: New canonical record (Architect supplemental directive): no existing canonical record describes fall clearance. No clearance distance is placed in user-facing text.
 
 ---
 

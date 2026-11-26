@@ -9,7 +9,7 @@ const e1 = html.indexOf('/* ====================================================
 const e2 = html.indexOf('/* Track how many suggestions are currently visible per drawer');
 const code = html.slice(a, b).replace('const TASK', 'var TASK').replace('const HAZ', 'var HAZ') + '\n' + html.slice(e1, e2);
 const E = {}; vm.createContext(E); vm.runInContext(code, E);
-const IDS = {"bit_contact": "C-000273", "bit_stop": "C-000274", "hair_jewelry": "C-000275", "no_gloves_spindle": "C-000276", "machine_guards": "C-000277", "swarf": "C-000278", "bind_stop": "C-000279", "clutch": "C-000280", "bit_inspect": "C-000281", "bit_select": "C-000282", "bit_speed": "C-000283", "chuck_key": "C-000284", "retainer": "C-000285", "sheet_gloves": "C-000286", "workpiece_stop": "C-000287", "pat_unload": "C-000288", "gas_isolate": "C-000289", "mag_surface": "C-000290", "mag_chain": "C-000291", "mag_stop": "C-000292", "mag_power": "C-000293", "core_mount": "C-000294", "core_inspect": "C-000295", "core_vacuum": "C-000296", "core_stop": "C-000297", "opposite_side": "C-000298", "opposite_coord": "C-000299", "core_retain": "C-000300", "svc_identify": "C-000301", "svc_scan": "C-000302", "svc_confirm": "C-000303", "svc_stop": "C-000304", "pipe_strike": "C-000305", "pt_identify": "C-000306", "pt_authorize": "C-000307", "pt_locate": "C-000308", "pt_unknown": "C-000309", "pt_strike": "C-000310", "struct_location": "C-000311", "struct_rebar": "C-000312", "struct_report": "C-000313", "silica_identify": "C-000314", "silica_method": "C-000315", "silica_maintain": "C-000316", "silica_holes": "C-000317", "dust_cleanup": "C-000318", "silica_plan": "C-000319", "dust_identify": "C-000320", "dust_capture": "C-000321", "coat_identify": "C-000322", "suspect_material": "C-000323", "regulated_proc": "C-000324", "wet_rated": "C-000325", "wet_protect": "C-000326", "slurry_contain": "C-000327", "slurry_runoff": "C-000328", "slurry_dispose": "C-000329", "cement_ppe": "C-000330", "splash": "C-000331", "cement_wash": "C-000332", "cement_firstaid": "C-000333", "sds_review": "C-000334", "chem_gloves": "C-000335", "chem_vent": "C-000336", "chem_handle": "C-000337", "anchor_spec": "C-000338", "anchor_install": "C-000339", "anchor_tool": "C-000340", "anchor_accept": "C-000341", "adh_approval": "C-000342", "adh_orientation": "C-000343", "adh_dispense": "C-000344", "adh_cure": "C-000345", "ls_anchor": "C-000346", "ls_design": "C-000347", "pat_trained": "C-000348", "pat_test": "C-000349", "pat_load": "C-000350", "never_point": "C-000351", "no_bypass": "C-000352", "remove_defective": "C-000353", "pat_faceshield": "C-000354", "trigger": "C-000355", "pat_substrate": "C-000356", "pat_power": "C-000357", "pat_edge": "C-000358", "pat_shield": "C-000359", "line_of_fire": "C-000360", "nail_knots": "C-000361", "nail_nose": "C-000362", "hand_behind": "C-000363", "backing": "C-000364", "misfire_hold": "C-000365", "misfire_loads": "C-000366", "pat_atmos": "C-000367", "load_store": "C-000368", "load_compat": "C-000369", "fuel_damaged": "C-000370", "nail_inspect": "C-000371", "nail_mode": "C-000372", "mandrel_collect": "C-000373", "mandrel_nose": "C-000374", "rivet_fingers": "C-000375", "hand_agree": "C-000376", "set_tool": "C-000377", "drill_size": "C-000378", "overhead_support": "C-000379", "vib_select": "C-000380", "vib_grip": "C-000381", "vib_time": "C-000382", "vib_report": "C-000383", "batt_inspect": "C-000384", "batt_compat": "C-000385", "batt_protect": "C-000386", "batt_remove": "C-000387", "batt_emerg": "C-000388", "air_inspect": "C-000389", "air_pressure": "C-000390", "air_body": "C-000391", "air_clean_30": "C-000392", "induction_ignition": "C-000393", "gas_substrate": "C-000394", "silica_collector": "C-000395", "silica_c2": "C-000396", "silica_assess": "C-000397", "adh_sustained": "C-000398", "emf_mfr": "C-000399", "emf_device": "C-000400", "emf_separation": "C-000401", "emf_barriers": "C-000402", "ls_inspect": "C-000403", "ls_remove": "C-000404", "tool_instruction": "C-000405", "clamp_install": "C-000406", "clamp_inspect": "C-000407"};
+const IDS = {"bit_contact": "C-000273", "bit_stop": "C-000274", "hair_jewelry": "C-000275", "no_gloves_spindle": "C-000276", "machine_guards": "C-000277", "swarf": "C-000278", "bind_stop": "C-000279", "clutch": "C-000280", "bit_inspect": "C-000281", "bit_select": "C-000282", "bit_speed": "C-000283", "chuck_key": "C-000284", "retainer": "C-000285", "sheet_gloves": "C-000286", "workpiece_stop": "C-000287", "pat_unload": "C-000288", "gas_isolate": "C-000289", "mag_surface": "C-000290", "mag_chain": "C-000291", "mag_stop": "C-000292", "mag_power": "C-000293", "core_mount": "C-000294", "core_inspect": "C-000295", "core_vacuum": "C-000296", "core_stop": "C-000297", "opposite_side": "C-000298", "opposite_coord": "C-000299", "core_retain": "C-000300", "svc_identify": "C-000301", "svc_scan": "C-000302", "svc_confirm": "C-000303", "svc_stop": "C-000304", "pipe_strike": "C-000305", "pt_identify": "C-000306", "pt_authorize": "C-000307", "pt_locate": "C-000308", "pt_unknown": "C-000309", "pt_strike": "C-000310", "struct_location": "C-000311", "struct_rebar": "C-000312", "struct_report": "C-000313", "silica_identify": "C-000314", "silica_method": "C-000315", "silica_maintain": "C-000316", "silica_holes": "C-000317", "dust_cleanup": "C-000318", "silica_plan": "C-000319", "dust_identify": "C-000320", "dust_capture": "C-000321", "coat_identify": "C-000322", "suspect_material": "C-000323", "regulated_proc": "C-000324", "wet_rated": "C-000325", "wet_protect": "C-000326", "slurry_contain": "C-000327", "slurry_runoff": "C-000328", "slurry_dispose": "C-000329", "cement_ppe": "C-000330", "splash": "C-000331", "cement_wash": "C-000332", "cement_firstaid": "C-000333", "sds_review": "C-000334", "chem_gloves": "C-000335", "chem_vent": "C-000336", "chem_handle": "C-000337", "anchor_spec": "C-000338", "anchor_install": "C-000339", "anchor_tool": "C-000340", "anchor_accept": "C-000341", "adh_approval": "C-000342", "adh_orientation": "C-000343", "adh_dispense": "C-000344", "adh_cure": "C-000345", "ls_anchor": "C-000346", "ls_design": "C-000347", "pat_trained": "C-000348", "pat_test": "C-000349", "pat_load": "C-000350", "never_point": "C-000351", "no_bypass": "C-000352", "remove_defective": "C-000353", "pat_faceshield": "C-000354", "trigger": "C-000355", "pat_substrate": "C-000356", "pat_power": "C-000357", "pat_edge": "C-000358", "pat_shield": "C-000359", "line_of_fire": "C-000360", "nail_knots": "C-000361", "nail_nose": "C-000362", "hand_behind": "C-000363", "backing": "C-000364", "misfire_hold": "C-000365", "misfire_loads": "C-000366", "pat_atmos": "C-000367", "load_store": "C-000368", "load_compat": "C-000369", "fuel_damaged": "C-000370", "nail_inspect": "C-000371", "nail_mode": "C-000372", "mandrel_collect": "C-000373", "mandrel_nose": "C-000374", "rivet_fingers": "C-000375", "hand_agree": "C-000376", "set_tool": "C-000377", "drill_size": "C-000378", "overhead_support": "C-000379", "vib_select": "C-000380", "vib_grip": "C-000381", "vib_time": "C-000382", "vib_report": "C-000383", "batt_inspect": "C-000384", "batt_compat": "C-000385", "batt_protect": "C-000386", "batt_remove": "C-000387", "batt_emerg": "C-000388", "air_inspect": "C-000389", "air_pressure": "C-000390", "air_body": "C-000391", "air_clean_30": "C-000392", "induction_ignition": "C-000393", "gas_substrate": "C-000394", "silica_collector": "C-000395", "silica_c2": "C-000396", "silica_assess": "C-000397", "adh_sustained": "C-000398", "emf_mfr": "C-000399", "emf_device": "C-000400", "emf_separation": "C-000401", "emf_barriers": "C-000402", "ls_inspect": "C-000403", "ls_remove": "C-000404", "tool_instruction": "C-000405", "clamp_install": "C-000406", "clamp_inspect": "C-000407", "fpc_select": "C-000408", "fpc_jaws": "C-000409", "fpc_path": "C-000410", "fpc_points": "C-000411", "fpc_travel": "C-000412", "fpc_nostop": "C-000413", "fpc_stops": "C-000414", "fpc_continuous": "C-000415", "fpc_swing": "C-000416", "fpc_inspect": "C-000417", "fpc_hands": "C-000418"};
 const norm = s => (s || '').trim().replace(/\.\s*$/, '').toLowerCase();
 const hzId = {}; E.SIL_DATA.hazards.forEach(h => { hzId[norm(h.t)] = h.id; });
 const variantText = norm(E.SIL_HZ['H-DF-017'].tc);
@@ -1608,46 +1608,6 @@ const CASES = [
 }
 ],
 [
-"ED-1-6",
-"Install sliding beam anchor",
-{
-"inc": [
-"H-BT-001",
-"H-DF-026"
-],
-"incC": [
-"C-000346",
-"C-000406",
-"C-000407"
-],
-"exc": [
-"H-DF-024",
-"H-DF-023",
-"H-DF-017",
-"H-BT-010",
-"H-BT-004",
-"H-BT-026",
-"H-BT-021",
-"H-HW-029",
-"H-BT-019",
-"H-BT-018",
-"H-BT-013"
-],
-"excC": [
-"C-000339",
-"C-000345",
-"C-000224",
-"C-000002"
-],
-"excT": [
-"Fall exposure at leading edge and open sides",
-"Suspended load / dropped load",
-"Puncture hazard",
-"Overhead work exposure"
-]
-}
-],
-[
 "ED-1-7",
 "Install beam clamp at leading edge",
 {
@@ -1969,6 +1929,596 @@ const CASES = [
 "Thermal burns from torch and hot kettle"
 ]
 }
+],
+[
+"ED-1-6",
+"Install sliding beam anchor",
+{
+"inc": [
+"H-BT-001",
+"H-DF-026",
+"H-DF-042",
+"H-BT-017",
+"H-BT-018"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409",
+"C-000418",
+"C-000415",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+],
+"excC": [
+"C-000346",
+"C-000406",
+"C-000407",
+"C-000403",
+"C-000339",
+"C-000345",
+"C-000224",
+"C-000002"
+],
+"exc": [
+"H-DF-024",
+"H-DF-023",
+"H-DF-017",
+"H-BT-010",
+"H-BT-004",
+"H-BT-026",
+"H-HW-029"
+]
+}
+],
+[
+"FP-1",
+"Install beamers",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042",
+"H-BT-001",
+"H-BT-017",
+"H-BT-018",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409",
+"C-000418",
+"C-000415",
+"C-000416",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+],
+"excC": [
+"C-000346",
+"C-000406",
+"C-000407",
+"C-000403"
+],
+"exc": [
+"H-DF-024",
+"H-BT-010"
+]
+}
+],
+[
+"FP-2",
+"Use beamers while erecting structural steel",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042",
+"H-BT-017",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409",
+"C-000416",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+],
+"incT": [
+"Fall exposure at leading edge and open sides",
+"Struck-by from overhead steel"
+],
+"exc": [
+"H-DF-024"
+]
+}
+],
+[
+"FP-3",
+"Inspect sliding beam anchors",
+{
+"inc": [
+"H-DF-026"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000404"
+],
+"exc": [
+"H-BT-001",
+"H-BT-017",
+"H-DF-042",
+"H-DF-043",
+"H-DF-044",
+"H-BT-018"
+],
+"excC": [
+"C-000418",
+"C-000415",
+"C-000416",
+"C-000346",
+"C-000406",
+"C-000407",
+"C-000403"
+]
+}
+],
+[
+"FP-4",
+"Install pivot D-ring sliding beam clamp",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042",
+"H-BT-001",
+"H-BT-017",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409",
+"C-000418",
+"C-000415",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+],
+"excC": [
+"C-000346",
+"C-000406",
+"C-000407",
+"C-000403"
+]
+}
+],
+[
+"FP-5",
+"Walk along beam using a beamer",
+{
+"inc": [
+"H-DF-042",
+"H-BT-017",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000415",
+"C-000416",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+]
+}
+],
+[
+"FP-6",
+"Slide beamer toward beam end",
+{
+"first": "H-DF-042",
+"incC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000415"
+]
+}
+],
+[
+"FP-7",
+"Use beamer on beam with connection tabs and an air gap at the end",
+{
+"first": "H-DF-042",
+"incC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000409"
+]
+}
+],
+[
+"FP-8",
+"Transfer between beams using sliding beam anchors",
+{
+"first": "H-DF-042",
+"inc": [
+"H-BT-017",
+"H-BT-001"
+],
+"incC": [
+"C-000415",
+"C-000418",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+]
+}
+],
+[
+"FP-9",
+"Remove temporary beam anchors",
+{
+"inc": [
+"H-BT-017",
+"H-BT-018",
+"H-BT-001"
+],
+"incC": [
+"C-000415",
+"C-000418"
+],
+"exc": [
+"H-DF-042",
+"H-DF-043",
+"H-DF-044"
+],
+"excT": [
+"Falling debris from demolition",
+"Struck-by from collapsing material"
+]
+}
+],
+[
+"FP-10",
+"Install lifting beam clamps for rigging",
+{
+"inc": [
+"H-DF-026",
+"H-BT-001"
+],
+"incC": [
+"C-000406",
+"C-000407"
+],
+"incT": [
+"Suspended load / dropped load",
+"Rigging failure from overload or damage"
+],
+"exc": [
+"H-DF-042",
+"H-DF-043",
+"H-DF-044",
+"H-BT-017"
+],
+"excC": [
+"C-000408",
+"C-000409",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000415",
+"C-000416",
+"C-000417",
+"C-000418"
+]
+}
+],
+[
+"FP-11",
+"Install fixed fall protection beam clamps",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042",
+"H-BT-001",
+"H-BT-017",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409",
+"C-000418",
+"C-000415"
+],
+"excC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000346",
+"C-000406",
+"C-000407",
+"C-000403"
+],
+"excT": [
+"Stored energy release (hydraulic, pneumatic, gravity, spring)",
+"Unexpected energization during maintenance"
+]
+}
+],
+[
+"FP-12",
+"Use sliding beam anchors near flange discontinuities",
+{
+"first": "H-DF-042",
+"incC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+],
+"excT": [
+"Chemical exposure from process fluid release (phosphoric acid, sulfuric acid, ammonia, fluoride, slurry)",
+"Pinch during flange assembly"
+],
+"exc": [
+"H-BT-036"
+]
+}
+],
+[
+"FP-13",
+"Install beam strap anchor",
+{
+"inc": [
+"H-DF-026",
+"H-BT-017",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000408",
+"C-000417"
+],
+"exc": [
+"H-DF-042"
+],
+"excC": [
+"C-000409",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+]
+}
+],
+[
+"FP-14",
+"Install beam glide anchor",
+{
+"inc": [
+"H-DF-042"
+],
+"incC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+]
+}
+],
+[
+"FP-15",
+"Install temporary beam anchorage connector",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409"
+],
+"excC": [
+"C-000346",
+"C-000406",
+"C-000407",
+"C-000403"
+]
+}
+],
+[
+"FP-16",
+"Use sliding beam clamp anchor",
+{
+"inc": [
+"H-DF-042"
+],
+"incC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+]
+}
+],
+[
+"FP-17",
+"Tie off to beam clamp",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042",
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000408",
+"C-000417",
+"C-000409"
+],
+"excC": [
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414"
+]
+}
+],
+[
+"FP-18",
+"Install beam clamp to hang chain hoist",
+{
+"inc": [
+"H-DF-026"
+],
+"incT": [
+"Suspended load / dropped load"
+],
+"exc": [
+"H-DF-042",
+"H-DF-043",
+"H-DF-044"
+],
+"excC": [
+"C-000408",
+"C-000409",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000415",
+"C-000416",
+"C-000417",
+"C-000418"
+]
+}
+],
+[
+"FP-19",
+"Install beam trolley for monorail hoist",
+{
+"inc": [
+"H-DF-026"
+],
+"exc": [
+"H-DF-042",
+"H-DF-043",
+"H-DF-044"
+],
+"excC": [
+"C-000408",
+"C-000409",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000415",
+"C-000416",
+"C-000417",
+"C-000418"
+]
+}
+],
+[
+"FP-20",
+"Install beam clamp on beam flange for conduit hangers",
+{
+"inc": [
+"H-BT-001"
+],
+"exc": [
+"H-DF-042",
+"H-DF-043",
+"H-DF-044",
+"H-DF-026"
+],
+"excC": [
+"C-000408",
+"C-000409",
+"C-000410",
+"C-000411",
+"C-000412",
+"C-000413",
+"C-000414",
+"C-000415",
+"C-000416",
+"C-000417",
+"C-000418"
+],
+"excT": [
+"Chemical exposure from process fluid release (phosphoric acid, sulfuric acid, ammonia, fluoride, slurry)"
+]
+}
+],
+[
+"FP-21",
+"Install beam clamp for fall protection and rig chain hoist from a separate clamp",
+{
+"inc": [
+"H-DF-026",
+"H-DF-042"
+],
+"incC": [
+"C-000408",
+"C-000417"
+],
+"incT": [
+"Suspended load / dropped load"
+]
+}
+],
+[
+"FP-22",
+"Reposition fall protection beam clamp",
+{
+"inc": [
+"H-BT-001",
+"H-BT-017",
+"H-DF-042"
+],
+"incC": [
+"C-000415",
+"C-000418",
+"C-000409"
+]
+}
 ]
 ];
 CASES.forEach(([id, task, sp]) => {
@@ -2022,8 +2572,8 @@ check('C-000395 states 99% and separates HEPA hole cleaning', /99% or greater/.t
   check('no regulatory citation in user-facing text', bad.length === 0, bad.slice(0, 2).join(' | ')); }
 // §5 withheld RCSC controls remain withheld; registry counts implemented
 ['C-000081','C-000082','C-000083','C-000085','C-000086','C-000087'].forEach(x => check('withheld ' + x, !E.SIL_DATA.controls[x]));
-check('97 active hazards implemented', E.SIL_DATA.hazards.length === 97, String(E.SIL_DATA.hazards.length));
-check('401 controls implemented (407 − 6 withheld)', Object.keys(E.SIL_DATA.controls).length === 401, String(Object.keys(E.SIL_DATA.controls).length));
+check('100 active hazards implemented (97 + H-DF-042 to H-DF-044)', E.SIL_DATA.hazards.length === 100, String(E.SIL_DATA.hazards.length));
+check('412 controls implemented (418 − 6 withheld)', Object.keys(E.SIL_DATA.controls).length === 412, String(Object.keys(E.SIL_DATA.controls).length));
 // semantic deduplication: the AD-009 near-duplicate flying-debris line is gone where H-HW-029 applies; jackhammer coverage kept
 { const r = run('Break out slab with jackhammer');
   check('jackhammer keeps flying-particle coverage', r.ids.includes('H-HW-029'));

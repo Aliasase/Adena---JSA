@@ -1,6 +1,6 @@
 > **Repository Record (AD-008 §6):** Implementation record for the v1.4.1-dev1 test release (AD-010). Test build only — not a production release. Production remains v1.4.0-p1 on `main` / GitHub Pages. No merge to `main` is authorized.
 
-# Safety Intelligence Library Engine — v1.4.1-dev1 to dev3
+# Safety Intelligence Library Engine — v1.4.1-dev1 to dev4
 
 **Authority:** AD-010 (PO, November 26, 2026) · SIL-PKG-003 r2 (`e2f768b`) · Architect Response 005 · SIL PO Decisions 005 and 006
 **Branch:** `revision-a4` · **Builds:** `1.4.1-dev1` (`CACHE_NAME adena-jsa-v1.4.1-dev1`), then `1.4.1-dev2` (§7) and `1.4.1-dev3` (`CACHE_NAME adena-jsa-v1.4.1-dev3`, §8), the build now on the preview
@@ -193,3 +193,95 @@ Both need a phrase-scoped correction. Neither was changed here because both are 
 - **Task-keyword process classification.** Pipe fabrication tasks such as "Grind burrs off pipe spool in fab shop" are still classified as process piping by the legacy library's task keywords ("pipe spool", "flange"). They therefore keep the process-fluid hazards and process-piping controls, as in production. Narrowing this would reduce existing production coverage, so it was left for an Architect decision.
 - **Cutting-tool controls from sharp-metal wording.** H-BT-002 / "Sharp edges on steel" still bring the legacy cutting-tool controls (line of cut, blades, cutting zone) to non-cutting steel work, through the words "cut" and "sharp".
 - **Torch and kettle hazards on roofing.** Roofing recognized from non-torch systems (e.g. TPO) still brings the roofing entry's torch and kettle hazards, as in production.
+
+## 9. v1.4.1-dev4 — temporary fall protection anchorage connectors (November 26, 2026)
+
+**Authority:** `SIL-ARCHITECT-DIRECTIVE-FP-ANCHORAGE-CONNECTORS.md`.
+
+**Build:** `APP_BUILD dev4`, `CACHE_NAME adena-jsa-v1.4.1-dev4`. The directive asked for incorporation into v1.4.1-dev3. dev3 was already deployed, so the additions are built under the next test identifier.
+
+**Status:** committed on revision-a4 but **not pushed or deployed** — deployment awaits PO confirmation. Production v1.4.0-p1 is unchanged.
+
+### Recognition
+- **Connectors by name:** beamer(s), beam strap anchor, sliding beam anchor, sliding beam clamp, sliding beam clamp anchor, pivot D-ring beam anchor or clamp, fall protection beam clamp or anchor, beam glide anchor, temporary beam anchor or clamp, and (temporary) beam anchorage connector. These are temporary fall protection anchorage connectors.
+- **Generic terms:** clamp anchor, clamp-on anchor, beam clamp, beam anchor and beam trolley are treated as fall protection connectors only where the task establishes fall protection — fall protection or arrest, tie-off, lanyard, SRL, harness, lifeline, anchorage.
+- **Other uses:**
+  - **Lifting clamps** ("lifting beam clamps", or a clamp with lifting, rigging, hoist, chain fall, load or pick context) keep the lifting relationships.
+  - **Beam trolleys** default to material handling.
+  - **Clamp hardware for hangers and supports** (conduit, strut, threaded rod, cable tray, duct, pipe supports) is mechanical fastening: pinch points only, with no anchor or fall protection records.
+  - **Mixed tasks** keep both relationships.
+- **Connector types:**
+  - **Sliding** (travels along the flange): beamers, sliding, glide and trolley anchors.
+  - **Fixed jaw-type:** all other jaw-type connectors.
+  - **Beam strap:** no jaws.
+- **Activities** are recognized separately: installation, inspection, use (the default), repositioning (move, slide, walk, transfer, relocate) and removal.
+- **Phrase scoping:**
+  - "beam", "flange", "fixed" and "remove" inside these tasks no longer trigger steel erection (from the device name), process piping, maintenance or demolition entries.
+  - A flange named with a beam device is the beam flange.
+
+### Hazards
+| Exposure (directive §2) | Record |
+|---|---|
+| Failure or disengagement | H-DF-026 (reused) for failure; H-DF-042 for disengagement |
+| Travel beyond the beam end or through a flange discontinuity; improper jaw engagement; incompatible flange; unintentional release or loosening | **H-DF-042 (new)** — "Beam anchorage connector traveling off the beam end or through a flange gap or discontinuity, or disengaging from the flange" |
+| Pinch points (installation, adjustment, removal) | H-BT-001 (reused) |
+| Swing fall | **H-DF-043 (new)** — no equivalent canonical record existed |
+| Insufficient fall clearance | **H-DF-044 (new)** — no equivalent canonical record existed |
+| Falls during installation, repositioning or removal | H-BT-017 (reused) |
+| Dropped anchorage equipment at elevation | H-BT-018 (reused) |
+
+**Applicability by activity:**
+
+| Activity | Records |
+|---|---|
+| Installation | H-DF-026, H-DF-042 (jaw-type or sliding), H-BT-001, H-BT-017, H-BT-018, H-DF-043, H-DF-044 |
+| Use | H-DF-026, H-DF-042, H-BT-017, H-DF-043, H-DF-044 |
+| Repositioning or transfer | As for use, plus H-BT-018; H-BT-001 when the connector is adjusted, relocated or transferred |
+| Removal | H-BT-017, H-BT-018, H-BT-001 |
+| Inspection only | H-DF-026 with its inspection and removal-from-service controls |
+
+**Ranking:** H-DF-042 is ranked first when a sliding connector is used near a beam end, gap, discontinuity, connection tab or splice, or is being transferred. The foreman doesn't have to describe the failure mechanism.
+
+### Controls (new, C-000408 to C-000418; no numeric values)
+
+| ID | Text | Applies to |
+|---|---|---|
+| C-000408 | Use an approved fall protection anchorage connector compatible with the beam dimensions, flange configuration and intended application. | H-DF-026, H-DF-042 |
+| C-000409 | Verify both jaws are fully engaged on the beam flange and the locking mechanism is secured according to the manufacturer's instructions before connecting. | H-DF-042 (jaw-type) |
+| C-000410 | Before using a sliding beam anchor, inspect the entire intended travel path. | H-DF-042 (sliding) |
+| C-000411 | Identify beam ends, flange discontinuities, gaps, connection tabs and other locations where the anchor could disengage. | H-DF-042 (sliding) |
+| C-000412 | Do not allow a sliding beam anchor to travel beyond the usable beam flange. | H-DF-042 (sliding) |
+| C-000413 | Do not rely on connection tabs, bolts or adjacent structural members as travel stops unless they have been specifically verified as suitable for that purpose. | H-DF-042 (sliding) |
+| C-000414 | Where required, use manufacturer-approved travel stops or another approved method to prevent unintended disengagement. Do not improvise travel stops or modify the equipment. | H-DF-042 (sliding) |
+| C-000415 | Maintain continuous fall protection while installing, repositioning or removing an anchorage connector when exposed to a fall hazard. | H-BT-017 |
+| C-000416 | Evaluate swing fall exposure and available fall clearance before use. | H-DF-043, H-DF-044 |
+| C-000417 | Inspect the anchorage connector before each use and remove defective equipment from service. | H-DF-026 |
+| C-000418 | Keep hands and fingers clear of clamp jaws and adjustment mechanisms. | H-BT-001 |
+
+**Existing controls on fall protection connectors:** the generic clamp-anchor controls are replaced by the connector controls above. These are C-000346, C-000406, C-000407, C-000403, and C-000341 (acceptance before loading). C-000347 (anchors installed to a qualified person's design or approval) and C-000404 (remove from service an anchor that is damaged or has arrested a fall) still apply.
+
+### Engineer decisions (for Architect validation)
+- **EDF-1:** H-DF-043 and H-DF-044 were created as new canonical records. No existing record described swing fall or fall clearance. The directive named only one new record (travel and disengagement) but required these exposures and reuse "where equivalent".
+- **EDF-2:** A bare "beam anchor" stays generic; it becomes a fall protection connector only with fall protection context. "Temporary beam anchor" is recognized as a connector by name.
+- **EDF-3:** A beamer is treated as a sliding connector.
+- **EDF-4:** A beam strap anchor is treated as a fixed connector without jaws. It takes no jaw or travel controls and no H-DF-042.
+- **EDF-5:** H-DF-026 is not presented for a removal-only task. H-BT-017, H-BT-018 and H-BT-001 carry the exposure there.
+- **EDF-6:** Swing fall and clearance (H-DF-043, H-DF-044) apply to installation, use and repositioning, not to inspection or removal.
+
+### Counts (dev4)
+| Item | Count |
+|---|---|
+| Hazard IDs | 122 (100 active, 22 retired) |
+| Controls in the registry | 418 |
+| Controls in the application | 412 (6 RCSC withheld) |
+| Policies | 10 |
+| Additional controls withheld | None |
+
+### Tests (dev4)
+| Suite | Result |
+|---|---|
+| `tests/sil-pkg003.js`: §A to §G — 82 + 18 + 15 + 22 scenarios (ED-1-6 revised under the directive) — plus acceptance, defect, wording and clamp-type checks | 1,143 / 1,143 pass |
+| `tests/sil-regression.js` | 447 / 447 pass |
+| `tests/browser-functional.js` | 22 / 22 pass |
+| Update path v1.4.0-p1 → dev4 | 9 / 9 pass |
+| Update path dev3 → dev4 | 9 / 9 pass |

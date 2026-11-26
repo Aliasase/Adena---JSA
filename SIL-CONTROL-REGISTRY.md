@@ -8,7 +8,7 @@
 - Equivalent production controls (`HAZ_TO_CONTROL` entries C*n* in `A4-LIBRARY-EXPORT.md`) are mapped below. **A production control is not retired until all of its valid relationships are accounted for.** No production control is retired at this revision.
 - New controls are appended at the next sequential number. Retired controls stay listed with status "Retired — do not reuse."
 
-**Register status:** C-000001 to C-000407 assigned.
+**Register status:** C-000001 to C-000418 assigned.
 
 | Range | Source |
 |---|---|
@@ -16,11 +16,12 @@
 | C-000114 to C-000117 | Company hot work policy controls |
 | C-000118 to C-000257 | Package 002 r1 |
 | C-000258 to C-000272 | Architect Response 004 |
-| C-000273 to C-000393 | Package 003 r1 (candidate — SIL PO Decision 005 §4) |
+| C-000273 to C-000393 | Package 003 r1 (SIL PO Decision 005 §4; approved AD-010) |
 | C-000394 to C-000405 | Package 003 r2 (Architect Response 005; approved AD-010) |
 | C-000406 to C-000407 | PO field testing of v1.4.1-dev1 (ED-1 clamp-type anchors); C-000406 revised and C-000407 accepted by the Architect disposition of dev2 |
+| C-000408 to C-000418 | Architect supplemental directive — temporary fall protection anchorage connectors (v1.4.1-dev4) |
 
-Next available: **C-000408**. Retired: none.
+Next available: **C-000419**. Retired: none.
 
 **Withheld from the v1.4.0-dev1 test release** (AD-009 §5). These six stay in the registry, but are not in the app until their RCSC provisions are validated (U-5): C-000081, C-000082, C-000083, C-000085, C-000086, C-000087. Each is marked in the Revision column.
 
@@ -56,7 +57,7 @@ Next available: **C-000408**. Retired: none.
 | C-000049 | "Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task." | PO Decision 002 §3 |
 
 
-**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in the v1.4.1 test builds (dev1 to dev3)** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
+**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in the v1.4.1 test builds** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
 
 | # | Control | Prior wording (v1.4.0-p1) | Revised wording (v1.4.1-dev1) |
 |---|---|---|---|
@@ -413,12 +414,12 @@ Next available: **C-000408**. Retired: none.
 | C-000338 | Install only the anchor type, size and system specified for the application and substrate — no substitutions without approval. | H-DF-024 (P003) | — | Spec; anchor evaluation report; engineer of record | P003 r1: new |
 | C-000339 | Drill, clean and set each anchor by the approved installation instructions, including hole diameter, depth, embedment, edge distance and spacing. | H-DF-024 (P003); H-DF-024 (P003: H-DF-025); H-DF-026 (P003) [if installing a drilled-in or post-installed anchor] | — | Mfr; Spec (no numeric values introduced) | P003 r1: new |
 | C-000340 | Use the specified setting tool, and tighten to the specified installation torque where one is given. | H-DF-024 (P003) [if mechanical anchor] | — | Mfr; Spec (no numeric values introduced) | P003 r1: new |
-| C-000341 | Complete the required inspection, testing and acceptance before loading the anchor. | H-DF-024 (P003); H-DF-024 (P003: H-DF-025); H-DF-026 (P003) [if installing] | — | Spec; ACI 318 Ch. 17 (unverified) | P003 r1: new |
+| C-000341 | Complete the required inspection, testing and acceptance before loading the anchor. | H-DF-024 (P003); H-DF-024 (P003: H-DF-025); H-DF-026 (P003) [if installing an anchor other than a temporary beam anchorage connector] | — | Spec; ACI 318 Ch. 17 (unverified) | P003 r1: new |
 | C-000342 | Check the adhesive system's approval, expiration date and storage conditions before use. | H-DF-024 (P003) [if adhesive]; H-DF-024 (P003: H-DF-025) | — | Mfr; Spec | P003 r1: new |
 | C-000343 | Confirm the adhesive system is approved for the substrate and the installation orientation, including overhead. | H-DF-024 (P003) [if adhesive]; H-DF-024 (P003: H-DF-025) | — | Spec; ACI 318 (unverified — see P3-U7) | P003 r1: new |
 | C-000344 | Use the specified dispensing and mixing nozzle, and discard the initial adhesive as the manufacturer instructs. | H-DF-024 (P003) [if adhesive]; H-DF-024 (P003: H-DF-025) | — | Mfr | P003 r1: new |
 | C-000345 | Observe the manufacturer's temperature limits and cure time — do not disturb or load the anchor before it has cured. | H-DF-024 (P003) [if adhesive]; H-DF-024 (P003: H-DF-025) | — | Mfr (no numeric cure time or temperature introduced) | P003 r1: new |
-| C-000346 | Use only anchors approved for fall protection, suspended access or lifting, as the application requires — never an ordinary construction anchor without that approval. | H-DF-026 (P003) | — | OSHA-C 1926.502(d)(15) — verified (Engineer, osha.gov, P003 r1); Mfr | P003 r1: new |
+| C-000346 | Use only anchors approved for fall protection, suspended access or lifting, as the application requires — never an ordinary construction anchor without that approval. | H-DF-026 (P003) [if not a temporary beam anchorage connector] | — | OSHA-C 1926.502(d)(15) — verified (Engineer, osha.gov, P003 r1); Mfr | P003 r1: new |
 | C-000347 | Install life-safety and lifting anchors to a design or approval by a qualified person or engineer. | H-DF-026 (P003) [if installing] | — | OSHA-C 1926.502(d)(15) — verified (Engineer, osha.gov, P003 r1) (qualified-person alternative); Spec | P003 r1: new |
 | C-000348 | Only workers trained on the specific powder-actuated tool in use may operate it. | H-DF-027 (P003) | — | OSHA-C 1926.302(e) — verified (Engineer, osha.gov, P003 r1) — (e)(1) | P003 r1: new |
 | C-000349 | Test the tool's safety devices each day before loading, by the manufacturer's procedure. | H-DF-027 (P003) | — | OSHA-C 1926.302(e) — verified (Engineer, osha.gov, P003 r1) — (e)(2) | P003 r1: new |
@@ -476,15 +477,26 @@ Next available: **C-000408**. Retired: none.
 | C-000401 | Keep the separation the manufacturer requires from energized induction coils and associated equipment. | H-DF-041 (P003) | — | Mfr (AR-005 §9); no universal distance introduced | P003 r2: new (Architect Response 005) |
 | C-000402 | Do not bypass protective barriers or equipment safeguards. | H-DF-041 (P003) | — | Mfr; BP (AR-005 §9) | P003 r2: new (Architect Response 005) |
 | C-000403 | Before using an existing anchor, confirm it is approved and identified for the application, and inspect it for damage, corrosion, deformation or movement. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor] | — | Mfr; Spec; OSHA-C 1926.502(d)(15) — verified (Engineer, osha.gov, P003 r1) | P003 r2: new (Architect Response 005) |
-| C-000404 | Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor] | — | Mfr; BP | P003 r2: new (Architect Response 005) |
+| C-000404 | Remove from service any anchor that is damaged, has arrested a fall or cannot be verified, until a qualified person evaluates it. | H-DF-026 (P003) [if inspecting, testing or using an existing anchor or anchorage connector] | — | Mfr; BP | P003 r2: new (Architect Response 005) |
 | C-000405 | Operate a nailer, stapler or gas-actuated tool only after instruction on that tool and its manufacturer's instructions. | H-DF-028 (P003) [if gas-actuated]; H-DF-032 (P003) | — | Mfr; AR-005 §13 (equipment-specific instruction retained regardless of regulatory classification — P3-U12) | P003 r2: new (Architect Response 005) |
 | C-000406 | Select a rated clamp or trolley compatible with the beam dimensions and intended application. Install and secure it according to the manufacturer's instructions to prevent unintended movement or disengagement while allowing designed travel where applicable. Keep fingers clear of jaws and pinch points during positioning and adjustment. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if installing a clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1; wording per Architect disposition of v1.4.1-dev2; no numeric value introduced) | P003 r2: new (Architect Response 005) |
 | C-000407 | Inspect the clamp before each use for damage, deformation, worn jaws, missing or damaged locking parts and illegible markings, and remove any defective clamp from service. | H-DF-026 (P003: PO field testing — ED-1 clamp-type anchors) [if clamp-type anchor] | — | Mfr; BP (PO field testing, ED-1; accepted as written by Architect disposition of v1.4.1-dev2) | P003 r2: new (Architect Response 005) |
+| C-000408 | Use an approved fall protection anchorage connector compatible with the beam dimensions, flange configuration and intended application. | H-DF-026 (P003) [if temporary beam anchorage connector]; H-DF-042 (P003) | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000409 | Verify both jaws are fully engaged on the beam flange and the locking mechanism is secured according to the manufacturer's instructions before connecting. | H-DF-042 (P003) [if jaw-type connector] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000410 | Before using a sliding beam anchor, inspect the entire intended travel path. | H-DF-042 (P003) [if sliding beam anchor] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000411 | Identify beam ends, flange discontinuities, gaps, connection tabs and other locations where the anchor could disengage. | H-DF-042 (P003) [if sliding beam anchor] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000412 | Do not allow a sliding beam anchor to travel beyond the usable beam flange. | H-DF-042 (P003) [if sliding beam anchor] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000413 | Do not rely on connection tabs, bolts or adjacent structural members as travel stops unless they have been specifically verified as suitable for that purpose. | H-DF-042 (P003) [if sliding beam anchor] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000414 | Where required, use manufacturer-approved travel stops or another approved method to prevent unintended disengagement. Do not improvise travel stops or modify the equipment. | H-DF-042 (P003) [if sliding beam anchor] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000415 | Maintain continuous fall protection while installing, repositioning or removing an anchorage connector when exposed to a fall hazard. | H-BT-017 (P003: Architect supplemental directive — anchorage connectors) [if installing, repositioning or removing a temporary beam anchorage connector] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000416 | Evaluate swing fall exposure and available fall clearance before use. | H-DF-043 (P003); H-DF-044 (P003) | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000417 | Inspect the anchorage connector before each use and remove defective equipment from service. | H-DF-026 (P003) [if temporary beam anchorage connector] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
+| C-000418 | Keep hands and fingers clear of clamp jaws and adjustment mechanisms. | H-BT-001 (P003: Architect supplemental directive — anchorage connectors) [if temporary beam anchorage connector] | — | Mfr; BP (Architect supplemental directive — temporary fall protection anchorage connectors; no numeric value introduced) | P003 r2: new (Architect Response 005) |
 
 
 ## Registry notes
 
-**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010 and are implemented in the v1.4.1 test builds (not in production v1.4.0-p1). C-000406 and C-000407 were added for PO field testing (ED-1) and accepted by the Architect (C-000406 as revised); implemented in v1.4.1-dev3. Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
+**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010. C-000406 and C-000407 were added for PO field testing (ED-1) and accepted by the Architect (C-000406 as revised). C-000408 to C-000418 were added by the Architect supplemental directive on temporary fall protection anchorage connectors. All are implemented in the v1.4.1 test builds (C-000408 to C-000418 from dev4), not in production v1.4.0-p1. Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
 
 **R-1 — Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater."**
 Equivalent to C-000039. The 6-ft trigger is company policy P-000003 (PO Decision 002), so **there is no conflict** (U-14 resolved). Any future wording improvement must keep the 6-ft trigger.

@@ -4,8 +4,8 @@
 
 **Rules** (Response 001 Decision 2; Response 004 §2): identifiers are permanent and never reused. A consolidated or retired identifier stays listed. Canonical records are generalized rather than duplicated. User-facing hazard text may be revised by an approved decision without changing the identifier.
 
-**Register status (P003 r2.1 — implemented in v1.4.1-dev1, AD-010):** 119 identifiers — H-BT-001 to H-BT-036 (36), H-HW-001 to H-HW-042 (42), H-DF-001 to H-DF-041 (41).
-- **Active:** 97 = 74 in production v1.4.0-p1 + 23 Package 003 records implemented in test release v1.4.1-dev1 (H-DF-041 added by Architect Response 005 §9). H-DF-017 has an assessment form for unconfirmed material (AD-010 §3.2).
+**Register status (P003 r2.1 and supplemental directive — implemented in the v1.4.1 test builds):** 122 identifiers — H-BT-001 to H-BT-036 (36), H-HW-001 to H-HW-042 (42), H-DF-001 to H-DF-044 (44). Next available: **H-DF-045**.
+- **Active:** 100 = 74 in production v1.4.0-p1 + 26 Package 003 records implemented in the v1.4.1 test builds (H-DF-041 added by Architect Response 005 §9; H-DF-042 to H-DF-044 added in v1.4.1-dev4 by the Architect supplemental directive on temporary fall protection anchorage connectors). H-DF-017 has an assessment form for unconfirmed material (AD-010 §3.2).
 - **Retired:** 22 = 4 (Packages 001–002) + 18 Package 003 consolidations (accepted by Architect Response 005 §2; take effect at implementation).
 - **Text revisions (Architect Response 005 §1):** 8 approved records, marked † below, show the revised wording implemented in v1.4.1-dev1 (AD-010). Production v1.4.0-p1 keeps the prior wording, shown in Notes.
 
@@ -130,3 +130,6 @@
 | H-DF-039 | Active — v1.4.1-dev1 (AD-010) | P003 | Rechargeable battery overheating, fire or thermal runaway | — |
 | H-DF-040 | Active — v1.4.1-dev1 (AD-010) | P003 | Compressed air entering the skin, eyes or body | — |
 | H-DF-041 | Active — v1.4.1-dev1 (AD-010) | P003 | Exposure to electromagnetic fields from induction heating equipment | — |
+| H-DF-042 | Active — v1.4.1-dev4 (Architect supplemental directive — temporary fall protection anchorage connectors) | P003 | Beam anchorage connector traveling off the beam end or through a flange gap or discontinuity, or disengaging from the flange | — |
+| H-DF-043 | Active — v1.4.1-dev4 (Architect supplemental directive — temporary fall protection anchorage connectors) | P003 | Swing fall — striking structure or a lower level after a fall from an offset anchorage | — |
+| H-DF-044 | Active — v1.4.1-dev4 (Architect supplemental directive — temporary fall protection anchorage connectors) | P003 | Insufficient fall clearance — striking a lower level or obstruction before the fall is arrested | — |
