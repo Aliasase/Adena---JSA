@@ -11,7 +11,7 @@
 - **Different exposure mechanisms are cumulative** (PO Decision 003 §6). Requirements that address different mechanisms all apply. Cut resistance does not replace thermal protection. Thermal protection does not establish A4 cut resistance. Welding during demolition must meet both hand-protection requirements. Chemical, electrical, thermal and mechanical protection are evaluated independently where those exposures coexist.
 - Only the Product Owner adds, changes or retires a policy record.
 
-**Register status:** P-000001 to P-000009. Next available: **P-000010**. Retired: none.
+**Register status:** P-000001 to P-000010. Next available: **P-000011**. Retired: none.
 
 ---
 
@@ -26,6 +26,7 @@
 | P-000007 | Fire watch is required during hot work and for a minimum of 30 minutes after completion, with longer durations where required. | All hot work | C-000115; conditional C-000117 for additional monitoring required by the project, permit or standard | PO Decision 003 §4 | Fire watch duties and qualifications to be developed in Package 002. |
 | P-000008 | A hot work permit is required for all hot work. | All hot work | C-000116 | PO Decision 003 §5 | **No exemption** for designated welding areas or fabrication shops without explicit PO authorization. |
 | P-000009 | Safety glasses and a face shield are mandatory for all handheld grinding and abrasive cutting. The face shield supplements primary eye protection and never replaces it; goggles are added where the exposure requires them. | All handheld grinding and abrasive cutting, any material | C-000221 (C-000054 safety glasses; C-000111 goggles where required) | PO Decision 004, recorded in Architect Response 004 §1 (P2-U2) | Company requirement, not attributed to OSHA. In the app, C-000221 presents in place of the general face-shield control C-000055 for these tasks. |
+| P-000010 | Safety glasses and a face shield are mandatory for all powder-actuated tool operation. The face shield supplements primary eye protection and does not replace it; additional protection required by the manufacturer, project or exposure is preserved. | All powder-actuated fastening tool operation. **Not** extended automatically to pneumatic, battery-powered or gas-actuated fastening tools. | C-000354 (C-000054 safety glasses; C-000111 goggles where required) | SIL PO Decision 005 §1 | Company requirement, not attributed to OSHA (1926.302(e)(4) requires PPE per Subpart E). In the app, C-000354 presents in place of the general face-shield control C-000055 for powder-actuated work. Related records: H-DF-027, H-DF-028 `[if powder-actuated]` (Package 003 candidate). |
 
 ---
 
@@ -42,3 +43,13 @@
 | C2 "Complete hot work permit before beginning any hot work operations" | P-000008 | Consistent (C-000116) |
 
 **Hot work scope (PO Decision 004 / Response 004 §1, P2-U1).** All ignition-producing grinding and abrasive cutting is hot work, including in fabrication shops; P-000006 to P-000008 apply. Non-ignition-producing grinding or mechanical cutting (for example, concrete grinding or cold-cutting) is not classified as hot work solely because Grind or Cut is recognized.
+
+**Induction and resistance heating (SIL PO Decision 005 §2, closes P2-U16).** Induction and resistance heating are hot work when the process creates an ignition hazard; P-000006 to P-000008 then apply. The absence of an open flame or sparks does not establish the absence of an ignition hazard. Where ignition potential cannot be established from the task description, applicability stays conditional rather than assuming either classification. Thermal, electrical and equipment-specific hazards apply independently of the hot work classification. No new policy record. Conditional control C-000393 asks the crew to make the determination. Implementation rule: `SIL-PKG-003-RECONCILED.md` §3.2.
+
+## Package 003 policy relationships (candidate)
+
+- **P-000001 at exposed rotating machinery — pending PO decision (P3-U1).** At a drill press or other exposed rotating spindle, chuck or bit, gloves can be caught and pull the hand in. Proposed precedence: C-000276 ("Do not wear gloves at an exposed rotating spindle…") presents in place of C-000004 for that step; P-000001 continues to apply to handling the steel before and after drilling. **Not applied until the PO decides.**
+- **P-000002** applies to drilling or fastening during demolition, knife use and stainless steel lath. Stainless steel alone does not establish lath.
+- **P-000006 to P-000008** — drilling and mechanical fastening are not hot work. Powder- and gas-actuated fastening are not hot work absent an ignition exposure or project requirement. Cumulative where the task also welds, cuts or grinds.
+- **P-000009** is not extended to drilling or fastening.
+- **P-000010** is not extended to pneumatic, battery-powered or gas-actuated tools.
