@@ -96,10 +96,10 @@ unless a revision package specifically directs otherwise:
 | Acknowledgment history | None created: empty `snapshots`, no acknowledgment fields added to signers, no revision banner on load, stored record not rewritten |
 | Other | PDF generates; no page errors |
 
-The one non-passing check is a supplementary check, beyond the PO-010 criteria; see `SIL-UNRESOLVED-REGISTER.md` A3-U1. A JSA signed before Revision A-3 carries no signing snapshot. A material change made to it after the update therefore does not raise re-acknowledgment. This is existing A-3 behavior for pre-A-3 records, unchanged since v1.3.0. It affects only same-day JSAs signed under v1.2.0-p1.
+The one non-passing check is a supplementary check, beyond the PO-010 criteria; see `SIL-UNRESOLVED-REGISTER.md` A3-U1, since accepted by the Architect as a document integrity defect for the next development cycle. A JSA signed before Revision A-3 carries no signing snapshot. A material change made to it after the update therefore does not raise re-acknowledgment. This is existing A-3 behavior for pre-A-3 records, unchanged since v1.3.0. It affects only same-day JSAs signed under v1.2.0-p1.
 
 **Live check after the change:** a browser holding v1.2.0-p1 on the primary address updated on reload to v1.4.1-p1, with only the `adena-jsa-v1.4.1-p1` cache remaining, 100 hazards and 412 controls. GitHub production was unchanged at v1.4.1-p1 on its own origin and cache.
-- **Recorded for the next authorized development cycle:** recognition defects P3-U17 to P3-U19 (`SIL-UNRESOLVED-REGISTER.md`).
+- **Recorded for the next authorized development cycle** (`SIL-UNRESOLVED-REGISTER.md`): recognition defects P3-U17 to P3-U19, and document integrity defect A3-U1 (accepted by the Architect with correction requirements; `SIL-ARCHITECT-DISPOSITION-PO-010-A3-U1.md`).
 - **Package 004:** awaits the Architect's SIL-PKG-004 candidate library.
 
 ## Production Baseline Tags
