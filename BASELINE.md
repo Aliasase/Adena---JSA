@@ -66,11 +66,39 @@ unless a revision package specifically directs otherwise:
 **v1.4.1-p1** (`54a2199`, merged to main as `6557a04`) is the approved baseline for subsequent development (Architect disposition of the PO-009 release closure, November 26, 2026; `SIL-ARCHITECT-DISPOSITION-PO-009-CLOSURE.md`).
 
 - Package 003 implementation and field acceptance are complete. Phase A-4 remains open.
-- **Environment rule (PO, November 26, 2026):**
+- **Environment rule (PO, November 26, 2026; PO-010):**
   - The Netlify training/testing environment advances through development builds on `revision-a4`.
   - GitHub Pages (`main`) stays on the latest approved production release.
   - When a development build is approved for production, both environments are synchronized to it.
 - **Environment separation:** production (`aliasase.github.io`) and Netlify (`*.netlify.app`) are different origins. Active JSA storage (`localStorage`) and service worker caches are therefore held separately by the browser.
+
+## Environments (PO-010, November 26, 2026)
+
+| Environment | Address | Source | Serves |
+|---|---|---|---|
+| **Production** | https://aliasase.github.io/Adena---JSA/adena-jsa.html | GitHub Pages, `main` | The latest approved production release only (v1.4.1-p1) |
+| **Training / testing (permanent)** | **https://adena-jsa.netlify.app/adena-jsa.html** | Netlify primary site, production branch `revision-a4` | The current development build (v1.4.1-p1 at the time of the change) |
+
+- **Repointing:** the primary Netlify site was repointed from `revision-a2` to `revision-a4` under PO-010. The `revision-a2` branch and its deploy history are intact.
+- **Build trigger:** the first `revision-a4` production-context deploy was triggered by an empty commit (`6826bed`); no files changed.
+- **Branch preview address:** `https://revision-a4--adena-jsa.netlify.app` was the revision-a4 preview before the change. Netlify removed revision-a4 from the branch-preview list because it is now the production branch. Use the permanent address above.
+- **Separation:** the two addresses are different origins, so active JSA storage and service worker caches stay separate. Each installed copy (including a home-screen icon) belongs to its own address.
+
+### Validation before the change (PO-010 §1–2)
+
+`tests/browser-update-path-v120.js`: a same-day JSA signed under v1.2.0-p1 (`revision-a2@38a08b5`, the deploy then live on the primary site), then updated in place to v1.4.1-p1. **18 checks, 17 pass.**
+
+| Area | Result |
+|---|---|
+| Version and cache | v1.4.1-p1 served; only the `adena-jsa-v1.4.1-p1` cache remains |
+| Data preserved | Job information, task steps and the created timestamp |
+| Signatures | Supervisor and crew signatures, names and timestamps unchanged |
+| Acknowledgment history | None created: empty `snapshots`, no acknowledgment fields added to signers, no revision banner on load, stored record not rewritten |
+| Other | PDF generates; no page errors |
+
+The one non-passing check is a supplementary check, beyond the PO-010 criteria; see `SIL-UNRESOLVED-REGISTER.md` A3-U1. A JSA signed before Revision A-3 carries no signing snapshot. A material change made to it after the update therefore does not raise re-acknowledgment. This is existing A-3 behavior for pre-A-3 records, unchanged since v1.3.0. It affects only same-day JSAs signed under v1.2.0-p1.
+
+**Live check after the change:** a browser holding v1.2.0-p1 on the primary address updated on reload to v1.4.1-p1, with only the `adena-jsa-v1.4.1-p1` cache remaining, 100 hazards and 412 controls. GitHub production was unchanged at v1.4.1-p1 on its own origin and cache.
 - **Recorded for the next authorized development cycle:** recognition defects P3-U17 to P3-U19 (`SIL-UNRESOLVED-REGISTER.md`).
 - **Package 004:** awaits the Architect's SIL-PKG-004 candidate library.
 
