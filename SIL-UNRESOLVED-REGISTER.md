@@ -2,7 +2,7 @@
 
 # Safety Intelligence Library — Consolidated Unresolved Register
 
-**Status at the v1.4.1-p1 production release (November 26, 2026, PO-009):** 9 carried open (Packages 001–002) · 4 open and 1 deferred (P3-U16) from Package 003 · 3 recognition defects and 1 document integrity defect scheduled for the next authorized development cycle (P3-U17 to P3-U19; A3-U1) · closed in Package 003: 13 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U13, U14, U15). Package 003 implementation and field acceptance are complete (PO-009); Phase A-4 remains open.
+**Status at the v1.4.1-p1 production release (November 26, 2026, PO-009):** 9 carried open (Packages 001–002) · 4 open and 1 deferred (P3-U16) from Package 003 · 3 recognition defects and 1 document integrity defect scheduled for the next authorized development cycle (P3-U17 to P3-U19; A3-U1) · 7 open from the Package 004 candidate review (P4-U1 to P4-U7) · closed in Package 003: 13 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U13, U14, U15). Package 003 implementation and field acceptance are complete (PO-009); Phase A-4 remains open.
 **Correction rule for P3-U17 to P3-U19:** preserve cumulative applicability — where the task establishes several work methods or exposures (e.g. fabricating a spool and then breaking an existing process flange; cutting steel; torch-applied and adhered roofing in one task), every applicable relationship still applies.
 Resolved items from earlier packages stay recorded in their package files. "Verified (Engineer, …)" records the Engineer's check of a source; it is not Architect validation (Architect Response 005 §13).
 
@@ -33,6 +33,18 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 | P3-U18 | **Recognition defect** (Architect disposition, PO-009 release closure): sharp-metal exposure (H-BT-002, "Sharp edges on steel") must not independently trigger cutting-tool controls (line of cut, blades, cutting zone). Cutting-tool controls require a cutting activity in the task. | Engineer (next authorized development cycle) |
 | P3-U19 | **Recognition defect** (Architect disposition, PO-009 release closure): non-torch roofing methods (e.g. TPO, EPDM, mechanically fastened or adhered systems) must not automatically trigger torch and hot-kettle hazards. Torch and kettle hazards require torch-applied, hot-mopped, built-up or kettle work in the task. | Engineer (next authorized development cycle) |
 | A3-U1 | **Document integrity defect — accepted** (Architect disposition of PO-010 closure, November 26, 2026; found in PO-010 update-path validation). A JSA signed before Revision A-3 (v1.2.0-p1 or earlier) has no signing snapshot. After it is updated in place, a later material change does not raise re-acknowledgment. **Correction requirements (Architect):** (1) preserve all original signatures, names and timestamps; (2) never fabricate historical acknowledgment records or claim the original signed content was independently verified; (3) establish a prospective document baseline when a legacy signed JSA is recovered, before subsequent edits; (4) distinguish the recovered baseline from a verified original signed document; (5) require individual re-acknowledgment after subsequent material safety changes; (6) apply the existing material vs. administrative change classification; (7) preserve prior-day JSA rejection; (8) represent legacy signature status and subsequent acknowledgments accurately in the PDF and revision history. **Scheduled** for the next authorized development cycle with P3-U17 to P3-U19. No interim application change or standalone release. | Engineer (next authorized development cycle) |
+
+## Open — Package 004 (candidate r1 under review; see `SIL-PKG-004-ENGINEER-REVIEW.md`)
+
+| # | Item | Owner |
+|---|---|---|
+| P4-U1 | Product Owner policy decisions 1–10 (review §5): critical-lift classification, lift plans, wind and lightning, rigging inspection, tag lines (including MSHA sites), Lift Director, personnel platforms, forklift / telehandler / excavator lifting, withholding personnel-lifting controls, MSHA site list | PO |
+| P4-U2 | Architect validation of the reconciliation: 38 retained and 37 consolidated hazard IDs, proposed controls C-000419 to C-000518 (including 6 Engineer additions) and the applicability rules | Architect |
+| P4-U3 | Proposed changes to approved records P-1 to P-5: text generalizations T-15 to T-19, steel-erection control scoping, legacy supersessions, overhead beam clamps and trolleys to H-RH-060, equipment lifting points | Architect / PO |
+| P4-U4 | Personnel hoisting: 1926.1431 paragraphs beyond (a) and (b)(1) not verified; controls C-000504 to C-000511 need validation before implementation | Architect |
+| P4-U5 | Unverified references (review §4): 1926.1419–1428, 1926.1427, 1926.1424, 1926.1415–1416, other 1926.1404 paragraphs, 1910.179, 1926.602 / 1910.178, ASME B30 series, 1926.753(e) | Architect |
+| P4-U6 | Tag lines on MSHA-regulated sites (30 CFR 56.16007(a), verified) versus candidate §6 | Architect / PO |
+| P4-U7 | Gap: steel-erection multiple lifts (1926.753(e)) are not covered by the candidate | Architect |
 
 ## Closed
 
