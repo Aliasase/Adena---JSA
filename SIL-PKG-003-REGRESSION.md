@@ -178,6 +178,16 @@ Roofing hazards: torch and kettle burns, membrane slips, asphalt and torch fumes
 | FP-12 | Use sliding beam anchors near flange discontinuities | H-DF-042 **first**; travel controls | Process-piping hazards; H-BT-036 |
 | FP-13 to FP-22 | Beam strap anchor (fixed, no jaws) · beam glide anchor · temporary beam anchorage connector · sliding beam clamp anchor · tie off to beam clamp · beam clamp to hang a chain hoist (rigging) · beam trolley for a monorail hoist (material handling) · beam clamp for conduit hangers (fastening hardware) · beam clamp for fall protection plus a separate rigging clamp (mixed) · reposition fall protection beam clamp | Recognition by name or by fall protection context; rigging, material-handling and fastening-hardware uses keep their own relationships | FP records and FP controls on rigging, material-handling and hardware uses; jaw and travel controls on a beam strap |
 
+**Added by the Architect disposition of dev4:** removal doesn't categorically suppress swing fall or clearance.
+
+| # | Task | Must include | Must not include |
+|---|---|---|---|
+| FP-23 | Remove beamer while tied off to SRL on adjacent beam | H-BT-017, H-BT-001, H-DF-026, H-DF-043, H-DF-044; C-000415, C-000416 | H-DF-042 |
+| FP-24 | Remove beamers with 100% tie-off using twin-leg lanyard | H-DF-043, H-DF-044; C-000415, C-000416 | H-DF-042 |
+| FP-25 | Remove temporary beam anchor while connected to a second anchorage | H-DF-043, H-DF-044 | H-DF-042 |
+
+FP-9 (removal with no continuing arrangement described) is unchanged.
+
 ED-1-6 ("Install sliding beam anchor") is revised under this directive: a sliding beam anchor is a temporary fall protection anchorage connector. It now takes the FP records and FP controls in place of the generic clamp controls. The other ED-1 expectations are unchanged.
 
 ## Execution record — v1.4.1-dev4
@@ -186,10 +196,10 @@ ED-1-6 ("Install sliding beam anchor") is revised under this directive: a slidin
 - the 82 scenarios in §A to §D (D-12 runs as two task texts)
 - the 18 §E scenarios (ED-1-6 revised as noted in §G)
 - the 15 §F scenarios
-- the 22 §G scenarios
+- the 25 §G scenarios
 
 **Result (November 26, 2026):**
-- `tests/sil-pkg003.js`: 1,143 / 1,143 assertions pass.
+- `tests/sil-pkg003.js`: 1,162 / 1,162 assertions pass.
 - `tests/sil-regression.js`: 447 / 447 pass.
 
 Details: `SIL-ENGINE-v1.4.1.md` §9.

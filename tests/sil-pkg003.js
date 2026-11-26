@@ -2519,6 +2519,56 @@ const CASES = [
 "C-000409"
 ]
 }
+],
+[
+"FP-23",
+"Remove beamer while tied off to SRL on adjacent beam",
+{
+"inc": [
+"H-BT-017",
+"H-BT-001",
+"H-DF-043",
+"H-DF-044",
+"H-DF-026"
+],
+"incC": [
+"C-000415",
+"C-000416"
+],
+"exc": [
+"H-DF-042"
+]
+}
+],
+[
+"FP-24",
+"Remove beamers with 100% tie-off using twin-leg lanyard",
+{
+"inc": [
+"H-DF-043",
+"H-DF-044"
+],
+"incC": [
+"C-000415",
+"C-000416"
+],
+"exc": [
+"H-DF-042"
+]
+}
+],
+[
+"FP-25",
+"Remove temporary beam anchor while connected to a second anchorage",
+{
+"inc": [
+"H-DF-043",
+"H-DF-044"
+],
+"exc": [
+"H-DF-042"
+]
+}
 ]
 ];
 CASES.forEach(([id, task, sp]) => {

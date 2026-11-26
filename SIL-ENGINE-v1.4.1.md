@@ -200,7 +200,7 @@ Both need a phrase-scoped correction. Neither was changed here because both are 
 
 **Build:** `APP_BUILD dev4`, `CACHE_NAME adena-jsa-v1.4.1-dev4`. The directive asked for incorporation into v1.4.1-dev3. dev3 was already deployed, so the additions are built under the next test identifier.
 
-**Status:** committed on revision-a4 but **not pushed or deployed** — deployment awaits PO confirmation. Production v1.4.0-p1 is unchanged.
+**Status:** accepted and approved as v1.4.1-dev4 by the Architect disposition of dev4 (`SIL-PKG-003-ARCHITECT-DISPOSITION-DEV4.md`). H-DF-042 to H-DF-044 and their control relationships are approved. Deployed to the revision-a4 Netlify preview. Production v1.4.0-p1 is unchanged.
 
 ### Recognition
 - **Connectors by name:** beamer(s), beam strap anchor, sliding beam anchor, sliding beam clamp, sliding beam clamp anchor, pivot D-ring beam anchor or clamp, fall protection beam clamp or anchor, beam glide anchor, temporary beam anchor or clamp, and (temporary) beam anchorage connector. These are temporary fall protection anchorage connectors.
@@ -237,7 +237,7 @@ Both need a phrase-scoped correction. Neither was changed here because both are 
 | Installation | H-DF-026, H-DF-042 (jaw-type or sliding), H-BT-001, H-BT-017, H-BT-018, H-DF-043, H-DF-044 |
 | Use | H-DF-026, H-DF-042, H-BT-017, H-DF-043, H-DF-044 |
 | Repositioning or transfer | As for use, plus H-BT-018; H-BT-001 when the connector is adjusted, relocated or transferred |
-| Removal | H-BT-017, H-BT-018, H-BT-001 |
+| Removal | H-BT-017, H-BT-018, H-BT-001. Where the task describes the worker's continuing fall protection arrangement — tied off, SRL, lanyard, lifeline, 100% tie-off, connected to a second or adjacent anchor — H-DF-043, H-DF-044 and H-DF-026 also apply (Architect disposition of dev4). |
 | Inspection only | H-DF-026 with its inspection and removal-from-service controls |
 
 **Ranking:** H-DF-042 is ranked first when a sliding connector is used near a beam end, gap, discontinuity, connection tab or splice, or is being transferred. The foreman doesn't have to describe the failure mechanism.
@@ -265,8 +265,8 @@ Both need a phrase-scoped correction. Neither was changed here because both are 
 - **EDF-2:** A bare "beam anchor" stays generic; it becomes a fall protection connector only with fall protection context. "Temporary beam anchor" is recognized as a connector by name.
 - **EDF-3:** A beamer is treated as a sliding connector.
 - **EDF-4:** A beam strap anchor is treated as a fixed connector without jaws. It takes no jaw or travel controls and no H-DF-042.
-- **EDF-5:** H-DF-026 is not presented for a removal-only task. H-BT-017, H-BT-018 and H-BT-001 carry the exposure there.
-- **EDF-6:** Swing fall and clearance (H-DF-043, H-DF-044) apply to installation, use and repositioning, not to inspection or removal.
+- **EDF-5:** H-DF-026 is not presented for a removal-only task unless the task describes a continuing fall protection arrangement. Otherwise H-BT-017, H-BT-018 and H-BT-001 carry the exposure.
+- **EDF-6 (as qualified by the Architect disposition of dev4):** Swing fall and clearance (H-DF-043, H-DF-044) apply to installation, use and repositioning. They also apply to removal where the worker's continuing fall protection arrangement establishes them. They don't apply to inspection. During removal, words describing that continuing arrangement are not read as use of the connector being removed, so H-DF-042 is not presented for it.
 
 ### Counts (dev4)
 | Item | Count |
@@ -280,7 +280,7 @@ Both need a phrase-scoped correction. Neither was changed here because both are 
 ### Tests (dev4)
 | Suite | Result |
 |---|---|
-| `tests/sil-pkg003.js`: §A to §G — 82 + 18 + 15 + 22 scenarios (ED-1-6 revised under the directive) — plus acceptance, defect, wording and clamp-type checks | 1,143 / 1,143 pass |
+| `tests/sil-pkg003.js`: §A to §G — 82 + 18 + 15 + 25 scenarios (ED-1-6 revised under the directive; FP-23 to FP-25 added by the disposition of dev4) — plus acceptance, defect, wording and clamp-type checks | 1,162 / 1,162 pass |
 | `tests/sil-regression.js` | 447 / 447 pass |
 | `tests/browser-functional.js` | 22 / 22 pass |
 | Update path v1.4.0-p1 → dev4 | 9 / 9 pass |

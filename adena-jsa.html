@@ -2619,11 +2619,16 @@ function silConceptsP3(c, t){
   var aRem = /\b(remov\w*|tak(e|es|ing) (down|off)|detach\w*|dismantl\w*)\b/.test(t);
   var aRepo = /\b(reposition\w*|relocat\w*|mov(e|es|ed|ing)|slid(e|es|ing)|walk\w*|travel\w*|transfer\w*|shift\w*|advanc\w*|travers\w*)\b/.test(t);
   var aUse = /\b(use|uses|used|using|tie[- ]?off|tied off|tying off|connect(ed|ing)? to|while|erect\w*|work(s|ing)?)\b/.test(t.replace(/(before|prior to) (each |its |their )?use/g, ' '));
+  /* removal: words describing the worker's continuing fall protection arrangement are not "use" of the connector being removed */
+  var contFP = /tie[- ]?off|tied off|tying off|lanyards?|\bsrls?\b|self[- ]retract\w*|lifelines?|(second|another|adjacent|separate|other) (anchor\w*|beamer|zzfp\w*)|100 ?%|connected to|harness\w*|zzfp\w* .*\b(on|to) (the )?(adjacent|next|another|other)/.test(t);
+  if(aRem && !aInst && !aRepo) aUse = /\b(use|uses|used)\b/.test(t.replace(/(before|prior to) (each |its |their )?use/g, ' ')) && !contFP;
   if(!(aInst || aInsp || aRem || aRepo || aUse)) aUse = true;
   c.fpInstall = c.fpConn && aInst; c.fpInspect = c.fpConn && aInsp; c.fpRemove = c.fpConn && aRem;
   c.fpRepo = c.fpConn && aRepo; c.fpUse = c.fpConn && aUse;
   c.fpInspectOnly = c.fpInspect && !aInst && !aRem && !aRepo && !aUse;
   c.fpExposed = c.fpConn && !c.fpInspectOnly;
+  /* removal while the worker stays protected by another arrangement: that arrangement can establish swing fall and clearance exposure (Architect disposition of dev4) */
+  c.fpContFP = c.fpRemove && contFP;
   c.fpHandsOn = c.fpConn && (aInst || aRem || /\b(transfer\w*|reposition\w*|relocat\w*|adjust\w*|mov(e|es|ed|ing))\b/.test(t));
   if(c.fpExposed) c.elevated = true;
   c.lsAnchor = h('lsAnchor') || c.clampAnchor;
@@ -2825,8 +2830,8 @@ function silBest(a, b){ var r = {E:0, I:1, C:3}; if(!a) return b || null; if(!b)
   add('H-BT-017', function(c){ return c.fpExposed ? 'E' : null; });
   add('H-BT-018', function(c){ return (c.fpConn && (c.fpInstall || c.fpRemove || c.fpRepo)) ? 'E' : null; });
   add('H-DF-042', function(c){ return (c.fpExposed && (c.fpJaw || c.fpSliding) && (c.fpUse || c.fpRepo || c.fpInstall)) ? 'E' : null; });
-  add('H-DF-043', function(c){ return (c.fpExposed && (c.fpUse || c.fpRepo || c.fpInstall)) ? 'E' : null; });
-  add('H-DF-044', function(c){ return (c.fpExposed && (c.fpUse || c.fpRepo || c.fpInstall)) ? 'E' : null; });
+  add('H-DF-043', function(c){ return (c.fpExposed && (c.fpUse || c.fpRepo || c.fpInstall || c.fpContFP)) ? 'E' : null; });
+  add('H-DF-044', function(c){ return (c.fpExposed && (c.fpUse || c.fpRepo || c.fpInstall || c.fpContFP)) ? 'E' : null; });
   add('H-BT-017', function(c){ if(!c.roofLoc || c.roofingAct || /roof deck/.test(c.text)) return null; /* roof decking: the decking relationships carry fall exposure */ return c.roofEdge ? 'E' : 'I'; });
   add('H-BT-002', function(c){ return ((c.drill && c.metal) || c.rivet || ((c.selfDrill || c.fastenTool) && /sheet ?metal|metal (deck|panel|stud|track)/.test(c.text))) ? 'E' : null; });
   add('H-BT-004', function(c){ return (c.drill || c.rotaryHammer || c.impactDriver || c.selfDrill) ? 'E' : null; });
@@ -2874,7 +2879,7 @@ function silBest(a, b){ var r = {E:0, I:1, C:3}; if(!a) return b || null; if(!b)
   add('H-DF-022', function(c){ if(!c.silicaMat) return null; if(c.wetDrill) return 'E'; return (c.coreDrill && !c.dryMethod) ? 'C' : null; });
   add('H-DF-023', function(c){ return c.anchorAdh ? 'E' : null; });
   add('H-DF-024', function(c){ if(c.anchorInstallAct || c.anchorLoad) return 'E'; return (c.anchorExistingOnly && !c.lsAnchor) ? 'I' : null; });
-  add('H-DF-026', function(c){ if(c.fpConn && c.fpRemove && !c.fpInstall && !c.fpUse && !c.fpRepo && !c.fpInspect) return null; /* removing a connector: H-BT-017 / H-BT-018 / H-BT-001 carry the exposure */ return c.lsAnchor ? 'E' : null; });
+  add('H-DF-026', function(c){ if(c.fpConn && c.fpRemove && !c.fpInstall && !c.fpUse && !c.fpRepo && !c.fpInspect && !c.fpContFP) return null; /* removing a connector: H-BT-017 / H-BT-018 / H-BT-001 carry the exposure */ return c.lsAnchor ? 'E' : null; });
   add('H-DF-027', function(c){ return c.patTool ? 'E' : null; });
   add('H-DF-028', function(c){ return (c.patTool || c.gasTool || c.nailer) ? 'E' : null; });
   add('H-DF-029', function(c){ if(!c.fastenPen) return null;
