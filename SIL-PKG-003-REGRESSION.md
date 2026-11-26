@@ -1,4 +1,4 @@
-> **Repository Record (AD-008 §6):** Package 003 regression library, revision r2. Scenarios for the future authorized implementation; they are not run against v1.4.0-p1, which implements none of Package 003. Not approved. Nothing in production is changed by this document (SIL PO Decision 005 §6).
+> **Repository Record (AD-008 §6):** Package 003 regression library, revision r2. Approved by AD-010 (November 26, 2026); executed against the v1.4.1-dev1 test build (see the execution record at the end). Production v1.4.0-p1 implements none of Package 003 and is unchanged.
 
 # SIL-PKG-003 — Regression Library (r2)
 
@@ -109,3 +109,8 @@ Baseline evidence: every §A scenario was also run against v1.4.0-p1; observed d
 | D-12 | Hot rivet bridge connection; install lockbolts on bridge connection | Hot riveting: hot work (C-000114 to C-000116), H-HW-008, H-BT-029 / H-BT-030. Lockbolts: fastening only | Hot work on the lockbolt task |
 | D-13 | Drill press — workpiece starts spinning | H-HW-031 (C-000287; C-000218 vise / clamp / fixture) | Hand-holding at the drill press |
 | D-14 | Through-drill wall into occupied office with conduit in the wall | H-DF-012 (C-000298, C-000299), H-DF-013 (C-000301, C-000302, C-000304) | — |
+
+
+## Execution record — v1.4.1-dev1 (AD-010 §7)
+
+All 82 scenarios are automated in `tests/sil-pkg003.js` (D-12 runs as two task texts) together with the AD-010 acceptance checks and the F-1 to F-16 defect checks. Result on November 26, 2026: 526 / 526 assertions pass; the existing `tests/sil-regression.js` suite passes 447 / 447. Scenario text and expectations above are unchanged. Details: `SIL-ENGINE-v1.4.1.md` §5.

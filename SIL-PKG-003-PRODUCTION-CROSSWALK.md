@@ -1,4 +1,4 @@
-> **Repository Record (AD-008 §6):** Candidate crosswalk for Package 003, revision r2 (Architect Response 005 §3 accepted with conditions). Not approved. Nothing in production is changed by this document (SIL PO Decision 005 §6).
+> **Repository Record (AD-008 §6):** Candidate crosswalk for Package 003, revision r2 (Architect Response 005 §3 accepted with conditions). Approved by AD-010 (November 26, 2026); implemented in the v1.4.1-dev1 test build only. Production v1.4.0-p1 is unchanged.
 
 # SIL-PKG-003 — Production Record Crosswalk (r2)
 

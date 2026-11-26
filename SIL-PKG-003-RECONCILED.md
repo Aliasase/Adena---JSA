@@ -1,11 +1,11 @@
-> **Repository Record (AD-008 §6):** Reconciled **candidate** package with the Engineer independent review. Not approved. Citations not marked "verified" are not validated. No application implementation, Netlify deployment or production release is authorized (SIL PO Decision 005 §6).
+> **Repository Record (AD-008 §6):** Reconciled Package 003 with the Engineer independent review, Architect Response 005 and AD-010. Approved for the isolated test release v1.4.1-dev1 only (AD-010); not approved for production. Citations not marked "verified" are not validated; Engineer verification is not Architect validation.
 
-# Safety Intelligence Library — Package 003 (Reconciled Candidate r2)
+# Safety Intelligence Library — Package 003 (Reconciled r2.1 — implemented in test release v1.4.1-dev1)
 ## Drill (ACT-0017) · Mechanical Fastening (activity relationship; no new Activity ID)
 
 **Source:** `SIL-PKG-003.md` (Architect candidate, November 26, 2026; original preserved verbatim)
 **Decision record:** `SIL-PO-DECISION-005.md` (preserved verbatim), incorporated here
-**Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `52ce59d` · r1.1 SIL PO Decision 006 `7c6ddc6` · **r2 — Architect Response 005 incorporated** · **Branch:** `revision-a4` · **Baselines:** production v1.4.0-p1 `76ac7c7`, development `edab953`
+**Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `52ce59d` · r1.1 SIL PO Decision 006 `7c6ddc6` · r2 Architect Response 005 `e2f768b` · **r2.1 — AD-010 incorporated; implemented in v1.4.1-dev1** · **Branch:** `revision-a4` · **Baselines:** production v1.4.0-p1 `76ac7c7`, development `edab953`
 
 **Companion files:**
 - `SIL-CONTROL-REGISTRY.md` — C-000273 to C-000405 added; relationships appended to 46 existing controls; 5 accepted text revisions of approved controls
@@ -16,11 +16,33 @@
 - `SIL-UNRESOLVED-REGISTER.md` — **new**: consolidated open items, Packages 001–003
 - `SIL-PO-DECISION-006.md` — PO decisions on P3-U1, P3-U5 and P3-U6 (r1.1)
 - `SIL-PKG-003-ARCHITECT-RESPONSE-005.md` — Architect review (preserved verbatim), incorporated in r2
+- `ADENA_JSA_AD-010.md` — implementation authorization (preserved verbatim), incorporated in r2.1
 
 **Labels:**
 - References: OSHA-C, OSHA-GI, MSHA, Spec, Mfr, BP, SDS, company policy P-*nnnnnn*.
 - "verified (Engineer, *source*, P003 r1)" means I checked the text against the named source and confirmed applicability (Response 003 §9; PO Decision 003 §7). Everything else is unverified.
 - No numeric anchor embedment, spacing, edge distance, torque, cure time, misfire waiting period, substrate thickness, magnetic or vacuum mounting value, or respiratory exposure duration is introduced (candidate §9). Two verified regulatory numbers are recorded internally only; one regulatory number (30 psi, 1926.302(b)(4)) is user-facing by PO decision (SIL PO Decision 006 §2).
+
+---
+
+## AD-010 — implementation authorization (r2.1, implemented in v1.4.1-dev1)
+
+`ADENA_JSA_AD-010.md` (preserved verbatim) approves r2 for implementation in the isolated test release v1.4.1-dev1.
+
+| AD-010 | Applied |
+|---|---|
+| §1 P3-U14 | **Approved** — C-000395 states the 99% filter-efficiency requirement, scoped to prescribed silica dust-collection methods; manufacturer airflow and filter-cleaning requirements kept. **Closed.** |
+| §1 P3-U15 | **Approved** — revised C-000164 wording implemented on every relationship. **Closed.** |
+| §3.1 C-000395 | Numeric requirement limited to prescribed dust-collection methods and stated as separate from HEPA-filtered hole cleaning (C-000317). |
+| §3.2 Unknown materials | Where composition is unknown or may contain silica, the app presents H-DF-017 in its **assessment form** — "Possible respirable crystalline silica exposure — material composition not established" — with only the identification and assessment controls (C-000314, C-000397). Established exposure keeps the full record. |
+| §3.3 Induction / resistance heating | C-000393 is presented for every induction or resistance heating task (also related to H-HW-008). A statement of no ignition hazard never overrides a contradictory ignition cue. Combustible clearance never removes the hot work classification. §3.2 updated. |
+| §3.4 C-000218 | Drill-press workpieces are secured in a vise, clamp or fixture whatever their size (T-9). |
+| §3.5 C-000106 | Side handle used wherever the drill has one or the manufacturer requires it — new text revision **T-14**. |
+| §3.6 H-DF-018 | Record title no longer says "non-silica"; H-DF-018 makes no silica classification of any material. |
+| §3.7 E-13 | Standalone "Ramset" wording corrected: Hilti gun, Ramset gun and shoot / shot pins establish PAT work; standalone brand names do not. |
+| §3.8 C-000164 | T-13 wording keeps contaminant-based selection, assigned protection factor, the respiratory protection program and the oxygen-deficient / IDLH restriction. |
+
+**Text revisions of approved records:** 14 (8 hazards, 6 controls) — the 13 accepted by AR-005 plus T-14. Implemented in v1.4.1-dev1; production v1.4.0-p1 keeps the earlier wording until a production release is authorized.
 
 ---
 
@@ -47,8 +69,8 @@
 | §15 Regression | **14 scenarios added** (§D); existing scenarios kept, 4 expectations revised | `SIL-PKG-003-REGRESSION.md` |
 
 **Points for Architect attention (no disagreement):**
-1. **C-000395 carries a regulatory number** (99% filter efficiency, Table 1 row (vii), verified). Following the 30 psi precedent, it is **held for PO confirmation of numeric user-facing text (P3-U14)**. The airflow requirement refers to the tool manufacturer and has no number.
-2. **C-000164 is in production** (the PO-approved respirator correction, v1.4.0-p1). T-13 changes production wording, so it takes effect only with PO implementation authorization (P3-U15).
+1. **C-000395 carries a regulatory number** (99% filter efficiency, Table 1 row (vii), verified). It was held for PO confirmation (P3-U14) — **approved by AD-010 §1**.
+2. **C-000164 is in production** (the PO-approved respirator correction, v1.4.0-p1). T-13 changes production wording (P3-U15) — **approved by AD-010 §1**, implemented in v1.4.1-dev1.
 3. **Unknown material and candidate scenario 31.** §6 allows a conditional assessment where composition is unknown; the candidate's scenario 31 said "no unsupported material exposure." Reconciled as: an explicit unknown-material cue establishes H-DF-017 **conditionally** (assessment only, never explicit); a task naming no material establishes nothing. A-31 updated accordingly.
 4. **"No ignition hazard" statements.** The app cannot verify the crew's statement that ignition potential is absent. C-000393 is therefore shown for every induction or resistance heating task, including B-6.
 
@@ -60,12 +82,12 @@
 | New canonical record (candidate identifier kept) | 23 | H-DF-010, H-DF-011, H-DF-012, H-DF-013, H-DF-014, H-DF-015, H-DF-017, H-DF-018, H-DF-019, H-DF-021, H-DF-022, H-DF-023, H-DF-024, H-DF-026, H-DF-027, H-DF-028, H-DF-029, H-DF-030, H-DF-031, H-DF-032, H-DF-039, H-DF-040, H-DF-041 |
 | Consolidated into an existing Package 001–002 record (16) or another Package 003 record (2) — identifier retired, never reused | 18 | H-DF-001 → H-BT-010; H-DF-002 → H-BT-010; H-DF-003 → H-BT-004; H-DF-004 → H-BT-021; H-DF-005 → H-BT-021; H-DF-006 → H-HW-029; H-DF-007 → H-BT-002, H-HW-008; H-DF-008 → H-HW-031; H-DF-009 → H-HW-030; H-DF-016 → H-BT-013; H-DF-020 → H-BT-026; H-DF-025 → H-DF-024; H-DF-033 → H-DF-028; H-DF-034 → H-BT-028; H-DF-035 → H-BT-001; H-DF-036 → H-BT-029, H-BT-030; H-DF-037 → H-BT-007, H-BT-008; H-DF-038 → H-BT-020 |
 
-**Totals after reconciliation (candidate — not approved):**
+**Totals (approved by AD-010 for the isolated test release):**
 - **Hazard identifiers:** 78 → **119** registered; active **74 → 97**; retired 4 → 22.
 - **Controls:** **133** new canonical controls, **C-000273 to C-000405**. Next available: **C-000406**. 46 existing controls reused across 22 existing records (§5).
 - **Policies:** **10** confirmed (P-000010 added by SIL PO Decision 005 §1).
-- **Implementable once approved:** 132 of 133 new controls. C-000395 waits on PO confirmation of its numeric text (P3-U14). The six RCSC controls stay withheld (U-5, U-20).
-- **Text generalizations** of approved records: 13 (8 hazards, 5 controls — §1.2), **accepted** by Architect Response 005 §1 and §12. They take effect in user-facing text only at authorized implementation; none changes an identifier.
+- **Implemented in v1.4.1-dev1:** 133 of 133 new controls (AD-010). The six RCSC controls stay withheld (U-5, U-20).
+- **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in v1.4.1-dev1; none changes an identifier.
 
 **Citations:** 5 provisions verified against authoritative text — 1926.302(b), 1926.302(e), 1926.1153 (Table 1 rows (vi)–(ix), (f), (g)(1)), 1926.416(a)(3), 1926.502(d)(15). Two candidate assumptions are corrected by them (E-6, E-8).
 
@@ -88,7 +110,7 @@
 | E-10 | **Verified regulatory controls missing from the candidate.** 1926.302(b)(2) safety clip or retainer on pneumatic percussion tools; (b)(5) manufacturer's safe operating pressure for hoses and fittings; (e)(11) shield, guard or attachment recommended by the manufacturer; (b)(4) compressed air for cleaning reduced below 30 psi, with exceptions. | C-000285, C-000390, C-000359 added. C-000392 (30 psi) user-facing — **SIL PO Decision 006 §2**. |
 | E-11 | **"Structural riveting" is ambiguous for hot work.** Historic structural riveting heats rivets (hot work); modern structural "riveting" with lockbolts or blind fasteners is cold. Themed-entertainment renovation can involve either. | **Accepted (AR-005 §8).** Hot riveting, heated rivets and rivet forges establish hot work plus thermal-contact, hot-material handling and striking hazards; cold, blind and modern mechanical structural fastening do not. |
 | E-12 | **Induction and resistance heating (SIL PO Decision 005 §2).** v1.4.0-p1 also shows H-HW-006 "Burns from sparks, molten metal and slag" for induction preheating — neither process produces sparks, molten metal or slag (defect F-11). The library has no record for the strong magnetic fields near induction coils, which manufacturers warn about for workers with implanted medical devices. | §3 sets the implementation rule. Induction and resistance heating do not establish H-HW-006, H-HW-024 or H-HW-025. **AR-005 §9:** new H-DF-041 (electromagnetic fields from induction heating equipment). |
-| E-13 | **Field vocabulary for powder-actuated tools.** "Hilti gun", "Ramset", "shoot pins" and "shot pins" are common field terms for a PAT, but Hilti and Ramset also make drills, anchors and gas tools. Production T3 already uses "hilti gun" and "ramset" as keys. "Deck gun" can mean a PAT, a screw gun for decking, or a fire monitor. | **Decided — SIL PO Decision 006 §3:** "Hilti gun", "Ramset", "shoot pins" and "shot pins" establish powder-actuated work; Hilti or Ramset alone still establishes nothing. "Deck gun" stays ambiguous — PAT only alongside other PAT cues. |
+| E-13 | **Field vocabulary for powder-actuated tools.** "Hilti gun", "Ramset gun", "shoot pins" and "shot pins" are common field terms for a PAT, but Hilti and Ramset also make drills, anchors and gas tools. Production T3 already uses "hilti gun" and "ramset" as keys. "Deck gun" can mean a PAT, a screw gun for decking, or a fire monitor. | **Decided — SIL PO Decision 006 §3, as clarified by AR-005 §5 and AD-010 §3.7:** "Hilti gun", "Ramset gun", "shoot pins" and "shot pins" establish powder-actuated work; standalone brand names (Hilti, Ramset) do not. "Deck gun" stays ambiguous — PAT only alongside other PAT cues. |
 | E-14 | **Fall protection anchorage capacity verified** — 1926.502(d)(15): 5,000 lb per employee attached, or designed as part of a complete system with a safety factor of at least two under a qualified person's supervision. | Recorded internally only. H-DF-026 controls state the approval route, not the number (candidate §9). |
 | E-15 | **Gas-actuated tools.** 1926.302(e) is titled for powder-actuated tools. An OSHA interpretation addresses whether gas-actuated tools need the same model-specific training (title seen; letter not reviewed). | Training control kept PAT-only. Architect to review the interpretation (P3-U12). |
 | E-16 | **"Drill" and "bore" collisions outside the package's scope:** fire, evacuation, emergency and rescue drills; drill rigs, blast-hole and rock drilling (surface mining, production T39); horizontal directional drilling, jack-and-bore and tunnel boring (excavation). | Collision rules §2.3. |
@@ -107,11 +129,12 @@ Each keeps its identifier and every existing relationship. The new wording cover
 | T-6 | H-HW-030 | Tool starting unexpectedly during a wheel change or adjustment | Tool starting or discharging unexpectedly during an attachment change, jam clearing, adjustment or servicing | H-DF-009 |
 | T-7 | H-HW-031 | Workpiece moving, rolling or binding during cutting or grinding | Workpiece moving, rotating, rolling or binding during drilling, cutting or grinding | H-DF-008 |
 | T-8 | H-BT-028 | Falling or ejected TC bolt splines | Falling or ejected TC bolt splines, rivet mandrels or other spent fastener parts | H-DF-034 |
-| T-9 | C-000218 | Clamp or support the workpiece before grinding or cutting; do not hand-hold small pieces you cannot control | Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture — never hold it by hand | H-DF-001, 008, 028, 035 |
+| T-9 | C-000218 | Clamp or support the workpiece before grinding or cutting; do not hand-hold small pieces you cannot control | Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand | H-DF-001, 008, 028, 035 |
 | T-10 | C-000224 | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels or attachments | Unplug the tool, remove the battery or shut off and bleed the air before changing wheels, bits or attachments, clearing jams or making adjustments. For stationary machinery, also control stored energy and apply the required lockout/tagout before servicing | H-DF-009, 032, 035 |
 | T-11 | C-000019 | Move heavy tool heads, tensioners and pumps with a handling method rated for their weight, configuration and access — do not climb carrying them | Move heavy tool heads, tensioners, pumps and core drill rigs with a handling method rated for their weight, configuration and access — do not climb carrying them | H-DF-037 |
 | T-12 | C-000020 | Rotate tasks or workers on long bolting or impact runs to limit exposure | Rotate tasks or workers on long bolting, impact, drilling or fastening runs to limit exposure | H-DF-037, 038 |
-| T-13 | C-000164 | Where ventilation alone is not enough, use respiratory protection selected from an exposure assessment, under the respiratory protection program | Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it, selected for the contaminant and conditions under the respiratory protection program | AR-005 §12 (all respiratory relationships) |
+| T-13 | C-000164 | Where ventilation alone is not enough, use respiratory protection selected from an exposure assessment, under the respiratory protection program | Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it — selected for the contaminant and conditions, with an assigned protection factor adequate for the exposure, under the respiratory protection program. Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere | AR-005 §12; AD-010 §1 (P3-U15) and §3.8 (all respiratory relationships) |
+| T-14 | C-000106 | Expect the bit to bind as it breaks through — hold the drill firmly with the side handle and ease off the trigger | Expect the bit to bind as it breaks through — hold the drill firmly, use the side handle wherever the drill has one or the manufacturer requires it, and ease off the trigger | AD-010 §3.5 |
 
 ---
 
@@ -201,7 +224,7 @@ Implementation rule (for the future authorized implementation; v1.4.0-p1 unchang
 | Task description | Classification | Records |
 |---|---|---|
 | Induction or resistance heating **with an ignition cue** — combustibles, flammables, insulation, wood, cardboard, near / adjacent to combustible material, "fire" or "ignition hazard" | **Hot work** (Explicit) | H-HW-001 to H-HW-003 with P-000006, P-000007, P-000008 (C-000114, C-000115, C-000116); C-000393 |
-| Induction or resistance heating where the task states the ignition potential is **genuinely absent** — "no ignition hazard", "no ignition potential", existing exclHotWork terms ("no hot work", "cold work only") | **Hot work not established** | Thermal and electrical; C-000393 still shown |
+| Induction or resistance heating where the task states the ignition potential is **genuinely absent** — "no ignition hazard", "no ignition potential", existing exclHotWork terms ("no hot work", "cold work only") | **Hot work not established** | Thermal and electrical; C-000393 still shown. **A contradictory ignition cue in the same task governs** — the statement does not override it (AD-010 §3.3) |
 | Induction or resistance heating, **ignition potential uncertain or not stated** — including "area cleared of combustibles", "no combustibles", "combustibles removed" | **Conditional** hot work (rank C), with C-000393. **Combustible clearance is a hot work control, not proof that the process is no longer hot work** (AR-005 §10) — it never suppresses the permit, clearance or fire watch | Hot work records conditional |
 
 In every row: H-HW-008 (contact burns), H-BT-026 (equipment electrical), heat stress where cued, and equipment-specific hazards apply independently of the hot work classification. **Not established** by induction or resistance heating (AR-005 §10): H-HW-012 welding fume, H-HW-011 welding-circuit shock, H-HW-009 / H-HW-010 arc radiation, H-HW-024 fuel gas, H-HW-025 flashback, H-HW-006 sparks / molten metal / slag. Induction heating also establishes H-DF-041 (electromagnetic fields).
@@ -228,7 +251,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000274` `[if drill]` *(new)* Let the bit or cutter stop turning before touching it, the chuck or the workpiece.
   - `C-000025` Never hold the socket, extension or chuck while the tool runs.
   - `C-000277` `[if drill press or machine]` *(new)* Keep drill press and machine guards in place and adjusted as the manufacturer requires.
-  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture — never hold it by hand. *(proposed generalization T-9)*
+  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand. *(proposed generalization T-9)*
 - Review: Consolidated into H-BT-010 (generalized, see T-1). Contact and entanglement with a turning bit are controlled by the same means; a separate record would duplicate. 'Use fixtures rather than holding small pieces' → C-000218 (generalized, T-9).
 
 **H-DF-002 — Entanglement with rotating drilling equipment** · *Consolidated into H-BT-010 — identifier retired, never reused*
@@ -246,7 +269,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Explicit: handheld drills, rotary hammers, hole saws, large-diameter drilling (via H-BT-004)
 - Canonical hazard: H-BT-004 — Sudden tool movement from torque reaction, kickback or binding.
 - Controls:
-  - `C-000106` `[if drill]` Expect the bit to bind as it breaks through — hold the drill firmly with the side handle and ease off the trigger.
+  - `C-000106` `[if drill]` Expect the bit to bind as it breaks through — hold the drill firmly, use the side handle wherever the drill has one or the manufacturer requires it, and ease off the trigger. *(proposed generalization T-14)*
   - `C-000011` Brace for the tool's reaction before starting; use the side handle where provided.
   - `C-000227` `[if large-diameter drilling or hole saw]` Keep your body out of the kickback path.
   - `C-000279` `[if drill]` *(new)* If the bit binds, release the trigger and let the drill stop before freeing it.
@@ -302,7 +325,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Applicability: Explicit: drill presses, handheld drilling, unsecured material (via H-HW-031)
 - Canonical hazard: H-HW-031 — Workpiece moving, rotating, rolling or binding during drilling, cutting or grinding. *(proposed generalization; current: "Workpiece moving, rolling or binding during cutting or grinding")*
 - Controls:
-  - `C-000218` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture — never hold it by hand. *(proposed generalization T-9)*
+  - `C-000218` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand. *(proposed generalization T-9)*
   - `C-000287` *(new)* If the workpiece shifts or starts to spin, release the switch, stop the tool and isolate it as needed before trying to regain control of the work.
 - Review: Consolidated into H-HW-031 (generalized, T-7). Clamp / fixture / vise and 'no hand-holding small pieces' = C-000218 (generalized, T-9).
 
@@ -399,12 +422,12 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Review: Consolidated into H-BT-013 ('modification' already in its text). Relationship-specific controls carry the drilling detail.
 
 **H-DF-017 — Respirable crystalline silica exposure** · *New canonical record*
-- Applicability: Explicit with a known or reasonably foreseeable silica-containing material (concrete, masonry, CMU, brick, stone, cement board, precast). Conditional — an assessment requirement only — where the material's composition is stated as unknown or is drywall, composite or another material that may contain silica. Drilling alone never establishes it (AR-005 §6).
+- Applicability: Explicit with a known or reasonably foreseeable silica-containing material (concrete, masonry, CMU, brick, stone, cement board, precast). Conditional — an assessment requirement only — where the material's composition is stated as unknown or is drywall, composite or another material that may contain silica. In that case the app presents the assessment form of the record, "Possible respirable crystalline silica exposure — material composition not established", with the identification and assessment controls only, so the exposure is never shown as confirmed (AD-010 §3.2). Drilling alone never establishes it (AR-005 §6).
 - Hazard: Respirable crystalline silica exposure.
 - Controls:
   - `C-000314` *(new)* Identify silica-containing materials, such as concrete, masonry and stone, before drilling, cutting or grinding them.
   - `C-000315` *(new)* Use the silica control method specified for the tool and task — for example, a shroud with a dust collector on handheld drills, or integrated water delivery on rig-mounted core drills.
-  - `C-000395` `[if the specified method uses a dust collector]` *(new)* Where the specified method uses a dust collector, it must provide at least the airflow the tool manufacturer recommends and have a filter of 99% or greater efficiency with a filter-cleaning mechanism. **[pending P3-U14]**
+  - `C-000395` `[if the prescribed method uses a dust collector]` *(new)* Where the prescribed silica control method uses a dust collector, it must provide at least the airflow the tool manufacturer recommends and have a filter of 99% or greater efficiency with a filter-cleaning mechanism — this is separate from the HEPA-filtered vacuum used for hole cleaning.
   - `C-000316` *(new)* Keep shrouds, hoses, filters and dust collectors maintained and working as the manufacturer specifies.
   - `C-000396` *(new)* Indoors or in enclosed areas, provide exhaust as needed; with wet methods, apply enough water to minimize visible dust.
   - `C-000317` `[if drilling]` *(new)* Clean drilled holes with a HEPA-filtered vacuum where the control method requires it.
@@ -412,18 +435,18 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000319` *(new)* Follow the site's written silica exposure control plan.
   - `C-000397` `[if the task is not covered by a specified method]` *(new)* Where the task, tool or jurisdiction is not covered by a specified control method, assess the silica exposure as the applicable standard requires before starting.
   - `C-000271` Where the task's silica control method specifies a respirator, wear the respirator it specifies.
-  - `C-000164` Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it, selected for the contaminant and conditions under the respiratory protection program. *(proposed generalization T-13)*
+  - `C-000164` Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it — selected for the contaminant and conditions, with an assigned protection factor adequate for the exposure, under the respiratory protection program. Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere. *(proposed generalization T-13)*
 - Review: New **generic** canonical record, reusable for future concrete packages. Table 1 verified (E-6): handheld and stand-mounted drills including rotary hammers — shroud with dust collection and HEPA hole cleaning, **no respirator required**; rig-mounted core drills — integrated water, no respirator; dowel drilling rigs — APF 10. Handheld core drilling is **not** a Table 1 task. C-000271 gains its first active relationship. r2 (AR-005 §6): Table 1 is task- and jurisdiction-specific; wet drilling does not by itself remove a respirator requirement; where a specified method requires a respirator it is kept (C-000271); outside a specified method, exposure assessment applies (C-000164, C-000397); no universal N95 or P100. Row (vii) dust-collector airflow and filter requirements added (verified).
 
-**H-DF-018 — Inhalation of non-silica drilling dust** · *New canonical record*
+**H-DF-018 — Inhalation of drilling, cutting and sanding dust** · *New canonical record*
 - Applicability: Explicit with a non-silica material cue (wood, plywood, drywall, composite). Never establishes silica.
 - Hazard: Inhalation of dust from drilling, cutting or sanding wood, drywall, metal or composite materials.
 - Controls:
   - `C-000320` *(new)* Identify the material and its dust hazards, and review the SDS where one applies.
   - `C-000321` *(new)* Use dust extraction at the tool to capture dust at the source.
   - `C-000318` *(new)* Clean up dust with a HEPA-filtered vacuum or wet method — do not dry sweep or use compressed air where it would raise dust.
-  - `C-000164` Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it, selected for the contaminant and conditions under the respiratory protection program. *(proposed generalization T-13)*
-- Review: New generic canonical record. r2 (AR-005 §6): drywall and composites are not classified as silica-free — they also establish H-DF-017 conditionally (assessment), and the SDS decides.
+  - `C-000164` Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it — selected for the contaminant and conditions, with an assigned protection factor adequate for the exposure, under the respiratory protection program. Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere. *(proposed generalization T-13)*
+- Review: New generic canonical record. r2 (AR-005 §6): drywall and composites are not classified as silica-free — they also establish the H-DF-017 assessment, and the SDS decides. AD-010 §3.6: the record title no longer describes this dust as non-silica; H-DF-018 makes no silica classification of any material.
 
 **H-DF-019 — Exposure to hazardous coatings or existing building materials** · *New canonical record*
 - Applicability: Explicit: lead, asbestos or a regulated-material cue. Conditional: painted, coated or existing materials whose composition is unknown. Age or paint alone never establishes lead or asbestos.
@@ -475,7 +498,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000336` *(new)* Provide the ventilation the SDS requires, especially in enclosed areas.
   - `C-000331` *(new)* Wear goggles where liquids or slurry can splash into the eyes, and add a face shield where the face can be splashed.
   - `C-000337` *(new)* Handle, store, clean up and dispose of the product as the manufacturer and SDS specify.
-  - `C-000164` Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it, selected for the contaminant and conditions under the respiratory protection program. *(proposed generalization T-13)*
+  - `C-000164` Use respiratory protection where the exposure assessment, a specified control method or the atmospheric conditions require it — selected for the contaminant and conditions, with an assigned protection factor adequate for the exposure, under the respiratory protection program. Never use an air-purifying respirator in an oxygen-deficient or IDLH atmosphere. *(proposed generalization T-13)*
 - Review: New canonical record.
 
 **H-DF-024 — Mechanical anchor failure or pullout** · *New canonical record*
@@ -551,7 +574,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000361` `[if nailer or stapler]` *(new)* Avoid knots, existing fasteners and hard spots that can deflect a nail or staple.
   - `C-000362` `[if nailer or stapler]` *(new)* Hold the tool's nose firmly and square against the work, and use the fastener length and depth setting suited to the material.
   - `C-000363` *(new)* Keep hands clear of the muzzle, the fastener path and any path the fastener could take through or off the material — never place a hand behind or beside the point being fastened.
-  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture — never hold it by hand. *(proposed generalization T-9)*
+  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand. *(proposed generalization T-9)*
 - Review: New canonical record that **absorbs H-DF-033** (E-3): deflection into the hand is the same mechanism at lower energy; method conditions keep PAT controls off nailers. 1926.302(e)(7), (e)(9), (e)(11) verified. Substrate list is regulatory text, not a universal restriction for nailers.
 
 **H-DF-029 — Fastener penetration through substrate** · *New canonical record*
@@ -606,7 +629,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
 - Canonical hazard: H-DF-028 — Fastener ricochet, deflection, fragmentation or rebound.
 - Controls:
   - `C-000363` *(new)* Keep hands clear of the muzzle, the fastener path and any path the fastener could take through or off the material — never place a hand behind or beside the point being fastened.
-  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture — never hold it by hand. *(proposed generalization T-9)*
+  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand. *(proposed generalization T-9)*
   - `C-000361` *(new)* Avoid knots, existing fasteners and hard spots that can deflect a nail or staple.
   - `C-000362` *(new)* Hold the tool's nose firmly and square against the work, and use the fastener length and depth setting suited to the material.
 - Review: Consolidated into H-DF-028.
@@ -629,7 +652,7 @@ Each control shows its canonical ID. `[condition]` marks a relationship-specific
   - `C-000375` `[if riveting or anchor setting]` *(new)* Keep fingers clear of riveter jaws, setting tools and the fastener head while setting.
   - `C-000003` Keep hands off mating surfaces while plies are drawn together.
   - `C-000376` *(new)* Agree on hand placement with anyone holding the material being fastened.
-  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture — never hold it by hand. *(proposed generalization T-9)*
+  - `C-000218` `[if small workpiece]` Clamp or support the workpiece before drilling, fastening, grinding or cutting, and do not hand-hold small pieces you cannot control. At a drill press, always secure the workpiece in a vise, clamp or fixture, whatever its size — never hold it by hand. *(proposed generalization T-9)*
   - `C-000224` Unplug the tool, remove the battery or shut off and bleed the air before changing wheels, bits or attachments, clearing jams or making adjustments. For stationary machinery, also control stored energy and apply the required lockout/tagout before servicing. *(proposed generalization T-10)*
 - Review: Consolidated into H-BT-001 (generalized, T-1b).
 
@@ -806,9 +829,8 @@ Full text and owners: `SIL-UNRESOLVED-REGISTER.md`.
 | P3-U11 | OSHA-GI and MSHA (Parts 56, 62) equivalents | **Open** | Architect |
 | P3-U12 | Retrieve and review the OSHA gas-actuated tool training interpretation | **Open** | Architect |
 | P3-U13 | v1.4.0-p1 defects F-1 to F-16 | **Accepted** (AR-005 §14) — correct at the authorized implementation | Engineer, on PO authorization |
-| P3-U14 | **New:** numeric user-facing text in C-000395 (99% filter efficiency, Table 1 row (vii), verified) | **Open** | PO |
-| P3-U15 | **New:** C-000164 rewording (T-13) changes the production text of the PO-approved respirator correction | **Open** — at implementation authorization | PO |
 
 **Closed by SIL PO Decision 005:** P2-U16.
 **Closed by SIL PO Decision 006:** P3-U1, P3-U5, P3-U6.
 **Closed by Architect Response 005:** P3-U2 (§1), P3-U3 (§2), P3-U4 (§3), P3-U8 (§8), P3-U9 (§9).
+**Closed by AD-010 §1:** P3-U14 (99% filter efficiency in C-000395), P3-U15 (C-000164 rewording).

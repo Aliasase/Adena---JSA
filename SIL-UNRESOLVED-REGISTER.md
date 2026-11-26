@@ -1,8 +1,8 @@
-> **Repository Record (AD-008 §6):** Consolidated register of unresolved items across Safety Intelligence Library Packages 001–003, created with Package 003 r1 and updated in r2 (Architect Response 005). Not approved. Nothing in production is changed by this document (SIL PO Decision 005 §6).
+> **Repository Record (AD-008 §6):** Consolidated register of unresolved items across Safety Intelligence Library Packages 001–003, created with Package 003 r1; updated in r2 (Architect Response 005) and r2.1 (AD-010). Not approved. Nothing in production is changed by this document (SIL PO Decision 005 §6).
 
 # Safety Intelligence Library — Consolidated Unresolved Register
 
-**Status at P003 r2 (November 26, 2026):** 9 carried open (Packages 001–002) · 7 open from Package 003 (2 of them new PO items) · closed to date in Package 003: 10 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9) — P3-U13 accepted for implementation.
+**Status at P003 r2.1 (November 26, 2026, AD-010):** 9 carried open (Packages 001–002) · 5 open from Package 003 · closed in Package 003: 12 (P2-U16; P3-U1, U2, U3, U4, U5, U6, U8, U9, U14, U15). P3-U13 defects corrected in v1.4.1-dev1 (see `SIL-ENGINE-v1.4.1.md`).
 Resolved items from earlier packages stay recorded in their package files. "Verified (Engineer, …)" records the Engineer's check of a source; it is not Architect validation (Architect Response 005 §13).
 
 ## Open — carried from Packages 001 and 002
@@ -27,9 +27,7 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 | P3-U10 | Unverified citations: 1926.300, .95, .102, .62, .1101, .59; 1910.212, .242(b), .243, .132–.138, .1053, .1200; ANSI A10.3; ACI 318 Ch. 17; AISC; PTI. Independent Architect validation of OSHA-C, OSHA-GI and MSHA provisions, including those with Engineer verification. | Architect |
 | P3-U11 | OSHA-GI and MSHA (Parts 56, 62) equivalents for drilling, PAT and nailers | Architect |
 | P3-U12 | Retrieve and review the OSHA interpretation on gas-actuated tool training under 1926.302(e). Equipment-specific instruction is kept regardless (C-000405). | Architect |
-| P3-U13 | v1.4.0-p1 defects F-1 to F-16 (Crosswalk §C) — **accepted** (AR-005 §14); correct at the authorized implementation with phrase-scoped, contextual, cumulative rules | Engineer, on PO authorization |
-| P3-U14 | **New (PO):** C-000395 states the verified Table 1 row (vii) number — filter of 99% or greater efficiency. Confirm the number may appear in user-facing text (precedent: P3-U5). | PO |
-| P3-U15 | **New (PO):** T-13 rewords C-000164, which is in production as part of the PO-approved respirator correction (v1.4.0-p1). Confirm at implementation authorization. | PO |
+| P3-U13 | v1.4.0-p1 defects F-1 to F-16 (Crosswalk §C) — **corrected in v1.4.1-dev1**; stays open until PO physical testing confirms and a production release carries the fixes | Engineer / PO |
 
 ## Closed
 
@@ -44,3 +42,5 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 | P3-U6 | PAT field vocabulary | **Closed** — SIL PO Decision 006 §3 as clarified by AR-005 §5: Hilti gun, Ramset gun, shoot / shot pins → PAT; standalone Hilti or Ramset needs PAT fastening context; deck gun ambiguous. The PO record is preserved unchanged. |
 | P3-U8 | Hot structural riveting | **Closed** — accepted (AR-005 §8). |
 | P3-U9 | Electromagnetic fields near induction heating | **Closed** — new canonical H-DF-041 (AR-005 §9). |
+| P3-U14 | 99% filter efficiency in C-000395 | **Closed** — approved, AD-010 §1; scoped to prescribed dust-collection methods (§3.1). |
+| P3-U15 | C-000164 rewording | **Closed** — approved, AD-010 §1; wording per §3.8. |
