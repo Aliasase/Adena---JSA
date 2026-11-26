@@ -28,7 +28,7 @@
  * Active JSA data lives in localStorage and is unaffected by cache changes.
  */
 var CACHE_PREFIX = 'adena-jsa-';
-var CACHE_NAME = 'adena-jsa-v1.4.1-dev4'; /* APP_BUILD = 'dev4' in adena-jsa.html */
+var CACHE_NAME = 'adena-jsa-v1.4.1-p1'; /* APP_BUILD = 'p1' in adena-jsa.html */
 var PRECACHE_URLS = [
   './adena-jsa.html',
   './manifest.json',

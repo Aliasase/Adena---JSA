@@ -59,6 +59,7 @@ unless a revision package specifically directs otherwise:
 | A-4 dev v1.4.1-dev2 | **Test build only (not production).** Field-testing corrections: clamp-type anchor recognition (ED-1, PO direction) and contextual hot tap classification (ED-3); controls C-000406 and C-000407 added (401 in the app). CACHE_NAME `adena-jsa-v1.4.1-dev2`. Deployed to the `revision-a4` Netlify branch preview only. See `SIL-ENGINE-v1.4.1.md` §7. Production remains v1.4.0-p1. | 1.4.1-dev2 |
 | A-4 dev v1.4.1-dev3 | **Test build only (not production).** Architect disposition of dev2: C-000406 revised, C-000407 accepted; process-system controls gated on process-system context (PD-1); roof location vs. roofing work (PD-2). CACHE_NAME `adena-jsa-v1.4.1-dev3`. Deployed to the `revision-a4` Netlify branch preview only. See `SIL-ENGINE-v1.4.1.md` §8. Production remains v1.4.0-p1. | 1.4.1-dev3 |
 | A-4 dev v1.4.1-dev4 | **Test build only (not production).** Approved by the Architect disposition of dev4; deployed to the `revision-a4` Netlify branch preview only. Architect supplemental directive: temporary fall protection anchorage connectors — new hazards H-DF-042 to H-DF-044 (100 active), new controls C-000408 to C-000418 (412 in the app). CACHE_NAME `adena-jsa-v1.4.1-dev4`. See `SIL-ENGINE-v1.4.1.md` §9. Production remains v1.4.0-p1. | 1.4.1-dev4 |
+| A-4 p1 v1.4.1-p1 | **Phase A-4 production release — Package 003** (PO-009). The PO-accepted v1.4.1-dev4 build (`5c53b81`) was promoted unchanged. Only the release identifiers changed: APP_BUILD `p1`, CACHE_NAME `adena-jsa-v1.4.1-p1`, header status comment. Library: 122 hazard IDs (100 active, 22 retired), 418 controls (412 in the app; six RCSC withheld), 10 policies. Package 003 implementation and field acceptance complete; Phase A-4 remains open. Rollback baseline v1.4.0-p1 (`76ac7c7`). See `SIL-ENGINE-v1.4.1.md` §10. | 1.4.1-p1 |
 
 ## Production Baseline Tags
 
@@ -66,4 +67,5 @@ unless a revision package specifically directs otherwise:
 |---|---|---|---|
 | `production-baseline-v1.2.0` | `958c7ca` | Revision A-2 — Suggestion Intelligence v1.2.0 (PO-006) | Tag exists locally; push to remote **deferred, non-blocking** per PO direction, November 25, 2026. Cloud environment tag push returned HTTP 403. Commit reference retained here as the permanent record. |
 | *(untagged)* | `8318ddb` | v1.3.0-p1 — Acknowledgment Workflow (PO-007, AD-008 §1) | Previous production baseline. This is the rollback point for v1.4.0-p1. |
-| *(untagged)* | *(main merge commit — see `git log main`)* | v1.4.0-p1 — interim Phase A-4 production baseline (PO-008) | Active production baseline. |
+| *(untagged)* | `76ac7c7` | v1.4.0-p1 — interim Phase A-4 production baseline (PO-008) | Previous production baseline. This is the rollback point for v1.4.1-p1 (PO-009). |
+| *(untagged)* | *(main merge commit — see `git log main`)* | v1.4.1-p1 — Phase A-4 production release, Package 003 (PO-009) | Active production baseline. |

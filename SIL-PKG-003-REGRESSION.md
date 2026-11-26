@@ -1,4 +1,4 @@
-> **Repository Record (AD-008 §6):** Package 003 regression library, revision r2. Approved by AD-010 (November 26, 2026); executed against the v1.4.1-dev1 test build (see the execution record at the end). Production v1.4.0-p1 implements none of Package 003 and is unchanged.
+> **Repository Record (AD-008 §6):** Package 003 regression library, revision r2. Approved by AD-010 (November 26, 2026); executed against the v1.4.1 test builds and the v1.4.1-p1 production release (see the execution records at the end).
 
 # SIL-PKG-003 — Regression Library (r2)
 
@@ -203,3 +203,15 @@ ED-1-6 ("Install sliding beam anchor") is revised under this directive: a slidin
 - `tests/sil-regression.js`: 447 / 447 pass.
 
 Details: `SIL-ENGINE-v1.4.1.md` §9.
+
+## Release execution record — v1.4.1-p1 (PO-009, November 26, 2026)
+
+The accepted v1.4.1-dev4 build (`5c53b81`) was promoted with only the release identifiers changed: `APP_BUILD` p1, `CACHE_NAME` `adena-jsa-v1.4.1-p1`, and the header status comment. The full suites were run again against the release files:
+
+| Suite | Result |
+|---|---|
+| `tests/sil-pkg003.js` | 1,162 / 1,162 pass |
+| `tests/sil-regression.js` | 447 / 447 pass |
+| `tests/browser-functional.js` | 22 / 22 pass |
+| Update path v1.4.0-p1 → v1.4.1-p1 | 9 / 9 pass |
+| Native share receives the generated PDF file | Pass (share API stubbed in headless Chrome) |

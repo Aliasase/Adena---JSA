@@ -57,7 +57,7 @@ Next available: **C-000419**. Retired: none.
 | C-000049 | "Wear appropriate hearing protection when exposed to hazardous noise, in designated hearing protection areas or when required for the task." | PO Decision 002 §3 |
 
 
-**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in the v1.4.1 test builds** — the user-facing column below shows the revised wording. Production v1.4.0-p1 keeps the prior wording until a production release is authorized.
+**P003 text revisions of approved controls** (Architect Response 005 §1, §12; AD-010 §1, §3). **Implemented in production v1.4.1-p1 (PO-009)** — the user-facing column below shows the revised wording. The prior wording is shown for JSAs saved under v1.4.0-p1, which still map to the same records.
 
 | # | Control | Prior wording (v1.4.0-p1) | Revised wording (v1.4.1-dev1) |
 |---|---|---|---|
@@ -496,7 +496,7 @@ Next available: **C-000419**. Retired: none.
 
 ## Registry notes
 
-**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010. C-000406 and C-000407 were added for PO field testing (ED-1) and accepted by the Architect (C-000406 as revised). C-000408 to C-000418 were added by the Architect supplemental directive on temporary fall protection anchorage connectors. All are implemented in the v1.4.1 test builds (C-000408 to C-000418 from dev4), not in production v1.4.0-p1. Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
+**R-7 — Package 003.** C-000273 to C-000405 were approved by AD-010. C-000406 and C-000407 were added for PO field testing (ED-1) and accepted by the Architect (C-000406 as revised). C-000408 to C-000418 were added by the Architect supplemental directive on temporary fall protection anchorage connectors. All are implemented in production v1.4.1-p1 (PO-009). Relationships tagged "P003" on existing controls have the same status. Production C5 "Follow site silica exposure control plan" and "Avoid dry sweeping — use wet methods or HEPA vacuum" are equivalent to C-000319 and C-000318; their supersession is accepted (AR-005 §3) and takes effect at implementation. "Verified (Engineer, …)" in the Internal basis column records the Engineer's check of the named source; it is not Architect validation (AR-005 §13).
 
 **R-1 — Production C1 "Maintain 100% tie-off when exposed to fall hazards at 6 feet or greater."**
 Equivalent to C-000039. The 6-ft trigger is company policy P-000003 (PO Decision 002), so **there is no conflict** (U-14 resolved). Any future wording improvement must keep the 6-ft trigger.

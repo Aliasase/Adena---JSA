@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Implementation record for the v1.4.1-dev1 test release (AD-010). Test build only — not a production release. Production remains v1.4.0-p1 on `main` / GitHub Pages. No merge to `main` is authorized.
+> **Repository Record (AD-008 §6):** Implementation record for the v1.4.1 test builds (AD-010 and the dispositions that followed) and the v1.4.1-p1 production release (PO-009, §10).
 
-# Safety Intelligence Library Engine — v1.4.1-dev1 to dev4
+# Safety Intelligence Library Engine — v1.4.1 (dev1 to dev4; production v1.4.1-p1)
 
 **Authority:** AD-010 (PO, November 26, 2026) · SIL-PKG-003 r2 (`e2f768b`) · Architect Response 005 · SIL PO Decisions 005 and 006
 **Branch:** `revision-a4` · **Builds:** `1.4.1-dev1` (`CACHE_NAME adena-jsa-v1.4.1-dev1`), then `1.4.1-dev2` (§7) and `1.4.1-dev3` (`CACHE_NAME adena-jsa-v1.4.1-dev3`, §8), the build now on the preview
@@ -285,3 +285,41 @@ Both need a phrase-scoped correction. Neither was changed here because both are 
 | `tests/browser-functional.js` | 22 / 22 pass |
 | Update path v1.4.0-p1 → dev4 | 9 / 9 pass |
 | Update path dev3 → dev4 | 9 / 9 pass |
+
+## 10. v1.4.1-p1 — production release (PO-009, November 26, 2026)
+
+**Authority:** `ADENA_JSA_PO-009.md`. The PO physically tested and accepted v1.4.1-dev4 (`5c53b81`).
+
+**What changed for the release:** only the release identifiers — `APP_BUILD` `p1`, `CACHE_NAME` `adena-jsa-v1.4.1-p1`, and the header status comment. No functional, safety intelligence or interface changes.
+
+**Library at release:**
+
+| Item | Count |
+|---|---|
+| Hazard identifiers | 122 (100 active, 22 retired) |
+| Registered controls | 418 |
+| Controls in the application | 412 (six RCSC controls withheld: C-000081 to C-000083, C-000085 to C-000087) |
+| Company policies | 10 |
+
+**Release verification** (release files, before the merge):
+
+| Check | Result |
+|---|---|
+| `tests/sil-pkg003.js` | 1,162 / 1,162 pass |
+| `tests/sil-regression.js` | 447 / 447 pass |
+| `tests/browser-functional.js` — version, service worker, drawers, Show More, tap add/remove, manual entry, same-day restoration, offline reload, supervisor and crew signatures, revision banner, signature preserved, revision history, PDF | 22 / 22 pass |
+| Update path v1.4.0-p1 → v1.4.1-p1 — cache replacement, active JSA preserved, older saved hazards still get controls, individual crew re-acknowledgment, original signature unchanged, prior-day JSA rejected | 9 / 9 pass |
+| Native sharing — the share call receives the generated PDF file (share API stubbed in headless Chrome) | Pass |
+
+Production verification on GitHub Pages is recorded in the completion report.
+
+**Status:**
+- Package 003 implementation and field acceptance are complete.
+- Phase A-4 remains open.
+- **Rollback baseline:** v1.4.0-p1 (`76ac7c7`).
+
+**Carried forward:**
+- U-5 / U-20 (six RCSC controls withheld)
+- P3-U16 (deferred drill-rig expansion)
+- the other open regulatory and technical validation items in `SIL-UNRESOLVED-REGISTER.md`
+- the "observed, not changed" items in §8

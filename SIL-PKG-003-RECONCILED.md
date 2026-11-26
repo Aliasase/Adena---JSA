@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Reconciled Package 003 with the Engineer independent review, Architect Response 005 and AD-010. Approved for the isolated test release v1.4.1-dev1 only (AD-010); not approved for production. Citations not marked "verified" are not validated; Engineer verification is not Architect validation.
+> **Repository Record (AD-008 §6):** Reconciled Package 003 with the Engineer independent review, Architect Response 005 and AD-010. Implemented in the v1.4.1 test builds (AD-010) and released to production in v1.4.1-p1 (PO-009, November 26, 2026); Package 003 implementation and field acceptance are complete. Citations not marked "verified" are not validated; Engineer verification is not Architect validation.
 
-# Safety Intelligence Library — Package 003 (Reconciled r2.1 — implemented in test release v1.4.1-dev1)
+# Safety Intelligence Library — Package 003 (Reconciled r2.1 — released in production v1.4.1-p1)
 ## Drill (ACT-0017) · Mechanical Fastening (activity relationship; no new Activity ID)
 
 **Source:** `SIL-PKG-003.md` (Architect candidate, November 26, 2026; original preserved verbatim)
@@ -86,7 +86,7 @@
 - **Hazard identifiers:** 78 → **122** registered; active **74 → 100**; retired 4 → 22.
 - **Controls:** **146** new canonical controls, **C-000273 to C-000418**. Next available: **C-000419**. 46 existing controls reused across 22 existing records (§5).
 - **Policies:** **10** confirmed (P-000010 added by SIL PO Decision 005 §1).
-- **Implemented in v1.4.1-dev4:** 146 of 146 new controls — 133 approved by AD-010; C-000406 (Architect wording) and C-000407 from PO field testing (ED-1); C-000408 to C-000418 from the Architect supplemental directive on temporary fall protection anchorage connectors. The six RCSC controls stay withheld (U-5, U-20).
+- **Implemented in production v1.4.1-p1 (PO-009):** 146 of 146 new controls — 133 approved by AD-010; C-000406 (Architect wording) and C-000407 from PO field testing (ED-1); C-000408 to C-000418 from the Architect supplemental directive on temporary fall protection anchorage connectors. The six RCSC controls stay withheld (U-5, U-20).
 - **Text revisions** of approved records: 14 (8 hazards, 6 controls — §1.2): 13 accepted by Architect Response 005 §1 and §12, plus T-14 (AD-010 §3.5). Implemented in the v1.4.1 test builds; none changes an identifier.
 
 **Citations:** 5 provisions verified against authoritative text — 1926.302(b), 1926.302(e), 1926.1153 (Table 1 rows (vi)–(ix), (f), (g)(1)), 1926.416(a)(3), 1926.502(d)(15). Two candidate assumptions are corrected by them (E-6, E-8).
