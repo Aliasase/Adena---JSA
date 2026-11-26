@@ -1,20 +1,20 @@
-> **Repository Record (AD-008 §6):** Engineer reconciliation of the SIL-PKG-004 candidate (Rigging and Hoisting), revision r2 — r1 plus Architect Response 001 and SIL PO Decision 007 — against the v1.4.1-p1 canonical library. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
+> **Repository Record (AD-008 §6):** Engineer reconciliation of the SIL-PKG-004 candidate (Rigging and Hoisting), revision r2.1 — r1 plus Architect Responses 001 and 002 and SIL PO Decision 007 — against the v1.4.1-p1 canonical library. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
 
-# SIL-PKG-004 — Rigging and Hoisting (Reconciled r2)
+# SIL-PKG-004 — Rigging and Hoisting (Reconciled r2.1)
 
-**Candidate:** `SIL-PKG-004.md` (Architect, Candidate 1.0, November 26, 2026) · **Baseline:** v1.4.1-p1 (122 hazard IDs, 418 controls, 10 policies) · **Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `637b067` · r2 Architect Response 001 and SIL PO Decision 007 (§11) · **Companion records:** `SIL-PKG-004-ENGINEER-REVIEW.md`, `SIL-PKG-004-PRODUCTION-CROSSWALK.md`, `SIL-PKG-004-REGRESSION.md`
+**Candidate:** `SIL-PKG-004.md` (Architect, Candidate 1.0, November 26, 2026) · **Baseline:** v1.4.1-p1 (122 hazard IDs, 418 controls, 10 policies) · **Reviewed by:** Claude (Engineer), November 26, 2026 · **Revisions:** r1 `637b067` · r2 `43b6e82` Architect Response 001 and SIL PO Decision 007 (§11) · r2.1 Architect Response 002 (§12) · **Companion records:** `SIL-PKG-004-ENGINEER-REVIEW.md`, `SIL-PKG-004-PRODUCTION-CROSSWALK.md`, `SIL-PKG-004-REGRESSION.md`
 
 ## 1. Summary
 
 | Item | Candidate | Reconciled |
 |---|---|---|
 | Hazard records | 75 provisional (H-RH-001 to H-RH-075) | **39 new canonical records** — 38 keep their candidate IDs, plus H-RH-076 (multiple-lift rigging) added by Architect Response 001 · **12** consolidated into 7 existing records (5 need a text generalization, T-15 to T-19) · **25** consolidated into a retained new record. All 76 IDs are registered; the 37 consolidated IDs are retired and never reused. |
-| Controls | 161 candidate lines (§5) | **109 new canonical controls**, proposed C-000419 to C-000527 (6 Engineer additions for §4 hazards that had no candidate control; 9 added in r2 for Architect Response 001; 6 personnel-hoisting controls **withheld** pending validation) · 5 candidate lines answered by existing controls (C-000033, C-000231, C-000242, C-000243, C-000247, C-000407) · 64 candidate lines merged into a control drafted from another line (duplicates across activity groups — §5: do not create duplicate controls). Next available after registration: C-000528. |
+| Controls | 161 candidate lines (§5) | **110 new canonical controls**, proposed C-000419 to C-000528 (6 Engineer additions for §4 hazards that had no candidate control; 10 added for Architect Responses 001 and 002; 6 personnel-hoisting controls **withheld** pending validation) · 5 candidate lines answered by existing controls (C-000033, C-000231, C-000242, C-000243, C-000247, C-000407) · 64 candidate lines merged into a control drafted from another line (duplicates across activity groups — §5: do not create duplicate controls). Next available after registration: C-000529. |
 | Text revisions of approved records | — | T-15 to T-19 (H-BT-014, H-HW-037, H-BT-007, H-BT-002, H-BT-015) — prior wording kept so saved JSAs still map |
 | Policy records | 8 PO decisions requested (§8) | **None** — SIL PO Decision 007: no Adena-specific requirements beyond the defaults; apply regulatory, manufacturer and project/client requirements, the more protective where they overlap. |
 | Regression scenarios | 50 required (§10) | 50 required + 9 negative + 8 mixed + 12 required by Architect Response 001 = 79 (`SIL-PKG-004-REGRESSION.md`) |
 
-Identifiers above are proposed. Hazard IDs H-RH-001 to H-RH-075 and controls C-000419 to C-000527 are entered in the permanent registries only after Architect validation; until then this document is the record of the proposal.
+Identifiers above are proposed. Hazard IDs H-RH-001 to H-RH-075 and controls C-000419 to C-000528 are entered in the permanent registries only after Architect validation; until then this document is the record of the proposal.
 
 ## 2. Hazard reconciliation (75 candidate records + 1 added by Architect Response 001)
 
@@ -117,7 +117,7 @@ Relationship conditions are evaluated on the task description (Package 001–003
 
 **H-BT-014 — Struck by, or caught between, a suspended or moving load** · *existing record*
 
-- `C-000519` `[if mine site and the load may need steadying or guidance]` At a mine, attach tag lines to suspended loads that may need steadying or guidance.
+- `C-000519` `[if an operation subject to MSHA requirements and the load may need steadying or guidance]` On operations subject to MSHA requirements, attach tag lines to suspended loads that may need steadying or guidance.
 - `C-000033` Stay out from under the suspended load *(existing)*
 - `C-000034` `[if structural steel erection]` Only the connectors make the initial connection *(existing)*
 - `C-000035` `[if structural steel erection]` Use tag lines; keep hands off the load except at the connection point *(existing)*
@@ -300,7 +300,7 @@ Relationship conditions are evaluated on the task description (Package 001–003
 - `C-000481` Evaluate wind and gusts against the manufacturer's limits and the load's surface area — no single wind-speed limit fits every crane and load.
 - `C-000482` Monitor the weather and stop lifting when conditions prevent safe control of the load.
 - `C-000458` Use tag lines or another load-control method where the load needs steadying or guidance and they can be used safely.
-- `C-000519` `[if mine site]` At a mine, attach tag lines to suspended loads that may need steadying or guidance.
+- `C-000519` `[if an operation subject to MSHA requirements]` On operations subject to MSHA requirements, attach tag lines to suspended loads that may need steadying or guidance.
 - `C-000464` Control load swing and rotation throughout hoisting, travel and landing.
 
 **H-RH-048 — Lightning strike exposure**
@@ -393,6 +393,7 @@ Relationship conditions are evaluated on the task description (Package 001–003
 **H-RH-073 — Personnel platform, suspension system or supporting equipment failure**
 
 - `C-000504` `[if not steel erection]` Hoist personnel by crane only where the project has determined that conventional access — ladder, stairway, scaffold, aerial lift or personnel hoist — would be more hazardous or is not possible, and the lift is authorized.
+- `C-000528` `[if steel erection]` Steel erection does not exempt a personnel lift from the other personnel-hoisting safeguards — the platform, equipment, inspection, testing and operating requirements still apply, and recognizing the task does not authorize the lift.
 - `C-000505` Use a personnel platform and suspension system designed for hoisting personnel and suited to the equipment.
 - `C-000507` **— withheld pending validation (Architect Response 001)** Complete the required inspections, trial lift and proof test before personnel are hoisted.
 - `C-000506` **— withheld pending validation (Architect Response 001)** Plan the personnel lift with a pre-lift meeting of the operator, signal person, platform occupants and the person responsible for the task.
@@ -413,10 +414,10 @@ Relationship conditions are evaluated on the task description (Package 001–003
 
 **H-RH-076 — Multiple suspended members in a multiple lift colliding, falling or overloading the rigging assembly or an attachment point**
 
-- `C-000522` Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and within the number of members the applicable requirements allow.
-- `C-000523` Use a multiple-lift rigging assembly with a certified maximum capacity for the total assembly and for each attachment point, and keep the total load within both the rigging rating and the crane's rated capacity.
+- `C-000522` Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and with no more than five members per lift.
+- `C-000523` Use a multiple-lift rigging assembly with a maximum capacity for the total assembly and for each attachment point, certified by the manufacturer or a qualified rigger and based on a 5 to 1 safety factor for all components, and keep the total load within both the rigging rating and the crane's rated capacity.
 - `C-000524` Only personnel trained in multiple-lift procedures take part in a multiple lift.
-- `C-000525` Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and keep the required spacing between members so they cannot contact each other.
+- `C-000525` Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and rig the members at least 7 feet apart.
 - `C-000526` Set the members from the bottom up in the planned sequence, keeping connectors clear of the remaining suspended members.
 - `C-000527` Use controlled load lowering whenever the load is over the connectors.
 - `C-000419` Determine the load weight before lifting, and include the rigging, lifting accessories and below-the-hook attachments in the total load on the equipment.
@@ -536,17 +537,18 @@ Relationship conditions are evaluated on the task description (Package 001–003
 | C-000516 | Use non-conductive tag lines where tag lines are used near power lines. | — *(Engineer addition)* | E; R (1926.1408(b)(2), verified) |
 | C-000517 | Verify long, flexible or partially assembled loads have the temporary bracing or lifting arrangement needed to keep them from buckling or breaking during the lift. | — *(Engineer addition)* | E; BP |
 | C-000518 | Use blocks and sheaves sized for the rope, reeve them as the manufacturer or lift plan requires, and account for the higher load on a snatch block's anchorage. | — *(Engineer addition)* | E; C; M |
-| C-000519 | At a mine, attach tag lines to suspended loads that may need steadying or guidance. | — *(Architect Response 001)* | AR-001; R (30 CFR 56.16007(a), 77.210(c), verified) |
+| C-000519 | On operations subject to MSHA requirements, attach tag lines to suspended loads that may need steadying or guidance. | — *(Architect Response 001)* | AR-001, AR-002; R (30 CFR 56.16007(a), 57.16007(a), 77.210(c), verified) |
 | C-000520 | Position tag-line handlers clear of the fall zone, pinch points and the load's path, where they can let go if the load moves unexpectedly. | — *(Architect Response 001)* | AR-001; BP |
 | C-000521 | Verify end stops or other end-of-travel protection keep the trolley or hoist from running off the beam. | — *(Architect Response 001)* | AR-001; C; M |
-| C-000522 | Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and within the number of members the applicable requirements allow. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(1), verified) |
-| C-000523 | Use a multiple-lift rigging assembly with a certified maximum capacity for the total assembly and for each attachment point, and keep the total load within both the rigging rating and the crane's rated capacity. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(2)–(3), verified; safety factor not placed in user-facing text) |
+| C-000522 | Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and with no more than five members per lift. *Operations subject to MSHA requirements — non-numeric variant:* "Perform a multiple lift only with a multiple-lift rigging assembly, only for beams and similar structural members, only where the crane manufacturer permits it, and within the number of members the applicable requirements and the rigging assembly allow." | — *(Architect Response 001)* | AR-001, AR-002; R (1926.753(e)(1), verified) |
+| C-000523 | Use a multiple-lift rigging assembly with a maximum capacity for the total assembly and for each attachment point, certified by the manufacturer or a qualified rigger and based on a 5 to 1 safety factor for all components, and keep the total load within both the rigging rating and the crane's rated capacity. *Operations subject to MSHA requirements — non-numeric variant:* "Use a multiple-lift rigging assembly with a certified maximum capacity for the total assembly and for each attachment point, and keep the total load within both the rigging rating and the crane's rated capacity." | — *(Architect Response 001)* | AR-001, AR-002; R (1926.753(e)(2)–(3), verified) |
 | C-000524 | Only personnel trained in multiple-lift procedures take part in a multiple lift. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(1)(iv), verified) |
-| C-000525 | Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and keep the required spacing between members so they cannot contact each other. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(4), verified; spacing value not placed in user-facing text) |
+| C-000525 | Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and rig the members at least 7 feet apart. *Operations subject to MSHA requirements — non-numeric variant:* "Rig each member at its center of gravity so it hangs reasonably level, rig from the top down, and space the members as the rigging assembly and lift plan require so they cannot contact each other." | — *(Architect Response 001)* | AR-001, AR-002; R (1926.753(e)(4), verified) |
 | C-000526 | Set the members from the bottom up in the planned sequence, keeping connectors clear of the remaining suspended members. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(5), verified) |
 | C-000527 | Use controlled load lowering whenever the load is over the connectors. | — *(Architect Response 001)* | AR-001; R (1926.753(e)(6), verified) |
+| C-000528 | Steel erection does not exempt a personnel lift from the other personnel-hoisting safeguards — the platform, equipment, inspection, testing and operating requirements still apply, and recognizing the task does not authorize the lift. | — *(Architect Response 002)* | AR-002; R (1926.753(a), verified: Subpart CC applies except 1926.1431(a)) |
 
-Basis tags: R regulatory (verification status in the Engineer review §4) · C consensus standard · M manufacturer · BP recognized practice · PO needs a Product Owner decision · E Engineer addition. No basis tag or citation appears in user-facing text.
+Basis tags: R regulatory (verification status in the Engineer review §4) · C consensus standard · M manufacturer · BP recognized practice · PO needs a Product Owner decision · E Engineer addition. No basis tag or citation appears in user-facing text. Verified numerical requirements appear only where Architect Response 002's conditions are met (§12).
 
 ## 6. Candidate control lines — disposition
 
@@ -737,13 +739,13 @@ These implement candidate §6 and the Engineer findings. None is implemented.
 8. **Process equipment.** Lifting new fabricated pipe spools, pumps or vessels takes no process-isolation or process-contents records (P3-U17). Removing *existing* process equipment, or any task with process-system context, adds H-RH-071 with C-000242 and C-000243.
 9. **Vessels.** Lifting, tailing or upending a vessel is not vessel entry. Confined-space entry records require entry cues.
 10. **Multiple lifting devices.** Tandem, two-crane, tailing-crane and hoist-to-hoist transfers take H-RH-056 first and the load-share controls.
-11. **Personnel hoisting** *(revised r2)*. Recognition and H-RH-073 / H-RH-074 are retained. Only C-000504 (restriction — not presented for steel erection, which is evaluated separately) and C-000505 (platform) are presented. C-000506 to C-000511 are **withheld** pending validation. Independently applicable controls (fall zone, communication, crane stability, power lines) still apply. Nothing presented implies the personnel lift is authorized.
+11. **Personnel hoisting** *(revised r2)*. Recognition and H-RH-073 / H-RH-074 are retained. Only C-000504 (restriction — not presented for steel erection), C-000528 (for steel erection: the exception from that restriction is not unrestricted authorization, and the other personnel-hoisting safeguards still apply — Architect Response 002) and C-000505 (platform) are presented. C-000506 to C-000511 are **withheld** pending validation. Independently applicable controls (fall zone, communication, crane stability, power lines) still apply. Nothing presented implies the personnel lift is authorized.
 12. **Critical and complex lifts.** Explicit terms (critical lift, engineered lift, tandem, near power lines, over occupied areas) rank H-RH-032 and the plan and supervision controls. No percentage-of-capacity threshold is used (§6).
-13. **Tag lines** *(revised r2)*. There is no universal tag-line requirement. On a mine site (mine, quarry, pit operations, or the task naming MSHA), C-000519 is presented for suspended loads that may need steadying or guidance. Tag-line use adds the entanglement (H-RH-022), handler-position (C-000520), non-conductive (near identified lines) and recoil considerations.
+13. **Tag lines** *(revised r2)*. There is no universal tag-line requirement. On an operation subject to MSHA requirements, C-000519 is presented for suspended loads that may need steadying or guidance *(wording per Architect Response 002)*. Such an operation is recognized when the task names MSHA, a mine, a quarry, a pit or a mine plant (for example, a beneficiation plant or a mine washer). A chemical processing plant is not assumed to be MSHA-regulated. Tag-line use adds the entanglement (H-RH-022), handler-position (C-000520), non-conductive (near identified lines) and recoil considerations.
 14. **Independent exposures preserved.** Electrical, fall, hot work, excavation, confined-space, chemical and process records apply on their own cues and are never suppressed because rigging is the primary activity (§6).
 15. **Landing and release.** Land, set, place, rest and secure take H-RH-018, H-RH-069 and H-BT-015. Removing, releasing or unhooking rigging takes H-BT-015 and H-RH-023, never demolition records.
 16. **Assembly and disassembly.** "Assemble", "erect", "dismantle" or "disassemble" a crane, or counterweight installation, takes H-RH-039 first, never demolition or entertainment-rigging records.
-17. **Multiple-lift rigging** *(r2)*. Christmas-treeing, multiple-lift rigging assemblies and multiple-member steel lifts take H-RH-076 first, with C-000522 to C-000527. They also take H-BT-014 (personnel beneath the remaining suspended members), C-000037 (premature release) and C-000031 (stability of members already placed). A tandem or two-crane lift (H-RH-056) and a single load on a multi-leg sling (H-RH-003) are not multiple lifts. Multiple lifts of members other than beams and similar structural members are recognized, and C-000522 states the restriction.
+17. **Multiple-lift rigging** *(r2)*. Christmas-treeing, multiple-lift rigging assemblies and multiple-member steel lifts take H-RH-076 first, with C-000522 to C-000527. The verified numerical requirements appear in C-000522 (no more than five members), C-000523 (5 to 1 safety factor) and C-000525 (at least 7 feet apart). They apply where the steel-erection multiple-lift requirements apply. On operations subject to MSHA requirements, the non-numeric variants are presented instead (§5, §12). They also take H-BT-014 (personnel beneath the remaining suspended members), C-000037 (premature release) and C-000031 (stability of members already placed). A tandem or two-crane lift (H-RH-056) and a single load on a multi-leg sling (H-RH-003) are not multiple lifts. Multiple lifts of members other than beams and similar structural members are recognized, and C-000522 states the restriction.
 18. **More protective requirement** *(SIL PO Decision 007)*. Where regulatory, manufacturer and project or client requirements overlap, the controls defer to the more protective one. No Adena-specific threshold or definition is introduced.
 
 ## 8. Ranking (candidate §7)
@@ -824,3 +826,27 @@ A3-U1 (legacy signed JSA document integrity), P3-U17 (pipe-spool fabrication), P
 | 20 production defects accepted, subject to crosswalk review; A3-U1 and P3-U17 to P3-U19 preserved | No change. |
 | 12 additional regression scenarios | `SIL-PKG-004-REGRESSION.md` §D |
 | SIL PO Decision 007: no Adena-specific requirements; follow the more protective requirement; no unsupported thresholds | No policy records. Rewording: C-000425 (lift plan), C-000430 (supervision) and C-000483 (lightning) defer to applicable requirements. §7.18. |
+
+## 12. r2.1 — Architect Response 002
+
+`SIL-PKG-004-ARCHITECT-RESPONSE-002.md` is preserved verbatim.
+
+| Clarification | r2.1 change |
+|---|---|
+| MSHA applicability | C-000519 reworded: "On operations subject to MSHA requirements, attach tag lines to suspended loads that may need steadying or guidance." The condition is now *operation subject to MSHA requirements* (§7.13). "MSHA" names the jurisdiction; it is not a regulatory citation. Section and part numbers stay out of user-facing text. |
+| Numerical requirements, evaluated against Architect Response 002's five conditions | **Included** in C-000522 (no more than five members), C-000523 (5 to 1 safety factor) and C-000525 (at least 7 feet apart). See the evaluation table below. |
+| Personnel hoisting: the steel-erection exception is not unrestricted authorization | New C-000528 is presented for steel-erection personnel lifts instead of C-000504. C-000505 is retained. C-000506 to C-000511 stay withheld. |
+| P4-U8, P4-U9 | Retained as open. |
+| Record-level review | The four records are provided at r2.1. P-1 to P-5 and record-level acceptance remain pending. |
+
+**Numerical requirement evaluation (multiple-lift rigging)**
+
+| Condition (Architect Response 002) | Assessment |
+|---|---|
+| Operation correctly recognized | H-RH-076 only for christmas-treeing, multiple-lift rigging assemblies or multiple-member steel lifts. Not for tandem lifts, multi-leg slings or single-member lifts (regression D-1 to D-4). |
+| Requirement validated | Engineer-verified against 1926.753(e)(1)(ii), (e)(2) and (e)(4)(iii) (review §8). Architect validation is pending as part of record-level acceptance. |
+| Jurisdiction established | The requirement is the construction steel-erection standard (federal OSHA; the WA and MI state plans checked carry the same values). The numeric wording is presented for construction steel erection. On operations subject to MSHA requirements, the non-numeric variant is presented. |
+| Not generalized | The numbers sit only in the three multiple-lift controls and nowhere else. Sling-angle, capacity and spacing controls for ordinary lifts carry no numbers. |
+| Practical value | The member count, spacing and safety factor are what a foreman and rigger check in the field. |
+
+Other verified numbers were not added; Architect Response 002 asked only for the multiple-lift values. These include the 20 ft power-line clearance, Table A distances, the 50 ft distance above 350 kV and the dedicated spotter within 20 ft during travel. They can be evaluated the same way on request (review §9).

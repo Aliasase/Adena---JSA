@@ -1,6 +1,6 @@
 > **Repository Record (AD-008 §6):** Engineer independent review of the SIL-PKG-004 candidate (Rigging and Hoisting), November 26, 2026. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
 
-# SIL-PKG-004 — Engineer Review (r1, with r2 addendum §8)
+# SIL-PKG-004 — Engineer Review (r1, with r2 addendum §8 and r2.1 addendum §9)
 
 **Candidate:** `SIL-PKG-004.md` (Architect, Candidate 1.0) · **Baseline:** v1.4.1-p1 · **Reviewer:** Claude (Engineer) · **Scope:** review and reconciliation only (candidate §12)
 
@@ -158,3 +158,38 @@ Both are preserved verbatim: `SIL-PKG-004-ARCHITECT-RESPONSE-001.md` and `SIL-PO
 - review of the production crosswalk (Architect Response 001)
 
 No implementation or deployment is authorized.
+
+## 9. r2.1 addendum — Architect Response 002
+
+`SIL-PKG-004-ARCHITECT-RESPONSE-002.md` is preserved verbatim. The r2.1 changes are recorded in Reconciled §12, the crosswalk header and Regression D-1, D-11, D-12 and D-13 (80 scenarios). No application file changed.
+
+**9.1 MSHA tag-line wording.** C-000519 now reads: "On operations subject to MSHA requirements, attach tag lines to suspended loads that may need steadying or guidance." The basis is 30 CFR 56.16007(a), 57.16007(a) and 77.210(c), all Engineer-verified. The applicability condition is *an operation subject to MSHA requirements*. It is recognized when the task names MSHA, a mine, a quarry, a pit or a mine plant. A chemical or power plant is not assumed to be MSHA-regulated.
+- **Open point for the Architect:** whether a mine owner's facility that is under OSHA jurisdiction should be recognized from the task text. The engine cannot tell this from the text alone. The current rule is to present C-000519 only when MSHA or a mine operation is named.
+
+**9.2 Numerical requirements.** The three multiple-lift values were evaluated against the five conditions in Architect Response 002 (Reconciled §12). All three are included for construction steel erection:
+
+| Value | Control | Source (verified, not shown to the user) |
+|---|---|---|
+| No more than five members per lift | C-000522 | 1926.753(e)(1)(ii) |
+| 5 to 1 safety factor for all rigging components | C-000523 | 1926.753(e)(2) |
+| Members at least 7 feet apart | C-000525 | 1926.753(e)(4)(iv) |
+
+- **MSHA variants.** On operations subject to MSHA requirements, non-numeric variants are presented. 1926.753 has not been shown to apply under MSHA, so presenting these numbers there would generalize them beyond their established jurisdiction.
+- **Other verified values not added.** Architect Response 002 asked only for the multiple-lift values, so these were not added. They could meet the same conditions:
+  - 20 ft minimum clearance from power lines up to 350 kV
+  - Table A clearances
+  - 50 ft above 350 kV where the voltage is unknown
+  - a dedicated spotter when traveling within 20 ft of a power line
+  
+  If the Architect wants them, each needs its own applicability evaluation. Table A and the voltage-dependent distances need the voltage to be known.
+
+**9.3 Personnel hoisting.** New C-000528 is presented for steel-erection personnel lifts. It states that steel erection is not unrestricted authorization and that the other personnel-hoisting safeguards still apply.
+- C-000504 is presented when the task is not steel erection.
+- C-000505 is presented in both cases.
+- C-000506 to C-000511 remain withheld.
+- P4-U8 and P4-U9 remain open.
+- **Engineer note:** C-000528 relies on 1926.753(a), which removes only the 1926.1431(a) restriction for steel erection. I have not verified which other 1926.1431 paragraphs apply (P4-U4).
+
+**9.4 Implementation note (no implementation authorized).** The production test suite's citation check currently fails on any "MSHA" text in user-facing output. If C-000519 is approved, that check has to change at implementation: it should allow "MSHA" as a jurisdiction name and still reject section and part numbers. The numeric-text guard also has to allow these three values in C-000522, C-000523 and C-000525 only.
+
+**9.5 Status.** Final acceptance of P-1 to P-5 and of the four records remains pending Architect review. No implementation or deployment.

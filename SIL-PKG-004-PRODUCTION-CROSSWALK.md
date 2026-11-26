@@ -1,6 +1,6 @@
-> **Repository Record (AD-008 §6):** Production crosswalk for Package 004: what v1.4.1-p1 presents today for each required scenario, and the defects found. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
+> **Repository Record (AD-008 §6):** Production crosswalk for Package 004, revision r2 (content unchanged since r1; the 20 defects were accepted for correction by Architect Response 001, subject to this review): what v1.4.1-p1 presents today for each required scenario, and the defects found. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
 
-# SIL-PKG-004 — Production Crosswalk (r1)
+# SIL-PKG-004 — Production Crosswalk (r2)
 
 Run against the v1.4.1-p1 engine (the code in `adena-jsa.html` on `main`), November 26, 2026. **L** = legacy keyword library line, otherwise the canonical record ID. Hazard and control counts are the full suggestion lists (the drawer shows 15 at a time).
 

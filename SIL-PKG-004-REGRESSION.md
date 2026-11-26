@@ -1,12 +1,12 @@
-> **Repository Record (AD-008 §6):** Package 004 regression library, revision r2 (Architect Response 001) — scenarios for the future authorized implementation. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
+> **Repository Record (AD-008 §6):** Package 004 regression library, revision r2.1 (Architect Responses 001 and 002) — scenarios for the future authorized implementation. Candidate under review — not approved. Nothing in production is changed by this document. No Package 004 implementation is authorized.
 
-# SIL-PKG-004 — Regression Library (r2)
+# SIL-PKG-004 — Regression Library (r2.1)
 
-**79 scenarios:**
+**80 scenarios:**
 - **§A:** the 50 required by candidate §10.
 - **§B:** 9 negative-applicability scenarios.
 - **§C:** 8 mixed-operation scenarios.
-- **§D:** 12 scenarios required by Architect Response 001.
+- **§D:** 12 scenarios required by Architect Response 001, plus D-13 for Architect Response 002.
 
 IDs are the reconciled records (`SIL-PKG-004-RECONCILED.md`). "First" uses the v1.4.0 ranking (Explicit → Inferred → Legacy → Conditional). The Package 001–003 suites (447 + 1,162 assertions) must keep passing. The scheduled corrections A3-U1 and P3-U17 to P3-U19 carry their own scenarios into the same suite.
 
@@ -96,7 +96,7 @@ IDs are the reconciled records (`SIL-PKG-004-RECONCILED.md`). "First" uses the v
 
 | # | Task | Must include | Must not include |
 |---|---|---|---|
-| D-1 | Christmas-tree structural steel | H-RH-076 **first**; C-000522, C-000523, C-000524, C-000525, C-000526, C-000527; H-BT-014; C-000037; C-000031 | H-RH-056 |
+| D-1 | Christmas-tree structural steel | H-RH-076 **first**; C-000522, C-000523, C-000524, C-000525, C-000526, C-000527 — with the numeric wording (five members, 5 to 1, 7 feet); H-BT-014; C-000037; C-000031 | H-RH-056; any citation |
 | D-2 | Hoist beams on a multiple-lift rigging assembly | H-RH-076 **first**; C-000523, C-000525 | H-RH-056 |
 | D-3 | Perform tandem crane lift | H-RH-056 **first**; C-000487, C-000468 | H-RH-076 (not a multiple lift) |
 | D-4 | Lift single load using a four-leg sling | H-RH-003 (unequal leg loading, C-000435); H-BT-014; H-RH-002 | H-RH-076, H-RH-056 (a multi-leg sling is not a multiple lift) |
@@ -106,8 +106,9 @@ IDs are the reconciled records (`SIL-PKG-004-RECONCILED.md`). "First" uses the v
 | D-8 | Lift near energized overhead power lines | H-RH-044 **Explicit, first**; C-000477, C-000478, C-000479, C-000480 | Numeric approach distance in user-facing text |
 | D-9 | Operate overhead bridge crane indoors | H-BT-014; H-RH-042 | H-RH-044; C-000476, C-000477, C-000451, C-000448; H-RH-020, H-RH-029, H-RH-030 |
 | D-10 | Mobile crane setup with no overhead electrical lines present | H-RH-030; H-RH-029 | H-RH-044 and C-000477, C-000478 (context establishes no lines) |
-| D-11 | Guide suspended load at an MSHA-regulated surface mine | H-RH-022; H-BT-014; C-000519, C-000459, C-000520 | Universal tag-line wording on non-mine tasks |
-| D-12 | Crane-suspended personnel platform during steel erection | H-RH-073; H-RH-074; C-000505; steel-erection fall records | C-000504 (steel erection evaluated separately); withheld C-000506–C-000511; any wording implying authorization |
+| D-11 | Guide suspended load at an MSHA-regulated surface mine | H-RH-022; H-BT-014; C-000519, C-000459, C-000520 ("On operations subject to MSHA requirements …") | Tag-line requirement on tasks not subject to MSHA requirements |
+| D-13 | Christmas-tree beams at an MSHA-regulated mine | H-RH-076; C-000522, C-000523, C-000525 with the non-numeric variants | Numeric multiple-lift wording (jurisdiction not established) |
+| D-12 | Crane-suspended personnel platform during steel erection | H-RH-073; H-RH-074; C-000528, C-000505; steel-erection fall records | C-000504 (steel erection evaluated separately); withheld C-000506–C-000511; any wording implying authorization |
 
 **Common to every scenario:**
 

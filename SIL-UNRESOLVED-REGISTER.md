@@ -38,9 +38,9 @@ Resolved items from earlier packages stay recorded in their package files. "Veri
 
 | # | Item | Owner |
 |---|---|---|
-| P4-U2 | Architect record-level validation of the r2 reconciliation: 39 retained and 37 consolidated hazard IDs, proposed controls C-000419 to C-000527 (6 Engineer additions, 9 from Architect Response 001), applicability rules and the production crosswalk | Architect |
+| P4-U2 | Architect record-level validation of the r2 reconciliation: 39 retained and 37 consolidated hazard IDs, proposed controls C-000419 to C-000528 (6 Engineer additions, 9 from Architect Response 001, 1 from Architect Response 002); r2.1 records and P-1 to P-5 pending acceptance, applicability rules and the production crosswalk | Architect |
 | P4-U3 | Proposed changes to approved records P-1 to P-5: text generalizations T-15 to T-19, steel-erection control scoping, legacy supersessions, overhead beam clamps and trolleys to H-RH-060, equipment lifting points | Architect / PO |
-| P4-U4 | Personnel hoisting: C-000506 to C-000511 **withheld** (Architect Response 001) pending technical and regulatory validation; 1926.1431 paragraphs beyond (a) and (b)(1) not verified | Architect |
+| P4-U4 | Personnel hoisting: C-000506 to C-000511 **withheld** (Architect Response 001) pending technical and regulatory validation; C-000528 states that the steel-erection exception does not authorize the lift or remove the other safeguards (Architect Response 002); 1926.1431 paragraphs beyond (a) and (b)(1) not verified | Architect |
 | P4-U5 | Unverified references (review §4): 1926.1419–1428, 1926.1427, 1926.1424, 1926.1415–1416, other 1926.1404 paragraphs, 1910.179, 1926.602 / 1910.178, ASME B30 series | Architect |
 | P4-U8 | Steel-erection personnel hoisting: 1926.753(a) excludes 1926.1431(a); evaluate the remaining steel-erection provisions separately (Architect Response 001) | Architect |
 | P4-U9 | Multiple-lift rigging outside steel erection (e.g. precast): the current Subpart CC equivalent of former 1926.550(a)(19) was not verified | Architect |
